@@ -85,14 +85,12 @@ npm run ralph:clear-context
 
 ## 4) Lint/Test Commands (Current + Fallbacks)
 ### Lint
-- No eslint config file is present (`.eslintrc*` / `eslint.config.*` absent).
-- Do not assume `npm run lint` exists.
-- If adding linting in a task, add config + script in the same change.
-
-Future lint command once config exists:
+- ESLint is configured via `.eslintrc.cjs` for TypeScript source under `src/`.
+- Project lint script:
 ```bash
-npx eslint "src/**/*.ts"
+npm run lint
 ```
+- Warning baseline policy: lint must run with zero warnings (`--max-warnings 0`).
 
 ### Tests
 - No test framework/config detected.

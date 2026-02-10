@@ -8,6 +8,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
     "watch": "tsc --watch ",
     "ralph:overnight": "bash scripts/ralph/run-overnight.sh",
     "ralph:status": "bash scripts/ralph/status.sh",
