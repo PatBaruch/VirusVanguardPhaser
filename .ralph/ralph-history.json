@@ -48,9 +48,38 @@
       "exitCode": 0,
       "completionDetected": false,
       "errors": []
+    },
+    {
+      "iteration": 2,
+      "startedAt": "2026-02-10T23:28:10.671Z",
+      "endedAt": "2026-02-10T23:31:37.860Z",
+      "durationMs": 206049,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-20260211-002405.log",
+        ".ralph/ralph-tasks.md",
+        "build/phaser/PhaserRuntime.js",
+        "build/phaser/PhaserRuntime.js.map",
+        "build/phaser/scenes/BootScene.js",
+        "build/phaser/scenes/BootScene.js.map",
+        "build/phaser/scenes/GameScene.js",
+        "build/phaser/scenes/GameScene.js.map",
+        "build/phaser/scenes/PreloadScene.js",
+        "build/phaser/scenes/PreloadScene.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md",
+        "docs/parity/known-limitations.md",
+        "src/phaser/PhaserRuntime.ts",
+        "src/phaser/scenes/BootScene.ts",
+        "src/phaser/scenes/GameScene.ts",
+        "src/phaser/scenes/PreloadScene.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": []
     }
   ],
-  "totalDurationMs": 241657,
+  "totalDurationMs": 447706,
   "struggleIndicators": {
     "repeatedErrors": {},
     "noProgressIterations": 0,

@@ -233,3 +233,376 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 2...
+📝 Auto-committed changes
+
+🔄 Iteration 2 / 40
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "brainstorming"
+Using `brainstorming`, `writing-plans`, and `test-driven-development` to structure this PR slice, keep scope tight, and verify behavior with the required gates. I’ll now read the required iteration files in order and start PR-002.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 1 match[0m
+[0m→ [0mRead src/phaser/PhaserRuntime.ts
+[0m→ [0mRead src/app.ts
+[0m→ [0mRead index.html
+[0m→ [0mRead tsconfig.json
+[0m→ [0mRead package.json
+[0m✱ [0mGlob "docs/architecture/phaser-migration.mmd"[90m in . · 1 match[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 2 matches[0m
+[0m✱ [0mGlob "docs/parity/known-limitations.md"[90m in . · 1 match[0m
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-001-phaser-dual-runtime-bootstrap.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/PhaserRuntime.ts
+
+LSP errors detected in src/phaser/PhaserRuntime.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/PhaserRuntime.ts">
+ERROR [2:23] Cannot find module './scenes/BootScene.js' or its corresponding type declarations.
+ERROR [3:23] Cannot find module './scenes/GameScene.js' or its corresponding type declarations.
+ERROR [4:26] Cannot find module './scenes/PreloadScene.js' or its corresponding type declarations.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/BootScene.ts
+
+LSP errors detected in src/phaser/scenes/BootScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/BootScene.ts">
+ERROR [13:19] This member cannot have an 'override' modifier because it is not declared in the base class 'Scene'.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/BootScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/BootScene.ts
+
+LSP errors detected in src/phaser/scenes/BootScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/BootScene.ts">
+ERROR [2:26] Cannot find module './PreloadScene.js' or its corresponding type declarations.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/PreloadScene.ts
+
+LSP errors detected in src/phaser/scenes/PreloadScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/PreloadScene.ts">
+ERROR [2:23] Cannot find module './GameScene.js' or its corresponding type declarations.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [16:10] This member must have an 'override' modifier because it overrides a member in the base class 'Scene'.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpx tsc --noEmit
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit log -5 --oneline
+b9fc2f5 Ralph iteration 1: work in progress
+0b1af40 feat(parity:PR-001): bootstrap dual runtime entrypoint
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-20260211-002405.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/PhaserRuntime.js
+ M build/phaser/PhaserRuntime.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/PhaserRuntime.ts
+?? build/phaser/scenes/
+?? docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md
+?? src/phaser/scenes/
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-20260211-002405.log b/.ralph/overnight-20260211-002405.log
+index fe8480d..3f080a2 100644
+--- a/.ralph/overnight-20260211-002405.log
++++ b/.ralph/overnight-20260211-002405.log
+@@ -233,3 +233,107 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+    Moving to next task in iteration 2...
++📝 Auto-committed changes
++
++🔄 Iteration 2 / 40
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "writing-plans"
++[0m→ [0mSkill "test-driven-development"
++[0m→ [0mSkill "brainstorming"
++Using `brainstorming`, `writing-plans`, and `test-driven-development` to structure this PR slice, keep scope tight, and verify behavior with the required gates. I’ll now read the required iteration files in order and start PR-002.
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
++[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 1 match[0m
++[0m→ [0mRead src/phaser/PhaserRuntime.ts
++[0m→ [0mRead src/app.ts
++[0m→ [0mRead index.html
++[0m→ [0mRead tsconfig.json
++[0m→ [0mRead package.json
++[0m✱ [0mGlob "docs/architecture/phaser-migration.mmd"[90m in . · 1 match[0m
++[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 2 matches[0m
++[0m✱ [0mGlob "docs/parity/known-limitations.md"[90m in . · 1 match[0m
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-001-phaser-dual-runtime-bootstrap.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/PhaserRuntime.ts
++
++LSP errors detected in src/phaser/PhaserRuntime.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/PhaserRuntime.ts">
++ERROR [2:23] Cannot find module './scenes/BootScene.js' or its corresponding type declarations.
++ERROR [3:23] Cannot find module './scenes/GameScene.js' or its corresponding type declarations.
++ERROR [4:26] Cannot find module './scenes/PreloadScene.js' or its corresponding type declarations.
++</diagnostics>
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/BootScene.ts
++
++LSP errors detected in src/phaser/scenes/BootScene.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/BootScene.ts">
++ERROR [13:19] This member cannot have an 'override' modifier because it is not declared in the base class 'Scene'.
++</diagnostics>
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/BootScene.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/BootScene.ts
++
++LSP errors detected in src/phaser/scenes/BootScene.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/BootScene.ts">
++ERROR [2:26] Cannot find module './PreloadScene.js' or its corresponding type declarations.
++</diagnostics>
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/PreloadScene.ts
++
++LSP errors detected in src/phaser/scenes/PreloadScene.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/PreloadScene.ts">
++ERROR [2:23] Cannot find module './GameScene.js' or its corresponding type declarations.
++</diagnostics>
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/GameScene.ts
++
++LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
++ERROR [16:10] This member must have an 'override' modifier because it overrides a member in the base class 'Scene'.
++</diagnostics>
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m
++[0m$ [0mnpm run build
++> ts-wizards-chest@2023.1 build
++> tsc
++[0m
++[0m$ [0mnpx tsc --noEmit
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m
++[0m$ [0mgit log -5 --oneline
++b9fc2f5 Ralph iteration 1: work in progress
++0b1af40 feat(parity:PR-001): bootstrap dual runtime entrypoint
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-20260211-002405.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/phaser/PhaserRuntime.js
++ M build/phaser/PhaserRuntime.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M src/phaser/PhaserRuntime.ts
++?? build/phaser/scenes/
++?? docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md
++?? src/phaser/scenes/
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index a226d6f..bf25f26 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 1,
++  "iteration": 2,
+   "minIterations": 1,
+   "maxIterations": 40,
+   "completionPromise": "COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index d7df3e3..2225a2d 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -2,7 +2,7 @@
+ 
+ ## Wave A - Core Runtime and Governance
+ - [x] PR-001: Phaser dual-runtime bootstrap (legacy untouched)
+-- [ ] PR-002: Scene lifecycle shell (Boot, Preload, Game skeleton)
++- [x] PR-002: Scene lifecycle shell (Boot, Preload, Game skeleton)
+ - [ ] PR-003: Shared constants parity table (movement, bounds, timers)
+ - [ ] PR-004: ESLint config + npm run lint + warning baseline policy
+ - [ ] PR-005: Vitest setup + first core logic tests
+diff --git a/build/phaser/PhaserRuntime.js b/build/phaser/PhaserRuntime.js
+index 2446479..6f867a4 100644
+--- a/build/phaser/PhaserRuntime.js
++++ b/build/phaser/PhaserRuntime.js
+@@ -1,4 +1,7 @@
+ import * as Phaser from 'phaser';
++import BootScene from './scenes/BootScene.js';
++import GameScene from './scenes/GameScene.js';
++import PreloadScene from './scenes/PreloadScene.js';
+ export default class PhaserRuntime {
+     canvas;
+     game;
+@@ -16,10 +19,7 @@ export default class PhaserRuntime {
+             width: window.innerWidth,
+             height: window.innerHeight,
+             backgroundColor: '#000000',
+-            scene: {
+-                create: () => {
+-                },
+-            },
++            scene: [BootScene, PreloadScene, GameScene],
+         });
+     }
+ }
+diff --git a/build/phaser/PhaserRuntime.js.map b/build/phaser/PhaserRuntime.js.map
+index 2a5a3af..44395bc 100644
+--- a/build/phaser/PhaserRuntime.js.map
++++ b/build/phaser/PhaserRuntime.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"PhaserRuntime.js","sourceRoot":"","sources":["../../src/phaser/PhaserRuntime.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAMjC,MAAM,CAAC,OAAO,OAAO,aAAa;IACxB,MAAM,CAAoB;IAE1B,IAAI,CAAqB;IAEjC,YAAmB,MAAyB;QAC1C,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACnB,CAAC;IAEM,KAAK;QACV,IAAI,IAAI,CAAC,IAAI,KAAK,IAAI,EAAE;YACtB,OAAO;SACR;QAED,IAAI,CAAC,IAAI,GAAG,IAAI,MAAM,CAAC,IAAI,CAAC;YAC1B,IAAI,EAAE,MAAM,CAAC,MAAM;YACnB,MAAM,EAAE,IAAI,CAAC,MAAM;YACnB,KAAK,EAAE,MAAM,CAAC,UAAU;YACxB,MAAM,EAAE,MAAM,CAAC,WAAW;YAC1B,eAAe,EAAE,SAAS;YAC1B,KAAK,EAAE;gBACL,MAAM,EAAE,GAAG,EAAE;gBACb,CAAC;aACF;SACF,CAAC,CAAC;IACL,CAAC;CACF"}
+\ No newline at end of file
++{"version":3,"file":"PhaserRuntime.js","sourceRoot":"","sources":["../../src/phaser/PhaserRuntime.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AACjC,OAAO,SAAS,MAAM,uBAAuB,CAAC;AAC9C,OAAO,SAAS,MAAM,uBAAuB,CAAC;AAC9C,OAAO,YAAY,MAAM,0BAA0B,CAAC;AAMpD,MAAM,CAAC,OAAO,OAAO,aAAa;IACxB,MAAM,CAAoB;IAE1B,IAAI,CAAqB;IAEjC,YAAmB,MAAyB;QAC1C,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACnB,CAAC;IAEM,KAAK;QACV,IAAI,IAAI,CAAC,IAAI,KAAK,IAAI,EAAE;YACtB,OAAO;SACR;QAED,IAAI,CAAC,IAAI,GAAG,IAAI,MAAM,CAAC,IAAI,CAAC;YAC1B,IAAI,EAAE,MAAM,CAAC,MAAM;YACnB,MAAM,EAAE,IAAI,CAAC,MAAM;YACnB,KAAK,EAAE,MAAM,CAAC,UAAU;YACxB,MAAM,EAAE,MAAM,CAAC,WAAW;YAC1B,eAAe,EAAE,SAAS;YAC1B,KAAK,EAAE,CAAC,SAAS,EAAE,YAAY,EAAE,SAAS,CAAC;SAC5C,CAAC,CAAC;IACL,CAAC;CACF"}
+\ No newline at end of file
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index 01770c7..e2fde6a 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -1,9 +1,12 @@
+ flowchart TD
+   A[app.ts Runtime Selector] --> B{Runtime Mode}
+   B -->|legacy default| C[Legacy Canvas Runtime]
+-  B -->|runtime=phaser| D[Phaser Bootstrap Placeholder]
++  B -->|runtime=phaser| D[PhaserRuntime]
++  D --> D1[BootScene]
++  D1 --> D2[PreloadScene]
++  D2 --> D3[GameScene Skeleton]
+   C --> E[Core Systems Parity]
+-  D --> E
++  D3 --> E
+   E --> F[Walkable Levels]
+   F --> G[Shooting Systems]
+   G --> H[Enemy Systems by Level]
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index 212be6f..82aca53 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -3,7 +3,7 @@
+ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ 
+ ## Open
+-- Phaser runtime bootstrap is intentionally placeholder-only in PR-001; scene lifecycle parity begins in PR-002.
++- Phaser runtime now has `BootScene -> PreloadScene -> GameScene` lifecycle shell only; no gameplay entities, level logic, or asset preload parity yet.
+ 
+ ## Resolved
+-- None yet.
++- PR-001 placeholder-only Phaser scene bootstrap replaced by explicit scene lifecycle shell in PR-002.
+diff --git a/src/phaser/PhaserRuntime.ts b/src/phaser/PhaserRuntime.ts
+index 8ef289f..a39b72d 100644
+--- a/src/phaser/PhaserRuntime.ts
++++ b/src/phaser/PhaserRuntime.ts
+@@ -1,4 +1,7 @@
+ import * as Phaser from 'phaser';
++import BootScene from './scenes/BootScene.js';
++import GameScene from './scenes/GameScene.js';
++import PreloadScene from './scenes/PreloadScene.js';
+ 
+ /**
+  * Temporary Phaser runtime bootstrap.
+@@ -25,10 +28,7 @@ export default class PhaserRuntime {
+       width: window.innerWidth,
+       height: window.innerHeight,
+       backgroundColor: '#000000',
+-      scene: {
+-        create: () => {
+-        },
+-      },
++      scene: [BootScene, PreloadScene, GameScene],
+     });
+   }
+ }
+[0m
+[0m✱ [0mGlob "build/phaser/scenes/*"[90m in . · 6 matches[0m
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/PhaserRuntime.ts src/phaser/scenes/BootScene.ts src/phaser/scenes/PreloadScene.ts src/phaser/scenes/GameScene.ts build/phaser/PhaserRuntime.js build/phaser/PhaserRuntime.js.map build/phaser/scenes/BootScene.js build/phaser/scenes/BootScene.js.map build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map docs/architecture/phaser-migration.mmd docs/parity/known-limitations.md docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md && git commit -m "feat(parity:PR-002): add scene lifecycle shell" && git status --short
+[main c37b3d1] feat(parity:PR-002): add scene lifecycle shell
+ 16 files changed, 171 insertions(+), 14 deletions(-)
+ create mode 100644 build/phaser/scenes/BootScene.js
+ create mode 100644 build/phaser/scenes/BootScene.js.map
+ create mode 100644 build/phaser/scenes/GameScene.js
+ create mode 100644 build/phaser/scenes/GameScene.js.map
+ create mode 100644 build/phaser/scenes/PreloadScene.js
+ create mode 100644 build/phaser/scenes/PreloadScene.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md
+ create mode 100644 src/phaser/scenes/BootScene.ts
+ create mode 100644 src/phaser/scenes/GameScene.ts
+ create mode 100644 src/phaser/scenes/PreloadScene.ts
+ M .ralph/overnight-20260211-002405.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m→ [0mSkill "verification-before-completion"
+[0m
+[0m$ [0mnpm run build && npx tsc --noEmit
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-20260211-002405.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 2
+Elapsed:   3:26
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 3...
