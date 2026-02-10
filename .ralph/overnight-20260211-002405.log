@@ -590,19 +590,3 @@ index 8ef289f..a39b72d 100644
 > ts-wizards-chest@2023.1 build
 > tsc
 [0m
-[0m$ [0mgit status --short
-M .ralph/overnight-20260211-002405.log
- M .ralph/ralph-loop.state.json
-[0m
-<promise>READY_FOR_NEXT_TASK</promise>
-
-Iteration Summary
-────────────────────────────────────────────────────────────────────
-Iteration: 2
-Elapsed:   3:26
-Tools:     none
-Exit code: 0
-Completion promise: not detected
-
-🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
-   Moving to next task in iteration 3...
