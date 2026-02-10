@@ -1,0 +1,11 @@
+flowchart TD
+  A[app.ts Runtime Selector] --> B{Runtime Mode}
+  B -->|legacy default| C[Legacy Canvas Runtime]
+  B -->|runtime=phaser| D[Phaser Bootstrap Placeholder]
+  C --> E[Core Systems Parity]
+  D --> E
+  E --> F[Walkable Levels]
+  F --> G[Shooting Systems]
+  G --> H[Enemy Systems by Level]
+  H --> I[Boss Fight Systems]
+  I --> J[Cutover and Legacy Decommission]
