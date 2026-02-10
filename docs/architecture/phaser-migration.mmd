@@ -13,3 +13,18 @@ flowchart TD
   G --> H[Enemy Systems by Level]
   H --> I[Boss Fight Systems]
   I --> J[Cutover and Legacy Decommission]
+
+  subgraph Governance[Governance and Evidence]
+    K[Handoff Documents]
+    L[Known Limitations]
+    M[Parity Matrix]
+  end
+
+  E -.evidence.-> K
+  F -.evidence.-> K
+  G -.evidence.-> K
+  H -.evidence.-> K
+  I -.evidence.-> K
+  J -.evidence.-> K
+  K --> L
+  K --> M
