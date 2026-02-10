@@ -10,7 +10,7 @@
 - [x] PR-007: Docs scaffolding (handoffs, architecture, known limitations, parity matrix)
 
 ## Wave B - Walkable Levels First (No Shooting and No Enemies)
-- [ ] PR-008: Level0 scene visuals + dialogue progression parity
+- [x] PR-008: Level0 scene visuals + dialogue progression parity
 - [ ] PR-009: Player prefab + facing-direction states parity
 - [ ] PR-010: 8-direction movement + diagonal normalization parity
 - [ ] PR-011: Level0 bounds + transition trigger to Level1 parity

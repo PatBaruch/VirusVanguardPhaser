@@ -3,11 +3,12 @@ flowchart TD
   B -->|legacy default| C[Legacy Canvas Runtime]
   B -->|runtime=phaser| D[PhaserRuntime]
   D --> D1[BootScene]
-  D1 --> D2[PreloadScene]
-  D2 --> D3[GameScene Skeleton]
-  D3 --> D4[Shared Parity Constants Table]
+  D1 --> D2[PreloadScene + Level0 Dialogue Assets]
+  D2 --> D3[GameScene Level0 Visual Shell]
+  D3 --> D4[Level0 Dialogue State Progression]
+  D4 --> D5[Shared Parity Constants Table]
   C --> E[Core Systems Parity]
-  D4 --> E
+  D5 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]
