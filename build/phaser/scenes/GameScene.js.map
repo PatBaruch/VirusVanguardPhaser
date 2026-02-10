@@ -1,0 +1,1 @@
+{"version":3,"file":"GameScene.js","sourceRoot":"","sources":["../../../src/phaser/scenes/GameScene.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAKjC,MAAM,CAAC,OAAO,OAAO,SAAU,SAAQ,MAAM,CAAC,KAAK;IAC1C,MAAM,CAAU,SAAS,GAAW,WAAW,CAAC;IAEvD;QACE,KAAK,CAAC,SAAS,CAAC,SAAS,CAAC,CAAC;IAC7B,CAAC;IAEM,MAAM;IACb,CAAC;IAEe,MAAM;IACtB,CAAC"}

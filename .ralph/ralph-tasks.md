@@ -2,7 +2,7 @@
 
 ## Wave A - Core Runtime and Governance
 - [x] PR-001: Phaser dual-runtime bootstrap (legacy untouched)
-- [ ] PR-002: Scene lifecycle shell (Boot, Preload, Game skeleton)
+- [x] PR-002: Scene lifecycle shell (Boot, Preload, Game skeleton)
 - [ ] PR-003: Shared constants parity table (movement, bounds, timers)
 - [ ] PR-004: ESLint config + npm run lint + warning baseline policy
 - [ ] PR-005: Vitest setup + first core logic tests

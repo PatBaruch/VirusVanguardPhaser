@@ -1,4 +1,7 @@
 import * as Phaser from 'phaser';
+import BootScene from './scenes/BootScene.js';
+import GameScene from './scenes/GameScene.js';
+import PreloadScene from './scenes/PreloadScene.js';
 
 /**
  * Temporary Phaser runtime bootstrap.
@@ -25,10 +28,7 @@ export default class PhaserRuntime {
       width: window.innerWidth,
       height: window.innerHeight,
       backgroundColor: '#000000',
-      scene: {
-        create: () => {
-        },
-      },
+      scene: [BootScene, PreloadScene, GameScene],
     });
   }
 }

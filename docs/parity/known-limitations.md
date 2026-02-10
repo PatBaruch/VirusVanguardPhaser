@@ -3,7 +3,7 @@
 Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
-- Phaser runtime bootstrap is intentionally placeholder-only in PR-001; scene lifecycle parity begins in PR-002.
+- Phaser runtime now has `BootScene -> PreloadScene -> GameScene` lifecycle shell only; no gameplay entities, level logic, or asset preload parity yet.
 
 ## Resolved
-- None yet.
+- PR-001 placeholder-only Phaser scene bootstrap replaced by explicit scene lifecycle shell in PR-002.
