@@ -1,0 +1,59 @@
+{
+  "iterations": [
+    {
+      "iteration": 1,
+      "startedAt": "2026-02-10T23:24:06.361Z",
+      "endedAt": "2026-02-10T23:28:08.238Z",
+      "durationMs": 241657,
+      "toolsUsed": {},
+      "filesModified": [
+        ".gitignore",
+        ".ralph/overnight-20260211-002405.log",
+        ".ralph/ralph-history.json",
+        ".ralph/ralph-loop.state.json",
+        ".ralph/ralph-opencode.config.json",
+        "build/",
+        "docs/handoffs/TEMPLATE.md",
+        "docs/parity/parity-matrix.md",
+        "docs/plans/",
+        "src/CanvasItem.ts",
+        "src/CanvasRenderer.ts",
+        "src/Game.ts",
+        "src/GameItem.ts",
+        "src/GameItem/",
+        "src/KeyListener.ts",
+        "src/Level.ts",
+        "src/Level0.ts",
+        "src/Level1.ts",
+        "src/Level2.ts",
+        "src/Level3.ts",
+        "src/Level4.ts",
+        "src/Level5.ts",
+        "src/Player.ts",
+        "src/VirusVanguard.ts",
+        ".ralph/ralph-tasks.md",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-001-phaser-dual-runtime-bootstrap.md",
+        "docs/parity/known-limitations.md",
+        "package-lock.json",
+        "package.json",
+        "src/app.ts",
+        "src/phaser/PhaserRuntime.ts",
+        "src/runtime/RuntimeMode.ts",
+        ".ralph/",
+        "docs/",
+        "node_modules/",
+        "src/"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": []
+    }
+  ],
+  "totalDurationMs": 241657,
+  "struggleIndicators": {
+    "repeatedErrors": {},
+    "noProgressIterations": 0,
+    "shortIterations": 0
+  }
+}
