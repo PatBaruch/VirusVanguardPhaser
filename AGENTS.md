@@ -94,11 +94,17 @@ npm run lint
 
 ### Tests
 - Unit test framework: Vitest.
+- Runtime e2e framework: Playwright.
 - Project unit test script:
 ```bash
 npm run test:unit
 ```
+- Project e2e test script:
+```bash
+npm run test:e2e
+```
 - First core logic suite currently lives in `src/phaser/config/parityConstants.spec.ts`.
+- Boot smoke + console guard suite lives in `e2e/boot-smoke.spec.ts`.
 - `tsconfig.json` excludes `**/*.spec.ts` from compile output.
 - Do not claim tests pass unless the Vitest suite is run.
 
