@@ -9,8 +9,8 @@ This file reflects current commands, conventions, and constraints.
 - Entry page: `index.html` loading `build/app.js`.
 - Source root: `src/`.
 - Package manager: npm (`package-lock.json` exists).
-- Testing: no framework/config currently present.
-- Linting: ESLint dependencies exist, but no ESLint config file exists.
+- Testing: Vitest is configured for unit tests (`npm run test:unit`).
+- Linting: ESLint is configured via `.eslintrc.cjs`.
 - Autonomous loop harness: `@th0rgal/ralph-wiggum` (dev dependency), Bun runtime required.
 - Migration governance doc: `docs/plans/2026-02-10-phaser-migration-prd.md`.
 
@@ -93,17 +93,19 @@ npm run lint
 - Warning baseline policy: lint must run with zero warnings (`--max-warnings 0`).
 
 ### Tests
-- No test framework/config detected.
-- No `*.spec.ts` or `*.test.ts` files detected.
+- Unit test framework: Vitest.
+- Project unit test script:
+```bash
+npm run test:unit
+```
+- First core logic suite currently lives in `src/phaser/config/parityConstants.spec.ts`.
 - `tsconfig.json` excludes `**/*.spec.ts` from compile output.
-- Do not claim tests pass unless a harness is added and run.
+- Do not claim tests pass unless the Vitest suite is run.
 
 ### Single-test execution (important)
-There is currently no repository-native single-test command.
-If you introduce a test framework, use one of these patterns:
-- Vitest: `npx vitest run path/to/file.spec.ts -t "test name"`
-- Jest: `npx jest path/to/file.spec.ts -t "test name"`
-- Node runner: `node --test path/to/file.test.js --test-name-pattern "name"`
+Run a single Vitest file/test with:
+- `npm run test:unit -- src/phaser/config/parityConstants.spec.ts`
+- `npm run test:unit -- src/phaser/config/parityConstants.spec.ts -t "matches movement parity constants"`
 
 For narrow verification without a test harness:
 ```bash

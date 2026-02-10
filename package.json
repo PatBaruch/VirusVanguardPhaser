@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
+    "test:unit": "vitest run",
     "watch": "tsc --watch ",
     "ralph:overnight": "bash scripts/ralph/run-overnight.sh",
     "ralph:status": "bash scripts/ralph/status.sh",
@@ -23,7 +24,8 @@
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-jsdoc": "^46.9.0",
-    "typescript": "5.2"
+    "typescript": "5.2",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "phaser": "^3.90.0"

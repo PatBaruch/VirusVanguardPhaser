@@ -5,7 +5,7 @@
 - [x] PR-002: Scene lifecycle shell (Boot, Preload, Game skeleton)
 - [x] PR-003: Shared constants parity table (movement, bounds, timers)
 - [x] PR-004: ESLint config + npm run lint + warning baseline policy
-- [ ] PR-005: Vitest setup + first core logic tests
+- [x] PR-005: Vitest setup + first core logic tests
 - [ ] PR-006: Playwright setup + boot smoke + console-error guard
 - [ ] PR-007: Docs scaffolding (handoffs, architecture, known limitations, parity matrix)
 
