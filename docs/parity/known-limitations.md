@@ -3,7 +3,8 @@
 Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, level-based shoot input gating (blocked in Level0, enabled in combat levels), single-shot projectile parity for Level1 and Level2, dual-shot projectile parity for Level3, triple-shot projectile parity for Level4 and Level5, a parity projectile-hit resolver that emits death-effect spawn points and score deltas on enemy defeat, Level1 FEmail combat integration (500ms spawn cadence, bullet/player collision handling, score/damage hooks, and clear-gate blocking via active enemy count), Level2 RVirus combat integration (1000ms spawn cadence, player-attachment behavior, 1500ms periodic HP drain while attached, and clear-gate blocking via active enemy count), Level3 Worm combat integration (500ms spawn cadence, 2000ms duplication timer, projectile-hit score hooks, player-collision damage/removal hooks, and clear-gate blocking via active enemy count), Level4 Trojan combat integration (2000ms spawn cadence, projectile/player/breach collision handling, split-spawn-on-hit/breach into FEmail+RVirus+Worm, and clear-gate blocking via active enemy count), and full Level5 boss parity including MrHacker defeat flow, go-next-level unlock state, final score-multiplier victory summary, and restart input parity.
+- No active gameplay parity gaps are currently open.
+- Governance gap pending PR-040: add CI required merge-check workflow for build, lint, unit, and e2e gates.
 
 ## Resolved
 - PR-001 placeholder-only Phaser scene bootstrap replaced by explicit scene lifecycle shell in PR-002.
@@ -40,3 +41,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-036 added Playwright end-to-end traversal journey coverage from Level0 start state through Level5 reachability checkpoints, including score-gated transition preconditions for Levels1 to 5.
 - PR-037 added Playwright end-to-end combat interaction coverage for early-level combat behavior, including shoot-input projectile spawning, projectile hit score progression, and player damage from enemy collisions in Level1.
 - PR-038 added Playwright long-run runtime soak coverage with sustained movement and shoot input, including explicit console-error and page-error assertions over an extended browser interaction window.
+- PR-039 validated end-to-end PRD traceability artifacts across handoffs, parity matrix, and known limitations; repaired missing handoff metadata (`Date`) for PR-030 through PR-038 and reconciled parity documentation coverage through Wave G.

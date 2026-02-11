@@ -7,6 +7,7 @@
 - TEST-ID list: TEST-PR-030-UNIT-LEVEL5-BOSS-BULLETS, TEST-PR-030-STATIC-BUILD, TEST-PR-030-STATIC-LINT, TEST-PR-030-RUNTIME-E2E
 - Branch: current working branch
 - PR: pending
+- Date: 2026-02-11
 
 # What Changed
 - Added deterministic Level5 boss bullet-volley logic that mirrors legacy behavior: dominant-axis player targeting (`N`/`S`/`E`/`W`), randomized spread angle (`10` to `55` degrees), and 3-bullet fan shot composition.

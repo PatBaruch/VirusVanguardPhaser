@@ -32,8 +32,10 @@ flowchart TD
   D29 --> D30[Playwright Traversal Journey E2E (Level0 to Level5 Checkpoints)]
   D30 --> D31[Playwright Combat Interaction E2E (Level1 Shooting + Enemy Damage + Score Progression)]
   D31 --> D32[Playwright Runtime Soak E2E (Sustained Input + No Console/Page Errors)]
+  D32 --> D33[Traceability Artifacts Validation (Handoffs + Parity Matrix + Known Limitations)]
+  D33 --> D34[CI Required Merge-Check Workflow (Build + Lint + Unit + E2E)]
   E[Core Systems Parity]
-  D32 --> E
+  D34 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]
@@ -44,6 +46,7 @@ flowchart TD
     K[Handoff Documents]
     L[Known Limitations]
     M[Parity Matrix]
+    N[Traceability Audit]
   end
 
   E -.evidence.-> K
@@ -54,3 +57,6 @@ flowchart TD
   J -.evidence.-> K
   K --> L
   K --> M
+  K --> N
+  N --> M
+  N --> L

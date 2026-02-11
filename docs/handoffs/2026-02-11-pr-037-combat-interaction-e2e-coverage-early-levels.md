@@ -7,6 +7,7 @@
 - TEST-ID list: TEST-PR-037-COMBAT-INTERACTIONS-E2E, TEST-PR-037-STATIC-BUILD, TEST-PR-037-STATIC-LINT, TEST-PR-037-UNIT-FULL-SUITE, TEST-PR-037-RUNTIME-E2E
 - Branch: current working branch
 - PR: pending
+- Date: 2026-02-11
 
 # What Changed
 - Added a new Playwright end-to-end spec that validates three early-level combat behaviors in one browser run: shoot input spawns projectiles, projectile hits can clear enemies and advance score, and enemy collision damages player health.
