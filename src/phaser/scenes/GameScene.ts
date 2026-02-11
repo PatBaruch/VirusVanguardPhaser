@@ -143,10 +143,15 @@ import {
   resolveLevel4TrojanProjectileHits,
 } from './level4TrojanCombat.js';
 import MrHackerPrefab from '../entities/MrHackerPrefab.js';
+import EnemyBulletPrefab from '../entities/EnemyBulletPrefab.js';
 import {
+  Level5MrHackerBulletState,
   Level5MrHackerSpawnState,
+  advanceLevel5MrHackerBulletState,
   advanceLevel5MrHackerSpawnState,
+  createInitialLevel5MrHackerBulletState,
   createInitialLevel5MrHackerSpawnState,
+  resolveLevel5EnemyBulletPlayerCollisions,
   resolveLevel5MrHackerHealthBarTextureKey,
 } from './level5MrHackerCombat.js';
 
@@ -240,7 +245,11 @@ export default class GameScene extends Phaser.Scene {
 
   private activeMrHacker: MrHackerPrefab | null;
 
+  private activeEnemyBullets: EnemyBulletPrefab[];
+
   private level5MrHackerSpawnState: Level5MrHackerSpawnState;
+
+  private level5MrHackerBulletState: Level5MrHackerBulletState;
 
   private mrHackerHealthBar: Phaser.GameObjects.Image | null;
 
@@ -314,7 +323,9 @@ export default class GameScene extends Phaser.Scene {
     this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
     this.activeTrojans = [];
     this.activeMrHacker = null;
+    this.activeEnemyBullets = [];
     this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
+    this.level5MrHackerBulletState = createInitialLevel5MrHackerBulletState(() => Math.random());
     this.mrHackerHealthBar = null;
     this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
     this.level4SplitFEmailNextEnemyNumericId = 0;
@@ -364,6 +375,7 @@ export default class GameScene extends Phaser.Scene {
 
   public override update(_time: number, delta: number): void {
     this.updateProjectiles(delta);
+    this.updateEnemyBullets(delta);
 
     if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
       if (this.activeLevelId === 0) {
@@ -542,6 +554,26 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.activeProjectiles = nextActiveProjectiles;
+  }
+
+  private updateEnemyBullets(elapsedMs: number): void {
+    if (this.activeEnemyBullets.length === 0) {
+      return;
+    }
+
+    const nextActiveEnemyBullets: EnemyBulletPrefab[] = [];
+
+    for (const bullet of this.activeEnemyBullets) {
+      bullet.updateMotion(elapsedMs);
+
+      if (bullet.isOutsideCombatWorldBounds(this.scale.width, this.scale.height)) {
+        bullet.destroy();
+      } else {
+        nextActiveEnemyBullets.push(bullet);
+      }
+    }
+
+    this.activeEnemyBullets = nextActiveEnemyBullets;
   }
 
   private updateLevel1Combat(elapsedMs: number): void {
@@ -1484,12 +1516,15 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (this.activeMrHacker === null) {
+      this.resolveLevel5EnemyBulletPlayerCollisions();
       this.activeCombatItemCount = 0;
       this.syncLevel5BossHealthBar();
       return;
     }
 
     this.activeMrHacker.advanceAnimation(elapsedMs);
+    this.resolveLevel5MrHackerBulletVolleys(elapsedMs);
+    this.resolveLevel5EnemyBulletPlayerCollisions();
     this.resolveLevel5MrHackerProjectileHits();
 
     if (this.activeMrHacker !== null && this.activeMrHacker.getCurrentHealth() <= 0) {
@@ -1566,9 +1601,64 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  private resolveLevel5MrHackerBulletVolleys(elapsedMs: number): void {
+    if (this.activeMrHacker === null || this.player === null) {
+      return;
+    }
+
+    const mrHackerSnapshot = this.activeMrHacker.toSnapshot();
+    const playerCenterX: number = this.player.x + this.player.displayWidth / 2;
+    const playerCenterY: number = this.player.y + this.player.displayHeight / 2;
+    const volleyResult = advanceLevel5MrHackerBulletState(this.level5MrHackerBulletState, {
+      bossCenterX: mrHackerSnapshot.centerX,
+      bossCenterY: mrHackerSnapshot.centerY,
+      canFire: this.activeLevelId === 5 && this.level5Phase === 'walkable',
+      elapsedMs,
+      playerCenterX,
+      playerCenterY,
+      random: () => Math.random(),
+    });
+    this.level5MrHackerBulletState = volleyResult.nextState;
+
+    for (const spawnedBullet of volleyResult.spawnedBullets) {
+      const bullet = new EnemyBulletPrefab(this, spawnedBullet);
+      this.add.existing(bullet);
+      this.activeEnemyBullets.push(bullet);
+    }
+  }
+
+  private resolveLevel5EnemyBulletPlayerCollisions(): void {
+    if (this.player === null || this.activeEnemyBullets.length === 0) {
+      return;
+    }
+
+    const collisionResult = resolveLevel5EnemyBulletPlayerCollisions({
+      bullets: this.activeEnemyBullets.map((bullet: EnemyBulletPrefab) => bullet.toSnapshot()),
+      player: {
+        centerX: this.player.x + this.player.displayWidth / 2,
+        centerY: this.player.y + this.player.displayHeight / 2,
+        height: this.player.displayHeight,
+        width: this.player.displayWidth,
+      },
+    });
+
+    if (collisionResult.destroyedBulletIds.length > 0) {
+      this.activeEnemyBullets = this.activeEnemyBullets.filter((bullet: EnemyBulletPrefab) => {
+        const isDestroyed: boolean = collisionResult.destroyedBulletIds.includes(bullet.getBulletId());
+        if (isDestroyed) {
+          bullet.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    this.playerHealth = Math.max(0, this.playerHealth - collisionResult.playerDamageDelta);
+  }
+
   private enterLevel1(): void {
     this.activeLevelId = 1;
     this.destroyMrHacker();
+    this.destroyAllEnemyBullets();
     this.hasTriggeredLevel1Transition = true;
     this.level1FEmailSpawnState = createInitialLevel1FEmailSpawnState();
     this.activeCombatItemCount = 0;
@@ -1583,6 +1673,7 @@ export default class GameScene extends Phaser.Scene {
   private enterLevel2(): void {
     this.activeLevelId = 2;
     this.destroyMrHacker();
+    this.destroyAllEnemyBullets();
     this.destroyAllFEmails();
     this.destroyAllRViruses();
     this.activeCombatItemCount = 0;
@@ -1599,6 +1690,7 @@ export default class GameScene extends Phaser.Scene {
   private enterLevel3(): void {
     this.activeLevelId = 3;
     this.destroyMrHacker();
+    this.destroyAllEnemyBullets();
     this.destroyAllRViruses();
     this.destroyAllWorms();
     this.activeCombatItemCount = 0;
@@ -1616,6 +1708,7 @@ export default class GameScene extends Phaser.Scene {
   private enterLevel4(): void {
     this.activeLevelId = 4;
     this.destroyMrHacker();
+    this.destroyAllEnemyBullets();
     this.destroyAllFEmails();
     this.destroyAllRViruses();
     this.destroyAllWorms();
@@ -1636,12 +1729,14 @@ export default class GameScene extends Phaser.Scene {
   private enterLevel5(): void {
     this.activeLevelId = 5;
     this.destroyMrHacker();
+    this.destroyAllEnemyBullets();
     this.destroyAllFEmails();
     this.destroyAllRViruses();
     this.destroyAllWorms();
     this.destroyAllTrojans();
     this.activeCombatItemCount = 0;
     this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
+    this.level5MrHackerBulletState = createInitialLevel5MrHackerBulletState(() => Math.random());
     this.level5DialogueState = createInitialLevel5DialogueState();
     this.level5Phase = resolveLevel5DialoguePhase(
       this.level5DialogueState,
@@ -1872,6 +1967,13 @@ export default class GameScene extends Phaser.Scene {
       enemy.destroy();
     }
     this.activeTrojans = [];
+  }
+
+  private destroyAllEnemyBullets(): void {
+    for (const bullet of this.activeEnemyBullets) {
+      bullet.destroy();
+    }
+    this.activeEnemyBullets = [];
   }
 
   private destroyMrHacker(): void {

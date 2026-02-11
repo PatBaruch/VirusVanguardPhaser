@@ -615,9 +615,47 @@
         "+Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts. D",
         "+ Test Files  1 failed (1)"
       ]
+    },
+    {
+      "iteration": 19,
+      "startedAt": "2026-02-11T11:09:46.861Z",
+      "endedAt": "2026-02-11T11:17:26.549Z",
+      "durationMs": 457900,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-caffeinate-20260211-103217.log",
+        ".ralph/ralph-tasks.md",
+        "build/phaser/scenes/GameScene.js",
+        "build/phaser/scenes/GameScene.js.map",
+        "build/phaser/scenes/PreloadScene.js",
+        "build/phaser/scenes/PreloadScene.js.map",
+        "build/phaser/scenes/level5MrHackerCombat.js",
+        "build/phaser/scenes/level5MrHackerCombat.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/parity/known-limitations.md",
+        "src/phaser/scenes/GameScene.ts",
+        "src/phaser/scenes/PreloadScene.ts",
+        "src/phaser/scenes/level5MrHackerCombat.spec.ts",
+        "src/phaser/scenes/level5MrHackerCombat.ts",
+        "build/phaser/entities/EnemyBulletPrefab.js",
+        "build/phaser/entities/EnemyBulletPrefab.js.map",
+        "docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md",
+        "src/phaser/entities/EnemyBulletPrefab.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "Using the TDD skill to implement PR-030 with a failing-test-first workflow, and using the brainstorming guidance only as a quick scope check (no design detour since scope is already fixed by the PRD/t",
+        "❯ src/phaser/scenes/level5MrHackerCombat.spec.ts (6 tests | 3 failed) 4ms",
+        "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯",
+        "TypeError: (0 , advanceLevel5MrHackerBulletState) is not a function",
+        "TypeError: (0 , resolveLevel5EnemyBulletPlayerCollisions) is not a function",
+        "Test Files  1 failed (1)",
+        "Tests  3 failed | 3 passed (6)"
+      ]
     }
   ],
-  "totalDurationMs": 5773053,
+  "totalDurationMs": 6230953,
   "struggleIndicators": {
     "repeatedErrors": {
       "Error: Cannot find module './level2DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVang": 1,
@@ -648,7 +686,7 @@
       "Using the `test-driven-development` skill to implement PR-017 safely (failing test first, then minim": 1,
       "Error: Cannot find module './transitionRuleEngine.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
       "Caused by: Error: Failed to load url ./transitionRuleEngine.js (resolved id: ./transitionRuleEngine.": 1,
-      "Test Files  1 failed (1)": 12,
+      "Test Files  1 failed (1)": 13,
       "Error: Cannot find module './projectileMotion.js' imported from '/Users/pbaruch/Desktop/VirusVanguar": 1,
       "Caused by: Error: Failed to load url ./projectileMotion.js (resolved id: ./projectileMotion.js) in /": 1,
       "Using `brainstorming` to confirm scope quickly and `test-driven-development` to implement PR-019 wit": 1,
@@ -705,7 +743,13 @@
       "+Using the `test-driven-development` skill to implement PR-029 with a fail-first test cycle, and usi": 1,
       "+I’m now doing the RED step from TDD: adding a focused failing unit test file for Level5 MrHacker sp": 1,
       "+Error: Cannot find module './level5MrHackerCombat.js' imported from '/Users/pbaruch/Desktop/VirusVa": 1,
-      "+Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat": 1
+      "+Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat": 1,
+      "Using the TDD skill to implement PR-030 with a failing-test-first workflow, and using the brainstorm": 1,
+      "❯ src/phaser/scenes/level5MrHackerCombat.spec.ts (6 tests | 3 failed) 4ms": 1,
+      "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯": 1,
+      "TypeError: (0 , advanceLevel5MrHackerBulletState) is not a function": 1,
+      "TypeError: (0 , resolveLevel5EnemyBulletPlayerCollisions) is not a function": 1,
+      "Tests  3 failed | 3 passed (6)": 1
     },
     "noProgressIterations": 0,
     "shortIterations": 0

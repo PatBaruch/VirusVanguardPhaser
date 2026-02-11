@@ -38,7 +38,7 @@
 
 ## Wave E - Boss Fight Last
 - [x] PR-029: Level5 MrHacker spawn + HP model + health bar parity
-- [ ] PR-030: Boss bullet firing + enemy bullet collision/damage parity
+- [x] PR-030: Boss bullet firing + enemy bullet collision/damage parity
 - [ ] PR-031: Boss minion spawn cycle parity (FEmail, RVirus, Worm)
 - [ ] PR-032: Boss defeat + win flow + final multiplier + restart parity
 

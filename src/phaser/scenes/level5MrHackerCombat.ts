@@ -26,9 +26,59 @@ export interface Level5MrHackerSpawnResult {
   spawnedEnemies: Level5MrHackerEnemySnapshot[];
 }
 
+export interface Level5MrHackerBulletSnapshot {
+  bulletId: string;
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+  velocityX: number;
+  velocityY: number;
+  damage: number;
+}
+
+export interface Level5MrHackerBulletState {
+  msUntilNextShot: number;
+  nextBulletNumericId: number;
+}
+
+export interface Level5MrHackerBulletAdvanceSnapshot {
+  canFire: boolean;
+  elapsedMs: number;
+  bossCenterX: number;
+  bossCenterY: number;
+  playerCenterX: number;
+  playerCenterY: number;
+  random: () => number;
+}
+
+export interface Level5MrHackerBulletAdvanceResult {
+  nextState: Level5MrHackerBulletState;
+  spawnedBullets: Level5MrHackerBulletSnapshot[];
+}
+
+export interface Level5EnemyBulletPlayerCollisionResult {
+  remainingBullets: Level5MrHackerBulletSnapshot[];
+  destroyedBulletIds: string[];
+  playerDamageDelta: number;
+}
+
+export interface Level5PlayerCollisionSnapshot {
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+}
+
 export const LEVEL5_MRHACKER_DAMAGE: number = 20;
 export const LEVEL5_MRHACKER_HEALTH: number = 25;
 export const LEVEL5_MRHACKER_SCORE_VALUE: number = 100;
+export const LEVEL5_MRHACKER_BULLET_DAMAGE: number = 5;
+export const LEVEL5_MRHACKER_BULLET_SPEED_PER_MS: number = 1;
+export const LEVEL5_MRHACKER_BULLET_COOLDOWN_MIN_MS: number = 100;
+export const LEVEL5_MRHACKER_BULLET_COOLDOWN_RANGE_MS: number = 500;
+export const LEVEL5_MRHACKER_INITIAL_BULLET_COOLDOWN_MIN_MS: number = 500;
+export const LEVEL5_MRHACKER_INITIAL_BULLET_COOLDOWN_RANGE_MS: number = 500;
 
 export const LEVEL5_MRHACKER_TEXTURE_KEYS: readonly string[] = [
   'mrhacker-0',
@@ -71,6 +121,14 @@ export function createInitialLevel5MrHackerSpawnState(): Level5MrHackerSpawnStat
   };
 }
 
+export function createInitialLevel5MrHackerBulletState(random: () => number): Level5MrHackerBulletState {
+  return {
+    msUntilNextShot: LEVEL5_MRHACKER_INITIAL_BULLET_COOLDOWN_MIN_MS
+      + (random() * LEVEL5_MRHACKER_INITIAL_BULLET_COOLDOWN_RANGE_MS),
+    nextBulletNumericId: 0,
+  };
+}
+
 export function advanceLevel5MrHackerSpawnState(
   previousState: Level5MrHackerSpawnState,
   snapshot: Level5MrHackerSpawnSnapshot,
@@ -109,4 +167,137 @@ export function resolveLevel5MrHackerHealthBarTextureKey(currentHealth: number):
     Math.min(LEVEL5_MRHACKER_HEALTH, Math.floor(currentHealth)),
   );
   return LEVEL5_MRHACKER_HEALTH_BAR_TEXTURE_KEYS[clampedHealth];
+}
+
+export function advanceLevel5MrHackerBulletState(
+  previousState: Level5MrHackerBulletState,
+  snapshot: Level5MrHackerBulletAdvanceSnapshot,
+): Level5MrHackerBulletAdvanceResult {
+  if (!snapshot.canFire) {
+    return {
+      nextState: previousState,
+      spawnedBullets: [],
+    };
+  }
+
+  const msUntilNextShot: number = previousState.msUntilNextShot - snapshot.elapsedMs;
+  if (msUntilNextShot > 0) {
+    return {
+      nextState: {
+        msUntilNextShot,
+        nextBulletNumericId: previousState.nextBulletNumericId,
+      },
+      spawnedBullets: [],
+    };
+  }
+
+  const deltaX: number = snapshot.playerCenterX - snapshot.bossCenterX;
+  const deltaY: number = snapshot.playerCenterY - snapshot.bossCenterY;
+  const direction: 'N' | 'S' | 'E' | 'W' = Math.abs(deltaX) > Math.abs(deltaY)
+    ? (deltaX > 0 ? 'E' : 'W')
+    : (deltaY > 0 ? 'S' : 'N');
+  const angle: number = 10 + (snapshot.random() * 45);
+  const angleInRadians: number = (angle * Math.PI) / 180;
+  const velocityX: number = Math.cos(angleInRadians) * LEVEL5_MRHACKER_BULLET_SPEED_PER_MS;
+  const velocityY: number = Math.sin(angleInRadians) * LEVEL5_MRHACKER_BULLET_SPEED_PER_MS;
+
+  const spawnedBullets: Level5MrHackerBulletSnapshot[] = [];
+  if (direction === 'N') {
+    spawnedBullets.push(
+      createBossBullet(previousState.nextBulletNumericId + 0, snapshot.bossCenterX, snapshot.bossCenterY, 0, -velocityY),
+      createBossBullet(previousState.nextBulletNumericId + 1, snapshot.bossCenterX, snapshot.bossCenterY, velocityX, -velocityY),
+      createBossBullet(previousState.nextBulletNumericId + 2, snapshot.bossCenterX, snapshot.bossCenterY, -velocityX, -velocityY),
+    );
+  } else if (direction === 'S') {
+    spawnedBullets.push(
+      createBossBullet(previousState.nextBulletNumericId + 0, snapshot.bossCenterX, snapshot.bossCenterY, 0, velocityY),
+      createBossBullet(previousState.nextBulletNumericId + 1, snapshot.bossCenterX, snapshot.bossCenterY, velocityX, velocityY),
+      createBossBullet(previousState.nextBulletNumericId + 2, snapshot.bossCenterX, snapshot.bossCenterY, -velocityX, velocityY),
+    );
+  } else if (direction === 'E') {
+    spawnedBullets.push(
+      createBossBullet(previousState.nextBulletNumericId + 0, snapshot.bossCenterX, snapshot.bossCenterY, velocityX, 0),
+      createBossBullet(previousState.nextBulletNumericId + 1, snapshot.bossCenterX, snapshot.bossCenterY, velocityX, velocityY),
+      createBossBullet(previousState.nextBulletNumericId + 2, snapshot.bossCenterX, snapshot.bossCenterY, velocityX, -velocityY),
+    );
+  } else {
+    spawnedBullets.push(
+      createBossBullet(previousState.nextBulletNumericId + 0, snapshot.bossCenterX, snapshot.bossCenterY, -velocityX, 0),
+      createBossBullet(previousState.nextBulletNumericId + 1, snapshot.bossCenterX, snapshot.bossCenterY, -velocityX, velocityY),
+      createBossBullet(previousState.nextBulletNumericId + 2, snapshot.bossCenterX, snapshot.bossCenterY, -velocityX, -velocityY),
+    );
+  }
+
+  return {
+    nextState: {
+      msUntilNextShot: LEVEL5_MRHACKER_BULLET_COOLDOWN_MIN_MS
+        + (snapshot.random() * LEVEL5_MRHACKER_BULLET_COOLDOWN_RANGE_MS),
+      nextBulletNumericId: previousState.nextBulletNumericId + 3,
+    },
+    spawnedBullets,
+  };
+}
+
+export function resolveLevel5EnemyBulletPlayerCollisions(snapshot: {
+  player: Level5PlayerCollisionSnapshot;
+  bullets: readonly Level5MrHackerBulletSnapshot[];
+}): Level5EnemyBulletPlayerCollisionResult {
+  const remainingBullets: Level5MrHackerBulletSnapshot[] = [];
+  const destroyedBulletIds: string[] = [];
+  let playerDamageDelta: number = 0;
+
+  for (const bullet of snapshot.bullets) {
+    if (!isOverlap(snapshot.player, bullet)) {
+      remainingBullets.push(bullet);
+      continue;
+    }
+
+    destroyedBulletIds.push(bullet.bulletId);
+    playerDamageDelta += bullet.damage;
+  }
+
+  return {
+    destroyedBulletIds,
+    playerDamageDelta,
+    remainingBullets,
+  };
+}
+
+function createBossBullet(
+  bulletNumericId: number,
+  startX: number,
+  startY: number,
+  velocityX: number,
+  velocityY: number,
+): Level5MrHackerBulletSnapshot {
+  return {
+    bulletId: `level5-mrhacker-bullet-${bulletNumericId}`,
+    centerX: startX,
+    centerY: startY,
+    damage: LEVEL5_MRHACKER_BULLET_DAMAGE,
+    height: 0,
+    velocityX,
+    velocityY,
+    width: 0,
+  };
+}
+
+function isOverlap(
+  player: Level5PlayerCollisionSnapshot,
+  bullet: Level5MrHackerBulletSnapshot,
+): boolean {
+  const playerLeft: number = player.centerX - player.width / 2;
+  const playerRight: number = player.centerX + player.width / 2;
+  const playerTop: number = player.centerY - player.height / 2;
+  const playerBottom: number = player.centerY + player.height / 2;
+
+  const bulletLeft: number = bullet.centerX - bullet.width / 2;
+  const bulletRight: number = bullet.centerX + bullet.width / 2;
+  const bulletTop: number = bullet.centerY - bullet.height / 2;
+  const bulletBottom: number = bullet.centerY + bullet.height / 2;
+
+  return playerRight > bulletLeft
+    && playerLeft < bulletRight
+    && playerBottom > bulletTop
+    && playerTop < bulletBottom;
 }

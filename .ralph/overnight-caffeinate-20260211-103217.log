@@ -8629,3 +8629,281 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 19...
+📝 Auto-committed changes
+
+🔄 Iteration 19 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+Using the TDD skill to implement PR-030 with a failing-test-first workflow, and using the brainstorming guidance only as a quick scope check (no design detour since scope is already fixed by the PRD/task list). I’ll start by reading the required files in order, then mark PR-030 as in progress.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+I’ve marked `PR-030` as in progress in `.ralph/ralph-tasks.md`. Next I’m identifying the existing boss/shot/collision code to add this slice with minimal scope.
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 66 matches[0m
+[0m✱ [0mGrep "MrHacker|boss|bullet|projectile|enemy bullet|enemyBullet|collision|damage|health"[90m in src/phaser · 100 matches[0m
+[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.ts
+[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.spec.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1360, limit=320][0m
+[0m✱ [0mGrep "playerHealth|applyPlayerDamage|damagePlayer|currentHealth|setText\(|restart|game over|enemySnapshots|resolveEnemyCollisionMatrix|resolve.*Collision"[90m in src/phaser/scenes/GameScene.ts · 32 matches[0m
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.ts
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.ts
+[0m→ [0mRead src/phaser/scenes/enemyCollisionMatrix.ts
+[0m→ [0mRead src/phaser/entities/MrHackerPrefab.ts
+[0m→ [0mRead src/Level5.ts
+[0m→ [0mRead src/GameItem/MrHacker.ts
+[0m✱ [0mGlob "src/GameItem/*Bullet*.ts"[90m in . · 2 matches[0m
+[0m→ [0mRead src/GameItem/EnemyBullet.ts
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/phaser/entities/ProjectilePrefab.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1, limit=420][0m
+[0m✱ [0mGrep "HBsprite|enemy bullet|bossbar|mrhacker|projectile-base|load\.image|load\.spritesheet"[90m in src/phaser/scenes/PreloadScene.ts · 14 matches[0m
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m→ [0mRead src/phaser/scenes/level4TrojanCombat.spec.ts
+[0m→ [0mRead src/phaser/scenes/projectileHitResolution.spec.ts
+[0m✱ [0mGrep "Health:|playerHealth|setText\(`|scoreText|updateHud|hud"[90m in src/phaser/scenes/GameScene.ts · 20 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=420, limit=260][0m
+⏳ working... elapsed 2:10 · last activity 0:16 ago
+[0m✱ [0mGrep "destroyAll|destroyMrHacker|activeProjectiles =|destroy\(\);"[90m in src/phaser/scenes/GameScene.ts · 49 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1760, limit=220][0m
+⏳ working... elapsed 2:40 · last activity 0:18 ago
+⏳ working... elapsed 2:50 · last activity 0:28 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+LSP errors detected in src/phaser/scenes/level5MrHackerCombat.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts">
+ERROR [3:3] '"./level5MrHackerCombat.js"' has no exported member named 'LEVEL5_MRHACKER_BULLET_DAMAGE'. Did you mean 'LEVEL5_MRHACKER_DAMAGE'?
+ERROR [8:3] '"./level5MrHackerCombat.js"' has no exported member named 'advanceLevel5MrHackerBulletState'. Did you mean 'advanceLevel5MrHackerSpawnState'?
+ERROR [10:3] Module '"./level5MrHackerCombat.js"' has no exported member 'resolveLevel5EnemyBulletPlayerCollisions'.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts (6 tests | 3 failed) 4ms
+   ✓ level5 MrHacker combat parity > spawns MrHacker exactly once with legacy HP model values 1ms
+   ✓ level5 MrHacker combat parity > maps boss HP directly to legacy health bar frame keys 0ms
+   ✓ level5 MrHacker combat parity > clamps health bar frame key at the legacy bounds 0ms
+   × level5 MrHacker combat parity > fires a three-bullet volley toward the dominant player axis when cooldown elapses 2ms
+     → (0 , advanceLevel5MrHackerBulletState) is not a function
+   × level5 MrHacker combat parity > counts down boss firing cooldown without spawning bullets before timer reaches zero 0ms
+     → (0 , advanceLevel5MrHackerBulletState) is not a function
+   × level5 MrHacker combat parity > applies player damage and destroys enemy bullets that overlap the player 0ms
+     → (0 , resolveLevel5EnemyBulletPlayerCollisions) is not a function
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level5MrHackerCombat.spec.ts > level5 MrHacker combat parity > fires a three-bullet volley toward the dominant player axis when cooldown elapses
+TypeError: (0 , advanceLevel5MrHackerBulletState) is not a function
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts:51:24
+     49| 
+     50|   it('fires a three-bullet volley toward the dominant player axis when…
+     51|     const fireResult = advanceLevel5MrHackerBulletState(
+       |                        ^
+     52|       {
+     53|         msUntilNextShot: 0,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/phaser/scenes/level5MrHackerCombat.spec.ts > level5 MrHacker combat parity > counts down boss firing cooldown without spawning bullets before timer reaches zero
+TypeError: (0 , advanceLevel5MrHackerBulletState) is not a function
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts:83:20
+     81| 
+     82|   it('counts down boss firing cooldown without spawning bullets before…
+     83|     const result = advanceLevel5MrHackerBulletState(
+       |                    ^
+     84|       {
+     85|         msUntilNextShot: 300,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/phaser/scenes/level5MrHackerCombat.spec.ts > level5 MrHacker combat parity > applies player damage and destroys enemy bullets that overlap the player
+TypeError: (0 , resolveLevel5EnemyBulletPlayerCollisions) is not a function
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts:105:29
+    103| 
+    104|   it('applies player damage and destroys enemy bullets that overlap th…
+    105|     const collisionResult = resolveLevel5EnemyBulletPlayerCollisions({
+       |                             ^
+    106|       bullets: [
+    107|         {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 3 passed (6)
+   Start at  12:12:46
+   Duration  226ms (transform 27ms, setup 0ms, collect 20ms, tests 4ms, environment 0ms, prepare 39ms)
+[0m
+⏳ working... elapsed 3:20 · last activity 0:19 ago
+⏳ working... elapsed 3:30 · last activity 0:29 ago
+⏳ working... elapsed 3:40 · last activity 0:39 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level5MrHackerCombat.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (6 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  12:13:37
+   Duration  192ms (transform 23ms, setup 0ms, collect 21ms, tests 3ms, environment 0ms, prepare 31ms)
+[0m
+⏳ working... elapsed 4:10 · last activity 0:18 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/entities/EnemyBulletPrefab.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [378:10] Property 'updateEnemyBullets' does not exist on type 'GameScene'. Did you mean 'activeEnemyBullets'?
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [1525:10] Property 'resolveLevel5MrHackerBulletVolleys' does not exist on type 'GameScene'.
+ERROR [1526:10] Property 'resolveLevel5EnemyBulletPlayerCollisions' does not exist on type 'GameScene'.
+</diagnostics>
+⏳ working... elapsed 5:20 · last activity 0:15 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [1660:10] Property 'destroyAllEnemyBullets' does not exist on type 'GameScene'.
+ERROR [1675:10] Property 'destroyAllEnemyBullets' does not exist on type 'GameScene'.
+ERROR [1692:10] Property 'destroyAllEnemyBullets' does not exist on type 'GameScene'.
+ERROR [1710:10] Property 'destroyAllEnemyBullets' does not exist on type 'GameScene'.
+ERROR [1731:10] Property 'destroyAllEnemyBullets' does not exist on type 'GameScene'.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (6 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  12:15:52
+   Duration  210ms (transform 28ms, setup 0ms, collect 23ms, tests 3ms, environment 0ms, prepare 33ms)
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 4ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 7ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (6 tests) 6ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+
+ Test Files  27 passed (27)
+      Tests  100 passed (100)
+   Start at  12:16:11
+   Duration  871ms (transform 261ms, setup 0ms, collect 590ms, tests 66ms, environment 3ms, prepare 1.46s)
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (721ms)
+
+  1 passed (2.0s)
+[0m
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 6:50 · last activity 0:12 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 7:10 · last activity 0:10 ago
+⏳ working... elapsed 7:20 · last activity 0:20 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m→ [0mSkill "verification-before-completion"
+Using verification-before-completion now to ensure claims/commit are backed by fresh command evidence. I’m checking git state and then committing PR-030 with the required message format.
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 19
+Elapsed:   7:37
+Tools:     none
+Exit code: 0
+Completion promise: not detected
