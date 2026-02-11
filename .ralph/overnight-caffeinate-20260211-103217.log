@@ -6777,3 +6777,736 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 16...
+📝 Auto-committed changes
+
+🔄 Iteration 16 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mSkill "executing-plans"
+Using the executing-plans skill to implement this migration task with strict scope and gate verification. I’ll start by reading the required files in the mandated order, mark PR-027 as in-progress, then implement via test-first.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 59 matches[0m
+[0m✱ [0mGlob "src/**/*.spec.ts"[90m in . · 25 matches[0m
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.ts
+[0m→ [0mRead src/phaser/scenes/level3WormCombat.ts
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m→ [0mRead src/Level4.ts
+[0m→ [0mRead src/GameItem/Trojan.ts
+[0m→ [0mRead src/phaser/scenes/projectileHitResolution.ts
+[0m→ [0mRead src/phaser/scenes/level3WormCombat.spec.ts
+[0m✱ [0mGrep "Trojan|split|breach|1000|Level4"[90m in src · 100 matches[0m
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
+[0m→ [0mRead src/phaser/scenes/level4TraversalRules.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/entities/FEmailPrefab.ts
+[0m→ [0mRead src/phaser/entities/WormPrefab.ts
+[0m→ [0mRead src/phaser/entities/RVirusPrefab.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+⏳ working... elapsed 1:50 · last activity 0:10 ago
+⏳ working... elapsed 2:00 · last activity 0:20 ago
+⏳ working... elapsed 2:10 · last activity 0:30 ago
+⏳ working... elapsed 2:20 · last activity 0:40 ago
+⏳ working... elapsed 2:30 · last activity 0:50 ago
+⏳ working... elapsed 2:40 · last activity 1:00 ago
+⏳ working... elapsed 2:50 · last activity 1:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level4TrojanCombat.spec.ts
+
+LSP errors detected in src/phaser/scenes/level4TrojanCombat.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level4TrojanCombat.spec.ts">
+ERROR [11:8] Cannot find module './level4TrojanCombat.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level4TrojanCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level4TrojanCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level4TrojanCombat.spec.ts [ src/phaser/scenes/level4TrojanCombat.spec.ts ]
+Error: Cannot find module './level4TrojanCombat.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level4TrojanCombat.spec.ts'
+ ❯ src/phaser/scenes/level4TrojanCombat.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   LEVEL4_TROJAN_CLEAR_SCORE_THRESHOLD,
+      4|   LEVEL4_TROJAN_DAMAGE,
+
+Caused by: Error: Failed to load url ./level4TrojanCombat.js (resolved id: ./level4TrojanCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level4TrojanCombat.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  11:50:39
+   Duration  179ms (transform 20ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 40ms)
+[0m
+⏳ working... elapsed 3:10 · last activity 0:12 ago
+⏳ working... elapsed 3:20 · last activity 0:23 ago
+⏳ working... elapsed 3:30 · last activity 0:33 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level4TrojanCombat.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level4TrojanCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level4TrojanCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (5 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  11:51:28
+   Duration  185ms (transform 25ms, setup 0ms, collect 20ms, tests 2ms, environment 0ms, prepare 42ms)
+[0m
+⏳ working... elapsed 4:00 · last activity 0:14 ago
+⏳ working... elapsed 4:10 · last activity 0:24 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/entities/TrojanPrefab.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [419:12] Property 'updateLevel4Combat' does not exist on type 'GameScene'. Did you mean 'updateLevel1Combat'?
+</diagnostics>
+⏳ working... elapsed 5:10 · last activity 0:12 ago
+⏳ working... elapsed 5:20 · last activity 0:22 ago
+⏳ working... elapsed 5:30 · last activity 0:32 ago
+⏳ working... elapsed 5:40 · last activity 0:42 ago
+⏳ working... elapsed 5:50 · last activity 0:52 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 5ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 9ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+
+ Test Files  26 passed (26)
+      Tests  92 passed (92)
+   Start at  11:53:54
+   Duration  904ms (transform 243ms, setup 0ms, collect 564ms, tests 66ms, environment 3ms, prepare 1.47s)
+[0m
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts
+  134:3  error  'LEVEL4_TROJAN_HEALTH' is defined but never used       @typescript-eslint/no-unused-vars
+  135:3  error  'LEVEL4_TROJAN_SCORE_VALUE' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 2 problems (2 errors, 0 warnings)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (4 tests) 5ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 4ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  26 passed (26)
+      Tests  92 passed (92)
+   Start at  11:54:31
+   Duration  982ms (transform 271ms, setup 0ms, collect 545ms, tests 58ms, environment 3ms, prepare 1.50s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (717ms)
+
+  1 passed (2.0s)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 27 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-026-level3-worm-spawn-duplication-clear-gate.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/TrojanPrefab.js
+?? build/phaser/entities/TrojanPrefab.js.map
+?? build/phaser/scenes/level4TrojanCombat.js
+?? build/phaser/scenes/level4TrojanCombat.js.map
+?? src/phaser/entities/TrojanPrefab.ts
+?? src/phaser/scenes/level4TrojanCombat.spec.ts
+?? src/phaser/scenes/level4TrojanCombat.ts
+[0m
+⏳ working... elapsed 7:50 · last activity 0:18 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-027-level4-trojan-spawn-breach-split-clear-gate.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/TrojanPrefab.js
+?? build/phaser/entities/TrojanPrefab.js.map
+?? build/phaser/scenes/level4TrojanCombat.js
+?? build/phaser/scenes/level4TrojanCombat.js.map
+?? docs/handoffs/2026-02-11-pr-027-level4-trojan-spawn-breach-split-clear-gate.md
+?? src/phaser/entities/TrojanPrefab.ts
+?? src/phaser/scenes/level4TrojanCombat.spec.ts
+?? src/phaser/scenes/level4TrojanCombat.ts
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/TrojanPrefab.js
+?? build/phaser/entities/TrojanPrefab.js.map
+?? build/phaser/scenes/level4TrojanCombat.js
+?? build/phaser/scenes/level4TrojanCombat.js.map
+?? docs/handoffs/2026-02-11-pr-027-level4-trojan-spawn-breach-split-clear-gate.md
+?? src/phaser/entities/TrojanPrefab.ts
+?? src/phaser/scenes/level4TrojanCombat.spec.ts
+?? src/phaser/scenes/level4TrojanCombat.ts
+[0m
+[0m$ [0mgit diff -- . ':(exclude).ralph/overnight-caffeinate-20260211-103217.log' ':(exclude).ralph/ralph-loop.state.json'
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index b4b410b..658f4f8 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -33,7 +33,7 @@
+ - [x] PR-024: Level1 FEmail spawn cadence + collision/damage/score + clear gate (>=200)
+ - [x] PR-025: Level2 RVirus spawn + stick-to-player + periodic HP drain + clear gate (>=400)
+ - [x] PR-026: Level3 Worm spawn + duplication timer + clear gate (>=600)
+-- [ ] PR-027: Level4 Trojan spawn + breach damage + split-spawn-on-hit + clear gate (>=1000)
++- [x] PR-027: Level4 Trojan spawn + breach damage + split-spawn-on-hit + clear gate (>=1000)
+ - [ ] PR-028: Enemy collision matrix hardening for Levels1 to 4
+ 
+ ## Wave E - Boss Fight Last
+diff --git a/build/phaser/scenes/GameScene.js b/build/phaser/scenes/GameScene.js
+index 86b1359..63cf6fe 100644
+--- a/build/phaser/scenes/GameScene.js
++++ b/build/phaser/scenes/GameScene.js
+@@ -21,11 +21,13 @@ import { resolveDualShotProjectileConfigs } from './dualShotPattern.js';
+ import { resolveTripleShotProjectileConfigs } from './tripleShotPattern.js';
+ import { resolveProjectileHitResolution, } from './projectileHitResolution.js';
+ import FEmailPrefab from '../entities/FEmailPrefab.js';
+-import { advanceLevel1FEmailMotion, advanceLevel1FEmailSpawnState, createInitialLevel1FEmailSpawnState, resolveLevel1PlayerEnemyCollisions, } from './level1FEmailCombat.js';
++import { FEMAIL_DAMAGE, FEMAIL_HEALTH, FEMAIL_HORIZONTAL_SPEED_PER_MS, FEMAIL_SCORE_VALUE, FEMAIL_VERTICAL_SPEED_PER_MS, advanceLevel1FEmailMotion, advanceLevel1FEmailSpawnState, createInitialLevel1FEmailSpawnState, resolveLevel1PlayerEnemyCollisions, } from './level1FEmailCombat.js';
+ import RVirusPrefab from '../entities/RVirusPrefab.js';
+-import { LEVEL2_RVIRUS_DAMAGE, advanceLevel2RVirusMotion, advanceLevel2RVirusSpawnState, createInitialLevel2RVirusAttachmentState, createInitialLevel2RVirusSpawnState, resolveLevel2RVirusAttachment, } from './level2RVirusCombat.js';
++import { LEVEL2_RVIRUS_DAMAGE, LEVEL2_RVIRUS_HEALTH, LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS, LEVEL2_RVIRUS_SCORE_VALUE, LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS, advanceLevel2RVirusMotion, advanceLevel2RVirusSpawnState, createInitialLevel2RVirusAttachmentState, createInitialLevel2RVirusSpawnState, resolveLevel2RVirusAttachment, } from './level2RVirusCombat.js';
+ import WormPrefab from '../entities/WormPrefab.js';
+-import { LEVEL3_WORM_DAMAGE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, } from './level3WormCombat.js';
++import { LEVEL3_WORM_DAMAGE, LEVEL3_WORM_HEALTH, LEVEL3_WORM_SCORE_VALUE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, } from './level3WormCombat.js';
++import TrojanPrefab from '../entities/TrojanPrefab.js';
++import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpawnState, createInitialLevel4TrojanSpawnState, resolveLevel4TrojanBreaches, resolveLevel4TrojanProjectileHits, } from './level4TrojanCombat.js';
+ export default class GameScene extends Phaser.Scene {
+     static SCENE_KEY = 'GameScene';
+     static LEVEL_TRANSITION_EVENT = 'level-transition';
+@@ -68,6 +70,11 @@ export default class GameScene extends Phaser.Scene {
+     activeWorms;
+     level3WormSpawnState;
+     level3WormDuplicationState;
++    activeTrojans;
++    level4TrojanSpawnState;
++    level4SplitFEmailNextEnemyNumericId;
++    level4SplitRVirusNextEnemyNumericId;
++    level4SplitWormNextEnemyNumericId;
+     playerHealth;
+     constructor() {
+         super(GameScene.SCENE_KEY);
+@@ -109,6 +116,11 @@ export default class GameScene extends Phaser.Scene {
+         this.activeWorms = [];
+         this.level3WormSpawnState = createInitialLevel3WormSpawnState();
+         this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
++        this.activeTrojans = [];
++        this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
++        this.level4SplitFEmailNextEnemyNumericId = 0;
++        this.level4SplitRVirusNextEnemyNumericId = 0;
++        this.level4SplitWormNextEnemyNumericId = 0;
+         this.playerHealth = 100;
+     }
+     create() {
+@@ -191,6 +203,7 @@ export default class GameScene extends Phaser.Scene {
+         }
+         if (this.activeLevelId === 4 && this.level4Phase === 'walkable') {
+             this.updatePlayerMovement();
++            this.updateLevel4Combat(delta);
+             this.updateLevel4TransitionTrigger();
+             return;
+         }
+@@ -726,6 +739,193 @@ export default class GameScene extends Phaser.Scene {
+             y: snapshot.velocityY,
+         };
+     }
++    updateLevel4Combat(elapsedMs) {
++        const spawnResolution = advanceLevel4TrojanSpawnState(this.level4TrojanSpawnState, {
++            canSpawn: this.activeLevelId === 4 && this.level4Phase === 'walkable',
++            canvasHeight: this.scale.height,
++            canvasWidth: this.scale.width,
++            elapsedMs,
++            random: () => Math.random(),
++            score: this.score,
++        });
++        this.level4TrojanSpawnState = spawnResolution.nextState;
++        for (const spawnedEnemy of spawnResolution.spawnedEnemies) {
++            const trojan = new TrojanPrefab(this, spawnedEnemy);
++            this.add.existing(trojan);
++            this.activeTrojans.push(trojan);
++        }
++        if (this.activeTrojans.length > 0) {
++            const movedSnapshots = advanceLevel4TrojanMotion(this.activeTrojans.map((enemy) => enemy.toSnapshot()), { elapsedMs });
++            this.applyTrojanSnapshotsById(movedSnapshots);
++            this.resolveLevel4TrojanProjectileHits();
++            this.resolveLevel4TrojanBreaches();
++        }
++        if (this.activeFEmails.length > 0) {
++            this.updateLevel1Combat(elapsedMs);
++        }
++        if (this.activeRViruses.length > 0) {
++            this.updateLevel2Combat(elapsedMs);
++        }
++        if (this.activeWorms.length > 0) {
++            this.updateLevel3Combat(elapsedMs);
++        }
++        this.activeCombatItemCount = this.activeTrojans.length
++            + this.activeFEmails.length
++            + this.activeRViruses.length
++            + this.activeWorms.length;
++    }
++    resolveLevel4TrojanProjectileHits() {
++        if (this.activeProjectiles.length === 0 || this.activeTrojans.length === 0) {
++            return;
++        }
++        const projectileSnapshots = this.activeProjectiles.map((projectile) => ({
++            centerX: projectile.x,
++            centerY: projectile.y,
++            damage: projectile.getDamage(),
++            height: projectile.displayHeight,
++            projectileId: projectile.name,
++            width: projectile.displayWidth,
++        }));
++        for (let index = 0; index < projectileSnapshots.length; index += 1) {
++            projectileSnapshots[index].projectileId = `projectile-${index}`;
++        }
++        const trojanSnapshots = this.activeTrojans.map((enemy) => enemy.toSnapshot());
++        const resolution = resolveLevel4TrojanProjectileHits({
++            projectiles: projectileSnapshots,
++            trojans: trojanSnapshots,
++        });
++        if (resolution.destroyedProjectileIds.length > 0) {
++            this.activeProjectiles = this.activeProjectiles.filter((projectile, index) => {
++                const projectileId = `projectile-${index}`;
++                const isDestroyed = resolution.destroyedProjectileIds.includes(projectileId);
++                if (isDestroyed) {
++                    projectile.destroy();
++                }
++                return !isDestroyed;
++            });
++        }
++        if (resolution.destroyedTrojanIds.length > 0) {
++            this.activeTrojans = this.activeTrojans.filter((enemy) => {
++                const isDestroyed = resolution.destroyedTrojanIds.includes(enemy.getEnemyId());
++                if (isDestroyed) {
++                    enemy.destroy();
++                }
++                return !isDestroyed;
++            });
++        }
++        if (resolution.remainingTrojans.length > 0 && this.activeTrojans.length > 0) {
++            this.applyTrojanSnapshotsById(resolution.remainingTrojans.map((trojan) => ({
++                centerX: trojan.centerX,
++                centerY: trojan.centerY,
++                currentHealth: trojan.currentHealth,
++                damage: LEVEL4_TROJAN_DAMAGE,
++                enemyId: trojan.enemyId,
++                height: trojan.height,
++                scoreValue: trojan.scoreValue,
++                velocityX: this.resolveTrojanVelocityById(trojan.enemyId).x,
++                velocityY: this.resolveTrojanVelocityById(trojan.enemyId).y,
++                width: trojan.width,
++            })));
++        }
++        this.score += resolution.scoreDelta;
++        this.spawnLevel4SplitEnemies(resolution.splitSpawns);
++    }
++    resolveLevel4TrojanBreaches() {
++        if (this.activeTrojans.length === 0) {
++            return;
++        }
++        const breachResolution = resolveLevel4TrojanBreaches({
++            enemies: this.activeTrojans.map((enemy) => enemy.toSnapshot()),
++            minX: this.scale.width * 0.05,
++        });
++        if (breachResolution.breachedEnemyIds.length > 0) {
++            this.activeTrojans = this.activeTrojans.filter((enemy) => {
++                const isBreached = breachResolution.breachedEnemyIds.includes(enemy.getEnemyId());
++                if (isBreached) {
++                    enemy.destroy();
++                }
++                return !isBreached;
++            });
++        }
++        this.playerHealth = Math.max(0, this.playerHealth - breachResolution.playerDamageDelta);
++        this.spawnLevel4SplitEnemies(breachResolution.splitSpawns);
++    }
++    applyTrojanSnapshotsById(snapshots) {
++        const enemyById = new Map(this.activeTrojans.map((enemy) => [enemy.getEnemyId(), enemy]));
++        for (const snapshot of snapshots) {
++            const enemy = enemyById.get(snapshot.enemyId);
++            if (enemy !== undefined) {
++                enemy.applySnapshot(snapshot);
++            }
++        }
++    }
++    resolveTrojanVelocityById(enemyId) {
++        const enemy = this.activeTrojans.find((item) => item.getEnemyId() === enemyId);
++        if (enemy === undefined) {
++            return { x: 0, y: 0 };
++        }
++        const snapshot = enemy.toSnapshot();
++        return {
++            x: snapshot.velocityX,
++            y: snapshot.velocityY,
++        };
++    }
++    spawnLevel4SplitEnemies(splitSpawns) {
++        for (const splitSpawn of splitSpawns) {
++            const fEmailSnapshot = {
++                centerX: splitSpawn.impactX + 100,
++                centerY: splitSpawn.impactY + 30,
++                currentHealth: FEMAIL_HEALTH,
++                damage: FEMAIL_DAMAGE,
++                enemyId: `level4-split-femail-${this.level4SplitFEmailNextEnemyNumericId}`,
++                height: 0,
++                scoreValue: FEMAIL_SCORE_VALUE,
++                velocityX: Math.random() > 0.5 ? -FEMAIL_HORIZONTAL_SPEED_PER_MS : FEMAIL_HORIZONTAL_SPEED_PER_MS,
++                velocityY: Math.random() > 0.5 ? -FEMAIL_VERTICAL_SPEED_PER_MS : FEMAIL_VERTICAL_SPEED_PER_MS,
++                width: 0,
++            };
++            this.level4SplitFEmailNextEnemyNumericId += 1;
++            const fEmail = new FEmailPrefab(this, fEmailSnapshot);
++            this.add.existing(fEmail);
++            this.activeFEmails.push(fEmail);
++            const rVirusSnapshot = {
++                centerX: splitSpawn.impactX + 100,
++                centerY: splitSpawn.impactY - 30,
++                currentHealth: LEVEL2_RVIRUS_HEALTH,
++                damage: LEVEL2_RVIRUS_DAMAGE,
++                enemyId: `level4-split-rvirus-${this.level4SplitRVirusNextEnemyNumericId}`,
++                height: 0,
++                scoreValue: LEVEL2_RVIRUS_SCORE_VALUE,
++                velocityX: Math.random() > 0.5
++                    ? -LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS
++                    : LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS,
++                velocityY: Math.random() > 0.5
++                    ? -LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS
++                    : LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS,
++                width: 0,
++            };
++            this.level4SplitRVirusNextEnemyNumericId += 1;
++            const rVirus = new RVirusPrefab(this, rVirusSnapshot);
++            this.add.existing(rVirus);
++            this.activeRViruses.push(rVirus);
++            const wormSnapshot = {
++                centerX: splitSpawn.impactX + 100,
++                centerY: splitSpawn.impactY + 30,
++                currentHealth: LEVEL3_WORM_HEALTH,
++                damage: LEVEL3_WORM_DAMAGE,
++                enemyId: `level4-split-worm-${this.level4SplitWormNextEnemyNumericId}`,
++                height: 0,
++                scoreValue: LEVEL3_WORM_SCORE_VALUE,
++                velocityX: -0.4,
++                velocityY: -0.3,
++                width: 0,
++            };
++            this.level4SplitWormNextEnemyNumericId += 1;
++            const worm = new WormPrefab(this, wormSnapshot);
++            this.add.existing(worm);
++            this.activeWorms.push(worm);
++        }
++    }
+     updateLevel2TransitionTrigger() {
+         if (this.player === null || this.hasTriggeredLevel3Transition) {
+             return;
+@@ -848,15 +1048,25 @@ export default class GameScene extends Phaser.Scene {
+     }
+     enterLevel4() {
+         this.activeLevelId = 4;
++        this.destroyAllFEmails();
++        this.destroyAllRViruses();
+         this.destroyAllWorms();
++        this.destroyAllTrojans();
+         this.activeCombatItemCount = 0;
++        this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
++        this.level4SplitFEmailNextEnemyNumericId = 0;
++        this.level4SplitRVirusNextEnemyNumericId = 0;
++        this.level4SplitWormNextEnemyNumericId = 0;
+         this.level4DialogueState = createInitialLevel4DialogueState();
+         this.level4Phase = resolveLevel4DialoguePhase(this.level4DialogueState, LEVEL4_DIALOGUE_TEXTURE_KEYS.length);
+         this.syncActiveLevelVisualState();
+     }
+     enterLevel5() {
+         this.activeLevelId = 5;
++        this.destroyAllFEmails();
++        this.destroyAllRViruses();
+         this.destroyAllWorms();
++        this.destroyAllTrojans();
+         this.activeCombatItemCount = 0;
+         this.level5DialogueState = createInitialLevel5DialogueState();
+         this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
+@@ -1007,6 +1217,12 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.activeWorms = [];
+     }
++    destroyAllTrojans() {
++        for (const enemy of this.activeTrojans) {
++            enemy.destroy();
++        }
++        this.activeTrojans = [];
++    }
+     isActiveLevelWalkablePhase() {
+         if (this.activeLevelId === 0) {
+             return this.level0Phase === 'walkable';
+diff --git a/build/phaser/scenes/GameScene.js.map b/build/phaser/scenes/GameScene.js.map
+index 0dd83e3..ef319d5 100644
+--- a/build/phaser/scenes/GameScene.js.map
++++ b/build/phaser/scenes/GameScene.js.map
+@@ -1 +1 @@
+
+...108197 bytes truncated...
+
+The tool call succeeded but the output was truncated. Full output saved to: /Users/pbaruch/.local/share/opencode/tool-output/tool_c4c5803db0013zNdMo7XXo4xvC
+Use the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.
+[0m
+[0m$ [0mgit log -5 --oneline
+381b05f Ralph iteration 15: work in progress
+d423b2e feat(parity:PR-026): implement level3 worm spawn and duplication clear-gate parity
+a7f97cd Ralph iteration 14: work in progress
+88d6032 feat(parity:PR-025): add Level2 RVirus spawn and attachment drain parity
+bfbc8cf Ralph iteration 13: work in progress
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/level4TrojanCombat.ts src/phaser/scenes/level4TrojanCombat.spec.ts src/phaser/entities/TrojanPrefab.ts src/phaser/scenes/GameScene.ts src/phaser/scenes/PreloadScene.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-027-level4-trojan-spawn-breach-split-clear-gate.md build/phaser/scenes/level4TrojanCombat.js build/phaser/scenes/level4TrojanCombat.js.map build/phaser/entities/TrojanPrefab.js build/phaser/entities/TrojanPrefab.js.map build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map && git commit -m "feat(parity:PR-027): implement Level4 Trojan combat parity" && git status --short
+[main 337a80d] feat(parity:PR-027): implement Level4 Trojan combat parity
+ 17 files changed, 1224 insertions(+), 8 deletions(-)
+ create mode 100644 build/phaser/entities/TrojanPrefab.js
+ create mode 100644 build/phaser/entities/TrojanPrefab.js.map
+ create mode 100644 build/phaser/scenes/level4TrojanCombat.js
+ create mode 100644 build/phaser/scenes/level4TrojanCombat.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-027-level4-trojan-spawn-breach-split-clear-gate.md
+ create mode 100644 src/phaser/entities/TrojanPrefab.ts
+ create mode 100644 src/phaser/scenes/level4TrojanCombat.spec.ts
+ create mode 100644 src/phaser/scenes/level4TrojanCombat.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m→ [0mSkill "verification-before-completion"
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (5 tests) 4ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 4ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 5ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 3ms
+
+ Test Files  26 passed (26)
+      Tests  92 passed (92)
+   Start at  11:56:24
+   Duration  884ms (transform 258ms, setup 0ms, collect 575ms, tests 61ms, environment 3ms, prepare 1.45s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (533ms)
+
+  1 passed (1.7s)
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 16
+Elapsed:   8:59
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 17...
