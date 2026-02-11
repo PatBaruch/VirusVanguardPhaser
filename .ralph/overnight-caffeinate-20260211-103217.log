@@ -3092,3 +3092,602 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 9...
+📝 Auto-committed changes
+
+🔄 Iteration 9 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+Using the `test-driven-development` skill to implement PR-020 with a failing test first, then minimal code changes.
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 42 matches[0m
+[0m✱ [0mGrep "shoot|projectile|bullet|fire"[90m in src · 33 matches[0m
+[0m✱ [0mGrep "shoot|projectile|bullet|fire"[90m in src/phaser · 15 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/phaser/entities/ProjectilePrefab.ts
+[0m→ [0mRead src/phaser/entities/projectileMotion.ts
+[0m→ [0mRead src/phaser/scenes/shootInputGate.ts
+[0m✱ [0mGrep "SHOOT_INPUT_EVENT|shoot-input|canAcceptShootInput|ProjectilePrefab"[90m in src/phaser · 18 matches[0m
+[0m→ [0mRead src/phaser/entities/playerFacingState.ts
+[0m→ [0mRead src/phaser/entities/PlayerPrefab.ts
+[0m→ [0mRead src/phaser/scenes/shootInputGate.spec.ts
+[0m→ [0mRead src/phaser/entities/projectileMotion.spec.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+⏳ working... elapsed 1:30 · last activity 0:10 ago
+⏳ working... elapsed 1:40 · last activity 0:20 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/singleShotPattern.spec.ts
+
+LSP errors detected in src/phaser/scenes/singleShotPattern.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/singleShotPattern.spec.ts">
+ERROR [4:52] Cannot find module './singleShotPattern.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/singleShotPattern.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/singleShotPattern.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/singleShotPattern.spec.ts [ src/phaser/scenes/singleShotPattern.spec.ts ]
+Error: Cannot find module './singleShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/singleShotPattern.spec.ts'
+ ❯ src/phaser/scenes/singleShotPattern.spec.ts:4:1
+      2| import { LevelId } from '../config/parityConstants.js';
+      3| import { PlayerFacingDirection } from '../entities/playerFacingState.j…
+      4| import { resolveSingleShotProjectileConfigs } from './singleShotPatter…
+       | ^
+      5| 
+      6| function createLevelSnapshot(
+
+Caused by: Error: Failed to load url ./singleShotPattern.js (resolved id: ./singleShotPattern.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/singleShotPattern.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  11:10:16
+   Duration  194ms (transform 21ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 42ms)
+[0m
+⏳ working... elapsed 2:00 · last activity 0:10 ago
+⏳ working... elapsed 2:10 · last activity 0:20 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/singleShotPattern.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/singleShotPattern.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/singleShotPattern.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  11:10:58
+   Duration  177ms (transform 21ms, setup 0ms, collect 17ms, tests 3ms, environment 0ms, prepare 41ms)
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 4ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 2ms
+
+ Test Files  19 passed (19)
+      Tests  67 passed (67)
+   Start at  11:11:04
+   Duration  647ms (transform 186ms, setup 0ms, collect 379ms, tests 41ms, environment 2ms, prepare 1.05s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (727ms)
+
+  1 passed (2.0s)
+[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 20 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-019-shoot-input-gating.md
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+?? build/phaser/scenes/singleShotPattern.js
+?? build/phaser/scenes/singleShotPattern.js.map
+?? src/phaser/scenes/singleShotPattern.spec.ts
+?? src/phaser/scenes/singleShotPattern.ts
+[0m
+[0m$ [0mgit diff --name-only
+.ralph/overnight-caffeinate-20260211-103217.log
+.ralph/ralph-loop.state.json
+.ralph/ralph-tasks.md
+build/phaser/scenes/GameScene.js
+build/phaser/scenes/GameScene.js.map
+docs/architecture/phaser-migration.mmd
+docs/parity/known-limitations.md
+src/phaser/scenes/GameScene.ts
+[0m
+⏳ working... elapsed 3:30 · last activity 0:19 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-020-single-shot-pattern-parity-level1-level2.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+?? build/phaser/scenes/singleShotPattern.js
+?? build/phaser/scenes/singleShotPattern.js.map
+?? docs/handoffs/2026-02-11-pr-020-single-shot-pattern-parity-level1-level2.md
+?? src/phaser/scenes/singleShotPattern.spec.ts
+?? src/phaser/scenes/singleShotPattern.ts
+[0m
+[0m$ [0mgit log -5 --oneline
+4aff7aa Ralph iteration 8: work in progress
+7e705f6 feat(parity:PR-019): add level-based shoot input gating
+0181009 Ralph iteration 7: work in progress
+f921f7b feat(parity:PR-018): add projectile base movement and world culling
+026a613 Ralph iteration 6: work in progress
+[0m
+[0m$ [0mgit diff
+diff --git a/.ralph/overnight-caffeinate-20260211-103217.log b/.ralph/overnight-caffeinate-20260211-103217.log
+index b8068d3..cce9f56 100644
+--- a/.ralph/overnight-caffeinate-20260211-103217.log
++++ b/.ralph/overnight-caffeinate-20260211-103217.log
+@@ -3092,3 +3092,187 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+    Moving to next task in iteration 9...
++📝 Auto-committed changes
++
++🔄 Iteration 9 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "test-driven-development"
++[0m→ [0mSkill "writing-plans"
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++Using the `test-driven-development` skill to implement PR-020 with a failing test first, then minimal code changes.
++[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 42 matches[0m
++[0m✱ [0mGrep "shoot|projectile|bullet|fire"[90m in src · 33 matches[0m
++[0m✱ [0mGrep "shoot|projectile|bullet|fire"[90m in src/phaser · 15 matches[0m
++[0m→ [0mRead src/phaser/scenes/GameScene.ts
++[0m→ [0mRead src/Level.ts
++[0m→ [0mRead src/phaser/entities/ProjectilePrefab.ts
++[0m→ [0mRead src/phaser/entities/projectileMotion.ts
++[0m→ [0mRead src/phaser/scenes/shootInputGate.ts
++[0m✱ [0mGrep "SHOOT_INPUT_EVENT|shoot-input|canAcceptShootInput|ProjectilePrefab"[90m in src/phaser · 18 matches[0m
++[0m→ [0mRead src/phaser/entities/playerFacingState.ts
++[0m→ [0mRead src/phaser/entities/PlayerPrefab.ts
++[0m→ [0mRead src/phaser/scenes/shootInputGate.spec.ts
++[0m→ [0mRead src/phaser/entities/projectileMotion.spec.ts
++[0m→ [0mRead src/phaser/config/parityConstants.ts
++⏳ working... elapsed 1:30 · last activity 0:10 ago
++⏳ working... elapsed 1:40 · last activity 0:20 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/singleShotPattern.spec.ts
++
++LSP errors detected in src/phaser/scenes/singleShotPattern.spec.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/singleShotPattern.spec.ts">
++ERROR [4:52] Cannot find module './singleShotPattern.js' or its corresponding type declarations.
++</diagnostics>
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/singleShotPattern.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/singleShotPattern.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  src/phaser/scenes/singleShotPattern.spec.ts [ src/phaser/scenes/singleShotPattern.spec.ts ]
++Error: Cannot find module './singleShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/singleShotPattern.spec.ts'
++ ❯ src/phaser/scenes/singleShotPattern.spec.ts:4:1
++      2| import { LevelId } from '../config/parityConstants.js';
++      3| import { PlayerFacingDirection } from '../entities/playerFacingState.j…
++      4| import { resolveSingleShotProjectileConfigs } from './singleShotPatter…
++       | ^
++      5| 
++      6| function createLevelSnapshot(
++
++Caused by: Error: Failed to load url ./singleShotPattern.js (resolved id: ./singleShotPattern.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/singleShotPattern.spec.ts. Does the file exist?
++ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  no tests
++   Start at  11:10:16
++   Duration  194ms (transform 21ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 42ms)
++[0m
++⏳ working... elapsed 2:00 · last activity 0:10 ago
++⏳ working... elapsed 2:10 · last activity 0:20 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/singleShotPattern.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/singleShotPattern.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/singleShotPattern.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
++
++ Test Files  1 passed (1)
++      Tests  2 passed (2)
++   Start at  11:10:58
++   Duration  177ms (transform 21ms, setup 0ms, collect 17ms, tests 3ms, environment 0ms, prepare 41ms)
++[0m
++[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++
++
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 3ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 4ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 2ms
++
++ Test Files  19 passed (19)
++      Tests  67 passed (67)
++   Start at  11:11:04
++   Duration  647ms (transform 186ms, setup 0ms, collect 379ms, tests 41ms, environment 2ms, prepare 1.05s)
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (727ms)
++
++  1 passed (2.0s)
++[0m
++[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 20 matches[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-019-shoot-input-gating.md
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-103217.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/phaser/scenes/GameScene.js
++ M build/phaser/scenes/GameScene.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M src/phaser/scenes/GameScene.ts
++?? build/phaser/scenes/singleShotPattern.js
++?? build/phaser/scenes/singleShotPattern.js.map
++?? src/phaser/scenes/singleShotPattern.spec.ts
++?? src/phaser/scenes/singleShotPattern.ts
++[0m
++[0m$ [0mgit diff --name-only
++.ralph/overnight-caffeinate-20260211-103217.log
++.ralph/ralph-loop.state.json
++.ralph/ralph-tasks.md
++build/phaser/scenes/GameScene.js
++build/phaser/scenes/GameScene.js.map
++docs/architecture/phaser-migration.mmd
++docs/parity/known-limitations.md
++src/phaser/scenes/GameScene.ts
++[0m
++⏳ working... elapsed 3:30 · last activity 0:19 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-020-single-shot-pattern-parity-level1-level2.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index 04c6497..6a60b50 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 8,
++  "iteration": 9,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index 9265226..2850cfc 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -24,7 +24,7 @@
+ ## Wave C - Shooting Systems
+ - [x] PR-018: Projectile base entity + movement + world culling
+ - [x] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
+-- [ ] PR-020: Single-shot pattern parity (Level1 and Level2)
++- [x] PR-020: Single-shot pattern parity (Level1 and Level2)
+ - [ ] PR-021: Dual-shot pattern parity (Level3)
+ - [ ] PR-022: Triple-shot pattern parity (Level4 and Level5)
+ - [ ] PR-023: Bullet hit resolution + death effect + score hook
+diff --git a/build/phaser/scenes/GameScene.js b/build/phaser/scenes/GameScene.js
+index bfa6de7..32e988c 100644
+--- a/build/phaser/scenes/GameScene.js
++++ b/build/phaser/scenes/GameScene.js
+@@ -15,6 +15,8 @@ import { LEVEL5_DIALOGUE_TEXTURE_KEYS, advanceLevel5DialogueState, createInitial
+ import { canMoveWithinLevel5Bounds, isLevel5VictoryTriggered, } from './level5TraversalRules.js';
+ import { canTriggerLevelTransition } from './transitionRuleEngine.js';
+ import { canAcceptShootInput } from './shootInputGate.js';
++import ProjectilePrefab from '../entities/ProjectilePrefab.js';
++import { resolveSingleShotProjectileConfigs } from './singleShotPattern.js';
+ export default class GameScene extends Phaser.Scene {
+     static SCENE_KEY = 'GameScene';
+     static LEVEL_TRANSITION_EVENT = 'level-transition';
+@@ -48,6 +50,7 @@ export default class GameScene extends Phaser.Scene {
+     hasTriggeredVictory;
+     score;
+     activeCombatItemCount;
++    activeProjectiles;
+     constructor() {
+         super(GameScene.SCENE_KEY);
+         this.dialogueState = createInitialLevel0DialogueState();
+@@ -79,6 +82,7 @@ export default class GameScene extends Phaser.Scene {
+         this.hasTriggeredVictory = false;
+         this.score = 0;
+         this.activeCombatItemCount = 0;
++        this.activeProjectiles = [];
+     }
+     create() {
+         const centerX = this.scale.width / 2;
+@@ -98,9 +102,11 @@ export default class GameScene extends Phaser.Scene {
+         this.dialogueImage.setVisible(false);
+         this.player = new PlayerPrefab(this);
+         this.add.existing(this.player);
++        this.events.on(GameScene.SHOOT_INPUT_EVENT, this.handleShootInput, this);
+         this.syncActiveLevelVisualState();
+     }
+-    update() {
++    update(_time, delta) {
++        this.updateProjectiles(delta);
+         if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
+             if (this.activeLevelId === 0) {
+                 this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
+@@ -210,6 +216,38 @@ export default class GameScene extends Phaser.Scene {
+         this.player.y += movementStep.deltaY;
+         this.player.setFacingDirection(movementStep.facingDirection);
+     }
++    handleShootInput(payload) {
++        if (this.player === null) {
++            return;
++        }
++        const projectileConfigs = resolveSingleShotProjectileConfigs({
++            facingDirection: this.player.getFacingDirection(),
++            levelId: payload.levelId,
++            playerCenterX: this.player.x + this.player.displayWidth / 2,
++            playerCenterY: this.player.y + this.player.displayHeight / 2,
++        });
++        for (const projectileConfig of projectileConfigs) {
++            const projectile = new ProjectilePrefab(this, projectileConfig);
++            this.add.existing(projectile);
++            this.activeProjectiles.push(projectile);
++        }
++    }
++    updateProjectiles(elapsedMs) {
++        if (this.activeProjectiles.length === 0) {
++            return;
++        }
++        const nextActiveProjectiles = [];
++        for (const projectile of this.activeProjectiles) {
++            projectile.updateMotion(elapsedMs);
++            if (projectile.isOutsideCombatWorldBounds(this.scale.width, this.scale.height)) {
++                projectile.destroy();
++            }
++            else {
++                nextActiveProjectiles.push(projectile);
++            }
++        }
++        this.activeProjectiles = nextActiveProjectiles;
++    }
+     updateLevel0TransitionTrigger() {
+         if (this.player === null || this.hasTriggeredLevel1Transition) {
+             return;
+diff --git a/build/phaser/scenes/GameScene.js.map b/build/phaser/scenes/GameScene.js.map
+index 6323917..9c6a68e 100644
+--- a/build/phaser/scenes/GameScene.js.map
++++ b/build/phaser/scenes/GameScene.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"GameScene.js","sourceRoot":"","sources":["../../../src/phaser/scenes/GameScene.ts"],"names":[],"mappings":"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"}
+\ No newline at end of file
+
+...26390 bytes truncated...
+
+The tool call succeeded but the output was truncated. Full output saved to: /Users/pbaruch/.local/share/opencode/tool-output/tool_c4c2fe876001FisdXNfkSrjrOB
+Use the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/singleShotPattern.ts src/phaser/scenes/singleShotPattern.spec.ts src/phaser/scenes/GameScene.ts build/phaser/scenes/singleShotPattern.js build/phaser/scenes/singleShotPattern.js.map build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-020-single-shot-pattern-parity-level1-level2.md && git commit -m "feat(parity:PR-020): add single-shot parity for Level1 and Level2" && git status --short
+[main 6b03c98] feat(parity:PR-020): add single-shot parity for Level1 and Level2
+ 11 files changed, 326 insertions(+), 6 deletions(-)
+ create mode 100644 build/phaser/scenes/singleShotPattern.js
+ create mode 100644 build/phaser/scenes/singleShotPattern.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-020-single-shot-pattern-parity-level1-level2.md
+ create mode 100644 src/phaser/scenes/singleShotPattern.spec.ts
+ create mode 100644 src/phaser/scenes/singleShotPattern.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m→ [0mSkill "verification-before-completion"
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 1ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 3ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 5ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 4ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+
+ Test Files  19 passed (19)
+      Tests  67 passed (67)
+   Start at  11:12:32
+   Duration  634ms (transform 185ms, setup 0ms, collect 402ms, tests 42ms, environment 2ms, prepare 1.06s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (477ms)
+
+  1 passed (1.6s)
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 9
+Elapsed:   4:19
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 10...
