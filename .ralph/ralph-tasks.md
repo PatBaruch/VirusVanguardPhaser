@@ -43,6 +43,6 @@
 - [x] PR-032: Boss defeat + win flow + final multiplier + restart parity
 
 ## Wave F - Cutover and Decommission
-- [ ] PR-033: Full parity matrix run + stabilization fixes only
+- [x] PR-033: Full parity matrix run + stabilization fixes only
 - [ ] PR-034: Switch default runtime to Phaser and retain legacy fallback flag
 - [ ] PR-035: Remove legacy runtime after one stable cycle without P0/P1 regressions
