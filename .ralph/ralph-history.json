@@ -291,9 +291,40 @@
         "+Caused by: Error: Failed to load url ./singleShotPattern.js (resolved id: ./singleShotPattern.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/singleShotPattern.spec.ts. Does the f",
         "+ Test Files  1 failed (1)"
       ]
+    },
+    {
+      "iteration": 10,
+      "startedAt": "2026-02-11T10:12:51.340Z",
+      "endedAt": "2026-02-11T10:16:47.610Z",
+      "durationMs": 234766,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-caffeinate-20260211-103217.log",
+        ".ralph/ralph-tasks.md",
+        "build/phaser/scenes/GameScene.js",
+        "build/phaser/scenes/GameScene.js.map",
+        "build/phaser/scenes/dualShotPattern.js",
+        "build/phaser/scenes/dualShotPattern.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-021-dual-shot-pattern-parity-level3.md",
+        "docs/parity/known-limitations.md",
+        "src/phaser/scenes/GameScene.ts",
+        "src/phaser/scenes/dualShotPattern.spec.ts",
+        "src/phaser/scenes/dualShotPattern.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "Error: Cannot find module './dualShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/dualShotPattern.spec.ts'",
+        "Caused by: Error: Failed to load url ./dualShotPattern.js (resolved id: ./dualShotPattern.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/dualShotPattern.spec.ts. Does the file exi",
+        "Test Files  1 failed (1)",
+        "+Error: Cannot find module './dualShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/dualShotPattern.spec.ts'",
+        "+Caused by: Error: Failed to load url ./dualShotPattern.js (resolved id: ./dualShotPattern.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/dualShotPattern.spec.ts. Does the file ex",
+        "+ Test Files  1 failed (1)"
+      ]
     }
   ],
-  "totalDurationMs": 2396675,
+  "totalDurationMs": 2631441,
   "struggleIndicators": {
     "repeatedErrors": {
       "Error: Cannot find module './level2DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVang": 1,
@@ -324,7 +355,7 @@
       "Using the `test-driven-development` skill to implement PR-017 safely (failing test first, then minim": 1,
       "Error: Cannot find module './transitionRuleEngine.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
       "Caused by: Error: Failed to load url ./transitionRuleEngine.js (resolved id: ./transitionRuleEngine.": 1,
-      "Test Files  1 failed (1)": 4,
+      "Test Files  1 failed (1)": 5,
       "Error: Cannot find module './projectileMotion.js' imported from '/Users/pbaruch/Desktop/VirusVanguar": 1,
       "Caused by: Error: Failed to load url ./projectileMotion.js (resolved id: ./projectileMotion.js) in /": 1,
       "Using `brainstorming` to confirm scope quickly and `test-driven-development` to implement PR-019 wit": 1,
@@ -336,7 +367,11 @@
       "+Using the `test-driven-development` skill to implement PR-020 with a failing test first, then minim": 1,
       "+Error: Cannot find module './singleShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVangu": 1,
       "+Caused by: Error: Failed to load url ./singleShotPattern.js (resolved id: ./singleShotPattern.js) i": 1,
-      "+ Test Files  1 failed (1)": 1
+      "+ Test Files  1 failed (1)": 2,
+      "Error: Cannot find module './dualShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguard": 1,
+      "Caused by: Error: Failed to load url ./dualShotPattern.js (resolved id: ./dualShotPattern.js) in /Us": 1,
+      "+Error: Cannot find module './dualShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguar": 1,
+      "+Caused by: Error: Failed to load url ./dualShotPattern.js (resolved id: ./dualShotPattern.js) in /U": 1
     },
     "noProgressIterations": 0,
     "shortIterations": 0
