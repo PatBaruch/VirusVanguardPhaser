@@ -72,6 +72,7 @@ npm run ralph:overnight
 ```
 
 Default cap is intentionally high for unattended runs (1000 iterations).
+If all tasks are already complete in `.ralph/ralph-tasks.md`, the overnight script exits without starting a loop.
 
 Run loop with explicit iteration cap:
 ```bash
@@ -206,6 +207,7 @@ Execution order is locked:
 4. Enemies one-by-one on the levels where they appear
 5. Boss fight systems last
 6. Cutover and legacy decommission
+7. Post-parity validation and production confidence
 
 ### Micro-PR policy
 - One behavior slice per PR.

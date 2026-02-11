@@ -11468,3 +11468,620 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 24...
+📝 Auto-committed changes
+
+🔄 Iteration 24 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/**/*.ts"[90m in . · 94 matches[0m
+[0m✱ [0mGrep "legacy|LEGACY|runtime flag|fallback|phaser"[90m in . · 52 matches[0m
+[0m→ [0mRead src/app.ts
+[0m→ [0mRead src/runtime/RuntimeMode.ts
+[0m→ [0mRead src/runtime/RuntimeMode.spec.ts
+[0m→ [0mRead index.html
+[0m✱ [0mGlob "src/**/*.spec.ts"[90m in . · 29 matches[0m
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 35 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+[0m→ [0mRead e2e/boot-smoke.spec.ts
+⏳ working... elapsed 1:30 · last activity 0:10 ago
+[0m✱ [0mGrep "from '\.\./|from '\.\./\.\./(?!phaser)"[90m in src/phaser · 0 matches[0m
+[0m✱ [0mGrep "from '\.\."[90m in src/phaser · 57 matches[0m
+[0m→ [0mRead package.json
+⏳ working... elapsed 1:50 · last activity 0:11 ago
+[0m✱ [0mGrep "VirusVanguard|\./Game\.js|\./Level|CanvasRenderer|KeyListener|GameItem/|runtime/RuntimeMode"[90m in src · 100 matches[0m
+[0m→ [0mRead docs/parity/parity-matrix.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+[0m
+⏳ working... elapsed 2:20 · last activity 0:15 ago
+[0m✱ [0mGlob "src/GameItem/*.ts"[90m in . · 8 matches[0m
+[0m✱ [0mGlob "src/*.ts"[90m in . · 15 matches[0m
+[0m✱ [0mGlob "build/GameItem/*.js"[90m in . · 8 matches[0m
+[0m✱ [0mGlob "build/*.js"[90m in . · 15 matches[0m
+[0m✱ [0mGlob "build/runtime/*"[90m in . · 2 matches[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/runtime/RuntimeMode.spec.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/runtime/RuntimeMode.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/runtime/RuntimeMode.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ❯ src/runtime/RuntimeMode.spec.ts (3 tests | 1 failed) 5ms
+   ✓ getRuntimeMode > defaults to phaser when runtime query parameter is absent 1ms
+   × getRuntimeMode > ignores runtime=legacy fallback and keeps Phaser runtime active 3ms
+     → expected 'legacy' to be 'phaser' // Object.is equality
+   ✓ getRuntimeMode > uses phaser runtime when runtime=phaser is explicitly provided 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/runtime/RuntimeMode.spec.ts > getRuntimeMode > ignores runtime=legacy fallback and keeps Phaser runtime active
+AssertionError: expected 'legacy' to be 'phaser' // Object.is equality
+
+Expected: [32m"phaser"[39m
+Received: [31m"legacy"[39m
+
+ ❯ src/runtime/RuntimeMode.spec.ts:23:25
+     21|     const runtimeMode: 'legacy' | 'phaser' = getRuntimeMode(createWind…
+     22| 
+     23|     expect(runtimeMode).toBe('phaser');
+       |                         ^
+     24|   });
+     25| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  14:55:49
+   Duration  245ms (transform 20ms, setup 0ms, collect 15ms, tests 5ms, environment 0ms, prepare 40ms)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/runtime/RuntimeMode.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/app.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/runtime/RuntimeMode.spec.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/runtime/RuntimeMode.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/runtime/RuntimeMode.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  14:56:24
+   Duration  192ms (transform 17ms, setup 0ms, collect 14ms, tests 1ms, environment 0ms, prepare 33ms)
+[0m
+⏳ working... elapsed 3:30 · last activity 0:13 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+D src/CanvasItem.ts
+D src/CanvasRenderer.ts
+D src/Game.ts
+D src/GameItem.ts
+D src/KeyListener.ts
+D src/Level.ts
+D src/Level0.ts
+D src/Level1.ts
+D src/Level2.ts
+D src/Level3.ts
+D src/Level4.ts
+D src/Level5.ts
+D src/Player.ts
+D src/VirusVanguard.ts
+D src/GameItem/Bullet.ts
+D src/GameItem/Death.ts
+D src/GameItem/EnemyBullet.ts
+D src/GameItem/FEmail.ts
+D src/GameItem/MrHacker.ts
+D src/GameItem/RVirus.ts
+D src/GameItem/Trojan.ts
+D src/GameItem/Worm.ts
+[0m✱ [0mGrep "VirusVanguard|CanvasRenderer|KeyListener|from '\./Level|from './Game|from './Player|GameItem/"[90m in src · 1 match[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/parity-matrix.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M e2e/boot-smoke.spec.ts
+
+LSP errors detected in e2e/boot-smoke.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/boot-smoke.spec.ts">
+ERROR [3:94] Property 'page' does not exist on type 'String'.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M e2e/boot-smoke.spec.ts
+[0m✱ [0mGlob "build/*.js.map"[90m in . · 15 matches[0m
+[0m✱ [0mGlob "build/GameItem/*.js.map"[90m in . · 8 matches[0m
+⏳ working... elapsed 5:00 · last activity 0:15 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+D build/CanvasItem.js
+D build/CanvasItem.js.map
+D build/CanvasRenderer.js
+D build/CanvasRenderer.js.map
+D build/Game.js
+D build/Game.js.map
+D build/GameItem.js
+D build/GameItem.js.map
+D build/KeyListener.js
+D build/KeyListener.js.map
+D build/Level.js
+D build/Level.js.map
+D build/Level0.js
+D build/Level0.js.map
+D build/Level1.js
+D build/Level1.js.map
+D build/Level2.js
+D build/Level2.js.map
+D build/Level3.js
+D build/Level3.js.map
+D build/Level4.js
+D build/Level4.js.map
+D build/Level5.js
+D build/Level5.js.map
+D build/Player.js
+D build/Player.js.map
+D build/VirusVanguard.js
+D build/VirusVanguard.js.map
+D build/GameItem/Bullet.js
+D build/GameItem/Bullet.js.map
+D build/GameItem/Death.js
+D build/GameItem/Death.js.map
+D build/GameItem/EnemyBullet.js
+D build/GameItem/EnemyBullet.js.map
+D build/GameItem/FEmail.js
+D build/GameItem/FEmail.js.map
+D build/GameItem/MrHacker.js
+D build/GameItem/MrHacker.js.map
+D build/GameItem/RVirus.js
+D build/GameItem/RVirus.js.map
+D build/GameItem/Trojan.js
+D build/GameItem/Trojan.js.map
+D build/GameItem/Worm.js
+D build/GameItem/Worm.js.map
+Using the brainstorming and TDD skills for this decommission slice; I’ve already marked PR-035 in progress and implemented the first red-green test cycle. I’m running the required gates now.
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 5ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 5ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 9ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 5ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 5ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 4ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 8ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 4ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 5ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 5ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 12ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 2ms
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 2ms
+
+ Test Files  29 passed (29)
+      Tests  111 passed (111)
+   Start at  14:58:30
+   Duration  1.32s (transform 403ms, setup 0ms, collect 1.01s, tests 110ms, environment 10ms, prepare 2.39s)
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 2 tests using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (575ms)
+  ✓  2 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (332ms)
+
+  2 passed (2.4s)
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ D build/CanvasItem.js
+ D build/CanvasItem.js.map
+ D build/CanvasRenderer.js
+ D build/CanvasRenderer.js.map
+ D build/Game.js
+ D build/Game.js.map
+ D build/GameItem.js
+ D build/GameItem.js.map
+ D build/GameItem/Bullet.js
+ D build/GameItem/Bullet.js.map
+ D build/GameItem/Death.js
+ D build/GameItem/Death.js.map
+ D build/GameItem/EnemyBullet.js
+ D build/GameItem/EnemyBullet.js.map
+ D build/GameItem/FEmail.js
+ D build/GameItem/FEmail.js.map
+ D build/GameItem/MrHacker.js
+ D build/GameItem/MrHacker.js.map
+ D build/GameItem/RVirus.js
+ D build/GameItem/RVirus.js.map
+ D build/GameItem/Trojan.js
+ D build/GameItem/Trojan.js.map
+ D build/GameItem/Worm.js
+ D build/GameItem/Worm.js.map
+ D build/KeyListener.js
+ D build/KeyListener.js.map
+ D build/Level.js
+ D build/Level.js.map
+ D build/Level0.js
+ D build/Level0.js.map
+ D build/Level1.js
+ D build/Level1.js.map
+ D build/Level2.js
+ D build/Level2.js.map
+ D build/Level3.js
+ D build/Level3.js.map
+ D build/Level4.js
+ D build/Level4.js.map
+ D build/Level5.js
+ D build/Level5.js.map
+ D build/Player.js
+ D build/Player.js.map
+ D build/VirusVanguard.js
+ D build/VirusVanguard.js.map
+ M build/app.js
+ M build/app.js.map
+ M build/runtime/RuntimeMode.js
+ M build/runtime/RuntimeMode.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M docs/parity/parity-matrix.md
+ M e2e/boot-smoke.spec.ts
+ D src/CanvasItem.ts
+ D src/CanvasRenderer.ts
+ D src/Game.ts
+ D src/GameItem.ts
+ D src/GameItem/Bullet.ts
+ D src/GameItem/Death.ts
+ D src/GameItem/EnemyBullet.ts
+ D src/GameItem/FEmail.ts
+ D src/GameItem/MrHacker.ts
+ D src/GameItem/RVirus.ts
+ D src/GameItem/Trojan.ts
+ D src/GameItem/Worm.ts
+ D src/KeyListener.ts
+ D src/Level.ts
+ D src/Level0.ts
+ D src/Level1.ts
+ D src/Level2.ts
+ D src/Level3.ts
+ D src/Level4.ts
+ D src/Level5.ts
+ D src/Player.ts
+ D src/VirusVanguard.ts
+ M src/app.ts
+ M src/runtime/RuntimeMode.spec.ts
+ M src/runtime/RuntimeMode.ts
+[0m
+⏳ working... elapsed 5:50 · last activity 0:17 ago
+⏳ working... elapsed 6:00 · last activity 0:27 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ D build/CanvasItem.js
+ D build/CanvasItem.js.map
+ D build/CanvasRenderer.js
+ D build/CanvasRenderer.js.map
+ D build/Game.js
+ D build/Game.js.map
+ D build/GameItem.js
+ D build/GameItem.js.map
+ D build/GameItem/Bullet.js
+ D build/GameItem/Bullet.js.map
+ D build/GameItem/Death.js
+ D build/GameItem/Death.js.map
+ D build/GameItem/EnemyBullet.js
+ D build/GameItem/EnemyBullet.js.map
+ D build/GameItem/FEmail.js
+ D build/GameItem/FEmail.js.map
+ D build/GameItem/MrHacker.js
+ D build/GameItem/MrHacker.js.map
+ D build/GameItem/RVirus.js
+ D build/GameItem/RVirus.js.map
+ D build/GameItem/Trojan.js
+ D build/GameItem/Trojan.js.map
+ D build/GameItem/Worm.js
+ D build/GameItem/Worm.js.map
+ D build/KeyListener.js
+ D build/KeyListener.js.map
+ D build/Level.js
+ D build/Level.js.map
+ D build/Level0.js
+ D build/Level0.js.map
+ D build/Level1.js
+ D build/Level1.js.map
+ D build/Level2.js
+ D build/Level2.js.map
+ D build/Level3.js
+ D build/Level3.js.map
+ D build/Level4.js
+ D build/Level4.js.map
+ D build/Level5.js
+ D build/Level5.js.map
+ D build/Player.js
+ D build/Player.js.map
+ D build/VirusVanguard.js
+ D build/VirusVanguard.js.map
+ M build/app.js
+ M build/app.js.map
+ M build/runtime/RuntimeMode.js
+ M build/runtime/RuntimeMode.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M docs/parity/parity-matrix.md
+ M e2e/boot-smoke.spec.ts
+ D src/CanvasItem.ts
+ D src/CanvasRenderer.ts
+ D src/Game.ts
+ D src/GameItem.ts
+ D src/GameItem/Bullet.ts
+ D src/GameItem/Death.ts
+ D src/GameItem/EnemyBullet.ts
+ D src/GameItem/FEmail.ts
+ D src/GameItem/MrHacker.ts
+ D src/GameItem/RVirus.ts
+ D src/GameItem/Trojan.ts
+ D src/GameItem/Worm.ts
+ D src/KeyListener.ts
+ D src/Level.ts
+ D src/Level0.ts
+ D src/Level1.ts
+ D src/Level2.ts
+ D src/Level3.ts
+ D src/Level4.ts
+ D src/Level5.ts
+ D src/Player.ts
+ D src/VirusVanguard.ts
+ M src/app.ts
+ M src/runtime/RuntimeMode.spec.ts
+ M src/runtime/RuntimeMode.ts
+?? docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+[0m
+[0m$ [0mgit log -5 --oneline
+ba36728 Ralph iteration 23: work in progress
+fbd3686 feat(parity:PR-034): switch default runtime to Phaser with legacy fallback
+25afd03 Ralph iteration 22: work in progress
+8f4a98b Ralph iteration 21: work in progress
+31c0fc8 feat(parity:PR-032): add level5 boss defeat and victory flow parity
+[0m
+[0m$ [0mgit diff --stat
+.ralph/overnight-caffeinate-20260211-103217.log | 445 +++++++++++++++++++
+ .ralph/ralph-loop.state.json                    |   2 +-
+ .ralph/ralph-tasks.md                           |   2 +-
+ build/CanvasItem.js                             |  26 --
+ build/CanvasItem.js.map                         |   1 -
+ build/CanvasRenderer.js                         |  65 ---
+ build/CanvasRenderer.js.map                     |   1 -
+ build/Game.js                                   |  73 ----
+ build/Game.js.map                               |   1 -
+ build/GameItem.js                               |  13 -
+ build/GameItem.js.map                           |   1 -
+ build/GameItem/Bullet.js                        |  66 ---
+ build/GameItem/Bullet.js.map                    |   1 -
+ build/GameItem/Death.js                         |  55 ---
+ build/GameItem/Death.js.map                     |   1 -
+ build/GameItem/EnemyBullet.js                   |  51 ---
+ build/GameItem/EnemyBullet.js.map               |   1 -
+ build/GameItem/FEmail.js                        |  78 ----
+ build/GameItem/FEmail.js.map                    |   1 -
+ build/GameItem/MrHacker.js                      |  98 -----
+ build/GameItem/MrHacker.js.map                  |   1 -
+ build/GameItem/RVirus.js                        | 123 ------
+ build/GameItem/RVirus.js.map                    |   1 -
+ build/GameItem/Trojan.js                        |  48 --
+ build/GameItem/Trojan.js.map                    |   1 -
+ build/GameItem/Worm.js                          |  71 ---
+ build/GameItem/Worm.js.map                      |   1 -
+ build/KeyListener.js                            |  77 ----
+ build/KeyListener.js.map                        |   1 -
+ build/Level.js                                  | 450 -------------------
+ build/Level.js.map                              |   1 -
+ build/Level0.js                                 |  69 ---
+ build/Level0.js.map                             |   1 -
+ build/Level1.js                                 |  67 ---
+ build/Level1.js.map                             |   1 -
+ build/Level2.js                                 |  67 ---
+ build/Level2.js.map                             |   1 -
+ build/Level3.js                                 |  68 ---
+ build/Level3.js.map                             |   1 -
+ build/Level4.js                                 |  71 ---
+ build/Level4.js.map                             |   1 -
+ build/Level5.js                                 |  75 ----
+ build/Level5.js.map                             |   1 -
+ build/Player.js                                 |  76 ----
+ build/Player.js.map                             |   1 -
+ build/VirusVanguard.js                          |  39 --
+ build/VirusVanguard.js.map                      |   1 -
+ build/app.js                                    |   4 -
+ build/app.js.map                                |   2 +-
+ build/runtime/RuntimeMode.js                    |   4 -
+ build/runtime/RuntimeMode.js.map                |   2 +-
+ docs/architecture/phaser-migration.mmd          |   6 +-
+ docs/parity/known-limitations.md                |   2 +-
+ docs/parity/parity-matrix.md                    |   2 +-
+ e2e/boot-smoke.spec.ts                          |  14 +-
+ src/CanvasItem.ts                               |  58 ---
+ src/CanvasRenderer.ts                           | 198 ---------
+ src/Game.ts                                     | 173 --------
+ src/GameItem.ts                                 |  20 -
+ src/GameItem/Bullet.ts                          |  86 ----
+ src/GameItem/Death.ts                           |  80 ----
+ src/GameItem/EnemyBullet.ts                     |  71 ---
+ src/GameItem/FEmail.ts                          |  95 ----
+ src/GameItem/MrHacker.ts                        | 138 ------
+ src/GameItem/RVirus.ts                          | 154 -------
+ src/GameItem/Trojan.ts                          |  65 ---
+ src/GameItem/Worm.ts                            |  92 ----
+ src/KeyListener.ts                              | 156 -------
+ src/Level.ts                                    | 557 ------------------------
+ src/Level0.ts                                   |  87 ----
+ src/Level1.ts                                   |  85 ----
+ src/Level2.ts                                   |  85 ----
+ src/Level3.ts                                   |  89 ----
+ src/Level4.ts                                   |  88 ----
+ src/Level5.ts                                   |  99 -----
+ src/Player.ts                                   | 109 -----
+ src/VirusVanguard.ts                            |  65 ---
+ src/app.ts                                      |   7 +-
+ src/runtime/RuntimeMode.spec.ts                 |  10 +-
+ src/runtime/RuntimeMode.ts                      |   9 +-
+ 80 files changed, 472 insertions(+), 4537 deletions(-)
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src e2e docs build && git commit -m "feat(parity:PR-035): remove legacy runtime and decommission fallback path" && git status --short
+[main b3a8ad2] feat(parity:PR-035): remove legacy runtime and decommission fallback path
+ 79 files changed, 184 insertions(+), 4536 deletions(-)
+ delete mode 100644 build/CanvasItem.js
+ delete mode 100644 build/CanvasItem.js.map
+ delete mode 100644 build/CanvasRenderer.js
+ delete mode 100644 build/CanvasRenderer.js.map
+ delete mode 100644 build/Game.js
+ delete mode 100644 build/Game.js.map
+ delete mode 100644 build/GameItem.js
+ delete mode 100644 build/GameItem.js.map
+ delete mode 100644 build/GameItem/Bullet.js
+ delete mode 100644 build/GameItem/Bullet.js.map
+ delete mode 100644 build/GameItem/Death.js
+ delete mode 100644 build/GameItem/Death.js.map
+ delete mode 100644 build/GameItem/EnemyBullet.js
+ delete mode 100644 build/GameItem/EnemyBullet.js.map
+ delete mode 100644 build/GameItem/FEmail.js
+ delete mode 100644 build/GameItem/FEmail.js.map
+ delete mode 100644 build/GameItem/MrHacker.js
+ delete mode 100644 build/GameItem/MrHacker.js.map
+ delete mode 100644 build/GameItem/RVirus.js
+ delete mode 100644 build/GameItem/RVirus.js.map
+ delete mode 100644 build/GameItem/Trojan.js
+ delete mode 100644 build/GameItem/Trojan.js.map
+ delete mode 100644 build/GameItem/Worm.js
+ delete mode 100644 build/GameItem/Worm.js.map
+ delete mode 100644 build/KeyListener.js
+ delete mode 100644 build/KeyListener.js.map
+ delete mode 100644 build/Level.js
+ delete mode 100644 build/Level.js.map
+ delete mode 100644 build/Level0.js
+ delete mode 100644 build/Level0.js.map
+ delete mode 100644 build/Level1.js
+ delete mode 100644 build/Level1.js.map
+ delete mode 100644 build/Level2.js
+ delete mode 100644 build/Level2.js.map
+ delete mode 100644 build/Level3.js
+ delete mode 100644 build/Level3.js.map
+ delete mode 100644 build/Level4.js
+ delete mode 100644 build/Level4.js.map
+ delete mode 100644 build/Level5.js
+ delete mode 100644 build/Level5.js.map
+ delete mode 100644 build/Player.js
+ delete mode 100644 build/Player.js.map
+ delete mode 100644 build/VirusVanguard.js
+ delete mode 100644 build/VirusVanguard.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+ delete mode 100644 src/CanvasItem.ts
+ delete mode 100644 src/CanvasRenderer.ts
+ delete mode 100644 src/Game.ts
+ delete mode 100644 src/GameItem.ts
+ delete mode 100644 src/GameItem/Bullet.ts
+ delete mode 100644 src/GameItem/Death.ts
+ delete mode 100644 src/GameItem/EnemyBullet.ts
+ delete mode 100644 src/GameItem/FEmail.ts
+ delete mode 100644 src/GameItem/MrHacker.ts
+ delete mode 100644 src/GameItem/RVirus.ts
+ delete mode 100644 src/GameItem/Trojan.ts
+ delete mode 100644 src/GameItem/Worm.ts
+ delete mode 100644 src/KeyListener.ts
+ delete mode 100644 src/Level.ts
+ delete mode 100644 src/Level0.ts
+ delete mode 100644 src/Level1.ts
+ delete mode 100644 src/Level2.ts
+ delete mode 100644 src/Level3.ts
+ delete mode 100644 src/Level4.ts
+ delete mode 100644 src/Level5.ts
+ delete mode 100644 src/Player.ts
+ delete mode 100644 src/VirusVanguard.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m→ [0mSkill "verification-before-completion"
+<promise>COMPLETE</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 24
+Elapsed:   6:37
+Tools:     none
+Exit code: 0
+Completion promise: detected
+
+╔══════════════════════════════════════════════════════════════════╗
+║  ✅ Completion promise detected: <promise>COMPLETE</promise>
+║  Task completed in 24 iteration(s)
+║  Total time: 4h 25m 48s
+╚══════════════════════════════════════════════════════════════════╝

@@ -58,8 +58,8 @@ Success requirements before marking `[x]`:
    - `feat(parity:PR-XXX): <summary>`
 
 Stop condition:
-- Output `<promise>READY_FOR_NEXT_TASK</promise>` after completing one task.
-- Output `<promise>COMPLETE</promise>` only when all tasks in `.ralph/ralph-tasks.md` are `[x]`.
+- Output the configured task promise after completing one task.
+- Output the configured completion promise only when all tasks in `.ralph/ralph-tasks.md` are `[x]`.
 
 Important:
 - Never claim success without command evidence.

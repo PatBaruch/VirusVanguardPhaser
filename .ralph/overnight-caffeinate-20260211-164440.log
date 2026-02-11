@@ -1,0 +1,45 @@
+
+> ts-wizards-chest@2023.1 ralph:overnight
+> bash scripts/ralph/run-overnight.sh 1000
+
+Starting overnight Ralph loop
+- Agent: opencode
+- Max iterations: 1000
+- Prompt file: /Users/pbaruch/Desktop/VirusVanguardPhaser/scripts/ralph/overnight-phaser.prompt.md
+- Task promise: NEXT_PR_DONE
+- Completion promise: ALL_PR_TASKS_COMPLETE
+
+╔══════════════════════════════════════════════════════════════════╗
+║                    Ralph Wiggum Loop                            ║
+║         Iterative AI Development with OpenCode                    ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Task: /Users/pbaruch/Desktop/VirusVanguardPhaser/scripts/ralph/overnight-phaser.prompt.md
+Preview: You are the autonomous overnight migration agent for `VirusVanguardPhaser`. Read...
+Completion promise: ALL_PR_TASKS_COMPLETE
+Tasks mode: ENABLED
+Task promise: NEXT_PR_DONE
+Min iterations: 1
+Max iterations: 1000
+Agent: OpenCode
+Permissions: auto-approve all tools
+
+Starting loop... (Ctrl+C to stop)
+════════════════════════════════════════════════════════════════════
+
+🔄 Iteration 1 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+I’m going to use the `brainstorming` skill first to frame the traversal e2e scope before making changes.
+[0m→ [0mSkill "brainstorming"
+I’m going to use the `writing-plans` skill to create a tight implementation plan before editing code.
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 1
+Elapsed:   0:24
+Tools:     none
+Exit code: 0
+Completion promise: not detected

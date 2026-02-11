@@ -46,3 +46,10 @@
 - [x] PR-033: Full parity matrix run + stabilization fixes only
 - [x] PR-034: Switch default runtime to Phaser and retain legacy fallback flag
 - [x] PR-035: Remove legacy runtime after one stable cycle without P0/P1 regressions
+
+## Wave G - Post-Parity Validation and Production Confidence
+- [ ] PR-036: Add end-to-end traversal journey test from Level0 start screen to Level5 reachability checkpoints
+- [ ] PR-037: Add combat interaction e2e coverage for shooting, enemy damage, and score progression in early levels
+- [ ] PR-038: Add long-run runtime soak validation (no console/page errors under sustained input)
+- [ ] PR-039: Validate PRD traceability artifacts end-to-end (handoffs, parity matrix, known limitations) and repair gaps
+- [ ] PR-040: Add CI workflow gate for build, lint, unit, and e2e as required merge checks
