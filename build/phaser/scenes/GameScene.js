@@ -7,6 +7,8 @@ import { LEVEL1_DIALOGUE_TEXTURE_KEYS, advanceLevel1DialogueState, createInitial
 import { canMoveWithinLevel1Bounds, isLevel1ToLevel2TransitionTriggered, } from './level1TraversalRules.js';
 import { LEVEL2_DIALOGUE_TEXTURE_KEYS, advanceLevel2DialogueState, createInitialLevel2DialogueState, resolveLevel2DialoguePhase, } from './level2DialogueState.js';
 import { canMoveWithinLevel2Bounds, isLevel2ToLevel3TransitionTriggered, } from './level2TraversalRules.js';
+import { LEVEL3_DIALOGUE_TEXTURE_KEYS, advanceLevel3DialogueState, createInitialLevel3DialogueState, resolveLevel3DialoguePhase, } from './level3DialogueState.js';
+import { canMoveWithinLevel3Bounds, isLevel3ToLevel4TransitionTriggered, } from './level3TraversalRules.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -19,6 +21,8 @@ export default class GameScene extends Phaser.Scene {
     level1Phase;
     level2DialogueState;
     level2Phase;
+    level3DialogueState;
+    level3Phase;
     player;
     spaceKey;
     moveUpKey;
@@ -28,6 +32,7 @@ export default class GameScene extends Phaser.Scene {
     hasTriggeredLevel1Transition;
     hasTriggeredLevel2Transition;
     hasTriggeredLevel3Transition;
+    hasTriggeredLevel4Transition;
     constructor() {
         super(GameScene.SCENE_KEY);
         this.dialogueState = createInitialLevel0DialogueState();
@@ -39,6 +44,8 @@ export default class GameScene extends Phaser.Scene {
         this.level1Phase = resolveLevel1DialoguePhase(this.level1DialogueState, LEVEL1_DIALOGUE_TEXTURE_KEYS.length);
         this.level2DialogueState = createInitialLevel2DialogueState();
         this.level2Phase = resolveLevel2DialoguePhase(this.level2DialogueState, LEVEL2_DIALOGUE_TEXTURE_KEYS.length);
+        this.level3DialogueState = createInitialLevel3DialogueState();
+        this.level3Phase = resolveLevel3DialoguePhase(this.level3DialogueState, LEVEL3_DIALOGUE_TEXTURE_KEYS.length);
         this.player = null;
         this.spaceKey = null;
         this.moveUpKey = null;
@@ -48,6 +55,7 @@ export default class GameScene extends Phaser.Scene {
         this.hasTriggeredLevel1Transition = false;
         this.hasTriggeredLevel2Transition = false;
         this.hasTriggeredLevel3Transition = false;
+        this.hasTriggeredLevel4Transition = false;
     }
     create() {
         const centerX = this.scale.width / 2;
@@ -83,6 +91,10 @@ export default class GameScene extends Phaser.Scene {
                 this.level2DialogueState = advanceLevel2DialogueState(this.level2DialogueState);
                 this.level2Phase = resolveLevel2DialoguePhase(this.level2DialogueState, LEVEL2_DIALOGUE_TEXTURE_KEYS.length);
             }
+            else if (this.activeLevelId === 3 && this.level3Phase === 'dialogue') {
+                this.level3DialogueState = advanceLevel3DialogueState(this.level3DialogueState);
+                this.level3Phase = resolveLevel3DialoguePhase(this.level3DialogueState, LEVEL3_DIALOGUE_TEXTURE_KEYS.length);
+            }
             this.syncActiveLevelVisualState();
         }
         if (this.activeLevelId === 0 && this.level0Phase === 'walkable') {
@@ -98,6 +110,11 @@ export default class GameScene extends Phaser.Scene {
         if (this.activeLevelId === 2 && this.level2Phase === 'walkable') {
             this.updatePlayerMovement();
             this.updateLevel2TransitionTrigger();
+            return;
+        }
+        if (this.activeLevelId === 3 && this.level3Phase === 'walkable') {
+            this.updatePlayerMovement();
+            this.updateLevel3TransitionTrigger();
         }
     }
     updatePlayerMovement() {
@@ -128,8 +145,11 @@ export default class GameScene extends Phaser.Scene {
         else if (this.activeLevelId === 1) {
             canApplyMovement = canMoveWithinLevel1Bounds(traversalSnapshot, movementStep.facingDirection);
         }
-        else {
+        else if (this.activeLevelId === 2) {
             canApplyMovement = canMoveWithinLevel2Bounds(traversalSnapshot, movementStep.facingDirection);
+        }
+        else {
+            canApplyMovement = canMoveWithinLevel3Bounds(traversalSnapshot, movementStep.facingDirection);
         }
         if (!canApplyMovement) {
             return;
@@ -201,6 +221,28 @@ export default class GameScene extends Phaser.Scene {
             fromLevel: 2,
             toLevel: 3,
         });
+        this.enterLevel3();
+    }
+    updateLevel3TransitionTrigger() {
+        if (this.player === null || this.hasTriggeredLevel4Transition) {
+            return;
+        }
+        const hasReachedTransition = isLevel3ToLevel4TransitionTriggered({
+            canvasHeight: this.scale.height,
+            canvasWidth: this.scale.width,
+            playerHeight: this.player.displayHeight,
+            playerWidth: this.player.displayWidth,
+            playerX: this.player.x,
+            playerY: this.player.y,
+        });
+        if (!hasReachedTransition) {
+            return;
+        }
+        this.hasTriggeredLevel4Transition = true;
+        this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
+            fromLevel: 3,
+            toLevel: 4,
+        });
     }
     enterLevel1() {
         this.activeLevelId = 1;
@@ -215,6 +257,12 @@ export default class GameScene extends Phaser.Scene {
         this.level2Phase = resolveLevel2DialoguePhase(this.level2DialogueState, LEVEL2_DIALOGUE_TEXTURE_KEYS.length);
         this.syncActiveLevelVisualState();
     }
+    enterLevel3() {
+        this.activeLevelId = 3;
+        this.level3DialogueState = createInitialLevel3DialogueState();
+        this.level3Phase = resolveLevel3DialoguePhase(this.level3DialogueState, LEVEL3_DIALOGUE_TEXTURE_KEYS.length);
+        this.syncActiveLevelVisualState();
+    }
     syncActiveLevelVisualState() {
         if (this.activeLevelId === 0) {
             this.syncLevel0VisualState();
@@ -224,7 +272,11 @@ export default class GameScene extends Phaser.Scene {
             this.syncLevel1VisualState();
             return;
         }
-        this.syncLevel2VisualState();
+        if (this.activeLevelId === 2) {
+            this.syncLevel2VisualState();
+            return;
+        }
+        this.syncLevel3VisualState();
     }
     syncLevel0VisualState() {
         if (this.level0Phase === 'startScreen') {
@@ -264,6 +316,18 @@ export default class GameScene extends Phaser.Scene {
             this.setDialogueVisible(true);
             this.setPlayerVisible(false);
             this.dialogueImage?.setTexture(LEVEL2_DIALOGUE_TEXTURE_KEYS[this.level2DialogueState.currentDialogue]);
+            return;
+        }
+        this.setDialogueVisible(false);
+        this.setPlayerVisible(true);
+    }
+    syncLevel3VisualState() {
+        document.body.className = 'level3';
+        this.setStartPromptVisible(false);
+        if (this.level3Phase === 'dialogue') {
+            this.setDialogueVisible(true);
+            this.setPlayerVisible(false);
+            this.dialogueImage?.setTexture(LEVEL3_DIALOGUE_TEXTURE_KEYS[this.level3DialogueState.currentDialogue]);
             return;
         }
         this.setDialogueVisible(false);

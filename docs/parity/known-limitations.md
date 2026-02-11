@@ -3,7 +3,7 @@
 Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, and Level1 to Level2 shells with dialogue/bounds/transition zones; dedicated Level3 to Level5 scene shells, shooting, enemies, and boss logic remain pending.
+- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, and Level1 to Level3 shells with dialogue/bounds/transition zones; dedicated Level4 to Level5 scene shells, shooting, enemies, and boss logic remain pending.
 - Documentation artifacts currently track migration status only at wave/feature granularity; behavior-level parity evidence will be filled in as gameplay PRs land.
 
 ## Resolved
@@ -16,3 +16,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-011 added Level0 walkable bounds checks and Level0-to-Level1 transition trigger detection using legacy threshold ratios.
 - PR-012 added a Phaser Level1 shell with dialogue progression, Level1 movement bounds, Level1 background class switching, and Level1-to-Level2 transition zone detection.
 - PR-013 added a Phaser Level2 shell with dialogue progression, Level2 movement bounds, Level2 background class switching, and Level2-to-Level3 transition zone detection.
+- PR-014 added a Phaser Level3 shell with dialogue progression, Level3 movement bounds, Level3 background class switching, and Level3-to-Level4 transition zone detection.
