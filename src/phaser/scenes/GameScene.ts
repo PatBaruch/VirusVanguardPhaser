@@ -157,6 +157,13 @@ import {
   resolveLevel5EnemyBulletPlayerCollisions,
   resolveLevel5MrHackerHealthBarTextureKey,
 } from './level5MrHackerCombat.js';
+import {
+  INITIAL_SCORE_MULTIPLIER,
+  advanceScoreMultiplier,
+  resolveLevel5CombatBackdropClass,
+  resolveVictorySummaryText,
+  shouldRestartFromVictory,
+} from './level5VictoryFlow.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -268,6 +275,16 @@ export default class GameScene extends Phaser.Scene {
 
   private playerHealth: number;
 
+  private scoreMultiplier: number;
+
+  private victoryScoreText: Phaser.GameObjects.Text | null;
+
+  private victoryMultiplierText: Phaser.GameObjects.Text | null;
+
+  private victoryFinalScoreText: Phaser.GameObjects.Text | null;
+
+  private victoryRestartPromptText: Phaser.GameObjects.Text | null;
+
   public constructor() {
     super(GameScene.SCENE_KEY);
     this.dialogueState = createInitialLevel0DialogueState();
@@ -338,6 +355,11 @@ export default class GameScene extends Phaser.Scene {
     this.level4SplitRVirusNextEnemyNumericId = 0;
     this.level4SplitWormNextEnemyNumericId = 0;
     this.playerHealth = 100;
+    this.scoreMultiplier = INITIAL_SCORE_MULTIPLIER;
+    this.victoryScoreText = null;
+    this.victoryMultiplierText = null;
+    this.victoryFinalScoreText = null;
+    this.victoryRestartPromptText = null;
   }
 
   public create(): void {
@@ -362,6 +384,58 @@ export default class GameScene extends Phaser.Scene {
     );
     this.startPromptText.setOrigin(0.5, 0.5);
 
+    this.victoryScoreText = this.add.text(
+      centerX,
+      centerY,
+      '',
+      {
+        color: '#7fff00',
+        fontFamily: 'Copperplate',
+        fontSize: '50px',
+      },
+    );
+    this.victoryScoreText.setOrigin(0.5, 0.5);
+    this.victoryScoreText.setVisible(false);
+
+    this.victoryMultiplierText = this.add.text(
+      centerX,
+      centerY + 100,
+      '',
+      {
+        color: '#7fff00',
+        fontFamily: 'Copperplate',
+        fontSize: '50px',
+      },
+    );
+    this.victoryMultiplierText.setOrigin(0.5, 0.5);
+    this.victoryMultiplierText.setVisible(false);
+
+    this.victoryFinalScoreText = this.add.text(
+      centerX,
+      centerY + 200,
+      '',
+      {
+        color: '#7fff00',
+        fontFamily: 'Copperplate',
+        fontSize: '50px',
+      },
+    );
+    this.victoryFinalScoreText.setOrigin(0.5, 0.5);
+    this.victoryFinalScoreText.setVisible(false);
+
+    this.victoryRestartPromptText = this.add.text(
+      centerX,
+      centerY + 300,
+      '',
+      {
+        color: '#7fff00',
+        fontFamily: 'Copperplate',
+        fontSize: '50px',
+      },
+    );
+    this.victoryRestartPromptText.setOrigin(0.5, 0.5);
+    this.victoryRestartPromptText.setVisible(false);
+
     this.dialogueImage = this.add.image(centerX, centerY, LEVEL0_DIALOGUE_TEXTURE_KEYS[0]);
     this.dialogueImage.setVisible(false);
 
@@ -383,7 +457,17 @@ export default class GameScene extends Phaser.Scene {
     this.updateProjectiles(delta);
     this.updateEnemyBullets(delta);
 
+    this.scoreMultiplier = advanceScoreMultiplier(this.scoreMultiplier, this.hasTriggeredVictory);
+
     if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
+      if (shouldRestartFromVictory({
+        hasTriggeredVictory: this.hasTriggeredVictory,
+        isSpaceJustPressed: true,
+      })) {
+        window.location.reload();
+        return;
+      }
+
       if (this.activeLevelId === 0) {
         this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
         this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
@@ -1500,6 +1584,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.hasTriggeredVictory = true;
+    this.syncVictorySummaryText();
     this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
       fromLevel: 5,
       toLevel: 'victory',
@@ -1944,8 +2029,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   private syncLevel5VisualState(): void {
-    document.body.className = 'level5';
+    document.body.className = resolveLevel5CombatBackdropClass({
+      activeCombatItemCount: this.activeCombatItemCount,
+      score: this.score,
+    });
     this.setStartPromptVisible(false);
+    this.setVictorySummaryVisible(false);
 
     if (this.level5Phase === 'dialogue') {
       this.setDialogueVisible(true);
@@ -1965,6 +2054,8 @@ export default class GameScene extends Phaser.Scene {
     this.setDialogueVisible(false);
     this.setPlayerVisible(false);
     this.setMrHackerHealthBarVisible(false);
+    this.syncVictorySummaryText();
+    this.setVictorySummaryVisible(true);
   }
 
   private syncLevel5BossHealthBar(): void {
@@ -1997,6 +2088,25 @@ export default class GameScene extends Phaser.Scene {
     if (this.startPromptText !== null) {
       this.startPromptText.setVisible(shouldBeVisible);
     }
+  }
+
+  private syncVictorySummaryText(): void {
+    const summary = resolveVictorySummaryText({
+      multiplier: this.scoreMultiplier,
+      score: this.score,
+    });
+
+    this.victoryScoreText?.setText(summary.scoreText);
+    this.victoryMultiplierText?.setText(summary.multiplierText);
+    this.victoryFinalScoreText?.setText(summary.finalScoreText);
+    this.victoryRestartPromptText?.setText(summary.restartPromptText);
+  }
+
+  private setVictorySummaryVisible(shouldBeVisible: boolean): void {
+    this.victoryScoreText?.setVisible(shouldBeVisible);
+    this.victoryMultiplierText?.setVisible(shouldBeVisible);
+    this.victoryFinalScoreText?.setVisible(shouldBeVisible);
+    this.victoryRestartPromptText?.setVisible(shouldBeVisible);
   }
 
   private setPlayerVisible(shouldBeVisible: boolean): void {

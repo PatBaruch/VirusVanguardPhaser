@@ -40,7 +40,7 @@
 - [x] PR-029: Level5 MrHacker spawn + HP model + health bar parity
 - [x] PR-030: Boss bullet firing + enemy bullet collision/damage parity
 - [x] PR-031: Boss minion spawn cycle parity (FEmail, RVirus, Worm)
-- [ ] PR-032: Boss defeat + win flow + final multiplier + restart parity
+- [x] PR-032: Boss defeat + win flow + final multiplier + restart parity
 
 ## Wave F - Cutover and Decommission
 - [ ] PR-033: Full parity matrix run + stabilization fixes only

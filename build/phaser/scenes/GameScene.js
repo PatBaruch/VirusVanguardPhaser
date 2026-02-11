@@ -31,6 +31,7 @@ import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpa
 import MrHackerPrefab from '../entities/MrHackerPrefab.js';
 import EnemyBulletPrefab from '../entities/EnemyBulletPrefab.js';
 import { advanceLevel5MrHackerBulletState, advanceLevel5MrHackerMinionSpawnState, advanceLevel5MrHackerSpawnState, createInitialLevel5MrHackerBulletState, createInitialLevel5MrHackerMinionSpawnState, createInitialLevel5MrHackerSpawnState, resolveLevel5EnemyBulletPlayerCollisions, resolveLevel5MrHackerHealthBarTextureKey, } from './level5MrHackerCombat.js';
+import { INITIAL_SCORE_MULTIPLIER, advanceScoreMultiplier, resolveLevel5CombatBackdropClass, resolveVictorySummaryText, shouldRestartFromVictory, } from './level5VictoryFlow.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -85,6 +86,11 @@ export default class GameScene extends Phaser.Scene {
     level4SplitRVirusNextEnemyNumericId;
     level4SplitWormNextEnemyNumericId;
     playerHealth;
+    scoreMultiplier;
+    victoryScoreText;
+    victoryMultiplierText;
+    victoryFinalScoreText;
+    victoryRestartPromptText;
     constructor() {
         super(GameScene.SCENE_KEY);
         this.dialogueState = createInitialLevel0DialogueState();
@@ -137,6 +143,11 @@ export default class GameScene extends Phaser.Scene {
         this.level4SplitRVirusNextEnemyNumericId = 0;
         this.level4SplitWormNextEnemyNumericId = 0;
         this.playerHealth = 100;
+        this.scoreMultiplier = INITIAL_SCORE_MULTIPLIER;
+        this.victoryScoreText = null;
+        this.victoryMultiplierText = null;
+        this.victoryFinalScoreText = null;
+        this.victoryRestartPromptText = null;
     }
     create() {
         const centerX = this.scale.width / 2;
@@ -152,6 +163,34 @@ export default class GameScene extends Phaser.Scene {
             fontSize: '50px',
         });
         this.startPromptText.setOrigin(0.5, 0.5);
+        this.victoryScoreText = this.add.text(centerX, centerY, '', {
+            color: '#7fff00',
+            fontFamily: 'Copperplate',
+            fontSize: '50px',
+        });
+        this.victoryScoreText.setOrigin(0.5, 0.5);
+        this.victoryScoreText.setVisible(false);
+        this.victoryMultiplierText = this.add.text(centerX, centerY + 100, '', {
+            color: '#7fff00',
+            fontFamily: 'Copperplate',
+            fontSize: '50px',
+        });
+        this.victoryMultiplierText.setOrigin(0.5, 0.5);
+        this.victoryMultiplierText.setVisible(false);
+        this.victoryFinalScoreText = this.add.text(centerX, centerY + 200, '', {
+            color: '#7fff00',
+            fontFamily: 'Copperplate',
+            fontSize: '50px',
+        });
+        this.victoryFinalScoreText.setOrigin(0.5, 0.5);
+        this.victoryFinalScoreText.setVisible(false);
+        this.victoryRestartPromptText = this.add.text(centerX, centerY + 300, '', {
+            color: '#7fff00',
+            fontFamily: 'Copperplate',
+            fontSize: '50px',
+        });
+        this.victoryRestartPromptText.setOrigin(0.5, 0.5);
+        this.victoryRestartPromptText.setVisible(false);
         this.dialogueImage = this.add.image(centerX, centerY, LEVEL0_DIALOGUE_TEXTURE_KEYS[0]);
         this.dialogueImage.setVisible(false);
         this.player = new PlayerPrefab(this);
@@ -165,7 +204,15 @@ export default class GameScene extends Phaser.Scene {
     update(_time, delta) {
         this.updateProjectiles(delta);
         this.updateEnemyBullets(delta);
+        this.scoreMultiplier = advanceScoreMultiplier(this.scoreMultiplier, this.hasTriggeredVictory);
         if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
+            if (shouldRestartFromVictory({
+                hasTriggeredVictory: this.hasTriggeredVictory,
+                isSpaceJustPressed: true,
+            })) {
+                window.location.reload();
+                return;
+            }
             if (this.activeLevelId === 0) {
                 this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
                 this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
@@ -1094,6 +1141,7 @@ export default class GameScene extends Phaser.Scene {
             return;
         }
         this.hasTriggeredVictory = true;
+        this.syncVictorySummaryText();
         this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
             fromLevel: 5,
             toLevel: 'victory',
@@ -1464,8 +1512,12 @@ export default class GameScene extends Phaser.Scene {
         this.setMrHackerHealthBarVisible(false);
     }
     syncLevel5VisualState() {
-        document.body.className = 'level5';
+        document.body.className = resolveLevel5CombatBackdropClass({
+            activeCombatItemCount: this.activeCombatItemCount,
+            score: this.score,
+        });
         this.setStartPromptVisible(false);
+        this.setVictorySummaryVisible(false);
         if (this.level5Phase === 'dialogue') {
             this.setDialogueVisible(true);
             this.setPlayerVisible(false);
@@ -1482,6 +1534,8 @@ export default class GameScene extends Phaser.Scene {
         this.setDialogueVisible(false);
         this.setPlayerVisible(false);
         this.setMrHackerHealthBarVisible(false);
+        this.syncVictorySummaryText();
+        this.setVictorySummaryVisible(true);
     }
     syncLevel5BossHealthBar() {
         if (this.mrHackerHealthBar === null) {
@@ -1504,6 +1558,22 @@ export default class GameScene extends Phaser.Scene {
         if (this.startPromptText !== null) {
             this.startPromptText.setVisible(shouldBeVisible);
         }
+    }
+    syncVictorySummaryText() {
+        const summary = resolveVictorySummaryText({
+            multiplier: this.scoreMultiplier,
+            score: this.score,
+        });
+        this.victoryScoreText?.setText(summary.scoreText);
+        this.victoryMultiplierText?.setText(summary.multiplierText);
+        this.victoryFinalScoreText?.setText(summary.finalScoreText);
+        this.victoryRestartPromptText?.setText(summary.restartPromptText);
+    }
+    setVictorySummaryVisible(shouldBeVisible) {
+        this.victoryScoreText?.setVisible(shouldBeVisible);
+        this.victoryMultiplierText?.setVisible(shouldBeVisible);
+        this.victoryFinalScoreText?.setVisible(shouldBeVisible);
+        this.victoryRestartPromptText?.setVisible(shouldBeVisible);
     }
     setPlayerVisible(shouldBeVisible) {
         if (this.player !== null) {
