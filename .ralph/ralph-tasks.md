@@ -27,7 +27,7 @@
 - [x] PR-020: Single-shot pattern parity (Level1 and Level2)
 - [x] PR-021: Dual-shot pattern parity (Level3)
 - [x] PR-022: Triple-shot pattern parity (Level4 and Level5)
-- [ ] PR-023: Bullet hit resolution + death effect + score hook
+- [x] PR-023: Bullet hit resolution + death effect + score hook
 
 ## Wave D - Enemies by Level (One-by-One)
 - [ ] PR-024: Level1 FEmail spawn cadence + collision/damage/score + clear gate (>=200)
