@@ -61,3 +61,718 @@ Elapsed:   0:26
 Tools:     none
 Exit code: 0
 Completion promise: not detected
+📝 Auto-committed changes
+
+🔄 Iteration 3 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "e2e/**/*.ts"[90m in . · 1 match[0m
+[0m✱ [0mGlob "src/phaser/scenes/**/*.ts"[90m in . · 52 matches[0m
+[0m→ [0mRead e2e/boot-smoke.spec.ts
+[0m✱ [0mGlob "playwright*.{ts,js,cjs,mjs}"[90m in . · 1 match[0m
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 69 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m✱ [0mGrep "window\.|globalThis|__|debug|test|LEVEL_TRANSITION_EVENT|activeLevelId|score"[90m in src/phaser · 100 matches[0m
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m→ [0mRead src/app.ts
+[0m→ [0mRead src/phaser/PhaserRuntime.ts
+⏳ working... elapsed 1:20 · last activity 0:10 ago
+[0m→ [0mRead playwright.config.ts
+⏳ working... elapsed 1:40 · last activity 0:12 ago
+⏳ working... elapsed 1:50 · last activity 0:22 ago
+[0m→ [0mRead src/phaser/scenes/level0TraversalRules.ts
+[0m→ [0mRead src/phaser/scenes/level1TraversalRules.ts
+[0m→ [0mRead src/phaser/scenes/level5TraversalRules.ts
+⏳ working... elapsed 2:10 · last activity 0:14 ago
+⏳ working... elapsed 2:20 · last activity 0:24 ago
+⏳ working... elapsed 2:30 · last activity 0:34 ago
+⏳ working... elapsed 2:40 · last activity 0:44 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A e2e/traversal-journey.spec.ts
+[0m
+[0m$ [0mnpm run test:e2e -- e2e/traversal-journey.spec.ts
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test e2e/traversal-journey.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✘  1 e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints (542ms)
+
+
+  1) e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints 
+
+    Error: page.evaluate: Error: Expected __VV_E2E_RUNTIME__ test hook to be present
+        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at expectNoBrowserErrors (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:25:59)
+        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:131:3
+
+  1 failed
+    e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/PhaserRuntime.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/app.ts
+[0m
+[0m$ [0mnpm run test:e2e -- e2e/traversal-journey.spec.ts
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test e2e/traversal-journey.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✘  1 e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints (326ms)
+
+
+  1) e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints 
+
+    Error: page.evaluate: Error: Expected __VV_E2E_RUNTIME__ test hook to be present
+        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at expectNoBrowserErrors (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:25:59)
+        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:131:3
+
+  1 failed
+    e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints
+[0m
+⏳ working... elapsed 3:30 · last activity 0:14 ago
+[0m$ [0mnpm run build && npm run test:e2e -- e2e/traversal-journey.spec.ts
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test e2e/traversal-journey.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✘  1 e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints (317ms)
+
+
+  1) e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints 
+
+    Error: page.evaluate: Error: Expected player prefab to be present
+        at eval (eval at evaluate (:290:30), <anonymous>:12:13)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at eval (eval at evaluate (:290:30), <anonymous>:12:13)
+        at UtilityScript.evaluate (<anonymous>:292:16)
+        at UtilityScript.<anonymous> (<anonymous>:1:44)
+        at expectNoBrowserErrors (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:25:59)
+        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:131:3
+
+  1 failed
+    e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M e2e/traversal-journey.spec.ts
+[0m
+[0m$ [0mnpm run build && npm run test:e2e -- e2e/traversal-journey.spec.ts
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test e2e/traversal-journey.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (352ms)
+
+  1 passed (1.4s)
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 5ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 5ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 5ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 4ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  29 passed (29)
+      Tests  111 passed (111)
+   Start at  16:49:35
+   Duration  1.05s (transform 307ms, setup 0ms, collect 694ms, tests 69ms, environment 4ms, prepare 1.64s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 3 tests using 2 workers
+
+  ✓  2 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (521ms)
+  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (652ms)
+  ✓  3 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (340ms)
+
+  3 passed (2.2s)
+[0m
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m✱ [0mGlob "docs/handoffs/2026-02-*-pr-03*.md"[90m in . · 6 matches[0m
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/app.js
+ M build/app.js.map
+ M build/phaser/PhaserRuntime.js
+ M build/phaser/PhaserRuntime.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/app.ts
+ M src/phaser/PhaserRuntime.ts
+?? e2e/traversal-journey.spec.ts
+[0m
+⏳ working... elapsed 4:50 · last activity 0:17 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit log -8 --oneline
+7e06900 Ralph iteration 2: work in progress
+4f937c8 Ralph iteration 1: work in progress
+b3a8ad2 feat(parity:PR-035): remove legacy runtime and decommission fallback path
+ba36728 Ralph iteration 23: work in progress
+fbd3686 feat(parity:PR-034): switch default runtime to Phaser with legacy fallback
+25afd03 Ralph iteration 22: work in progress
+8f4a98b Ralph iteration 21: work in progress
+31c0fc8 feat(parity:PR-032): add level5 boss defeat and victory flow parity
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/app.js
+ M build/app.js.map
+ M build/phaser/PhaserRuntime.js
+ M build/phaser/PhaserRuntime.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/app.ts
+ M src/phaser/PhaserRuntime.ts
+?? docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+?? e2e/traversal-journey.spec.ts
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-164440.log b/.ralph/overnight-caffeinate-20260211-164440.log
+index 83029de..7d52d12 100644
+--- a/.ralph/overnight-caffeinate-20260211-164440.log
++++ b/.ralph/overnight-caffeinate-20260211-164440.log
+@@ -61,3 +61,266 @@ Elapsed:   0:26
+ Tools:     none
+ Exit code: 0
+ Completion promise: not detected
++📝 Auto-committed changes
++
++🔄 Iteration 3 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "test-driven-development"
++[0m→ [0mSkill "writing-plans"
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m✱ [0mGlob "e2e/**/*.ts"[90m in . · 1 match[0m
++[0m✱ [0mGlob "src/phaser/scenes/**/*.ts"[90m in . · 52 matches[0m
++[0m→ [0mRead e2e/boot-smoke.spec.ts
++[0m✱ [0mGlob "playwright*.{ts,js,cjs,mjs}"[90m in . · 1 match[0m
++[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 69 matches[0m
++[0m→ [0mRead src/phaser/scenes/GameScene.ts
++[0m✱ [0mGrep "window\.|globalThis|__|debug|test|LEVEL_TRANSITION_EVENT|activeLevelId|score"[90m in src/phaser · 100 matches[0m
++[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
++[0m→ [0mRead src/phaser/config/parityConstants.ts
++[0m→ [0mRead src/app.ts
++[0m→ [0mRead src/phaser/PhaserRuntime.ts
++⏳ working... elapsed 1:20 · last activity 0:10 ago
++[0m→ [0mRead playwright.config.ts
++⏳ working... elapsed 1:40 · last activity 0:12 ago
++⏳ working... elapsed 1:50 · last activity 0:22 ago
++[0m→ [0mRead src/phaser/scenes/level0TraversalRules.ts
++[0m→ [0mRead src/phaser/scenes/level1TraversalRules.ts
++[0m→ [0mRead src/phaser/scenes/level5TraversalRules.ts
++⏳ working... elapsed 2:10 · last activity 0:14 ago
++⏳ working... elapsed 2:20 · last activity 0:24 ago
++⏳ working... elapsed 2:30 · last activity 0:34 ago
++⏳ working... elapsed 2:40 · last activity 0:44 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A e2e/traversal-journey.spec.ts
++[0m
++[0m$ [0mnpm run test:e2e -- e2e/traversal-journey.spec.ts
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test e2e/traversal-journey.spec.ts
++
++
++Running 1 test using 1 worker
++
++  ✘  1 e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints (542ms)
++
++
++  1) e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints 
++
++    Error: page.evaluate: Error: Expected __VV_E2E_RUNTIME__ test hook to be present
++        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
++        at UtilityScript.evaluate (<anonymous>:292:16)
++        at UtilityScript.<anonymous> (<anonymous>:1:44)
++        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
++        at UtilityScript.evaluate (<anonymous>:292:16)
++        at UtilityScript.<anonymous> (<anonymous>:1:44)
++        at expectNoBrowserErrors (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:25:59)
++        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:131:3
++
++  1 failed
++    e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/PhaserRuntime.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/app.ts
++[0m
++[0m$ [0mnpm run test:e2e -- e2e/traversal-journey.spec.ts
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test e2e/traversal-journey.spec.ts
++
++
++Running 1 test using 1 worker
++
++  ✘  1 e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints (326ms)
++
++
++  1) e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints 
++
++    Error: page.evaluate: Error: Expected __VV_E2E_RUNTIME__ test hook to be present
++        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
++        at UtilityScript.evaluate (<anonymous>:292:16)
++        at UtilityScript.<anonymous> (<anonymous>:1:44)
++        at eval (eval at evaluate (:290:30), <anonymous>:4:13)
++        at UtilityScript.evaluate (<anonymous>:292:16)
++        at UtilityScript.<anonymous> (<anonymous>:1:44)
++        at expectNoBrowserErrors (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:25:59)
++        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:131:3
++
++  1 failed
++    e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints
++[0m
++⏳ working... elapsed 3:30 · last activity 0:14 ago
++[0m$ [0mnpm run build && npm run test:e2e -- e2e/traversal-journey.spec.ts
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test e2e/traversal-journey.spec.ts
++
++
++Running 1 test using 1 worker
++
++  ✘  1 e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints (317ms)
++
++
++  1) e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints 
++
++    Error: page.evaluate: Error: Expected player prefab to be present
++        at eval (eval at evaluate (:290:30), <anonymous>:12:13)
++        at UtilityScript.evaluate (<anonymous>:292:16)
++        at UtilityScript.<anonymous> (<anonymous>:1:44)
++        at eval (eval at evaluate (:290:30), <anonymous>:12:13)
++        at UtilityScript.evaluate (<anonymous>:292:16)
++        at UtilityScript.<anonymous> (<anonymous>:1:44)
++        at expectNoBrowserErrors (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:25:59)
++        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/traversal-journey.spec.ts:131:3
++
++  1 failed
++    e2e/traversal-journey.spec.ts:130:1 › traverses from Level0 start state to Level5 reachability checkpoints
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M e2e/traversal-journey.spec.ts
++[0m
++[0m$ [0mnpm run build && npm run test:e2e -- e2e/traversal-journey.spec.ts
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test e2e/traversal-journey.spec.ts
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (352ms)
++
++  1 passed (1.4s)
++[0m
++[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++
++
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 5ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 5ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 5ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 4ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++
++ Test Files  29 passed (29)
++      Tests  111 passed (111)
++   Start at  16:49:35
++   Duration  1.05s (transform 307ms, setup 0ms, collect 694ms, tests 69ms, environment 4ms, prepare 1.64s)
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 3 tests using 2 workers
++
++  ✓  2 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (521ms)
++  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (652ms)
++  ✓  3 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (340ms)
++
++  3 passed (2.2s)
++[0m
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m✱ [0mGlob "docs/handoffs/2026-02-*-pr-03*.md"[90m in . · 6 matches[0m
++[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-164440.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/app.js
++ M build/app.js.map
++ M build/phaser/PhaserRuntime.js
++ M build/phaser/PhaserRuntime.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M src/app.ts
++ M src/phaser/PhaserRuntime.ts
++?? e2e/traversal-journey.spec.ts
++[0m
++⏳ working... elapsed 4:50 · last activity 0:17 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m
++[0m$ [0mgit log -8 --oneline
++7e06900 Ralph iteration 2: work in progress
++4f937c8 Ralph iteration 1: work in progress
++b3a8ad2 feat(parity:PR-035): remove legacy runtime and decommission fallback path
++ba36728 Ralph iteration 23: work in progress
++fbd3686 feat(parity:PR-034): switch default runtime to Phaser with legacy fallback
++25afd03 Ralph iteration 22: work in progress
++8f4a98b Ralph iteration 21: work in progress
++31c0fc8 feat(parity:PR-032): add level5 boss defeat and victory flow parity
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-164440.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/app.js
++ M build/app.js.map
++ M build/phaser/PhaserRuntime.js
++ M build/phaser/PhaserRuntime.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M src/app.ts
++ M src/phaser/PhaserRuntime.ts
++?? docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
++?? e2e/traversal-journey.spec.ts
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index ad8a5be..588cb46 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 2,
++  "iteration": 3,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "ALL_PR_TASKS_COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index 1224936..4b3abce 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -48,7 +48,7 @@
+ - [x] PR-035: Remove legacy runtime after one stable cycle without P0/P1 regressions
+ 
+ ## Wave G - Post-Parity Validation and Production Confidence
+-- [ ] PR-036: Add end-to-end traversal journey test from Level0 start screen to Level5 reachability checkpoints
++- [x] PR-036: Add end-to-end traversal journey test from Level0 start screen to Level5 reachability checkpoints
+ - [ ] PR-037: Add combat interaction e2e coverage for shooting, enemy damage, and score progression in early levels
+ - [ ] PR-038: Add long-run runtime soak validation (no console/page errors under sustained input)
+ - [ ] PR-039: Validate PRD traceability artifacts end-to-end (handoffs, parity matrix, known limitations) and repair gaps
+diff --git a/build/app.js b/build/app.js
+index 2700901..80efec4 100644
+--- a/build/app.js
++++ b/build/app.js
+@@ -5,10 +5,14 @@ if (!(gameCanvasElement instanceof HTMLCanvasElement)) {
+     throw new Error('Expected #game to be an HTMLCanvasElement');
+ }
+ const runtimeMode = getRuntimeMode();
++const shouldExposeE2ERuntime = new URLSearchParams(window.location.search).get('e2e') === '1';
+ window.addEventListener('load', () => {
+     if (runtimeMode === 'phaser') {
+         const phaserRuntime = new PhaserRuntime(gameCanvasElement);
+         phaserRuntime.start();
++        if (shouldExposeE2ERuntime) {
++            window.__VV_E2E_RUNTIME__ = phaserRuntime;
++        }
+     }
+ });
+ //# sourceMappingURL=app.js.map
+\ No newline at end of file
+diff --git a/build/app.js.map b/build/app.js.map
+index cd99b59..819f404 100644
+--- a/build/app.js.map
++++ b/build/app.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"app.js","sourceRoot":"","sources":["../src/app.ts"],"names":[],"mappings":"AAAA,OAAO,aAAa,MAAM,2BAA2B,CAAC;AACtD,OAAO,EAAE,cAAc,EAAE,MAAM,0BAA0B,CAAC;AAE1D,MAAM,iBAAiB,GAAuB,QAAQ,CAAC,cAAc,CAAC,MAAM,CAAC,CAAC;AAC9E,IAAI,CAAC,CAAC,iBAAiB,YAAY,iBAAiB,CAAC,EAAE;IACrD,MAAM,IAAI,KAAK,CAAC,2CAA2C,CAAC,CAAC;CAC9D;AAED,MAAM,WAAW,GAAa,cAAc,EAAE,CAAC;AAE/C,MAAM,CAAC,gBAAgB,CAAC,MAAM,EAAE,GAAG,EAAE;IACnC,IAAI,WAAW,KAAK,QAAQ,EAAE;QAC5B,MAAM,aAAa,GAAkB,IAAI,aAAa,CAAC,iBAAiB,CAAC,CAAC;QAC1E,aAAa,CAAC,KAAK,EAAE,CAAC;KACvB;AACH,CAAC,CAAC,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"app.js","sourceRoot":"","sources":["../src/app.ts"],"names":[],"mappings":"AAAA,OAAO,aAAa,MAAM,2BAA2B,CAAC;AACtD,OAAO,EAAE,cAAc,EAAE,MAAM,0BAA0B,CAAC;AAM1D,MAAM,iBAAiB,GAAuB,QAAQ,CAAC,cAAc,CAAC,MAAM,CAAC,CAAC;AAC9E,IAAI,CAAC,CAAC,iBAAiB,YAAY,iBAAiB,CAAC,EAAE;IACrD,MAAM,IAAI,KAAK,CAAC,2CAA2C,CAAC,CAAC;CAC9D;AAED,MAAM,WAAW,GAAa,cAAc,EAAE,CAAC;AAC/C,MAAM,sBAAsB,GAAY,IAAI,eAAe,CAAC,MAAM,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC,GAAG,CAAC,KAAK,CAAC,KAAK,GAAG,CAAC;AAEvG,MAAM,CAAC,gBAAgB,CAAC,MAAM,EAAE,GAAG,EAAE;IACnC,IAAI,WAAW,KAAK,QAAQ,EAAE;QAC5B,MAAM,aAAa,GAAkB,IAAI,aAAa,CAAC,iBAAiB,CAAC,CAAC;QAC1E,aAAa,CAAC,KAAK,EAAE,CAAC;QAEtB,IAAI,sBAAsB,EAAE;YACzB,MAAwB,CAAC,kBAAkB,GAAG,aAAa,CAAC;SAC9D;KACF;AACH,CAAC,CAAC,CAAC"}
+\ No newline at end of file
+diff --git a/build/phaser/PhaserRuntime.js b/build/phaser/PhaserRuntime.js
+index 6f867a4..41c6d13 100644
+--- a/build/phaser/PhaserRuntime.js
++++ b/build/phaser/PhaserRuntime.js
+@@ -22,5 +22,8 @@ export default class PhaserRuntime {
+             scene: [BootScene, PreloadScene, GameScene],
+         });
+     }
++    getGameInstance() {
++        return this.game;
++    }
+ }
+ //# sourceMappingURL=PhaserRuntime.js.map
+\ No newline at end of file
+diff --git a/build/phaser/PhaserRuntime.js.map b/build/phaser/PhaserRuntime.js.map
+index 44395bc..11c7d90 100644
+--- a/build/phaser/PhaserRuntime.js.map
++++ b/build/phaser/PhaserRuntime.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"PhaserRuntime.js","sourceRoot":"","sources":["../../src/phaser/PhaserRuntime.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AACjC,OAAO,SAAS,MAAM,uBAAuB,CAAC;AAC9C,OAAO,SAAS,MAAM,uBAAuB,CAAC;AAC9C,OAAO,YAAY,MAAM,0BAA0B,CAAC;AAMpD,MAAM,CAAC,OAAO,OAAO,aAAa;IACxB,MAAM,CAAoB;IAE1B,IAAI,CAAqB;IAEjC,YAAmB,MAAyB;QAC1C,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACnB,CAAC;IAEM,KAAK;QACV,IAAI,IAAI,CAAC,IAAI,KAAK,IAAI,EAAE;YACtB,OAAO;SACR;QAED,IAAI,CAAC,IAAI,GAAG,IAAI,MAAM,CAAC,IAAI,CAAC;YAC1B,IAAI,EAAE,MAAM,CAAC,MAAM;YACnB,MAAM,EAAE,IAAI,CAAC,MAAM;YACnB,KAAK,EAAE,MAAM,CAAC,UAAU;YACxB,MAAM,EAAE,MAAM,CAAC,WAAW;YAC1B,eAAe,EAAE,SAAS;YAC1B,KAAK,EAAE,CAAC,SAAS,EAAE,YAAY,EAAE,SAAS,CAAC;SAC5C,CAAC,CAAC;IACL,CAAC;CACF"}
+\ No newline at end of file
++{"version":3,"file":"PhaserRuntime.js","sourceRoot":"","sources":["../../src/phaser/PhaserRuntime.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AACjC,OAAO,SAAS,MAAM,uBAAuB,CAAC;AAC9C,OAAO,SAAS,MAAM,uBAAuB,CAAC;AAC9C,OAAO,YAAY,MAAM,0BAA0B,CAAC;AAMpD,MAAM,CAAC,OAAO,OAAO,aAAa;IACxB,MAAM,CAAoB;IAE1B,IAAI,CAAqB;IAEjC,YAAmB,MAAyB;QAC1C,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACnB,CAAC;IAEM,KAAK;QACV,IAAI,IAAI,CAAC,IAAI,KAAK,IAAI,EAAE;YACtB,OAAO;SACR;QAED,IAAI,CAAC,IAAI,GAAG,IAAI,MAAM,CAAC,IAAI,CAAC;YAC1B,IAAI,EAAE,MAAM,CAAC,MAAM;YACnB,MAAM,EAAE,IAAI,CAAC,MAAM;YACnB,KAAK,EAAE,MAAM,CAAC,UAAU;YACxB,MAAM,EAAE,MAAM,CAAC,WAAW;YAC1B,eAAe,EAAE,SAAS;YAC1B,KAAK,EAAE,CAAC,SAAS,EAAE,YAAY,EAAE,SAAS,CAAC;SAC5C,CAAC,CAAC;IACL,CAAC;IAEM,eAAe;QACpB,OAAO,IAAI,CAAC,IAAI,CAAC;IACnB,CAAC;CACF"}
+\ No newline at end of file
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index 8a7f697..11e8b84 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -29,8 +29,9 @@ flowchart TD
+   D26 --> D27[Level5 MrHacker Combat (Spawn + HP Model + Health Bar + Boss Bullet Volley + Enemy Bullet Damage)]
+   D27 --> D28[Level5 Boss Minion Cycle (FEmail/RVirus/Worm 3000ms Spawn Parity)]
+   D28 --> D29[Level5 Boss Defeat + Win Flow (Multiplier + Victory Summary + Restart)]
++  D29 --> D30[Playwright Traversal Journey E2E (Level0 to Level5 Checkpoints)]
+   E[Core Systems Parity]
+-  D29 --> E
++  D30 --> E
+   E --> F[Walkable Levels]
+   F --> G[Shooting Systems]
+   G --> H[Enemy Systems by Level]
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index 5453495..fe64441 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -37,3 +37,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ - PR-033 completed a full parity matrix verification run (build, lint, unit, and e2e gates) and recorded stabilization status with no new parity regressions detected.
+ - PR-034 switched default boot to Phaser runtime while retaining the legacy canvas fallback flag at `?runtime=legacy`.
+ - PR-035 removed the legacy canvas runtime and fallback selector wiring; boot now always starts Phaser runtime.
++- PR-036 added Playwright end-to-end traversal journey coverage from Level0 start state through Level5 reachability checkpoints, including score-gated transition preconditions for Levels1 to 5.
+diff --git a/src/app.ts b/src/app.ts
+index 0aa1cba..88a0c14 100644
+--- a/src/app.ts
++++ b/src/app.ts
+@@ -1,16 +1,25 @@
+ import PhaserRuntime from './phaser/PhaserRuntime.js';
+ import { getRuntimeMode } from './runtime/RuntimeMode.js';
+ 
++interface E2ETestWindow extends Window {
++  __VV_E2E_RUNTIME__?: PhaserRuntime;
++}
++
+ const gameCanvasElement: HTMLElement | null = document.getElementById('game');
+ if (!(gameCanvasElement instanceof HTMLCanvasElement)) {
+   throw new Error('Expected #game to be an HTMLCanvasElement');
+ }
+ 
+ const runtimeMode: 'phaser' = getRuntimeMode();
++const shouldExposeE2ERuntime: boolean = new URLSearchParams(window.location.search).get('e2e') === '1';
+ 
+ window.addEventListener('load', () => {
+   if (runtimeMode === 'phaser') {
+     const phaserRuntime: PhaserRuntime = new PhaserRuntime(gameCanvasElement);
+     phaserRuntime.start();
++
++    if (shouldExposeE2ERuntime) {
++      (window as E2ETestWindow).__VV_E2E_RUNTIME__ = phaserRuntime;
++    }
+   }
+ });
+diff --git a/src/phaser/PhaserRuntime.ts b/src/phaser/PhaserRuntime.ts
+index a39b72d..4a9e7d9 100644
+--- a/src/phaser/PhaserRuntime.ts
++++ b/src/phaser/PhaserRuntime.ts
+@@ -31,4 +31,8 @@ export default class PhaserRuntime {
+       scene: [BootScene, PreloadScene, GameScene],
+     });
+   }
++
++  public getGameInstance(): Phaser.Game | null {
++    return this.game;
++  }
+ }
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md e2e/traversal-journey.spec.ts src/app.ts src/phaser/PhaserRuntime.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md build/app.js build/app.js.map build/phaser/PhaserRuntime.js build/phaser/PhaserRuntime.js.map && git commit -m "feat(parity:PR-036): add traversal journey e2e checkpoints" && git status --short
+[main 1bbaacc] feat(parity:PR-036): add traversal journey e2e checkpoints
+ 11 files changed, 268 insertions(+), 4 deletions(-)
+ create mode 100644 docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+ create mode 100644 e2e/traversal-journey.spec.ts
+ M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m$ [0mgit show --name-only --pretty=format:%s HEAD
+feat(parity:PR-036): add traversal journey e2e checkpoints
+.ralph/ralph-tasks.md
+build/app.js
+build/app.js.map
+build/phaser/PhaserRuntime.js
+build/phaser/PhaserRuntime.js.map
+docs/architecture/phaser-migration.mmd
+docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+docs/parity/known-limitations.md
+e2e/traversal-journey.spec.ts
+src/app.ts
+src/phaser/PhaserRuntime.ts
+[0m
+[0m→ [0mSkill "verification-before-completion"
+<promise>NEXT_PR_DONE</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 3
+Elapsed:   5:33
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
+   Moving to next task in iteration 4...
