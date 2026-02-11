@@ -3,7 +3,7 @@
 Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, and a projectile base entity with parity movement/culling helpers; shoot input wiring, projectile spawn patterns, hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
+- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, and level-based shoot input gating (blocked in Level0, enabled in combat levels); projectile spawn patterns, hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
 - Documentation artifacts currently track migration status only at wave/feature granularity; behavior-level parity evidence will be filled in as gameplay PRs land.
 
 ## Resolved
@@ -21,3 +21,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-016 added a Phaser Level5 shell with three-image dialogue progression, Level5 movement bounds, Level4-to-Level5 scene entry wiring, and non-combat victory shell trigger based on the legacy Level5 victory corridor.
 - PR-017 wired a shared Phaser transition rule engine with legacy score-threshold and active-item-clear predicates for Level1 through Level5 progression checks.
 - PR-018 added a Phaser projectile base entity and parity-tested projectile motion/world-culling helpers using legacy combat bound thresholds.
+- PR-019 added level-based shoot input gating parity so Space-triggered shooting input is blocked in Level0 and emitted only for combat levels during walkable phases.

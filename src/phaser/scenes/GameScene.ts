@@ -74,6 +74,7 @@ import {
   isLevel5VictoryTriggered,
 } from './level5TraversalRules.js';
 import { canTriggerLevelTransition } from './transitionRuleEngine.js';
+import { canAcceptShootInput } from './shootInputGate.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -82,6 +83,8 @@ export default class GameScene extends Phaser.Scene {
   public static readonly SCENE_KEY: string = 'GameScene';
 
   public static readonly LEVEL_TRANSITION_EVENT: string = 'level-transition';
+
+  public static readonly SHOOT_INPUT_EVENT: string = 'shoot-input';
 
   private dialogueState: Level0DialogueState;
 
@@ -261,6 +264,12 @@ export default class GameScene extends Phaser.Scene {
       }
 
       this.syncActiveLevelVisualState();
+
+      if (canAcceptShootInput(this.activeLevelId) && this.isActiveLevelWalkablePhase()) {
+        this.events.emit(GameScene.SHOOT_INPUT_EVENT, {
+          levelId: this.activeLevelId,
+        });
+      }
     }
 
     if (this.activeLevelId === 0 && this.level0Phase === 'walkable') {
@@ -714,5 +723,29 @@ export default class GameScene extends Phaser.Scene {
     if (this.player !== null) {
       this.player.setVisible(shouldBeVisible);
     }
+  }
+
+  private isActiveLevelWalkablePhase(): boolean {
+    if (this.activeLevelId === 0) {
+      return this.level0Phase === 'walkable';
+    }
+
+    if (this.activeLevelId === 1) {
+      return this.level1Phase === 'walkable';
+    }
+
+    if (this.activeLevelId === 2) {
+      return this.level2Phase === 'walkable';
+    }
+
+    if (this.activeLevelId === 3) {
+      return this.level3Phase === 'walkable';
+    }
+
+    if (this.activeLevelId === 4) {
+      return this.level4Phase === 'walkable';
+    }
+
+    return this.level5Phase === 'walkable';
   }
 }

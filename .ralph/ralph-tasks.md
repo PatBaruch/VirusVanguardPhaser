@@ -23,7 +23,7 @@
 
 ## Wave C - Shooting Systems
 - [x] PR-018: Projectile base entity + movement + world culling
-- [ ] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
+- [x] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
 - [ ] PR-020: Single-shot pattern parity (Level1 and Level2)
 - [ ] PR-021: Dual-shot pattern parity (Level3)
 - [ ] PR-022: Triple-shot pattern parity (Level4 and Level5)

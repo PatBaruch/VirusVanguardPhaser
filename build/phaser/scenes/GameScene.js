@@ -14,9 +14,11 @@ import { canMoveWithinLevel4Bounds, isLevel4ToLevel5TransitionTriggered, } from 
 import { LEVEL5_DIALOGUE_TEXTURE_KEYS, advanceLevel5DialogueState, createInitialLevel5DialogueState, resolveLevel5DialoguePhase, } from './level5DialogueState.js';
 import { canMoveWithinLevel5Bounds, isLevel5VictoryTriggered, } from './level5TraversalRules.js';
 import { canTriggerLevelTransition } from './transitionRuleEngine.js';
+import { canAcceptShootInput } from './shootInputGate.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
+    static SHOOT_INPUT_EVENT = 'shoot-input';
     dialogueState;
     dialogueImage;
     startPromptText;
@@ -125,6 +127,11 @@ export default class GameScene extends Phaser.Scene {
                 this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
             }
             this.syncActiveLevelVisualState();
+            if (canAcceptShootInput(this.activeLevelId) && this.isActiveLevelWalkablePhase()) {
+                this.events.emit(GameScene.SHOOT_INPUT_EVENT, {
+                    levelId: this.activeLevelId,
+                });
+            }
         }
         if (this.activeLevelId === 0 && this.level0Phase === 'walkable') {
             this.updatePlayerMovement();
@@ -491,6 +498,24 @@ export default class GameScene extends Phaser.Scene {
         if (this.player !== null) {
             this.player.setVisible(shouldBeVisible);
         }
+    }
+    isActiveLevelWalkablePhase() {
+        if (this.activeLevelId === 0) {
+            return this.level0Phase === 'walkable';
+        }
+        if (this.activeLevelId === 1) {
+            return this.level1Phase === 'walkable';
+        }
+        if (this.activeLevelId === 2) {
+            return this.level2Phase === 'walkable';
+        }
+        if (this.activeLevelId === 3) {
+            return this.level3Phase === 'walkable';
+        }
+        if (this.activeLevelId === 4) {
+            return this.level4Phase === 'walkable';
+        }
+        return this.level5Phase === 'walkable';
     }
 }
 //# sourceMappingURL=GameScene.js.map
