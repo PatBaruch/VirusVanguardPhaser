@@ -13,6 +13,7 @@ import { LEVEL4_DIALOGUE_TEXTURE_KEYS, advanceLevel4DialogueState, createInitial
 import { canMoveWithinLevel4Bounds, isLevel4ToLevel5TransitionTriggered, } from './level4TraversalRules.js';
 import { LEVEL5_DIALOGUE_TEXTURE_KEYS, advanceLevel5DialogueState, createInitialLevel5DialogueState, resolveLevel5DialoguePhase, } from './level5DialogueState.js';
 import { canMoveWithinLevel5Bounds, isLevel5VictoryTriggered, } from './level5TraversalRules.js';
+import { canTriggerLevelTransition } from './transitionRuleEngine.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -43,6 +44,8 @@ export default class GameScene extends Phaser.Scene {
     hasTriggeredLevel4Transition;
     hasTriggeredLevel5Transition;
     hasTriggeredVictory;
+    score;
+    activeCombatItemCount;
     constructor() {
         super(GameScene.SCENE_KEY);
         this.dialogueState = createInitialLevel0DialogueState();
@@ -72,6 +75,8 @@ export default class GameScene extends Phaser.Scene {
         this.hasTriggeredLevel4Transition = false;
         this.hasTriggeredLevel5Transition = false;
         this.hasTriggeredVictory = false;
+        this.score = 0;
+        this.activeCombatItemCount = 0;
     }
     create() {
         const centerX = this.scale.width / 2;
@@ -210,7 +215,7 @@ export default class GameScene extends Phaser.Scene {
             playerX: this.player.x,
             playerY: this.player.y,
         });
-        if (!hasReachedTransition) {
+        if (!hasReachedTransition || !canTriggerLevelTransition(0, this.score, this.activeCombatItemCount)) {
             return;
         }
         this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
@@ -231,7 +236,7 @@ export default class GameScene extends Phaser.Scene {
             playerX: this.player.x,
             playerY: this.player.y,
         });
-        if (!hasReachedTransition) {
+        if (!hasReachedTransition || !canTriggerLevelTransition(1, this.score, this.activeCombatItemCount)) {
             return;
         }
         this.hasTriggeredLevel2Transition = true;
@@ -253,7 +258,7 @@ export default class GameScene extends Phaser.Scene {
             playerX: this.player.x,
             playerY: this.player.y,
         });
-        if (!hasReachedTransition) {
+        if (!hasReachedTransition || !canTriggerLevelTransition(2, this.score, this.activeCombatItemCount)) {
             return;
         }
         this.hasTriggeredLevel3Transition = true;
@@ -275,7 +280,7 @@ export default class GameScene extends Phaser.Scene {
             playerX: this.player.x,
             playerY: this.player.y,
         });
-        if (!hasReachedTransition) {
+        if (!hasReachedTransition || !canTriggerLevelTransition(3, this.score, this.activeCombatItemCount)) {
             return;
         }
         this.hasTriggeredLevel4Transition = true;
@@ -297,7 +302,7 @@ export default class GameScene extends Phaser.Scene {
             playerX: this.player.x,
             playerY: this.player.y,
         });
-        if (!hasReachedTransition) {
+        if (!hasReachedTransition || !canTriggerLevelTransition(4, this.score, this.activeCombatItemCount)) {
             return;
         }
         this.hasTriggeredLevel5Transition = true;
@@ -319,7 +324,7 @@ export default class GameScene extends Phaser.Scene {
             playerX: this.player.x,
             playerY: this.player.y,
         });
-        if (!hasReachedVictory) {
+        if (!hasReachedVictory || !canTriggerLevelTransition(5, this.score, this.activeCombatItemCount)) {
             return;
         }
         this.hasTriggeredVictory = true;

@@ -15,9 +15,10 @@ flowchart TD
   D10 --> D11[Level4 Shell (Background + Dialogue + Bounds + Transition Zone)]
   D11 --> D12[Level5 Shell (Background + Dialogue + Bounds)]
   D12 --> D13[Non-Combat Victory Shell Trigger]
-  D13 --> D14[Shared Parity Constants Table]
+  D13 --> D14[Transition Rule Engine (Score + Item Predicates)]
+  D14 --> D15[Shared Parity Constants Table]
   C --> E[Core Systems Parity]
-  D14 --> E
+  D15 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]
