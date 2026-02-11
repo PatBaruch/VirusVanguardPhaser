@@ -4,6 +4,7 @@ import { LEVEL0_DIALOGUE_TEXTURE_KEYS } from './level0DialogueState.js';
 import { LEVEL1_DIALOGUE_TEXTURE_KEYS } from './level1DialogueState.js';
 import { LEVEL2_DIALOGUE_TEXTURE_KEYS } from './level2DialogueState.js';
 import { LEVEL3_DIALOGUE_TEXTURE_KEYS } from './level3DialogueState.js';
+import { LEVEL4_DIALOGUE_TEXTURE_KEYS } from './level4DialogueState.js';
 import { PLAYER_FACING_DIRECTIONS, PLAYER_FACING_TEXTURE_KEYS, } from '../entities/playerFacingState.js';
 export default class PreloadScene extends Phaser.Scene {
     static SCENE_KEY = 'PreloadScene';
@@ -22,6 +23,9 @@ export default class PreloadScene extends Phaser.Scene {
         });
         LEVEL3_DIALOGUE_TEXTURE_KEYS.forEach((dialogueTextureKey, index) => {
             this.load.image(dialogueTextureKey, `./assets/Dialogue-Level3/Level3-${index}.png`);
+        });
+        LEVEL4_DIALOGUE_TEXTURE_KEYS.forEach((dialogueTextureKey, index) => {
+            this.load.image(dialogueTextureKey, `./assets/Dialogue-Level4/Level4-${index}.png`);
         });
         PLAYER_FACING_DIRECTIONS.forEach((direction) => {
             this.load.image(PLAYER_FACING_TEXTURE_KEYS[direction], `./assets/Player-${direction}.png`);
