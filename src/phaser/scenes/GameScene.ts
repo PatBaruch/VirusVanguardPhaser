@@ -7,6 +7,7 @@ import {
   createInitialLevel0DialogueState,
   resolveLevel0DialoguePhase,
 } from './level0DialogueState.js';
+import PlayerPrefab from '../entities/PlayerPrefab.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -22,6 +23,8 @@ export default class GameScene extends Phaser.Scene {
 
   private level0Phase: Level0DialoguePhase;
 
+  private player: PlayerPrefab | null;
+
   private spaceKey: Phaser.Input.Keyboard.Key | null;
 
   public constructor() {
@@ -33,6 +36,7 @@ export default class GameScene extends Phaser.Scene {
       this.dialogueState,
       LEVEL0_DIALOGUE_TEXTURE_KEYS.length,
     );
+    this.player = null;
     this.spaceKey = null;
   }
 
@@ -57,6 +61,9 @@ export default class GameScene extends Phaser.Scene {
     this.dialogueImage = this.add.image(centerX, centerY, LEVEL0_DIALOGUE_TEXTURE_KEYS[0]);
     this.dialogueImage.setVisible(false);
 
+    this.player = new PlayerPrefab(this);
+    this.add.existing(this.player);
+
     this.syncLevel0VisualState();
   }
 
@@ -73,6 +80,7 @@ export default class GameScene extends Phaser.Scene {
       document.body.className = 'startScreen';
       this.setStartPromptVisible(true);
       this.setDialogueVisible(false);
+      this.setPlayerVisible(false);
       return;
     }
 
@@ -81,11 +89,13 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.level0Phase === 'dialogue') {
       this.setDialogueVisible(true);
+      this.setPlayerVisible(false);
       this.dialogueImage?.setTexture(LEVEL0_DIALOGUE_TEXTURE_KEYS[this.dialogueState.currentDialogue]);
       return;
     }
 
     this.setDialogueVisible(false);
+    this.setPlayerVisible(true);
   }
 
   private setDialogueVisible(shouldBeVisible: boolean): void {
@@ -97,6 +107,12 @@ export default class GameScene extends Phaser.Scene {
   private setStartPromptVisible(shouldBeVisible: boolean): void {
     if (this.startPromptText !== null) {
       this.startPromptText.setVisible(shouldBeVisible);
+    }
+  }
+
+  private setPlayerVisible(shouldBeVisible: boolean): void {
+    if (this.player !== null) {
+      this.player.setVisible(shouldBeVisible);
     }
   }
 }

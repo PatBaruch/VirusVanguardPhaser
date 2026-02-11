@@ -1,11 +1,13 @@
 import * as Phaser from 'phaser';
 import { LEVEL0_DIALOGUE_TEXTURE_KEYS, advanceLevel0DialogueState, createInitialLevel0DialogueState, resolveLevel0DialoguePhase, } from './level0DialogueState.js';
+import PlayerPrefab from '../entities/PlayerPrefab.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     dialogueState;
     dialogueImage;
     startPromptText;
     level0Phase;
+    player;
     spaceKey;
     constructor() {
         super(GameScene.SCENE_KEY);
@@ -13,6 +15,7 @@ export default class GameScene extends Phaser.Scene {
         this.dialogueImage = null;
         this.startPromptText = null;
         this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
+        this.player = null;
         this.spaceKey = null;
     }
     create() {
@@ -27,6 +30,8 @@ export default class GameScene extends Phaser.Scene {
         this.startPromptText.setOrigin(0.5, 0.5);
         this.dialogueImage = this.add.image(centerX, centerY, LEVEL0_DIALOGUE_TEXTURE_KEYS[0]);
         this.dialogueImage.setVisible(false);
+        this.player = new PlayerPrefab(this);
+        this.add.existing(this.player);
         this.syncLevel0VisualState();
     }
     update() {
@@ -41,16 +46,19 @@ export default class GameScene extends Phaser.Scene {
             document.body.className = 'startScreen';
             this.setStartPromptVisible(true);
             this.setDialogueVisible(false);
+            this.setPlayerVisible(false);
             return;
         }
         document.body.className = 'level0';
         this.setStartPromptVisible(false);
         if (this.level0Phase === 'dialogue') {
             this.setDialogueVisible(true);
+            this.setPlayerVisible(false);
             this.dialogueImage?.setTexture(LEVEL0_DIALOGUE_TEXTURE_KEYS[this.dialogueState.currentDialogue]);
             return;
         }
         this.setDialogueVisible(false);
+        this.setPlayerVisible(true);
     }
     setDialogueVisible(shouldBeVisible) {
         if (this.dialogueImage !== null) {
@@ -60,6 +68,11 @@ export default class GameScene extends Phaser.Scene {
     setStartPromptVisible(shouldBeVisible) {
         if (this.startPromptText !== null) {
             this.startPromptText.setVisible(shouldBeVisible);
+        }
+    }
+    setPlayerVisible(shouldBeVisible) {
+        if (this.player !== null) {
+            this.player.setVisible(shouldBeVisible);
         }
     }
 }
