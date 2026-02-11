@@ -17,6 +17,7 @@ import { canTriggerLevelTransition } from './transitionRuleEngine.js';
 import { canAcceptShootInput } from './shootInputGate.js';
 import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import { resolveSingleShotProjectileConfigs } from './singleShotPattern.js';
+import { resolveDualShotProjectileConfigs } from './dualShotPattern.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -220,12 +221,16 @@ export default class GameScene extends Phaser.Scene {
         if (this.player === null) {
             return;
         }
-        const projectileConfigs = resolveSingleShotProjectileConfigs({
+        const projectilePatternSnapshot = {
             facingDirection: this.player.getFacingDirection(),
             levelId: payload.levelId,
             playerCenterX: this.player.x + this.player.displayWidth / 2,
             playerCenterY: this.player.y + this.player.displayHeight / 2,
-        });
+        };
+        const projectileConfigs = [
+            ...resolveSingleShotProjectileConfigs(projectilePatternSnapshot),
+            ...resolveDualShotProjectileConfigs(projectilePatternSnapshot),
+        ];
         for (const projectileConfig of projectileConfigs) {
             const projectile = new ProjectilePrefab(this, projectileConfig);
             this.add.existing(projectile);

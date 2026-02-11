@@ -25,7 +25,7 @@
 - [x] PR-018: Projectile base entity + movement + world culling
 - [x] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
 - [x] PR-020: Single-shot pattern parity (Level1 and Level2)
-- [ ] PR-021: Dual-shot pattern parity (Level3)
+- [x] PR-021: Dual-shot pattern parity (Level3)
 - [ ] PR-022: Triple-shot pattern parity (Level4 and Level5)
 - [ ] PR-023: Bullet hit resolution + death effect + score hook
 
