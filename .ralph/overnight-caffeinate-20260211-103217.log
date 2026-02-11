@@ -10888,3 +10888,583 @@ Elapsed:   2:19:14
 Tools:     none
 Exit code: 0
 Completion promise: not detected
+📝 Auto-committed changes
+
+🔄 Iteration 23 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m→ [0mRead src/app.ts
+[0m→ [0mRead index.html
+[0m✱ [0mGrep "legacy|phaser|runtime|fallback|USE_|VITE_|mode"[90m in . · 56 matches[0m
+[0m→ [0mRead src/runtime/RuntimeMode.ts
+[0m✱ [0mGlob "src/**/*RuntimeMode*.spec.ts"[90m in . · 0 matches[0m
+[0m✱ [0mGrep "runtime=|legacy fallback|fallback flag|default runtime|PR-034|RuntimeMode"[90m in . · 17 matches[0m
+[0m→ [0mRead e2e/boot-smoke.spec.ts
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/parity/parity-matrix.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/runtime/RuntimeMode.spec.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/runtime/RuntimeMode.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/runtime/RuntimeMode.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ❯ src/runtime/RuntimeMode.spec.ts (3 tests | 1 failed) 4ms
+   × getRuntimeMode > defaults to phaser when runtime query parameter is absent 4ms
+     → expected 'legacy' to be 'phaser' // Object.is equality
+   ✓ getRuntimeMode > uses legacy runtime when runtime=legacy is provided as fallback 0ms
+   ✓ getRuntimeMode > uses phaser runtime when runtime=phaser is explicitly provided 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/runtime/RuntimeMode.spec.ts > getRuntimeMode > defaults to phaser when runtime query parameter is absent
+AssertionError: expected 'legacy' to be 'phaser' // Object.is equality
+
+Expected: [32m"phaser"[39m
+Received: [31m"legacy"[39m
+
+ ❯ src/runtime/RuntimeMode.spec.ts:17:25
+     15|     const runtimeMode: 'legacy' | 'phaser' = getRuntimeMode(createWind…
+     16| 
+     17|     expect(runtimeMode).toBe('phaser');
+       |                         ^
+     18|   });
+     19| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  14:50:50
+   Duration  220ms (transform 27ms, setup 0ms, collect 21ms, tests 4ms, environment 0ms, prepare 32ms)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/runtime/RuntimeMode.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/runtime/RuntimeMode.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/runtime/RuntimeMode.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  14:51:02
+   Duration  194ms (transform 19ms, setup 0ms, collect 17ms, tests 1ms, environment 0ms, prepare 43ms)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M e2e/boot-smoke.spec.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/parity-matrix.md
+[0m→ [0mRead package.json
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 6ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
+
+ Test Files  29 passed (29)
+      Tests  111 passed (111)
+   Start at  14:51:54
+   Duration  1.05s (transform 326ms, setup 0ms, collect 727ms, tests 65ms, environment 3ms, prepare 1.68s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots default Phaser runtime without browser errors (739ms)
+
+  1 passed (2.0s)
+[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/runtime/RuntimeMode.js
+ M build/runtime/RuntimeMode.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M docs/parity/parity-matrix.md
+ M e2e/boot-smoke.spec.ts
+ M src/runtime/RuntimeMode.ts
+?? src/runtime/RuntimeMode.spec.ts
+[0m
+⏳ working... elapsed 3:00 · last activity 0:16 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/runtime/RuntimeMode.js
+ M build/runtime/RuntimeMode.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M docs/parity/parity-matrix.md
+ M e2e/boot-smoke.spec.ts
+ M src/runtime/RuntimeMode.ts
+?? docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+?? src/runtime/RuntimeMode.spec.ts
+[0m
+[0m$ [0mgit log -8 --oneline
+25afd03 Ralph iteration 22: work in progress
+8f4a98b Ralph iteration 21: work in progress
+31c0fc8 feat(parity:PR-032): add level5 boss defeat and victory flow parity
+b1d43fa Ralph iteration 20: work in progress
+43ba1fe feat(parity:PR-031): add level5 boss minion spawn cycle parity
+2c49ea3 Ralph iteration 19: work in progress
+67c81c4 Ralph iteration 18: work in progress
+37588af feat(parity:PR-029): add Level5 MrHacker spawn HP and health bar parity
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-103217.log b/.ralph/overnight-caffeinate-20260211-103217.log
+index cc55418..55ee65c 100644
+--- a/.ralph/overnight-caffeinate-20260211-103217.log
++++ b/.ralph/overnight-caffeinate-20260211-103217.log
+@@ -10888,3 +10888,204 @@ Elapsed:   2:19:14
+ Tools:     none
+ Exit code: 0
+ Completion promise: not detected
++📝 Auto-committed changes
++
++🔄 Iteration 23 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "test-driven-development"
++[0m→ [0mSkill "writing-plans"
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m→ [0mRead src/app.ts
++[0m→ [0mRead index.html
++[0m✱ [0mGrep "legacy|phaser|runtime|fallback|USE_|VITE_|mode"[90m in . · 56 matches[0m
++[0m→ [0mRead src/runtime/RuntimeMode.ts
++[0m✱ [0mGlob "src/**/*RuntimeMode*.spec.ts"[90m in . · 0 matches[0m
++[0m✱ [0mGrep "runtime=|legacy fallback|fallback flag|default runtime|PR-034|RuntimeMode"[90m in . · 17 matches[0m
++[0m→ [0mRead e2e/boot-smoke.spec.ts
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m→ [0mRead docs/parity/parity-matrix.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/runtime/RuntimeMode.spec.ts
++[0m
++[0m$ [0mnpm run test:unit -- src/runtime/RuntimeMode.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/runtime/RuntimeMode.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ❯ src/runtime/RuntimeMode.spec.ts (3 tests | 1 failed) 4ms
++   × getRuntimeMode > defaults to phaser when runtime query parameter is absent 4ms
++     → expected 'legacy' to be 'phaser' // Object.is equality
++   ✓ getRuntimeMode > uses legacy runtime when runtime=legacy is provided as fallback 0ms
++   ✓ getRuntimeMode > uses phaser runtime when runtime=phaser is explicitly provided 0ms
++
++⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  src/runtime/RuntimeMode.spec.ts > getRuntimeMode > defaults to phaser when runtime query parameter is absent
++AssertionError: expected 'legacy' to be 'phaser' // Object.is equality
++
++Expected: [32m"phaser"[39m
++Received: [31m"legacy"[39m
++
++ ❯ src/runtime/RuntimeMode.spec.ts:17:25
++     15|     const runtimeMode: 'legacy' | 'phaser' = getRuntimeMode(createWind…
++     16| 
++     17|     expect(runtimeMode).toBe('phaser');
++       |                         ^
++     18|   });
++     19| 
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  1 failed | 2 passed (3)
++   Start at  14:50:50
++   Duration  220ms (transform 27ms, setup 0ms, collect 21ms, tests 4ms, environment 0ms, prepare 32ms)
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/runtime/RuntimeMode.ts
++[0m
++[0m$ [0mnpm run test:unit -- src/runtime/RuntimeMode.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/runtime/RuntimeMode.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
++
++ Test Files  1 passed (1)
++      Tests  3 passed (3)
++   Start at  14:51:02
++   Duration  194ms (transform 19ms, setup 0ms, collect 17ms, tests 1ms, environment 0ms, prepare 43ms)
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M e2e/boot-smoke.spec.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/parity-matrix.md
++[0m→ [0mRead package.json
++[0m
++[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++
++
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 6ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 4ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
++
++ Test Files  29 passed (29)
++      Tests  111 passed (111)
++   Start at  14:51:54
++   Duration  1.05s (transform 326ms, setup 0ms, collect 727ms, tests 65ms, environment 3ms, prepare 1.68s)
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots default Phaser runtime without browser errors (739ms)
++
++  1 passed (2.0s)
++[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-103217.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/runtime/RuntimeMode.js
++ M build/runtime/RuntimeMode.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M docs/parity/parity-matrix.md
++ M e2e/boot-smoke.spec.ts
++ M src/runtime/RuntimeMode.ts
++?? src/runtime/RuntimeMode.spec.ts
++[0m
++⏳ working... elapsed 3:00 · last activity 0:16 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-103217.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/runtime/RuntimeMode.js
++ M build/runtime/RuntimeMode.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M docs/parity/parity-matrix.md
++ M e2e/boot-smoke.spec.ts
++ M src/runtime/RuntimeMode.ts
++?? docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
++?? src/runtime/RuntimeMode.spec.ts
++[0m
++[0m$ [0mgit log -8 --oneline
++25afd03 Ralph iteration 22: work in progress
++8f4a98b Ralph iteration 21: work in progress
++31c0fc8 feat(parity:PR-032): add level5 boss defeat and victory flow parity
++b1d43fa Ralph iteration 20: work in progress
++43ba1fe feat(parity:PR-031): add level5 boss minion spawn cycle parity
++2c49ea3 Ralph iteration 19: work in progress
++67c81c4 Ralph iteration 18: work in progress
++37588af feat(parity:PR-029): add Level5 MrHacker spawn HP and health bar parity
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index fe2d36c..bed9cad 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 22,
++  "iteration": 23,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index ad9c745..9ead1b4 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -44,5 +44,5 @@
+ 
+ ## Wave F - Cutover and Decommission
+ - [x] PR-033: Full parity matrix run + stabilization fixes only
+-- [ ] PR-034: Switch default runtime to Phaser and retain legacy fallback flag
++- [x] PR-034: Switch default runtime to Phaser and retain legacy fallback flag
+ - [ ] PR-035: Remove legacy runtime after one stable cycle without P0/P1 regressions
+diff --git a/build/runtime/RuntimeMode.js b/build/runtime/RuntimeMode.js
+index efa2f71..fa05879 100644
+--- a/build/runtime/RuntimeMode.js
++++ b/build/runtime/RuntimeMode.js
+@@ -1,11 +1,15 @@
+ const RUNTIME_QUERY_PARAMETER = 'runtime';
++const LEGACY_RUNTIME_VALUE = 'legacy';
+ const PHASER_RUNTIME_VALUE = 'phaser';
+ export function getRuntimeMode(windowObject = window) {
+     const query = new URLSearchParams(windowObject.location.search);
+     const runtimeValue = query.get(RUNTIME_QUERY_PARAMETER);
++    if (runtimeValue === LEGACY_RUNTIME_VALUE) {
++        return 'legacy';
++    }
+     if (runtimeValue === PHASER_RUNTIME_VALUE) {
+         return 'phaser';
+     }
+-    return 'legacy';
++    return 'phaser';
+ }
+ //# sourceMappingURL=RuntimeMode.js.map
+\ No newline at end of file
+diff --git a/build/runtime/RuntimeMode.js.map b/build/runtime/RuntimeMode.js.map
+index d0f390f..2931385 100644
+--- a/build/runtime/RuntimeMode.js.map
++++ b/build/runtime/RuntimeMode.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"RuntimeMode.js","sourceRoot":"","sources":["../../src/runtime/RuntimeMode.ts"],"names":[],"mappings":"AAEA,MAAM,uBAAuB,GAAW,SAAS,CAAC;AAClD,MAAM,oBAAoB,GAAW,QAAQ,CAAC;AAM9C,MAAM,UAAU,cAAc,CAAC,eAAuB,MAAM;IAC1D,MAAM,KAAK,GAAoB,IAAI,eAAe,CAAC,YAAY,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC;IACjF,MAAM,YAAY,GAAkB,KAAK,CAAC,GAAG,CAAC,uBAAuB,CAAC,CAAC;IACvE,IAAI,YAAY,KAAK,oBAAoB,EAAE;QACzC,OAAO,QAAQ,CAAC;KACjB;IAED,OAAO,QAAQ,CAAC;AAClB,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"RuntimeMode.js","sourceRoot":"","sources":["../../src/runtime/RuntimeMode.ts"],"names":[],"mappings":"AAEA,MAAM,uBAAuB,GAAW,SAAS,CAAC;AAClD,MAAM,oBAAoB,GAAW,QAAQ,CAAC;AAC9C,MAAM,oBAAoB,GAAW,QAAQ,CAAC;AAM9C,MAAM,UAAU,cAAc,CAAC,eAAuB,MAAM;IAC1D,MAAM,KAAK,GAAoB,IAAI,eAAe,CAAC,YAAY,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC;IACjF,MAAM,YAAY,GAAkB,KAAK,CAAC,GAAG,CAAC,uBAAuB,CAAC,CAAC;IACvE,IAAI,YAAY,KAAK,oBAAoB,EAAE;QACzC,OAAO,QAAQ,CAAC;KACjB;IAED,IAAI,YAAY,KAAK,oBAAoB,EAAE;QACzC,OAAO,QAAQ,CAAC;KACjB;IAED,OAAO,QAAQ,CAAC;AAClB,CAAC"}
+\ No newline at end of file
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index d5ea2d3..80cb763 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -1,7 +1,7 @@
+ flowchart TD
+   A[app.ts Runtime Selector] --> B{Runtime Mode}
+-  B -->|legacy default| C[Legacy Canvas Runtime]
+-  B -->|runtime=phaser| D[PhaserRuntime]
++  B -->|phaser default| D[PhaserRuntime]
++  B -->|runtime=legacy fallback| C[Legacy Canvas Runtime]
+   D --> D1[BootScene]
+   D1 --> D2[PreloadScene + Level0 Dialogue Assets + Player Facing Textures]
+   D2 --> D3[GameScene Level0 Visual Shell]
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index bf3750f..327ed3c 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -4,7 +4,7 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ 
+ ## Open
+ - Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, level-based shoot input gating (blocked in Level0, enabled in combat levels), single-shot projectile parity for Level1 and Level2, dual-shot projectile parity for Level3, triple-shot projectile parity for Level4 and Level5, a parity projectile-hit resolver that emits death-effect spawn points and score deltas on enemy defeat, Level1 FEmail combat integration (500ms spawn cadence, bullet/player collision handling, score/damage hooks, and clear-gate blocking via active enemy count), Level2 RVirus combat integration (1000ms spawn cadence, player-attachment behavior, 1500ms periodic HP drain while attached, and clear-gate blocking via active enemy count), Level3 Worm combat integration (500ms spawn cadence, 2000ms duplication timer, projectile-hit score hooks, player-collision damage/removal hooks, and clear-gate blocking via active enemy count), Level4 Trojan combat integration (2000ms spawn cadence, projectile/player/breach collision handling, split-spawn-on-hit/breach into FEmail+RVirus+Worm, and clear-gate blocking via active enemy count), and full Level5 boss parity including MrHacker defeat flow, go-next-level unlock state, final score-multiplier victory summary, and restart input parity.
+-- Legacy runtime remains the default boot path; cutover to Phaser and legacy decommission are pending PR-034 and PR-035.
++- Legacy runtime remains available only through the `?runtime=legacy` fallback flag; full legacy removal is pending PR-035.
+ 
+ ## Resolved
+ - PR-001 placeholder-only Phaser scene bootstrap replaced by explicit scene lifecycle shell in PR-002.
+@@ -36,3 +36,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ - PR-031 added Level5 MrHacker minion spawn-cycle parity with legacy 3000ms cadence, random FEmail/RVirus/Worm bucket selection, legacy spawn offsets from boss position, and runtime combat-loop integration that keeps spawned minions active before and after boss defeat.
+ - PR-032 added Level5 boss defeat and win-flow parity with final multiplier decay/freeze behavior, go-next-level combat-clear visual state, legacy victory summary text (score, multiplier, final score), and Space-key restart handling from victory state.
+ - PR-033 completed a full parity matrix verification run (build, lint, unit, and e2e gates) and recorded stabilization status with no new parity regressions detected.
++- PR-034 switched default boot to Phaser runtime while retaining the legacy canvas fallback flag at `?runtime=legacy`.
+diff --git a/docs/parity/parity-matrix.md b/docs/parity/parity-matrix.md
+index 4cfbfc0..23df50e 100644
+--- a/docs/parity/parity-matrix.md
++++ b/docs/parity/parity-matrix.md
+@@ -8,4 +8,4 @@
+ | Wave D: enemies by level parity | Baseline established | Baseline established | `docs/handoffs/2026-02-11-pr-024-level1-femail-spawn-collision-damage-score-clear-gate.md`, `docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md` | Level1 to Level4 enemy behaviors and collision matrix hardening are complete for parity scope. |
+ | Wave E: boss fight parity | Baseline established | Baseline established | `docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md`, `docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md` | Level5 boss spawn/HP/UI, bullet systems, minion cycle, and victory/restart flow are complete for parity scope. |
+ | PR-033 parity matrix run | Baseline established | Baseline established | `npm run build`, `npm run lint`, `npm run test:unit`, `npm run test:e2e`, `docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md` | Full static, unit, and runtime verification completed with no stabilization regressions found. |
+-| Wave F: cutover and decommission | Legacy default runtime active | Not started | `.ralph/ralph-tasks.md` | Default runtime switch and legacy decommission remain scoped to PR-034 and PR-035. |
++| Wave F: cutover and decommission | Phaser default runtime active with legacy fallback flag | In progress | `src/runtime/RuntimeMode.ts`, `e2e/boot-smoke.spec.ts`, `.ralph/ralph-tasks.md` | PR-034 completed default-runtime cutover to Phaser with `?runtime=legacy` fallback retained; legacy removal remains scoped to PR-035. |
+diff --git a/e2e/boot-smoke.spec.ts b/e2e/boot-smoke.spec.ts
+index 78debea..1ce94b5 100644
+--- a/e2e/boot-smoke.spec.ts
++++ b/e2e/boot-smoke.spec.ts
+@@ -1,6 +1,6 @@
+ import { expect, test } from '@playwright/test';
+ 
+-test('boots Phaser runtime without browser errors', async ({ page }) => {
++test('boots default Phaser runtime without browser errors', async ({ page }) => {
+   const consoleErrors: string[] = [];
+   const pageErrors: string[] = [];
+ 
+@@ -14,7 +14,7 @@ test('boots Phaser runtime without browser errors', async ({ page }) => {
+     pageErrors.push(error.message);
+   });
+ 
+-  await page.goto('/?runtime=phaser');
++  await page.goto('/');
+   await expect(page.locator('#game')).toBeVisible();
+   await page.waitForTimeout(200);
+ 
+diff --git a/src/runtime/RuntimeMode.ts b/src/runtime/RuntimeMode.ts
+index b075cd6..73660ac 100644
+--- a/src/runtime/RuntimeMode.ts
++++ b/src/runtime/RuntimeMode.ts
+@@ -1,18 +1,23 @@
+ export type RuntimeMode = 'legacy' | 'phaser';
+ 
+ const RUNTIME_QUERY_PARAMETER: string = 'runtime';
++const LEGACY_RUNTIME_VALUE: string = 'legacy';
+ const PHASER_RUNTIME_VALUE: string = 'phaser';
+ 
+ /**
+  * Resolve which runtime should boot from URL query params.
+- * Defaults to legacy to keep existing gameplay untouched.
++ * Defaults to Phaser while retaining a legacy fallback query flag.
+  */
+ export function getRuntimeMode(windowObject: Window = window): RuntimeMode {
+   const query: URLSearchParams = new URLSearchParams(windowObject.location.search);
+   const runtimeValue: string | null = query.get(RUNTIME_QUERY_PARAMETER);
++  if (runtimeValue === LEGACY_RUNTIME_VALUE) {
++    return 'legacy';
++  }
++
+   if (runtimeValue === PHASER_RUNTIME_VALUE) {
+     return 'phaser';
+   }
+ 
+-  return 'legacy';
++  return 'phaser';
+ }
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/runtime/RuntimeMode.ts src/runtime/RuntimeMode.spec.ts e2e/boot-smoke.spec.ts docs/parity/known-limitations.md docs/parity/parity-matrix.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md build/runtime/RuntimeMode.js build/runtime/RuntimeMode.js.map && git commit -m "feat(parity:PR-034): switch default runtime to Phaser with legacy fallback" && git status --short
+[main fbd3686] feat(parity:PR-034): switch default runtime to Phaser with legacy fallback
+ 10 files changed, 137 insertions(+), 11 deletions(-)
+ create mode 100644 docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+ create mode 100644 src/runtime/RuntimeMode.spec.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m→ [0mSkill "verification-before-completion"
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 23
+Elapsed:   3:41
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 24...

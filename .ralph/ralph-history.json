@@ -734,11 +734,56 @@
       "exitCode": 0,
       "completionDetected": false,
       "errors": []
+    },
+    {
+      "iteration": 23,
+      "startedAt": "2026-02-11T13:49:22.178Z",
+      "endedAt": "2026-02-11T13:53:05.222Z",
+      "durationMs": 221251,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-caffeinate-20260211-103217.log",
+        ".ralph/ralph-tasks.md",
+        "build/runtime/RuntimeMode.js",
+        "build/runtime/RuntimeMode.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md",
+        "docs/parity/known-limitations.md",
+        "docs/parity/parity-matrix.md",
+        "e2e/boot-smoke.spec.ts",
+        "src/runtime/RuntimeMode.spec.ts",
+        "src/runtime/RuntimeMode.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "❯ src/runtime/RuntimeMode.spec.ts (3 tests | 1 failed) 4ms",
+        "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
+        "AssertionError: expected 'legacy' to be 'phaser' // Object.is equality",
+        "Test Files  1 failed (1)",
+        "Tests  1 failed | 2 passed (3)",
+        "+ ❯ src/runtime/RuntimeMode.spec.ts (3 tests | 1 failed) 4ms",
+        "+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
+        "+AssertionError: expected 'legacy' to be 'phaser' // Object.is equality",
+        "+ Test Files  1 failed (1)",
+        "+      Tests  1 failed | 2 passed (3)"
+      ]
     }
   ],
-  "totalDurationMs": 15330003,
+  "totalDurationMs": 15551254,
   "struggleIndicators": {
-    "repeatedErrors": {},
+    "repeatedErrors": {
+      "❯ src/runtime/RuntimeMode.spec.ts (3 tests | 1 failed) 4ms": 1,
+      "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯": 1,
+      "AssertionError: expected 'legacy' to be 'phaser' // Object.is equality": 1,
+      "Test Files  1 failed (1)": 1,
+      "Tests  1 failed | 2 passed (3)": 1,
+      "+ ❯ src/runtime/RuntimeMode.spec.ts (3 tests | 1 failed) 4ms": 1,
+      "+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯": 1,
+      "+AssertionError: expected 'legacy' to be 'phaser' // Object.is equality": 1,
+      "+ Test Files  1 failed (1)": 1,
+      "+      Tests  1 failed | 2 passed (3)": 1
+    },
     "noProgressIterations": 0,
     "shortIterations": 0
   }
