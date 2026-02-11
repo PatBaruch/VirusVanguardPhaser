@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { LEVEL0_DIALOGUE_TEXTURE_KEYS, advanceLevel0DialogueState, createInitialLevel0DialogueState, resolveLevel0DialoguePhase, } from './level0DialogueState.js';
 import PlayerPrefab from '../entities/PlayerPrefab.js';
+import { resolvePlayerMovementStep } from '../entities/playerMovementStep.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     dialogueState;
@@ -9,6 +10,10 @@ export default class GameScene extends Phaser.Scene {
     level0Phase;
     player;
     spaceKey;
+    moveUpKey;
+    moveLeftKey;
+    moveDownKey;
+    moveRightKey;
     constructor() {
         super(GameScene.SCENE_KEY);
         this.dialogueState = createInitialLevel0DialogueState();
@@ -17,11 +22,19 @@ export default class GameScene extends Phaser.Scene {
         this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
         this.player = null;
         this.spaceKey = null;
+        this.moveUpKey = null;
+        this.moveLeftKey = null;
+        this.moveDownKey = null;
+        this.moveRightKey = null;
     }
     create() {
         const centerX = this.scale.width / 2;
         const centerY = this.scale.height / 2;
         this.spaceKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE) ?? null;
+        this.moveUpKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W) ?? null;
+        this.moveLeftKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A) ?? null;
+        this.moveDownKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S) ?? null;
+        this.moveRightKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D) ?? null;
         this.startPromptText = this.add.text(centerX, centerY + 200, 'Press space to start the game', {
             color: '#ff0000',
             fontFamily: 'Copperplate',
@@ -40,6 +53,26 @@ export default class GameScene extends Phaser.Scene {
             this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
             this.syncLevel0VisualState();
         }
+        if (this.level0Phase === 'walkable') {
+            this.updatePlayerMovement();
+        }
+    }
+    updatePlayerMovement() {
+        if (this.player === null) {
+            return;
+        }
+        const movementStep = resolvePlayerMovementStep({
+            down: this.moveDownKey?.isDown ?? false,
+            left: this.moveLeftKey?.isDown ?? false,
+            right: this.moveRightKey?.isDown ?? false,
+            up: this.moveUpKey?.isDown ?? false,
+        });
+        if (!movementStep.isMoving || movementStep.facingDirection === null) {
+            return;
+        }
+        this.player.x += movementStep.deltaX;
+        this.player.y += movementStep.deltaY;
+        this.player.setFacingDirection(movementStep.facingDirection);
     }
     syncLevel0VisualState() {
         if (this.level0Phase === 'startScreen') {

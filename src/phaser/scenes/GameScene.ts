@@ -8,6 +8,7 @@ import {
   resolveLevel0DialoguePhase,
 } from './level0DialogueState.js';
 import PlayerPrefab from '../entities/PlayerPrefab.js';
+import { resolvePlayerMovementStep } from '../entities/playerMovementStep.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -27,6 +28,14 @@ export default class GameScene extends Phaser.Scene {
 
   private spaceKey: Phaser.Input.Keyboard.Key | null;
 
+  private moveUpKey: Phaser.Input.Keyboard.Key | null;
+
+  private moveLeftKey: Phaser.Input.Keyboard.Key | null;
+
+  private moveDownKey: Phaser.Input.Keyboard.Key | null;
+
+  private moveRightKey: Phaser.Input.Keyboard.Key | null;
+
   public constructor() {
     super(GameScene.SCENE_KEY);
     this.dialogueState = createInitialLevel0DialogueState();
@@ -38,6 +47,10 @@ export default class GameScene extends Phaser.Scene {
     );
     this.player = null;
     this.spaceKey = null;
+    this.moveUpKey = null;
+    this.moveLeftKey = null;
+    this.moveDownKey = null;
+    this.moveRightKey = null;
   }
 
   public create(): void {
@@ -45,6 +58,10 @@ export default class GameScene extends Phaser.Scene {
     const centerY: number = this.scale.height / 2;
 
     this.spaceKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE) ?? null;
+    this.moveUpKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W) ?? null;
+    this.moveLeftKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A) ?? null;
+    this.moveDownKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S) ?? null;
+    this.moveRightKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D) ?? null;
 
     this.startPromptText = this.add.text(
       centerX,
@@ -73,6 +90,31 @@ export default class GameScene extends Phaser.Scene {
       this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
       this.syncLevel0VisualState();
     }
+
+    if (this.level0Phase === 'walkable') {
+      this.updatePlayerMovement();
+    }
+  }
+
+  private updatePlayerMovement(): void {
+    if (this.player === null) {
+      return;
+    }
+
+    const movementStep = resolvePlayerMovementStep({
+      down: this.moveDownKey?.isDown ?? false,
+      left: this.moveLeftKey?.isDown ?? false,
+      right: this.moveRightKey?.isDown ?? false,
+      up: this.moveUpKey?.isDown ?? false,
+    });
+
+    if (!movementStep.isMoving || movementStep.facingDirection === null) {
+      return;
+    }
+
+    this.player.x += movementStep.deltaX;
+    this.player.y += movementStep.deltaY;
+    this.player.setFacingDirection(movementStep.facingDirection);
   }
 
   private syncLevel0VisualState(): void {

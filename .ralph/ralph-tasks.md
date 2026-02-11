@@ -12,7 +12,7 @@
 ## Wave B - Walkable Levels First (No Shooting and No Enemies)
 - [x] PR-008: Level0 scene visuals + dialogue progression parity
 - [x] PR-009: Player prefab + facing-direction states parity
-- [ ] PR-010: 8-direction movement + diagonal normalization parity
+- [x] PR-010: 8-direction movement + diagonal normalization parity
 - [ ] PR-011: Level0 bounds + transition trigger to Level1 parity
 - [ ] PR-012: Level1 shell (background, dialogue, bounds, transition zone)
 - [ ] PR-013: Level2 shell (same pattern)

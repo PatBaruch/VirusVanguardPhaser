@@ -7,9 +7,10 @@ flowchart TD
   D2 --> D3[GameScene Level0 Visual Shell]
   D3 --> D4[Level0 Dialogue State Progression]
   D4 --> D5[PlayerPrefab + Facing State Mapping]
-  D5 --> D6[Shared Parity Constants Table]
+  D5 --> D6[Movement Step Resolver (WASD + Diagonal Normalization)]
+  D6 --> D7[Shared Parity Constants Table]
   C --> E[Core Systems Parity]
-  D6 --> E
+  D7 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]
