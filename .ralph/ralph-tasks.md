@@ -52,4 +52,4 @@
 - [x] PR-037: Add combat interaction e2e coverage for shooting, enemy damage, and score progression in early levels
 - [x] PR-038: Add long-run runtime soak validation (no console/page errors under sustained input)
 - [x] PR-039: Validate PRD traceability artifacts end-to-end (handoffs, parity matrix, known limitations) and repair gaps
-- [ ] PR-040: Add CI workflow gate for build, lint, unit, and e2e as required merge checks
+- [x] PR-040: Add CI workflow gate for build, lint, unit, and e2e as required merge checks

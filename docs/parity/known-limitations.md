@@ -4,7 +4,7 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
 - No active gameplay parity gaps are currently open.
-- Governance gap pending PR-040: add CI required merge-check workflow for build, lint, unit, and e2e gates.
+- No active governance gaps are currently open.
 
 ## Resolved
 - PR-001 placeholder-only Phaser scene bootstrap replaced by explicit scene lifecycle shell in PR-002.
@@ -42,3 +42,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-037 added Playwright end-to-end combat interaction coverage for early-level combat behavior, including shoot-input projectile spawning, projectile hit score progression, and player damage from enemy collisions in Level1.
 - PR-038 added Playwright long-run runtime soak coverage with sustained movement and shoot input, including explicit console-error and page-error assertions over an extended browser interaction window.
 - PR-039 validated end-to-end PRD traceability artifacts across handoffs, parity matrix, and known limitations; repaired missing handoff metadata (`Date`) for PR-030 through PR-038 and reconciled parity documentation coverage through Wave G.
+- PR-040 added GitHub Actions CI workflow gates for build, lint, unit tests, and e2e tests to support required merge-check enforcement.
