@@ -1405,3 +1405,795 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
    Moving to next task in iteration 6...
+📝 Auto-committed changes
+
+🔄 Iteration 6 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "writing-plans"
+Using the `writing-plans` skill mindset to keep this PR scoped and checklist-driven while I execute PR-039 end-to-end.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "*.md"[90m in docs/handoffs · 39 matches[0m
+[0m✱ [0mGlob "*.md"[90m in docs/parity · 2 matches[0m
+[0m✱ [0mGlob "**/*parity*matrix*.md"[90m in docs · 2 matches[0m
+[0m→ [0mRead docs/handoffs/TEMPLATE.md
+[0m→ [0mRead docs/parity/parity-matrix.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m
+[0m$ [0mpython3 - <<'PY'
+import pathlib,re
+root=pathlib.Path('/Users/pbaruch/Desktop/VirusVanguardPhaser/docs/handoffs')
+files=sorted([p for p in root.glob('*.md') if p.name!='TEMPLATE.md'])
+fields=['Feature name','PR ID','REQ-ID','ARCH-ID','IMPL-ID','TEST-ID list','Branch','PR','Date']
+missing={}
+for f in files:
+    text=f.read_text()
+    miss=[]
+    for field in fields:
+        m=re.search(rf'^- {re.escape(field)}:\s*(.*)$',text,flags=re.M)
+        if not m:
+            miss.append(field+' (missing line)')
+        else:
+            v=m.group(1).strip()
+            if v=='' or v in {'TBD','N/A','NA','-'}:
+                miss.append(field)
+    if miss:
+        missing[f.name]=miss
+print('files',len(files))
+print('with missing',len(missing))
+for k,v in list(missing.items())[:10]:
+    print(k,':',', '.join(v))
+PY
+files 38
+with missing 9
+2026-02-11-pr-030-boss-bullet-collision-parity.md : Date (missing line)
+2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md : Date (missing line)
+2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md : Date (missing line)
+2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md : Date (missing line)
+2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md : Date (missing line)
+2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md : Date (missing line)
+2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md : Date (missing line)
+2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md : Date (missing line)
+2026-02-11-pr-038-long-run-runtime-soak-validation.md : Date (missing line)
+[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-001-phaser-dual-runtime-bootstrap.md
+[0m✱ [0mGrep "- PR:"[90m in docs/handoffs · 9 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
+⏳ working... elapsed 1:50 · last activity 0:16 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/parity-matrix.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 3:10 · last activity 0:12 ago
+⏳ working... elapsed 3:20 · last activity 0:22 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md
+[0m
+[0m$ [0mpython3 - <<'PY'
+import pathlib,re,sys
+root=pathlib.Path('/Users/pbaruch/Desktop/VirusVanguardPhaser/docs/handoffs')
+files=sorted([p for p in root.glob('*.md') if p.name!='TEMPLATE.md'])
+fields=['Feature name','PR ID','REQ-ID','ARCH-ID','IMPL-ID','TEST-ID list','Branch','PR','Date']
+missing=[]
+for f in files:
+    text=f.read_text()
+    for field in fields:
+        m=re.search(rf'^- {re.escape(field)}:\s*(.*)$',text,flags=re.M)
+        if not m or m.group(1).strip()=='' :
+            missing.append((f.name,field))
+if missing:
+    print('missing fields found:')
+    for file,field in missing:
+        print(file,field)
+    sys.exit(1)
+print(f'OK: {len(files)} handoff files include all required header fields')
+PY
+OK: 39 handoff files include all required header fields
+[0m
+[0m→ [0mSkill "verification-before-completion"
+⏳ working... elapsed 3:50 · last activity 0:13 ago
+⏳ working... elapsed 4:00 · last activity 0:23 ago
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 4ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 5ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 4ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  29 passed (29)
+      Tests  111 passed (111)
+   Start at  17:05:21
+   Duration  1.01s (transform 298ms, setup 0ms, collect 667ms, tests 62ms, environment 3ms, prepare 1.56s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 5 tests using 4 workers
+
+  ✓  4 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (999ms)
+  ✓  2 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (1.0s)
+  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (1.0s)
+  ✓  5 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (330ms)
+  ✓  3 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (14.2s)
+
+  5 passed (15.8s)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md
+⏳ working... elapsed 4:40 · last activity 0:16 ago
+⏳ working... elapsed 4:50 · last activity 0:26 ago
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 7ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 5ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 8ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 4ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  29 passed (29)
+      Tests  111 passed (111)
+   Start at  17:06:08
+   Duration  1.02s (transform 304ms, setup 0ms, collect 690ms, tests 77ms, environment 3ms, prepare 1.52s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 5 tests using 4 workers
+
+  ✓  3 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (799ms)
+  ✓  4 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (802ms)
+  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (875ms)
+  ✓  5 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (358ms)
+  ✓  2 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (14.0s)
+
+  5 passed (15.3s)
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M docs/architecture/phaser-migration.mmd
+ M docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
+ M docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+ M docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
+ M docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
+ M docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+ M docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+ M docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+ M docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+ M docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+ M docs/parity/known-limitations.md
+ M docs/parity/parity-matrix.md
+?? docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md
+[0m
+[0m$ [0mgit log -10 --oneline
+42bb803 Ralph iteration 5: work in progress
+d575ad7 feat(parity:PR-038): add sustained runtime soak e2e validation
+1a8ca9b Ralph iteration 4: work in progress
+f8c25c1 feat(parity:PR-037): add combat interaction e2e coverage for early levels
+ea430ea Ralph iteration 3: work in progress
+1bbaacc feat(parity:PR-036): add traversal journey e2e checkpoints
+7e06900 Ralph iteration 2: work in progress
+4f937c8 Ralph iteration 1: work in progress
+b3a8ad2 feat(parity:PR-035): remove legacy runtime and decommission fallback path
+ba36728 Ralph iteration 23: work in progress
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-164440.log b/.ralph/overnight-caffeinate-20260211-164440.log
+index 3f54731..2aa9c9e 100644
+--- a/.ralph/overnight-caffeinate-20260211-164440.log
++++ b/.ralph/overnight-caffeinate-20260211-164440.log
+@@ -1405,3 +1405,289 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
+    Moving to next task in iteration 6...
++📝 Auto-committed changes
++
++🔄 Iteration 6 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "writing-plans"
++Using the `writing-plans` skill mindset to keep this PR scoped and checklist-driven while I execute PR-039 end-to-end.
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m✱ [0mGlob "*.md"[90m in docs/handoffs · 39 matches[0m
++[0m✱ [0mGlob "*.md"[90m in docs/parity · 2 matches[0m
++[0m✱ [0mGlob "**/*parity*matrix*.md"[90m in docs · 2 matches[0m
++[0m→ [0mRead docs/handoffs/TEMPLATE.md
++[0m→ [0mRead docs/parity/parity-matrix.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m
++[0m$ [0mpython3 - <<'PY'
++import pathlib,re
++root=pathlib.Path('/Users/pbaruch/Desktop/VirusVanguardPhaser/docs/handoffs')
++files=sorted([p for p in root.glob('*.md') if p.name!='TEMPLATE.md'])
++fields=['Feature name','PR ID','REQ-ID','ARCH-ID','IMPL-ID','TEST-ID list','Branch','PR','Date']
++missing={}
++for f in files:
++    text=f.read_text()
++    miss=[]
++    for field in fields:
++        m=re.search(rf'^- {re.escape(field)}:\s*(.*)$',text,flags=re.M)
++        if not m:
++            miss.append(field+' (missing line)')
++        else:
++            v=m.group(1).strip()
++            if v=='' or v in {'TBD','N/A','NA','-'}:
++                miss.append(field)
++    if miss:
++        missing[f.name]=miss
++print('files',len(files))
++print('with missing',len(missing))
++for k,v in list(missing.items())[:10]:
++    print(k,':',', '.join(v))
++PY
++files 38
++with missing 9
++2026-02-11-pr-030-boss-bullet-collision-parity.md : Date (missing line)
++2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md : Date (missing line)
++2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md : Date (missing line)
++2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md : Date (missing line)
++2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md : Date (missing line)
++2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md : Date (missing line)
++2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md : Date (missing line)
++2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md : Date (missing line)
++2026-02-11-pr-038-long-run-runtime-soak-validation.md : Date (missing line)
++[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-001-phaser-dual-runtime-bootstrap.md
++[0m✱ [0mGrep "- PR:"[90m in docs/handoffs · 9 matches[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
++⏳ working... elapsed 1:50 · last activity 0:16 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/parity-matrix.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++⏳ working... elapsed 3:10 · last activity 0:12 ago
++⏳ working... elapsed 3:20 · last activity 0:22 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md
++[0m
++[0m$ [0mpython3 - <<'PY'
++import pathlib,re,sys
++root=pathlib.Path('/Users/pbaruch/Desktop/VirusVanguardPhaser/docs/handoffs')
++files=sorted([p for p in root.glob('*.md') if p.name!='TEMPLATE.md'])
++fields=['Feature name','PR ID','REQ-ID','ARCH-ID','IMPL-ID','TEST-ID list','Branch','PR','Date']
++missing=[]
++for f in files:
++    text=f.read_text()
++    for field in fields:
++        m=re.search(rf'^- {re.escape(field)}:\s*(.*)$',text,flags=re.M)
++        if not m or m.group(1).strip()=='' :
++            missing.append((f.name,field))
++if missing:
++    print('missing fields found:')
++    for file,field in missing:
++        print(file,field)
++    sys.exit(1)
++print(f'OK: {len(files)} handoff files include all required header fields')
++PY
++OK: 39 handoff files include all required header fields
++[0m
++[0m→ [0mSkill "verification-before-completion"
++⏳ working... elapsed 3:50 · last activity 0:13 ago
++⏳ working... elapsed 4:00 · last activity 0:23 ago
++[0m
++[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++
++
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 4ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 5ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 4ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++
++ Test Files  29 passed (29)
++      Tests  111 passed (111)
++   Start at  17:05:21
++   Duration  1.01s (transform 298ms, setup 0ms, collect 667ms, tests 62ms, environment 3ms, prepare 1.56s)
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 5 tests using 4 workers
++
++  ✓  4 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (999ms)
++  ✓  2 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (1.0s)
++  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (1.0s)
++  ✓  5 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (330ms)
++  ✓  3 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (14.2s)
++
++  5 passed (15.8s)
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md
++⏳ working... elapsed 4:40 · last activity 0:16 ago
++⏳ working... elapsed 4:50 · last activity 0:26 ago
++[0m
++[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++
++
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 7ms
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 5ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 8ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 4ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 4ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++
++ Test Files  29 passed (29)
++      Tests  111 passed (111)
++   Start at  17:06:08
++   Duration  1.02s (transform 304ms, setup 0ms, collect 690ms, tests 77ms, environment 3ms, prepare 1.52s)
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 5 tests using 4 workers
++
++  ✓  3 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (799ms)
++  ✓  4 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (802ms)
++  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (875ms)
++  ✓  5 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (358ms)
++  ✓  2 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (14.0s)
++
++  5 passed (15.3s)
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-164440.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M docs/architecture/phaser-migration.mmd
++ M docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
++ M docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
++ M docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
++ M docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
++ M docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
++ M docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
++ M docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
++ M docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
++ M docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
++ M docs/parity/known-limitations.md
++ M docs/parity/parity-matrix.md
++?? docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md
++[0m
++[0m$ [0mgit log -10 --oneline
++42bb803 Ralph iteration 5: work in progress
++d575ad7 feat(parity:PR-038): add sustained runtime soak e2e validation
++1a8ca9b Ralph iteration 4: work in progress
++f8c25c1 feat(parity:PR-037): add combat interaction e2e coverage for early levels
++ea430ea Ralph iteration 3: work in progress
++1bbaacc feat(parity:PR-036): add traversal journey e2e checkpoints
++7e06900 Ralph iteration 2: work in progress
++4f937c8 Ralph iteration 1: work in progress
++b3a8ad2 feat(parity:PR-035): remove legacy runtime and decommission fallback path
++ba36728 Ralph iteration 23: work in progress
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index d918213..9eafcaf 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 5,
++  "iteration": 6,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "ALL_PR_TASKS_COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index cc296e5..590f512 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -51,5 +51,5 @@
+ - [x] PR-036: Add end-to-end traversal journey test from Level0 start screen to Level5 reachability checkpoints
+ - [x] PR-037: Add combat interaction e2e coverage for shooting, enemy damage, and score progression in early levels
+ - [x] PR-038: Add long-run runtime soak validation (no console/page errors under sustained input)
+-- [ ] PR-039: Validate PRD traceability artifacts end-to-end (handoffs, parity matrix, known limitations) and repair gaps
++- [x] PR-039: Validate PRD traceability artifacts end-to-end (handoffs, parity matrix, known limitations) and repair gaps
+ - [ ] PR-040: Add CI workflow gate for build, lint, unit, and e2e as required merge checks
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index fdccc59..df1625b 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -32,8 +32,10 @@ flowchart TD
+   D29 --> D30[Playwright Traversal Journey E2E (Level0 to Level5 Checkpoints)]
+   D30 --> D31[Playwright Combat Interaction E2E (Level1 Shooting + Enemy Damage + Score Progression)]
+   D31 --> D32[Playwright Runtime Soak E2E (Sustained Input + No Console/Page Errors)]
++  D32 --> D33[Traceability Artifacts Validation (Handoffs + Parity Matrix + Known Limitations)]
++  D33 --> D34[CI Required Merge-Check Workflow (Build + Lint + Unit + E2E)]
+   E[Core Systems Parity]
+-  D32 --> E
++  D34 --> E
+   E --> F[Walkable Levels]
+   F --> G[Shooting Systems]
+   G --> H[Enemy Systems by Level]
+@@ -44,6 +46,7 @@ flowchart TD
+     K[Handoff Documents]
+     L[Known Limitations]
+     M[Parity Matrix]
++    N[Traceability Audit]
+   end
+ 
+   E -.evidence.-> K
+@@ -54,3 +57,6 @@ flowchart TD
+   J -.evidence.-> K
+   K --> L
+   K --> M
++  K --> N
++  N --> M
++  N --> L
+diff --git a/docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md b/docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
+index 3210e22..4216f7c 100644
+--- a/docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
++++ b/docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-030-UNIT-LEVEL5-BOSS-BULLETS, TEST-PR-030-STATIC-BUILD, TEST-PR-030-STATIC-LINT, TEST-PR-030-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Added deterministic Level5 boss bullet-volley logic that mirrors legacy behavior: dominant-axis player targeting (`N`/`S`/`E`/`W`), randomized spread angle (`10` to `55` degrees), and 3-bullet fan shot composition.
+diff --git a/docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md b/docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+index 2774995..d185c2a 100644
+--- a/docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
++++ b/docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-031-UNIT-LEVEL5-MINION-CYCLE, TEST-PR-031-STATIC-BUILD, TEST-PR-031-STATIC-LINT, TEST-PR-031-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Added a Level5 boss-minion cycle state machine with legacy 3000ms cadence and random bucket selection (`<0.33` FEmail, `<0.66` RVirus, otherwise Worm).
+diff --git a/docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md b/docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
+index 83e497d..29f57e5 100644
+--- a/docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
++++ b/docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-032-UNIT-LEVEL5-VICTORY-FLOW, TEST-PR-032-STATIC-BUILD, TEST-PR-032-STATIC-LINT, TEST-PR-032-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Added a dedicated Level5 victory-flow parity module for multiplier decay/freeze behavior, go-next-level visual unlock state, legacy final-score text formatting, and restart-input gating.
+diff --git a/docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md b/docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
+index 79b7873..eddf4cb 100644
+--- a/docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
++++ b/docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-033-STATIC-BUILD, TEST-PR-033-STATIC-LINT, TEST-PR-033-UNIT-FULL-SUITE, TEST-PR-033-RUNTIME-E2E, TEST-PR-033-DOCS-PARITY-MATRIX
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Executed a full parity verification pass for the current Phaser migration state using all required available gates (build, lint, unit, runtime e2e).
+diff --git a/docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md b/docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+index 0909297..0b502d1 100644
+--- a/docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
++++ b/docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-034-RUNTIME-MODE-UNIT, TEST-PR-034-STATIC-BUILD, TEST-PR-034-STATIC-LINT, TEST-PR-034-UNIT-FULL-SUITE, TEST-PR-034-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Switched runtime selection behavior so Phaser is now the default when no runtime query parameter is present.
+diff --git a/docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md b/docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+index 3b1e8a6..73ff9a5 100644
+--- a/docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
++++ b/docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-035-RUNTIME-MODE-UNIT, TEST-PR-035-BOOT-SMOKE-LEGACY-QUERY, TEST-PR-035-STATIC-BUILD, TEST-PR-035-STATIC-LINT, TEST-PR-035-UNIT-FULL-SUITE, TEST-PR-035-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Removed the legacy canvas runtime source tree and compiled artifacts from the repository.
+diff --git a/docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md b/docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+index 05be0c3..b6e2708 100644
+--- a/docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
++++ b/docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-036-TRAVERSAL-JOURNEY-E2E, TEST-PR-036-STATIC-BUILD, TEST-PR-036-STATIC-LINT, TEST-PR-036-UNIT-FULL-SUITE, TEST-PR-036-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Added a new Playwright e2e traversal journey spec that validates Level0 -> Level1 -> Level2 -> Level3 -> Level4 -> Level5 checkpoint reachability in one browser run.
+diff --git a/docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md b/docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+index 559cacd..861bde0 100644
+--- a/docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
++++ b/docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-037-COMBAT-INTERACTIONS-E2E, TEST-PR-037-STATIC-BUILD, TEST-PR-037-STATIC-LINT, TEST-PR-037-UNIT-FULL-SUITE, TEST-PR-037-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Added a new Playwright end-to-end spec that validates three early-level combat behaviors in one browser run: shoot input spawns projectiles, projectile hits can clear enemies and advance score, and enemy collision damages player health.
+diff --git a/docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md b/docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+index bbc1bbf..7e44ece 100644
+--- a/docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
++++ b/docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+@@ -7,6 +7,7 @@
+ - TEST-ID list: TEST-PR-038-RUNTIME-SOAK-E2E, TEST-PR-038-STATIC-BUILD, TEST-PR-038-STATIC-LINT, TEST-PR-038-UNIT-FULL-SUITE, TEST-PR-038-RUNTIME-E2E
+ - Branch: current working branch
+ - PR: pending
++- Date: 2026-02-11
+ 
+ # What Changed
+ - Added a new Playwright soak test that drives sustained keyboard input over an extended runtime window and verifies zero browser console errors and zero page-level runtime exceptions.
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index 5f187b9..7cfb369 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -3,7 +3,8 @@
+ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ 
+ ## Open
+-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, level-based shoot input gating (blocked in Level0, enabled in combat levels), single-shot projectile parity for Level1 and Level2, dual-shot projectile parity for Level3, triple-shot projectile parity for Level4 and Level5, a parity projectile-hit resolver that emits death-effect spawn points and score deltas on enemy defeat, Level1 FEmail combat integration (500ms spawn cadence, bullet/player collision handling, score/damage hooks, and clear-gate blocking via active enemy count), Level2 RVirus combat integration (1000ms spawn cadence, player-attachment behavior, 1500ms periodic HP drain while attached, and clear-gate blocking via active enemy count), Level3 Worm combat integration (500ms spawn cadence, 2000ms duplication timer, projectile-hit score hooks, player-collision damage/removal hooks, and clear-gate blocking via active enemy count), Level4 Trojan combat integration (2000ms spawn cadence, projectile/player/breach collision handling, split-spawn-on-hit/breach into FEmail+RVirus+Worm, and clear-gate blocking via active enemy count), and full Level5 boss parity including MrHacker defeat flow, go-next-level unlock state, final score-multiplier victory summary, and restart input parity.
++- No active gameplay parity gaps are currently open.
++- Governance gap pending PR-040: add CI required merge-check workflow for build, lint, unit, and e2e gates.
+ 
+ ## Resolved
+ - PR-001 placeholder-only Phaser scene bootstrap replaced by explicit scene lifecycle shell in PR-002.
+@@ -40,3 +41,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ - PR-036 added Playwright end-to-end traversal journey coverage from Level0 start state through Level5 reachability checkpoints, including score-gated transition preconditions for Levels1 to 5.
+ - PR-037 added Playwright end-to-end combat interaction coverage for early-level combat behavior, including shoot-input projectile spawning, projectile hit score progression, and player damage from enemy collisions in Level1.
+ - PR-038 added Playwright long-run runtime soak coverage with sustained movement and shoot input, including explicit console-error and page-error assertions over an extended browser interaction window.
++- PR-039 validated end-to-end PRD traceability artifacts across handoffs, parity matrix, and known limitations; repaired missing handoff metadata (`Date`) for PR-030 through PR-038 and reconciled parity documentation coverage through Wave G.
+diff --git a/docs/parity/parity-matrix.md b/docs/parity/parity-matrix.md
+index 50b2c3e..b89109f 100644
+--- a/docs/parity/parity-matrix.md
++++ b/docs/parity/parity-matrix.md
+@@ -9,3 +9,5 @@
+ | Wave E: boss fight parity | Baseline established | Baseline established | `docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md`, `docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md` | Level5 boss spawn/HP/UI, bullet systems, minion cycle, and victory/restart flow are complete for parity scope. |
+ | PR-033 parity matrix run | Baseline established | Baseline established | `npm run build`, `npm run lint`, `npm run test:unit`, `npm run test:e2e`, `docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md` | Full static, unit, and runtime verification completed with no stabilization regressions found. |
+ | Wave F: cutover and decommission | Legacy runtime removed after stable-cycle verification | Baseline established | `src/app.ts`, `src/runtime/RuntimeMode.ts`, `e2e/boot-smoke.spec.ts`, `docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md` | PR-035 decommissioned legacy canvas runtime files and removed fallback runtime selection, leaving Phaser as the only boot path. |
++| Wave G: runtime confidence validation | Baseline established | Baseline established | `docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md`, `docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md`, `docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md` | Traversal journey, combat interaction, and sustained-input runtime soak e2e coverage are implemented and passing. |
++| PR-039 traceability artifact validation | Governance baseline established | Governance baseline established | `docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md`, `docs/parity/parity-matrix.md`, `docs/parity/known-limitations.md`, `docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md`, `docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md` | End-to-end traceability audit completed for handoffs/parity docs; missing handoff metadata fields were repaired and governance docs reconciled. |
+[0m
+[0m$ [0mgit add ".ralph/ralph-tasks.md" "docs/architecture/phaser-migration.mmd" "docs/parity/parity-matrix.md" "docs/parity/known-limitations.md" "docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md" "docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md" "docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md" "docs/handoffs/2026-02-11-pr-033-full-parity-matrix-run-stabilization-fixes.md" "docs/handoffs/2026-02-11-pr-034-switch-default-runtime-to-phaser-retain-legacy-fallback.md" "docs/handoffs/2026-02-11-pr-035-remove-legacy-runtime-after-stable-cycle.md" "docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md" "docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md" "docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md" "docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md" && git commit -m "feat(parity:PR-039): repair traceability artifacts and close documentation gaps" && git status --short
+[main c1a6f8c] feat(parity:PR-039): repair traceability artifacts and close documentation gaps
+ 14 files changed, 115 insertions(+), 3 deletions(-)
+ create mode 100644 docs/handoffs/2026-02-11-pr-039-traceability-artifacts-validation-repair.md
+ M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>NEXT_PR_DONE</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 6
+Elapsed:   5:17
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
+   Moving to next task in iteration 7...
