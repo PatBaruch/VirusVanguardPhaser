@@ -1,7 +1,7 @@
 flowchart TD
   A[app.ts Runtime Selector] --> B{Runtime Mode}
-  B -->|legacy default| C[Legacy Canvas Runtime]
-  B -->|runtime=phaser| D[PhaserRuntime]
+  B -->|phaser default| D[PhaserRuntime]
+  B -->|runtime=legacy fallback| C[Legacy Canvas Runtime]
   D --> D1[BootScene]
   D1 --> D2[PreloadScene + Level0 Dialogue Assets + Player Facing Textures]
   D2 --> D3[GameScene Level0 Visual Shell]

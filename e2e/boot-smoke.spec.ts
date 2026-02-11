@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('boots Phaser runtime without browser errors', async ({ page }) => {
+test('boots default Phaser runtime without browser errors', async ({ page }) => {
   const consoleErrors: string[] = [];
   const pageErrors: string[] = [];
 
@@ -14,7 +14,7 @@ test('boots Phaser runtime without browser errors', async ({ page }) => {
     pageErrors.push(error.message);
   });
 
-  await page.goto('/?runtime=phaser');
+  await page.goto('/');
   await expect(page.locator('#game')).toBeVisible();
   await page.waitForTimeout(200);
 
