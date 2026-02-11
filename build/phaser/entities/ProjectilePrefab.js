@@ -3,6 +3,7 @@ import { LEVEL_BOUNDS_PARITY } from '../config/parityConstants.js';
 import { advanceProjectileMotion, isProjectileOutsideWorldBounds, resolveProjectileWorldBounds, } from './projectileMotion.js';
 export default class ProjectilePrefab extends Phaser.GameObjects.Image {
     static TEXTURE_KEY = 'projectile-base';
+    static DAMAGE_PER_HIT = 1;
     velocityX;
     velocityY;
     constructor(scene, config) {
@@ -37,6 +38,9 @@ export default class ProjectilePrefab extends Phaser.GameObjects.Image {
             velocityX: this.velocityX,
             velocityY: this.velocityY,
         }, worldBounds);
+    }
+    getDamage() {
+        return ProjectilePrefab.DAMAGE_PER_HIT;
     }
 }
 //# sourceMappingURL=ProjectilePrefab.js.map

@@ -12,6 +12,7 @@ import {
   PlayerFacingDirection,
 } from '../entities/playerFacingState.js';
 import ProjectilePrefab from '../entities/ProjectilePrefab.js';
+import FEmailPrefab from '../entities/FEmailPrefab.js';
 
 /**
  * Minimal preload scene shell for Phaser runtime lifecycle.
@@ -58,6 +59,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image(
       ProjectilePrefab.TEXTURE_KEY,
       './assets/Bullet-Sprite/PBsprite_0.png',
+    );
+
+    this.load.image(
+      FEmailPrefab.TEXTURE_KEY,
+      './assets/FishingMail-Sprite/FMsprite_00.png',
     );
   }
 

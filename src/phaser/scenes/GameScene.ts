@@ -79,6 +79,20 @@ import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import { resolveSingleShotProjectileConfigs } from './singleShotPattern.js';
 import { resolveDualShotProjectileConfigs } from './dualShotPattern.js';
 import { resolveTripleShotProjectileConfigs } from './tripleShotPattern.js';
+import {
+  CombatProjectileSnapshot,
+  CombatTargetSnapshot,
+  resolveProjectileHitResolution,
+} from './projectileHitResolution.js';
+import FEmailPrefab from '../entities/FEmailPrefab.js';
+import {
+  Level1FEmailEnemySnapshot,
+  Level1FEmailSpawnState,
+  advanceLevel1FEmailMotion,
+  advanceLevel1FEmailSpawnState,
+  createInitialLevel1FEmailSpawnState,
+  resolveLevel1PlayerEnemyCollisions,
+} from './level1FEmailCombat.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -150,6 +164,12 @@ export default class GameScene extends Phaser.Scene {
 
   private activeProjectiles: ProjectilePrefab[];
 
+  private activeFEmails: FEmailPrefab[];
+
+  private level1FEmailSpawnState: Level1FEmailSpawnState;
+
+  private playerHealth: number;
+
   public constructor() {
     super(GameScene.SCENE_KEY);
     this.dialogueState = createInitialLevel0DialogueState();
@@ -200,6 +220,9 @@ export default class GameScene extends Phaser.Scene {
     this.score = 0;
     this.activeCombatItemCount = 0;
     this.activeProjectiles = [];
+    this.activeFEmails = [];
+    this.level1FEmailSpawnState = createInitialLevel1FEmailSpawnState();
+    this.playerHealth = 100;
   }
 
   public create(): void {
@@ -290,6 +313,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.activeLevelId === 1 && this.level1Phase === 'walkable') {
       this.updatePlayerMovement();
+      this.updateLevel1Combat(delta);
       this.updateLevel1TransitionTrigger();
       return;
     }
@@ -409,6 +433,175 @@ export default class GameScene extends Phaser.Scene {
     }
 
     this.activeProjectiles = nextActiveProjectiles;
+  }
+
+  private updateLevel1Combat(elapsedMs: number): void {
+    const spawnResolution = advanceLevel1FEmailSpawnState(this.level1FEmailSpawnState, {
+      canSpawn: this.activeLevelId === 1 && this.level1Phase === 'walkable',
+      canvasHeight: this.scale.height,
+      canvasWidth: this.scale.width,
+      elapsedMs,
+      random: () => Math.random(),
+      score: this.score,
+    });
+    this.level1FEmailSpawnState = spawnResolution.nextState;
+
+    for (const spawnedEnemy of spawnResolution.spawnedEnemies) {
+      const fEmail = new FEmailPrefab(this, spawnedEnemy);
+      this.add.existing(fEmail);
+      this.activeFEmails.push(fEmail);
+    }
+
+    if (this.activeFEmails.length === 0) {
+      this.activeCombatItemCount = 0;
+      return;
+    }
+
+    const movedSnapshots = advanceLevel1FEmailMotion(
+      this.activeFEmails.map((enemy: FEmailPrefab) => enemy.toSnapshot()),
+      {
+        canvasHeight: this.scale.height,
+        canvasWidth: this.scale.width,
+        elapsedMs,
+      },
+    );
+    this.applyFEmailSnapshotsById(movedSnapshots);
+
+    this.resolveLevel1ProjectileHits();
+    this.resolveLevel1PlayerEnemyCollisions();
+
+    this.activeCombatItemCount = this.activeFEmails.length;
+  }
+
+  private resolveLevel1ProjectileHits(): void {
+    if (this.activeProjectiles.length === 0 || this.activeFEmails.length === 0) {
+      return;
+    }
+
+    const projectileSnapshots: CombatProjectileSnapshot[] = this.activeProjectiles.map((projectile: ProjectilePrefab) => ({
+      centerX: projectile.x,
+      centerY: projectile.y,
+      damage: projectile.getDamage(),
+      height: projectile.displayHeight,
+      projectileId: projectile.name,
+      width: projectile.displayWidth,
+    }));
+
+    for (let index: number = 0; index < projectileSnapshots.length; index += 1) {
+      projectileSnapshots[index].projectileId = `projectile-${index}`;
+    }
+
+    const targetSnapshots: CombatTargetSnapshot[] = this.activeFEmails.map((enemy: FEmailPrefab) => {
+      const enemySnapshot: Level1FEmailEnemySnapshot = enemy.toSnapshot();
+      return {
+        centerX: enemySnapshot.centerX,
+        centerY: enemySnapshot.centerY,
+        currentHealth: enemySnapshot.currentHealth,
+        height: enemySnapshot.height,
+        scoreValue: enemySnapshot.scoreValue,
+        targetId: enemySnapshot.enemyId,
+        width: enemySnapshot.width,
+      };
+    });
+
+    const resolution = resolveProjectileHitResolution({
+      projectiles: projectileSnapshots,
+      targets: targetSnapshots,
+    });
+
+    if (resolution.destroyedProjectileIds.length > 0) {
+      this.activeProjectiles = this.activeProjectiles.filter((projectile: ProjectilePrefab, index: number) => {
+        const projectileId: string = `projectile-${index}`;
+        const isDestroyed: boolean = resolution.destroyedProjectileIds.includes(projectileId);
+        if (isDestroyed) {
+          projectile.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    if (resolution.destroyedTargetIds.length > 0) {
+      this.activeFEmails = this.activeFEmails.filter((enemy: FEmailPrefab) => {
+        const isDestroyed: boolean = resolution.destroyedTargetIds.includes(enemy.getEnemyId());
+        if (isDestroyed) {
+          enemy.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    if (resolution.remainingTargets.length > 0 && this.activeFEmails.length > 0) {
+      this.applyFEmailSnapshotsById(
+        resolution.remainingTargets.map((target: CombatTargetSnapshot) => ({
+          centerX: target.centerX,
+          centerY: target.centerY,
+          currentHealth: target.currentHealth,
+          damage: 5,
+          enemyId: target.targetId,
+          height: target.height,
+          scoreValue: target.scoreValue,
+          velocityX: this.resolveFEmailVelocityById(target.targetId).x,
+          velocityY: this.resolveFEmailVelocityById(target.targetId).y,
+          width: target.width,
+        })),
+      );
+    }
+
+    this.score += resolution.scoreDelta;
+  }
+
+  private resolveLevel1PlayerEnemyCollisions(): void {
+    if (this.player === null || this.activeFEmails.length === 0) {
+      return;
+    }
+
+    const result = resolveLevel1PlayerEnemyCollisions({
+      enemies: this.activeFEmails.map((enemy: FEmailPrefab) => enemy.toSnapshot()),
+      player: {
+        centerX: this.player.x + this.player.displayWidth / 2,
+        centerY: this.player.y + this.player.displayHeight / 2,
+        height: this.player.displayHeight,
+        width: this.player.displayWidth,
+      },
+    });
+
+    if (result.destroyedEnemyIds.length > 0) {
+      this.activeFEmails = this.activeFEmails.filter((enemy: FEmailPrefab) => {
+        const isDestroyed: boolean = result.destroyedEnemyIds.includes(enemy.getEnemyId());
+        if (isDestroyed) {
+          enemy.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    this.playerHealth = Math.max(0, this.playerHealth - result.playerDamageDelta);
+  }
+
+  private applyFEmailSnapshotsById(snapshots: readonly Level1FEmailEnemySnapshot[]): void {
+    const enemyById: Map<string, FEmailPrefab> = new Map(
+      this.activeFEmails.map((enemy: FEmailPrefab) => [enemy.getEnemyId(), enemy]),
+    );
+
+    for (const snapshot of snapshots) {
+      const enemy = enemyById.get(snapshot.enemyId);
+      if (enemy !== undefined) {
+        enemy.applySnapshot(snapshot);
+      }
+    }
+  }
+
+  private resolveFEmailVelocityById(enemyId: string): { x: number; y: number } {
+    const enemy = this.activeFEmails.find((item: FEmailPrefab) => item.getEnemyId() === enemyId);
+    if (enemy === undefined) {
+      return { x: 0, y: 0 };
+    }
+
+    const snapshot = enemy.toSnapshot();
+    return {
+      x: snapshot.velocityX,
+      y: snapshot.velocityY,
+    };
   }
 
   private updateLevel0TransitionTrigger(): void {
@@ -574,6 +767,8 @@ export default class GameScene extends Phaser.Scene {
   private enterLevel1(): void {
     this.activeLevelId = 1;
     this.hasTriggeredLevel1Transition = true;
+    this.level1FEmailSpawnState = createInitialLevel1FEmailSpawnState();
+    this.activeCombatItemCount = 0;
     this.level1DialogueState = createInitialLevel1DialogueState();
     this.level1Phase = resolveLevel1DialoguePhase(
       this.level1DialogueState,
@@ -584,6 +779,8 @@ export default class GameScene extends Phaser.Scene {
 
   private enterLevel2(): void {
     this.activeLevelId = 2;
+    this.destroyAllFEmails();
+    this.activeCombatItemCount = 0;
     this.level2DialogueState = createInitialLevel2DialogueState();
     this.level2Phase = resolveLevel2DialoguePhase(
       this.level2DialogueState,
@@ -777,6 +974,13 @@ export default class GameScene extends Phaser.Scene {
     if (this.player !== null) {
       this.player.setVisible(shouldBeVisible);
     }
+  }
+
+  private destroyAllFEmails(): void {
+    for (const enemy of this.activeFEmails) {
+      enemy.destroy();
+    }
+    this.activeFEmails = [];
   }
 
   private isActiveLevelWalkablePhase(): boolean {

@@ -20,6 +20,8 @@ export interface ProjectilePrefabConfig {
 export default class ProjectilePrefab extends Phaser.GameObjects.Image {
   public static readonly TEXTURE_KEY: string = 'projectile-base';
 
+  private static readonly DAMAGE_PER_HIT: number = 1;
+
   private velocityX: number;
 
   private velocityY: number;
@@ -66,5 +68,9 @@ export default class ProjectilePrefab extends Phaser.GameObjects.Image {
       },
       worldBounds,
     );
+  }
+
+  public getDamage(): number {
+    return ProjectilePrefab.DAMAGE_PER_HIT;
   }
 }
