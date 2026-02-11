@@ -34,7 +34,7 @@
 - [x] PR-025: Level2 RVirus spawn + stick-to-player + periodic HP drain + clear gate (>=400)
 - [x] PR-026: Level3 Worm spawn + duplication timer + clear gate (>=600)
 - [x] PR-027: Level4 Trojan spawn + breach damage + split-spawn-on-hit + clear gate (>=1000)
-- [ ] PR-028: Enemy collision matrix hardening for Levels1 to 4
+- [x] PR-028: Enemy collision matrix hardening for Levels1 to 4
 
 ## Wave E - Boss Fight Last
 - [ ] PR-029: Level5 MrHacker spawn + HP model + health bar parity

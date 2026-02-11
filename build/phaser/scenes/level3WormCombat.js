@@ -1,3 +1,4 @@
+import { resolvePlayerEnemyCollisionMatrix, } from './enemyCollisionMatrix.js';
 export const LEVEL3_WORM_SPAWN_INTERVAL_MS = 500;
 export const LEVEL3_WORM_DUPLICATION_INTERVAL_MS = 2000;
 export const LEVEL3_WORM_DAMAGE = 5;
@@ -134,6 +135,27 @@ export function advanceLevel3WormMotion(enemies, snapshot) {
             velocityY,
         };
     });
+}
+export function resolveLevel3PlayerEnemyCollisions(snapshot) {
+    const matrixResult = resolvePlayerEnemyCollisionMatrix({
+        enemies: snapshot.enemies.map((enemy) => ({
+            centerX: enemy.centerX,
+            centerY: enemy.centerY,
+            damage: enemy.damage,
+            enemyClass: 'worm',
+            enemyId: enemy.enemyId,
+            height: enemy.height,
+            width: enemy.width,
+        })),
+        player: snapshot.player,
+    });
+    const remainingEnemyIds = new Set(matrixResult.remainingEnemies.map((enemy) => enemy.enemyId));
+    const remainingEnemies = snapshot.enemies.filter((enemy) => remainingEnemyIds.has(enemy.enemyId));
+    return {
+        destroyedEnemyIds: matrixResult.destroyedEnemyIds,
+        playerDamageDelta: matrixResult.playerDamageDelta,
+        remainingEnemies,
+    };
 }
 function createSpawnedWormSnapshot(snapshot) {
     return {

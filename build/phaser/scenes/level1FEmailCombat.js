@@ -1,3 +1,4 @@
+import { resolvePlayerEnemyCollisionMatrix, } from './enemyCollisionMatrix.js';
 export const LEVEL1_FEMAIL_SPAWN_INTERVAL_MS = 500;
 export const FEMAIL_HORIZONTAL_SPEED_PER_MS = 0.75 / 2;
 export const FEMAIL_VERTICAL_SPEED_PER_MS = 0.25 / 2;
@@ -87,35 +88,24 @@ export function advanceLevel1FEmailMotion(enemies, snapshot) {
     });
 }
 export function resolveLevel1PlayerEnemyCollisions(snapshot) {
-    const remainingEnemies = [];
-    const destroyedEnemyIds = [];
-    let playerDamageDelta = 0;
-    for (const enemy of snapshot.enemies) {
-        if (!isOverlap(snapshot.player, enemy)) {
-            remainingEnemies.push(enemy);
-            continue;
-        }
-        destroyedEnemyIds.push(enemy.enemyId);
-        playerDamageDelta += enemy.damage;
-    }
+    const matrixResult = resolvePlayerEnemyCollisionMatrix({
+        enemies: snapshot.enemies.map((enemy) => ({
+            centerX: enemy.centerX,
+            centerY: enemy.centerY,
+            damage: enemy.damage,
+            enemyClass: 'femail',
+            enemyId: enemy.enemyId,
+            height: enemy.height,
+            width: enemy.width,
+        })),
+        player: snapshot.player,
+    });
+    const remainingEnemyIds = new Set(matrixResult.remainingEnemies.map((enemy) => enemy.enemyId));
+    const remainingEnemies = snapshot.enemies.filter((enemy) => remainingEnemyIds.has(enemy.enemyId));
     return {
-        destroyedEnemyIds,
-        playerDamageDelta,
+        destroyedEnemyIds: matrixResult.destroyedEnemyIds,
+        playerDamageDelta: matrixResult.playerDamageDelta,
         remainingEnemies,
     };
-}
-function isOverlap(player, enemy) {
-    const playerLeft = player.centerX - player.width / 2;
-    const playerRight = player.centerX + player.width / 2;
-    const playerTop = player.centerY - player.height / 2;
-    const playerBottom = player.centerY + player.height / 2;
-    const enemyLeft = enemy.centerX - enemy.width / 2;
-    const enemyRight = enemy.centerX + enemy.width / 2;
-    const enemyTop = enemy.centerY - enemy.height / 2;
-    const enemyBottom = enemy.centerY + enemy.height / 2;
-    return playerRight > enemyLeft
-        && playerLeft < enemyRight
-        && playerBottom > enemyTop
-        && playerTop < enemyBottom;
 }
 //# sourceMappingURL=level1FEmailCombat.js.map

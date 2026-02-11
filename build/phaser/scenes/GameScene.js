@@ -25,9 +25,9 @@ import { FEMAIL_DAMAGE, FEMAIL_HEALTH, FEMAIL_HORIZONTAL_SPEED_PER_MS, FEMAIL_SC
 import RVirusPrefab from '../entities/RVirusPrefab.js';
 import { LEVEL2_RVIRUS_DAMAGE, LEVEL2_RVIRUS_HEALTH, LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS, LEVEL2_RVIRUS_SCORE_VALUE, LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS, advanceLevel2RVirusMotion, advanceLevel2RVirusSpawnState, createInitialLevel2RVirusAttachmentState, createInitialLevel2RVirusSpawnState, resolveLevel2RVirusAttachment, } from './level2RVirusCombat.js';
 import WormPrefab from '../entities/WormPrefab.js';
-import { LEVEL3_WORM_DAMAGE, LEVEL3_WORM_HEALTH, LEVEL3_WORM_SCORE_VALUE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, } from './level3WormCombat.js';
+import { LEVEL3_WORM_DAMAGE, LEVEL3_WORM_HEALTH, LEVEL3_WORM_SCORE_VALUE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, resolveLevel3PlayerEnemyCollisions, } from './level3WormCombat.js';
 import TrojanPrefab from '../entities/TrojanPrefab.js';
-import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpawnState, createInitialLevel4TrojanSpawnState, resolveLevel4TrojanBreaches, resolveLevel4TrojanProjectileHits, } from './level4TrojanCombat.js';
+import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpawnState, createInitialLevel4TrojanSpawnState, resolveLevel4TrojanBreaches, resolveLevel4TrojanPlayerCollisions, resolveLevel4TrojanProjectileHits, } from './level4TrojanCombat.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -651,6 +651,7 @@ export default class GameScene extends Phaser.Scene {
         });
         this.applyWormSnapshotsById(movedSnapshots);
         this.resolveLevel3ProjectileHits();
+        this.resolveLevel3PlayerEnemyCollisions();
         this.activeCombatItemCount = this.activeWorms.length;
     }
     resolveLevel3ProjectileHits() {
@@ -728,6 +729,30 @@ export default class GameScene extends Phaser.Scene {
             }
         }
     }
+    resolveLevel3PlayerEnemyCollisions() {
+        if (this.player === null || this.activeWorms.length === 0) {
+            return;
+        }
+        const result = resolveLevel3PlayerEnemyCollisions({
+            enemies: this.activeWorms.map((enemy) => enemy.toSnapshot()),
+            player: {
+                centerX: this.player.x + this.player.displayWidth / 2,
+                centerY: this.player.y + this.player.displayHeight / 2,
+                height: this.player.displayHeight,
+                width: this.player.displayWidth,
+            },
+        });
+        if (result.destroyedEnemyIds.length > 0) {
+            this.activeWorms = this.activeWorms.filter((enemy) => {
+                const isDestroyed = result.destroyedEnemyIds.includes(enemy.getEnemyId());
+                if (isDestroyed) {
+                    enemy.destroy();
+                }
+                return !isDestroyed;
+            });
+        }
+        this.playerHealth = Math.max(0, this.playerHealth - result.playerDamageDelta);
+    }
     resolveWormVelocityById(enemyId) {
         const enemy = this.activeWorms.find((item) => item.getEnemyId() === enemyId);
         if (enemy === undefined) {
@@ -757,6 +782,7 @@ export default class GameScene extends Phaser.Scene {
         if (this.activeTrojans.length > 0) {
             const movedSnapshots = advanceLevel4TrojanMotion(this.activeTrojans.map((enemy) => enemy.toSnapshot()), { elapsedMs });
             this.applyTrojanSnapshotsById(movedSnapshots);
+            this.resolveLevel4TrojanPlayerEnemyCollisions();
             this.resolveLevel4TrojanProjectileHits();
             this.resolveLevel4TrojanBreaches();
         }
@@ -849,6 +875,30 @@ export default class GameScene extends Phaser.Scene {
         }
         this.playerHealth = Math.max(0, this.playerHealth - breachResolution.playerDamageDelta);
         this.spawnLevel4SplitEnemies(breachResolution.splitSpawns);
+    }
+    resolveLevel4TrojanPlayerEnemyCollisions() {
+        if (this.player === null || this.activeTrojans.length === 0) {
+            return;
+        }
+        const result = resolveLevel4TrojanPlayerCollisions({
+            enemies: this.activeTrojans.map((enemy) => enemy.toSnapshot()),
+            player: {
+                centerX: this.player.x + this.player.displayWidth / 2,
+                centerY: this.player.y + this.player.displayHeight / 2,
+                height: this.player.displayHeight,
+                width: this.player.displayWidth,
+            },
+        });
+        if (result.destroyedEnemyIds.length > 0) {
+            this.activeTrojans = this.activeTrojans.filter((enemy) => {
+                const isDestroyed = result.destroyedEnemyIds.includes(enemy.getEnemyId());
+                if (isDestroyed) {
+                    enemy.destroy();
+                }
+                return !isDestroyed;
+            });
+        }
+        this.playerHealth = Math.max(0, this.playerHealth - result.playerDamageDelta);
     }
     applyTrojanSnapshotsById(snapshots) {
         const enemyById = new Map(this.activeTrojans.map((enemy) => [enemy.getEnemyId(), enemy]));

@@ -7,6 +7,7 @@ import {
   advanceLevel3WormSpawnState,
   createInitialLevel3WormDuplicationState,
   createInitialLevel3WormSpawnState,
+  resolveLevel3PlayerEnemyCollisions,
 } from './level3WormCombat.js';
 
 describe('level3 Worm combat parity', () => {
@@ -115,5 +116,34 @@ describe('level3 Worm combat parity', () => {
     });
 
     expect(result.duplicatedEnemies).toEqual([]);
+  });
+
+  it('removes Worm enemy on player collision and applies damage', () => {
+    const result = resolveLevel3PlayerEnemyCollisions({
+      enemies: [
+        {
+          centerX: 120,
+          centerY: 220,
+          currentHealth: 1,
+          damage: 5,
+          enemyId: 'worm-1',
+          height: 24,
+          scoreValue: 10,
+          velocityX: -0.3,
+          velocityY: -0.2,
+          width: 24,
+        },
+      ],
+      player: {
+        centerX: 120,
+        centerY: 220,
+        height: 24,
+        width: 24,
+      },
+    });
+
+    expect(result.playerDamageDelta).toBe(5);
+    expect(result.destroyedEnemyIds).toEqual(['worm-1']);
+    expect(result.remainingEnemies).toEqual([]);
   });
 });

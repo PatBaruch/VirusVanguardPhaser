@@ -7,6 +7,7 @@ import {
   advanceLevel4TrojanSpawnState,
   createInitialLevel4TrojanSpawnState,
   resolveLevel4TrojanBreaches,
+  resolveLevel4TrojanPlayerCollisions,
   resolveLevel4TrojanProjectileHits,
 } from './level4TrojanCombat.js';
 
@@ -138,5 +139,32 @@ describe('level4 Trojan combat parity', () => {
     expect(result.splitSpawns[0].impactX).toBe(300);
     expect(result.splitSpawns[0].impactY).toBe(400);
     expect(result.scoreDelta).toBe(10);
+  });
+
+  it('removes Trojan on player collision and applies damage', () => {
+    const result = resolveLevel4TrojanPlayerCollisions({
+      enemies: [{
+        centerX: 300,
+        centerY: 400,
+        currentHealth: 1,
+        damage: LEVEL4_TROJAN_DAMAGE,
+        enemyId: 'level4-trojan-0',
+        height: 20,
+        scoreValue: 10,
+        velocityX: -0.2,
+        velocityY: 0,
+        width: 20,
+      }],
+      player: {
+        centerX: 300,
+        centerY: 400,
+        height: 20,
+        width: 20,
+      },
+    });
+
+    expect(result.playerDamageDelta).toBe(LEVEL4_TROJAN_DAMAGE);
+    expect(result.destroyedEnemyIds).toEqual(['level4-trojan-0']);
+    expect(result.remainingEnemies).toEqual([]);
   });
 });

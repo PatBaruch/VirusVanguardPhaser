@@ -127,6 +127,7 @@ import {
   advanceLevel3WormSpawnState,
   createInitialLevel3WormDuplicationState,
   createInitialLevel3WormSpawnState,
+  resolveLevel3PlayerEnemyCollisions,
 } from './level3WormCombat.js';
 import TrojanPrefab from '../entities/TrojanPrefab.js';
 import {
@@ -138,6 +139,7 @@ import {
   advanceLevel4TrojanSpawnState,
   createInitialLevel4TrojanSpawnState,
   resolveLevel4TrojanBreaches,
+  resolveLevel4TrojanPlayerCollisions,
   resolveLevel4TrojanProjectileHits,
 } from './level4TrojanCombat.js';
 
@@ -951,6 +953,7 @@ export default class GameScene extends Phaser.Scene {
     this.applyWormSnapshotsById(movedSnapshots);
 
     this.resolveLevel3ProjectileHits();
+    this.resolveLevel3PlayerEnemyCollisions();
     this.activeCombatItemCount = this.activeWorms.length;
   }
 
@@ -1044,6 +1047,34 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
+  private resolveLevel3PlayerEnemyCollisions(): void {
+    if (this.player === null || this.activeWorms.length === 0) {
+      return;
+    }
+
+    const result = resolveLevel3PlayerEnemyCollisions({
+      enemies: this.activeWorms.map((enemy: WormPrefab) => enemy.toSnapshot()),
+      player: {
+        centerX: this.player.x + this.player.displayWidth / 2,
+        centerY: this.player.y + this.player.displayHeight / 2,
+        height: this.player.displayHeight,
+        width: this.player.displayWidth,
+      },
+    });
+
+    if (result.destroyedEnemyIds.length > 0) {
+      this.activeWorms = this.activeWorms.filter((enemy: WormPrefab) => {
+        const isDestroyed: boolean = result.destroyedEnemyIds.includes(enemy.getEnemyId());
+        if (isDestroyed) {
+          enemy.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    this.playerHealth = Math.max(0, this.playerHealth - result.playerDamageDelta);
+  }
+
   private resolveWormVelocityById(enemyId: string): { x: number; y: number } {
     const enemy = this.activeWorms.find((item: WormPrefab) => item.getEnemyId() === enemyId);
     if (enemy === undefined) {
@@ -1081,6 +1112,7 @@ export default class GameScene extends Phaser.Scene {
       );
       this.applyTrojanSnapshotsById(movedSnapshots);
 
+      this.resolveLevel4TrojanPlayerEnemyCollisions();
       this.resolveLevel4TrojanProjectileHits();
       this.resolveLevel4TrojanBreaches();
     }
@@ -1191,6 +1223,34 @@ export default class GameScene extends Phaser.Scene {
 
     this.playerHealth = Math.max(0, this.playerHealth - breachResolution.playerDamageDelta);
     this.spawnLevel4SplitEnemies(breachResolution.splitSpawns);
+  }
+
+  private resolveLevel4TrojanPlayerEnemyCollisions(): void {
+    if (this.player === null || this.activeTrojans.length === 0) {
+      return;
+    }
+
+    const result = resolveLevel4TrojanPlayerCollisions({
+      enemies: this.activeTrojans.map((enemy: TrojanPrefab) => enemy.toSnapshot()),
+      player: {
+        centerX: this.player.x + this.player.displayWidth / 2,
+        centerY: this.player.y + this.player.displayHeight / 2,
+        height: this.player.displayHeight,
+        width: this.player.displayWidth,
+      },
+    });
+
+    if (result.destroyedEnemyIds.length > 0) {
+      this.activeTrojans = this.activeTrojans.filter((enemy: TrojanPrefab) => {
+        const isDestroyed: boolean = result.destroyedEnemyIds.includes(enemy.getEnemyId());
+        if (isDestroyed) {
+          enemy.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    this.playerHealth = Math.max(0, this.playerHealth - result.playerDamageDelta);
   }
 
   private applyTrojanSnapshotsById(snapshots: readonly Level4TrojanEnemySnapshot[]): void {

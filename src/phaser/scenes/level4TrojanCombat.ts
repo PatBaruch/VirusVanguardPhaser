@@ -1,4 +1,7 @@
 import { CombatProjectileSnapshot } from './projectileHitResolution.js';
+import {
+  resolvePlayerEnemyCollisionMatrix,
+} from './enemyCollisionMatrix.js';
 
 export interface Level4TrojanEnemySnapshot {
   enemyId: string;
@@ -39,6 +42,19 @@ export interface Level4TrojanMotionSnapshot {
 export interface TrojanSplitSpawnSnapshot {
   impactX: number;
   impactY: number;
+}
+
+export interface PlayerCollisionSnapshot {
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+}
+
+export interface Level4PlayerEnemyCollisionResult {
+  remainingEnemies: Level4TrojanEnemySnapshot[];
+  destroyedEnemyIds: string[];
+  playerDamageDelta: number;
 }
 
 export interface Level4TrojanBreachResult {
@@ -156,6 +172,37 @@ export function resolveLevel4TrojanBreaches(snapshot: {
     playerDamageDelta,
     remainingEnemies,
     splitSpawns,
+  };
+}
+
+export function resolveLevel4TrojanPlayerCollisions(snapshot: {
+  player: PlayerCollisionSnapshot;
+  enemies: readonly Level4TrojanEnemySnapshot[];
+}): Level4PlayerEnemyCollisionResult {
+  const matrixResult = resolvePlayerEnemyCollisionMatrix({
+    enemies: snapshot.enemies.map((enemy: Level4TrojanEnemySnapshot) => ({
+      centerX: enemy.centerX,
+      centerY: enemy.centerY,
+      damage: enemy.damage,
+      enemyClass: 'trojan',
+      enemyId: enemy.enemyId,
+      height: enemy.height,
+      width: enemy.width,
+    })),
+    player: snapshot.player,
+  });
+
+  const remainingEnemyIds: Set<string> = new Set(
+    matrixResult.remainingEnemies.map((enemy) => enemy.enemyId),
+  );
+  const remainingEnemies: Level4TrojanEnemySnapshot[] = snapshot.enemies.filter(
+    (enemy: Level4TrojanEnemySnapshot) => remainingEnemyIds.has(enemy.enemyId),
+  );
+
+  return {
+    destroyedEnemyIds: matrixResult.destroyedEnemyIds,
+    playerDamageDelta: matrixResult.playerDamageDelta,
+    remainingEnemies,
   };
 }
 

@@ -1,3 +1,7 @@
+import {
+  resolvePlayerEnemyCollisionMatrix,
+} from './enemyCollisionMatrix.js';
+
 export interface Level3WormEnemySnapshot {
   enemyId: string;
   centerX: number;
@@ -51,6 +55,19 @@ export interface Level3WormMotionSnapshot {
   canvasWidth: number;
   canvasHeight: number;
   elapsedMs: number;
+}
+
+export interface PlayerCollisionSnapshot {
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+}
+
+export interface Level3PlayerEnemyCollisionResult {
+  remainingEnemies: Level3WormEnemySnapshot[];
+  destroyedEnemyIds: string[];
+  playerDamageDelta: number;
 }
 
 export const LEVEL3_WORM_SPAWN_INTERVAL_MS: number = 500;
@@ -223,6 +240,37 @@ export function advanceLevel3WormMotion(
       velocityY,
     };
   });
+}
+
+export function resolveLevel3PlayerEnemyCollisions(snapshot: {
+  player: PlayerCollisionSnapshot;
+  enemies: readonly Level3WormEnemySnapshot[];
+}): Level3PlayerEnemyCollisionResult {
+  const matrixResult = resolvePlayerEnemyCollisionMatrix({
+    enemies: snapshot.enemies.map((enemy: Level3WormEnemySnapshot) => ({
+      centerX: enemy.centerX,
+      centerY: enemy.centerY,
+      damage: enemy.damage,
+      enemyClass: 'worm',
+      enemyId: enemy.enemyId,
+      height: enemy.height,
+      width: enemy.width,
+    })),
+    player: snapshot.player,
+  });
+
+  const remainingEnemyIds: Set<string> = new Set(
+    matrixResult.remainingEnemies.map((enemy) => enemy.enemyId),
+  );
+  const remainingEnemies: Level3WormEnemySnapshot[] = snapshot.enemies.filter(
+    (enemy: Level3WormEnemySnapshot) => remainingEnemyIds.has(enemy.enemyId),
+  );
+
+  return {
+    destroyedEnemyIds: matrixResult.destroyedEnemyIds,
+    playerDamageDelta: matrixResult.playerDamageDelta,
+    remainingEnemies,
+  };
 }
 
 function createSpawnedWormSnapshot(snapshot: {

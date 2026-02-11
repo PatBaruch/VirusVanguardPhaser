@@ -1,3 +1,4 @@
+import { resolvePlayerEnemyCollisionMatrix, } from './enemyCollisionMatrix.js';
 export const LEVEL4_TROJAN_SPAWN_INTERVAL_MS = 2000;
 export const LEVEL4_TROJAN_DAMAGE = 5;
 export const LEVEL4_TROJAN_SCORE_VALUE = 10;
@@ -77,6 +78,27 @@ export function resolveLevel4TrojanBreaches(snapshot) {
         playerDamageDelta,
         remainingEnemies,
         splitSpawns,
+    };
+}
+export function resolveLevel4TrojanPlayerCollisions(snapshot) {
+    const matrixResult = resolvePlayerEnemyCollisionMatrix({
+        enemies: snapshot.enemies.map((enemy) => ({
+            centerX: enemy.centerX,
+            centerY: enemy.centerY,
+            damage: enemy.damage,
+            enemyClass: 'trojan',
+            enemyId: enemy.enemyId,
+            height: enemy.height,
+            width: enemy.width,
+        })),
+        player: snapshot.player,
+    });
+    const remainingEnemyIds = new Set(matrixResult.remainingEnemies.map((enemy) => enemy.enemyId));
+    const remainingEnemies = snapshot.enemies.filter((enemy) => remainingEnemyIds.has(enemy.enemyId));
+    return {
+        destroyedEnemyIds: matrixResult.destroyedEnemyIds,
+        playerDamageDelta: matrixResult.playerDamageDelta,
+        remainingEnemies,
     };
 }
 export function resolveLevel4TrojanProjectileHits(snapshot) {

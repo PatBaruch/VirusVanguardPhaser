@@ -1,3 +1,7 @@
+import {
+  resolvePlayerEnemyCollisionMatrix,
+} from './enemyCollisionMatrix.js';
+
 export interface Level1FEmailEnemySnapshot {
   enemyId: string;
   centerX: number;
@@ -162,43 +166,29 @@ export function resolveLevel1PlayerEnemyCollisions(snapshot: {
   player: PlayerCollisionSnapshot;
   enemies: readonly Level1FEmailEnemySnapshot[];
 }): Level1PlayerEnemyCollisionResult {
-  const remainingEnemies: Level1FEmailEnemySnapshot[] = [];
-  const destroyedEnemyIds: string[] = [];
-  let playerDamageDelta: number = 0;
+  const matrixResult = resolvePlayerEnemyCollisionMatrix({
+    enemies: snapshot.enemies.map((enemy: Level1FEmailEnemySnapshot) => ({
+      centerX: enemy.centerX,
+      centerY: enemy.centerY,
+      damage: enemy.damage,
+      enemyClass: 'femail',
+      enemyId: enemy.enemyId,
+      height: enemy.height,
+      width: enemy.width,
+    })),
+    player: snapshot.player,
+  });
 
-  for (const enemy of snapshot.enemies) {
-    if (!isOverlap(snapshot.player, enemy)) {
-      remainingEnemies.push(enemy);
-      continue;
-    }
-
-    destroyedEnemyIds.push(enemy.enemyId);
-    playerDamageDelta += enemy.damage;
-  }
+  const remainingEnemyIds: Set<string> = new Set(
+    matrixResult.remainingEnemies.map((enemy) => enemy.enemyId),
+  );
+  const remainingEnemies: Level1FEmailEnemySnapshot[] = snapshot.enemies.filter(
+    (enemy: Level1FEmailEnemySnapshot) => remainingEnemyIds.has(enemy.enemyId),
+  );
 
   return {
-    destroyedEnemyIds,
-    playerDamageDelta,
+    destroyedEnemyIds: matrixResult.destroyedEnemyIds,
+    playerDamageDelta: matrixResult.playerDamageDelta,
     remainingEnemies,
   };
-}
-
-function isOverlap(
-  player: PlayerCollisionSnapshot,
-  enemy: Level1FEmailEnemySnapshot,
-): boolean {
-  const playerLeft: number = player.centerX - player.width / 2;
-  const playerRight: number = player.centerX + player.width / 2;
-  const playerTop: number = player.centerY - player.height / 2;
-  const playerBottom: number = player.centerY + player.height / 2;
-
-  const enemyLeft: number = enemy.centerX - enemy.width / 2;
-  const enemyRight: number = enemy.centerX + enemy.width / 2;
-  const enemyTop: number = enemy.centerY - enemy.height / 2;
-  const enemyBottom: number = enemy.centerY + enemy.height / 2;
-
-  return playerRight > enemyLeft
-    && playerLeft < enemyRight
-    && playerBottom > enemyTop
-    && playerTop < enemyBottom;
 }
