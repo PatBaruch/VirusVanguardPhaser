@@ -17,8 +17,9 @@ flowchart TD
   D12 --> D13[Non-Combat Victory Shell Trigger]
   D13 --> D14[Transition Rule Engine (Score + Item Predicates)]
   D14 --> D15[Shared Parity Constants Table]
+  D15 --> D16[Projectile Base Entity + Motion/Culling]
   C --> E[Core Systems Parity]
-  D15 --> E
+  D16 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]

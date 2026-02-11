@@ -7,6 +7,7 @@ import { LEVEL3_DIALOGUE_TEXTURE_KEYS } from './level3DialogueState.js';
 import { LEVEL4_DIALOGUE_TEXTURE_KEYS } from './level4DialogueState.js';
 import { LEVEL5_DIALOGUE_TEXTURE_KEYS } from './level5DialogueState.js';
 import { PLAYER_FACING_DIRECTIONS, PLAYER_FACING_TEXTURE_KEYS, } from '../entities/playerFacingState.js';
+import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 export default class PreloadScene extends Phaser.Scene {
     static SCENE_KEY = 'PreloadScene';
     constructor() {
@@ -34,6 +35,7 @@ export default class PreloadScene extends Phaser.Scene {
         PLAYER_FACING_DIRECTIONS.forEach((direction) => {
             this.load.image(PLAYER_FACING_TEXTURE_KEYS[direction], `./assets/Player-${direction}.png`);
         });
+        this.load.image(ProjectilePrefab.TEXTURE_KEY, './assets/Bullet-Sprite/PBsprite_0.png');
     }
     create() {
         this.scene.start(GameScene.SCENE_KEY);

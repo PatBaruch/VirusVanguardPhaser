@@ -22,7 +22,7 @@
 - [x] PR-017: Transition rule engine wiring (score and item predicates wired only)
 
 ## Wave C - Shooting Systems
-- [ ] PR-018: Projectile base entity + movement + world culling
+- [x] PR-018: Projectile base entity + movement + world culling
 - [ ] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
 - [ ] PR-020: Single-shot pattern parity (Level1 and Level2)
 - [ ] PR-021: Dual-shot pattern parity (Level3)
