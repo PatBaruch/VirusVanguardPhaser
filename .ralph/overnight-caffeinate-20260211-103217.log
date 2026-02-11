@@ -530,3 +530,247 @@ Elapsed:   0:24
 Tools:     none
 Exit code: 0
 Completion promise: not detected
+📝 Auto-committed changes
+
+🔄 Iteration 3 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+Using the TDD workflow to implement this PR slice safely and verifiably. I’ll first load the required iteration context files in the mandated order, then mark PR-014 in progress, add failing tests, implement minimal code, and run all required gates.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/phaser/**/*.spec.ts"[90m in . · 9 matches[0m
+[0m✱ [0mGlob "e2e/**/*.ts"[90m in . · 1 match[0m
+[0m✱ [0mGlob "src/phaser/scenes/**/*.ts"[90m in . · 15 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/scenes/level1DialogueState.ts
+[0m→ [0mRead src/phaser/scenes/level2DialogueState.ts
+[0m→ [0mRead src/phaser/scenes/level1TraversalRules.ts
+[0m→ [0mRead src/phaser/scenes/level2TraversalRules.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m→ [0mRead index.html
+[0m→ [0mRead src/phaser/scenes/level2DialogueState.spec.ts
+[0m→ [0mRead src/phaser/scenes/level2TraversalRules.spec.ts
+[0m→ [0mRead src/phaser/scenes/level1DialogueState.spec.ts
+[0m→ [0mRead src/phaser/scenes/level1TraversalRules.spec.ts
+[0m✱ [0mGlob "assets/**/*Level3*"[90m in . · 4 matches[0m
+I’m using the `test-driven-development` skill here: writing the new Level3 shell tests first, running them to fail, then implementing only what is needed to make them pass.
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level3DialogueState.spec.ts
+
+LSP errors detected in src/phaser/scenes/level3DialogueState.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3DialogueState.spec.ts">
+ERROR [7:8] Cannot find module './level3DialogueState.js' or its corresponding type declarations.
+</diagnostics>
+⏳ working... elapsed 1:30 · last activity 0:13 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level3TraversalRules.spec.ts
+
+LSP errors detected in src/phaser/scenes/level3TraversalRules.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3TraversalRules.spec.ts">
+ERROR [6:8] Cannot find module './level3TraversalRules.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level3DialogueState.spec.ts src/phaser/scenes/level3TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level3DialogueState.spec.ts src/phaser/scenes/level3TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level3DialogueState.spec.ts [ src/phaser/scenes/level3DialogueState.spec.ts ]
+Error: Cannot find module './level3DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3DialogueState.spec.ts'
+ ❯ src/phaser/scenes/level3DialogueState.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   LEVEL3_DIALOGUE_TEXTURE_KEYS,
+      4|   advanceLevel3DialogueState,
+
+Caused by: Error: Failed to load url ./level3DialogueState.js (resolved id: ./level3DialogueState.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3DialogueState.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/phaser/scenes/level3TraversalRules.spec.ts [ src/phaser/scenes/level3TraversalRules.spec.ts ]
+Error: Cannot find module './level3TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3TraversalRules.spec.ts'
+ ❯ src/phaser/scenes/level3TraversalRules.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   canMoveWithinLevel3Bounds,
+      4|   isLevel3ToLevel4TransitionTriggered,
+
+Caused by: Error: Failed to load url ./level3TraversalRules.js (resolved id: ./level3TraversalRules.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3TraversalRules.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  10:39:32
+   Duration  191ms (transform 27ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 73ms)
+[0m
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level3DialogueState.ts
+⏳ working... elapsed 2:10 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level3TraversalRules.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+⏳ working... elapsed 2:40 · last activity 0:12 ago
+⏳ working... elapsed 2:50 · last activity 0:22 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level3DialogueState.spec.ts src/phaser/scenes/level3TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level3DialogueState.spec.ts src/phaser/scenes/level3TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 1ms
+
+ Test Files  2 passed (2)
+      Tests  7 passed (7)
+   Start at  10:40:55
+   Duration  185ms (transform 26ms, setup 0ms, collect 32ms, tests 3ms, environment 0ms, prepare 77ms)
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 5ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+
+ Test Files  11 passed (11)
+      Tests  40 passed (40)
+   Start at  10:41:09
+   Duration  418ms (transform 104ms, setup 0ms, collect 223ms, tests 22ms, environment 1ms, prepare 562ms)
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (678ms)
+
+  1 passed (1.9s)
+[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 14 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-013-level2-shell-background-dialogue-bounds-transition-zone.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/scenes/level3DialogueState.js
+?? build/phaser/scenes/level3DialogueState.js.map
+?? build/phaser/scenes/level3TraversalRules.js
+?? build/phaser/scenes/level3TraversalRules.js.map
+?? src/phaser/scenes/level3DialogueState.spec.ts
+?? src/phaser/scenes/level3DialogueState.ts
+?? src/phaser/scenes/level3TraversalRules.spec.ts
+?? src/phaser/scenes/level3TraversalRules.ts
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 4:00 · last activity 0:17 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-014-level3-shell-background-dialogue-bounds-transition-zone.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/scenes/level3DialogueState.js
+?? build/phaser/scenes/level3DialogueState.js.map
+?? build/phaser/scenes/level3TraversalRules.js
+?? build/phaser/scenes/level3TraversalRules.js.map
+?? docs/handoffs/2026-02-11-pr-014-level3-shell-background-dialogue-bounds-transition-zone.md
+?? src/phaser/scenes/level3DialogueState.spec.ts
+?? src/phaser/scenes/level3DialogueState.ts
+?? src/phaser/scenes/level3TraversalRules.spec.ts
+?? src/phaser/scenes/level3TraversalRules.ts
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/GameScene.ts src/phaser/scenes/PreloadScene.ts src/phaser/scenes/level3DialogueState.ts src/phaser/scenes/level3DialogueState.spec.ts src/phaser/scenes/level3TraversalRules.ts src/phaser/scenes/level3TraversalRules.spec.ts docs/architecture/phaser-migration.mmd docs/parity/known-limitations.md docs/handoffs/2026-02-11-pr-014-level3-shell-background-dialogue-bounds-transition-zone.md build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map build/phaser/scenes/level3DialogueState.js build/phaser/scenes/level3DialogueState.js.map build/phaser/scenes/level3TraversalRules.js build/phaser/scenes/level3TraversalRules.js.map && git commit -m "feat(parity:PR-014): add Level3 shell dialogue and traversal parity" && git status --short
+[main fabf867] feat(parity:PR-014): add Level3 shell dialogue and traversal parity
+ 18 files changed, 512 insertions(+), 11 deletions(-)
+ create mode 100644 build/phaser/scenes/level3DialogueState.js
+ create mode 100644 build/phaser/scenes/level3DialogueState.js.map
+ create mode 100644 build/phaser/scenes/level3TraversalRules.js
+ create mode 100644 build/phaser/scenes/level3TraversalRules.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-014-level3-shell-background-dialogue-bounds-transition-zone.md
+ create mode 100644 src/phaser/scenes/level3DialogueState.spec.ts
+ create mode 100644 src/phaser/scenes/level3DialogueState.ts
+ create mode 100644 src/phaser/scenes/level3TraversalRules.spec.ts
+ create mode 100644 src/phaser/scenes/level3TraversalRules.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m→ [0mSkill "verification-before-completion"
+I’m using the `verification-before-completion` skill now to ensure there’s fresh evidence before declaring this iteration complete, so I’m re-running the full required gate set.
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 3
+Elapsed:   4:32
+Tools:     none
+Exit code: 0
+Completion promise: not detected
