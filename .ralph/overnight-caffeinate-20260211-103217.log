@@ -7510,3 +7510,324 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 17...
+📝 Auto-committed changes
+
+🔄 Iteration 17 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+Using the `brainstorming`, `test-driven-development`, and `writing-plans` skills to keep this iteration disciplined and scope-tight while implementing PR-028. I’m marking PR-028 as in progress now.
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 62 matches[0m
+[0m✱ [0mGrep "collision|overlap|enemy|projectile|damage|matrix"[90m in src/phaser · 100 matches[0m
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m✱ [0mGlob "docs/handoffs/*PR-027*.md"[90m in . · 0 matches[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 28 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-027-level4-trojan-spawn-breach-split-clear-gate.md
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.ts
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.ts
+[0m→ [0mRead src/phaser/scenes/level3WormCombat.ts
+[0m→ [0mRead src/phaser/scenes/level4TrojanCombat.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+⏳ working... elapsed 1:20 · last activity 0:14 ago
+[0m→ [0mRead src/phaser/scenes/level4TrojanCombat.spec.ts
+[0m✱ [0mGrep "collision matrix|matrix|split|priority|overlap|projectile"[90m in src/phaser/scenes · 34 matches[0m
+[0m→ [0mRead src/phaser/scenes/projectileHitResolution.ts
+[0m✱ [0mGrep "FEmail|RVirus|Worm|Trojan|MrHacker|checkCollision|collision|damage|hp|health|bullet"[90m in src · 100 matches[0m
+[0m✱ [0mGrep "collision|intersect|HP|health|hit|damage|virus|worm|trojan|email|enemy|player"[90m in src · 100 matches[0m
+[0m→ [0mRead src/Level.ts[90m [offset=300, limit=320][0m
+⏳ working... elapsed 2:00 · last activity 0:17 ago
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.spec.ts
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.spec.ts
+[0m→ [0mRead src/phaser/scenes/level3WormCombat.spec.ts
+⏳ working... elapsed 2:20 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level3WormCombat.spec.ts
+
+LSP errors detected in src/phaser/scenes/level3WormCombat.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3WormCombat.spec.ts">
+ERROR [10:3] Module '"./level3WormCombat.js"' has no exported member 'resolveLevel3PlayerEnemyCollisions'.
+</diagnostics>
+⏳ working... elapsed 2:40 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level4TrojanCombat.spec.ts
+
+LSP errors detected in src/phaser/scenes/level4TrojanCombat.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level4TrojanCombat.spec.ts">
+ERROR [10:3] Module '"./level4TrojanCombat.js"' has no exported member 'resolveLevel4TrojanPlayerCollisions'.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level3WormCombat.spec.ts src/phaser/scenes/level4TrojanCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level3WormCombat.spec.ts src/phaser/scenes/level4TrojanCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ❯ src/phaser/scenes/level3WormCombat.spec.ts (5 tests | 1 failed) 4ms
+   ✓ level3 Worm combat parity > spawns one Worm every 500ms while score is below clear threshold 1ms
+   ✓ level3 Worm combat parity > stops spawning Worm enemies once clear threshold is met 0ms
+   ✓ level3 Worm combat parity > duplicates each active Worm every 2000ms while score is below clear threshold 0ms
+   ✓ level3 Worm combat parity > does not duplicate Worm enemies when clear threshold is met 0ms
+   × level3 Worm combat parity > removes Worm enemy on player collision and applies damage 2ms
+     → (0 , resolveLevel3PlayerEnemyCollisions) is not a function
+ ❯ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests | 1 failed) 5ms
+   ✓ level4 Trojan combat parity > spawns one Trojan every 2000ms while score is below clear threshold 1ms
+   ✓ level4 Trojan combat parity > stops spawning Trojan enemies once clear threshold is met 0ms
+   ✓ level4 Trojan combat parity > moves Trojans horizontally to the left each update 0ms
+   ✓ level4 Trojan combat parity > applies breach damage and split spawns when Trojans cross the left boundary 0ms
+   ✓ level4 Trojan combat parity > splits Trojan into FEmail, RVirus, and Worm when hit by a projectile 0ms
+   × level4 Trojan combat parity > removes Trojan on player collision and applies damage 2ms
+     → (0 , resolveLevel4TrojanPlayerCollisions) is not a function
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level3WormCombat.spec.ts > level3 Worm combat parity > removes Worm enemy on player collision and applies damage
+TypeError: (0 , resolveLevel3PlayerEnemyCollisions) is not a function
+ ❯ src/phaser/scenes/level3WormCombat.spec.ts:122:20
+    120| 
+    121|   it('removes Worm enemy on player collision and applies damage', () =…
+    122|     const result = resolveLevel3PlayerEnemyCollisions({
+       |                    ^
+    123|       enemies: [
+    124|         {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/phaser/scenes/level4TrojanCombat.spec.ts > level4 Trojan combat parity > removes Trojan on player collision and applies damage
+TypeError: (0 , resolveLevel4TrojanPlayerCollisions) is not a function
+ ❯ src/phaser/scenes/level4TrojanCombat.spec.ts:145:20
+    143| 
+    144|   it('removes Trojan on player collision and applies damage', () => {
+    145|     const result = resolveLevel4TrojanPlayerCollisions({
+       |                    ^
+    146|       enemies: [{
+    147|         centerX: 300,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 9 passed (11)
+   Start at  11:59:32
+   Duration  202ms (transform 32ms, setup 0ms, collect 42ms, tests 9ms, environment 0ms, prepare 83ms)
+[0m
+⏳ working... elapsed 3:00 · last activity 0:14 ago
+⏳ working... elapsed 3:10 · last activity 0:24 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/enemyCollisionMatrix.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level1FEmailCombat.ts
+⏳ working... elapsed 3:40 · last activity 0:12 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level3WormCombat.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level4TrojanCombat.ts
+⏳ working... elapsed 4:10 · last activity 0:11 ago
+⏳ working... elapsed 4:20 · last activity 0:21 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level3WormCombat.spec.ts src/phaser/scenes/level4TrojanCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level3WormCombat.spec.ts src/phaser/scenes/level4TrojanCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+
+ Test Files  2 passed (2)
+      Tests  11 passed (11)
+   Start at  12:01:13
+   Duration  217ms (transform 51ms, setup 0ms, collect 58ms, tests 5ms, environment 0ms, prepare 85ms)
+[0m
+⏳ working... elapsed 4:40 · last activity 0:13 ago
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 5ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 7ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 1ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 3ms
+
+ Test Files  26 passed (26)
+      Tests  94 passed (94)
+   Start at  12:01:26
+   Duration  857ms (transform 232ms, setup 0ms, collect 516ms, tests 64ms, environment 3ms, prepare 1.48s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (718ms)
+
+  1 passed (2.0s)
+[0m
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 5:00 · last activity 0:11 ago
+⏳ working... elapsed 5:10 · last activity 0:21 ago
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/level1FEmailCombat.js
+ M build/phaser/scenes/level1FEmailCombat.js.map
+ M build/phaser/scenes/level3WormCombat.js
+ M build/phaser/scenes/level3WormCombat.js.map
+ M build/phaser/scenes/level4TrojanCombat.js
+ M build/phaser/scenes/level4TrojanCombat.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/level1FEmailCombat.ts
+ M src/phaser/scenes/level3WormCombat.spec.ts
+ M src/phaser/scenes/level3WormCombat.ts
+ M src/phaser/scenes/level4TrojanCombat.spec.ts
+ M src/phaser/scenes/level4TrojanCombat.ts
+?? build/phaser/scenes/enemyCollisionMatrix.js
+?? build/phaser/scenes/enemyCollisionMatrix.js.map
+?? src/phaser/scenes/enemyCollisionMatrix.ts
+[0m
+⏳ working... elapsed 5:50 · last activity 0:14 ago
+⏳ working... elapsed 6:00 · last activity 0:24 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/level1FEmailCombat.js
+ M build/phaser/scenes/level1FEmailCombat.js.map
+ M build/phaser/scenes/level3WormCombat.js
+ M build/phaser/scenes/level3WormCombat.js.map
+ M build/phaser/scenes/level4TrojanCombat.js
+ M build/phaser/scenes/level4TrojanCombat.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/level1FEmailCombat.ts
+ M src/phaser/scenes/level3WormCombat.spec.ts
+ M src/phaser/scenes/level3WormCombat.ts
+ M src/phaser/scenes/level4TrojanCombat.spec.ts
+ M src/phaser/scenes/level4TrojanCombat.ts
+?? build/phaser/scenes/enemyCollisionMatrix.js
+?? build/phaser/scenes/enemyCollisionMatrix.js.map
+?? docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md
+?? src/phaser/scenes/enemyCollisionMatrix.ts
+[0m
+[0m$ [0mgit diff --stat && git diff --staged --stat
+.ralph/overnight-caffeinate-20260211-103217.log | 268 ++++++++++++++++++++++++
+ .ralph/ralph-loop.state.json                    |   2 +-
+ .ralph/ralph-tasks.md                           |   2 +-
+ build/phaser/scenes/GameScene.js                |  54 ++++-
+ build/phaser/scenes/GameScene.js.map            |   2 +-
+ build/phaser/scenes/level1FEmailCombat.js       |  44 ++--
+ build/phaser/scenes/level1FEmailCombat.js.map   |   2 +-
+ build/phaser/scenes/level3WormCombat.js         |  22 ++
+ build/phaser/scenes/level3WormCombat.js.map     |   2 +-
+ build/phaser/scenes/level4TrojanCombat.js       |  22 ++
+ build/phaser/scenes/level4TrojanCombat.js.map   |   2 +-
+ docs/architecture/phaser-migration.mmd          |   3 +-
+ docs/parity/known-limitations.md                |   3 +-
+ src/phaser/scenes/GameScene.ts                  |  60 ++++++
+ src/phaser/scenes/level1FEmailCombat.ts         |  58 +++--
+ src/phaser/scenes/level3WormCombat.spec.ts      |  30 +++
+ src/phaser/scenes/level3WormCombat.ts           |  48 +++++
+ src/phaser/scenes/level4TrojanCombat.spec.ts    |  28 +++
+ src/phaser/scenes/level4TrojanCombat.ts         |  47 +++++
+ 19 files changed, 628 insertions(+), 71 deletions(-)
+[0m
+[0m$ [0mgit log -5 --oneline
+58ce5b2 Ralph iteration 16: work in progress
+337a80d feat(parity:PR-027): implement Level4 Trojan combat parity
+381b05f Ralph iteration 15: work in progress
+d423b2e feat(parity:PR-026): implement level3 worm spawn and duplication clear-gate parity
+a7f97cd Ralph iteration 14: work in progress
+[0m
+[0m$ [0mgit add ".ralph/ralph-tasks.md" "src/phaser/scenes/enemyCollisionMatrix.ts" "src/phaser/scenes/level1FEmailCombat.ts" "src/phaser/scenes/level3WormCombat.ts" "src/phaser/scenes/level4TrojanCombat.ts" "src/phaser/scenes/GameScene.ts" "src/phaser/scenes/level3WormCombat.spec.ts" "src/phaser/scenes/level4TrojanCombat.spec.ts" "docs/parity/known-limitations.md" "docs/architecture/phaser-migration.mmd" "docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md" "build/phaser/scenes/enemyCollisionMatrix.js" "build/phaser/scenes/enemyCollisionMatrix.js.map" "build/phaser/scenes/level1FEmailCombat.js" "build/phaser/scenes/level1FEmailCombat.js.map" "build/phaser/scenes/level3WormCombat.js" "build/phaser/scenes/level3WormCombat.js.map" "build/phaser/scenes/level4TrojanCombat.js" "build/phaser/scenes/level4TrojanCombat.js.map" "build/phaser/scenes/GameScene.js" "build/phaser/scenes/GameScene.js.map"
+[0m
+[0m$ [0mgit commit -m "feat(parity:PR-028): harden enemy collision matrix for levels 1-4" && git status --short
+[main d91cbd1] feat(parity:PR-028): harden enemy collision matrix for levels 1-4
+ 21 files changed, 552 insertions(+), 70 deletions(-)
+ create mode 100644 build/phaser/scenes/enemyCollisionMatrix.js
+ create mode 100644 build/phaser/scenes/enemyCollisionMatrix.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md
+ create mode 100644 src/phaser/scenes/enemyCollisionMatrix.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 17
+Elapsed:   6:34
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 18...

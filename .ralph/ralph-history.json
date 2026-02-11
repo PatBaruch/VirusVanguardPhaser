@@ -532,16 +532,58 @@
         "Caused by: Error: Failed to load url ./level4TrojanCombat.js (resolved id: ./level4TrojanCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level4TrojanCombat.spec.ts. Does the",
         "Test Files  1 failed (1)"
       ]
+    },
+    {
+      "iteration": 17,
+      "startedAt": "2026-02-11T10:56:46.706Z",
+      "endedAt": "2026-02-11T11:03:22.892Z",
+      "durationMs": 394456,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-caffeinate-20260211-103217.log",
+        ".ralph/ralph-tasks.md",
+        "build/phaser/scenes/GameScene.js",
+        "build/phaser/scenes/GameScene.js.map",
+        "build/phaser/scenes/enemyCollisionMatrix.js",
+        "build/phaser/scenes/enemyCollisionMatrix.js.map",
+        "build/phaser/scenes/level1FEmailCombat.js",
+        "build/phaser/scenes/level1FEmailCombat.js.map",
+        "build/phaser/scenes/level3WormCombat.js",
+        "build/phaser/scenes/level3WormCombat.js.map",
+        "build/phaser/scenes/level4TrojanCombat.js",
+        "build/phaser/scenes/level4TrojanCombat.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md",
+        "docs/parity/known-limitations.md",
+        "src/phaser/scenes/GameScene.ts",
+        "src/phaser/scenes/enemyCollisionMatrix.ts",
+        "src/phaser/scenes/level1FEmailCombat.ts",
+        "src/phaser/scenes/level3WormCombat.spec.ts",
+        "src/phaser/scenes/level3WormCombat.ts",
+        "src/phaser/scenes/level4TrojanCombat.spec.ts",
+        "src/phaser/scenes/level4TrojanCombat.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "❯ src/phaser/scenes/level3WormCombat.spec.ts (5 tests | 1 failed) 4ms",
+        "❯ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests | 1 failed) 5ms",
+        "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯",
+        "TypeError: (0 , resolveLevel3PlayerEnemyCollisions) is not a function",
+        "TypeError: (0 , resolveLevel4TrojanPlayerCollisions) is not a function",
+        "Test Files  2 failed (2)",
+        "Tests  2 failed | 9 passed (11)"
+      ]
     }
   ],
-  "totalDurationMs": 5002058,
+  "totalDurationMs": 5396514,
   "struggleIndicators": {
     "repeatedErrors": {
       "Error: Cannot find module './level2DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVang": 1,
       "Caused by: Error: Failed to load url ./level2DialogueState.js (resolved id: ./level2DialogueState.js": 1,
       "Error: Cannot find module './level2TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
       "Caused by: Error: Failed to load url ./level2TraversalRules.js (resolved id: ./level2TraversalRules.": 1,
-      "Test Files  2 failed (2)": 4,
+      "Test Files  2 failed (2)": 5,
       "Using `test-driven-development` for PR-014: I’ll add/adjust tests first for Level3 shell behavior, v": 1,
       "Using the TDD workflow to implement this PR slice safely and verifiably. I’ll first load the require": 1,
       "I’m using the `test-driven-development` skill here: writing the new Level3 shell tests first, runnin": 1,
@@ -608,7 +650,13 @@
       "Caused by: Error: Failed to load url ./level3WormCombat.js (resolved id: ./level3WormCombat.js) in /": 1,
       "[x] Add failing tests for Level3 Worm spawn, duplication timer, and clear gate >=600": 1,
       "Error: Cannot find module './level4TrojanCombat.js' imported from '/Users/pbaruch/Desktop/VirusVangu": 1,
-      "Caused by: Error: Failed to load url ./level4TrojanCombat.js (resolved id: ./level4TrojanCombat.js) ": 1
+      "Caused by: Error: Failed to load url ./level4TrojanCombat.js (resolved id: ./level4TrojanCombat.js) ": 1,
+      "❯ src/phaser/scenes/level3WormCombat.spec.ts (5 tests | 1 failed) 4ms": 1,
+      "❯ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests | 1 failed) 5ms": 1,
+      "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯": 1,
+      "TypeError: (0 , resolveLevel3PlayerEnemyCollisions) is not a function": 1,
+      "TypeError: (0 , resolveLevel4TrojanPlayerCollisions) is not a function": 1,
+      "Tests  2 failed | 9 passed (11)": 1
     },
     "noProgressIterations": 0,
     "shortIterations": 0
