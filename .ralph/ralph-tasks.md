@@ -18,7 +18,7 @@
 - [x] PR-013: Level2 shell (same pattern)
 - [x] PR-014: Level3 shell (same pattern)
 - [x] PR-015: Level4 shell (same pattern)
-- [ ] PR-016: Level5 shell + non-combat victory shell wiring
+- [x] PR-016: Level5 shell + non-combat victory shell wiring
 - [ ] PR-017: Transition rule engine wiring (score and item predicates wired only)
 
 ## Wave C - Shooting Systems
