@@ -38,3 +38,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-034 switched default boot to Phaser runtime while retaining the legacy canvas fallback flag at `?runtime=legacy`.
 - PR-035 removed the legacy canvas runtime and fallback selector wiring; boot now always starts Phaser runtime.
 - PR-036 added Playwright end-to-end traversal journey coverage from Level0 start state through Level5 reachability checkpoints, including score-gated transition preconditions for Levels1 to 5.
+- PR-037 added Playwright end-to-end combat interaction coverage for early-level combat behavior, including shoot-input projectile spawning, projectile hit score progression, and player damage from enemy collisions in Level1.
