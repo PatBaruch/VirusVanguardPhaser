@@ -24,6 +24,8 @@ import FEmailPrefab from '../entities/FEmailPrefab.js';
 import { advanceLevel1FEmailMotion, advanceLevel1FEmailSpawnState, createInitialLevel1FEmailSpawnState, resolveLevel1PlayerEnemyCollisions, } from './level1FEmailCombat.js';
 import RVirusPrefab from '../entities/RVirusPrefab.js';
 import { LEVEL2_RVIRUS_DAMAGE, advanceLevel2RVirusMotion, advanceLevel2RVirusSpawnState, createInitialLevel2RVirusAttachmentState, createInitialLevel2RVirusSpawnState, resolveLevel2RVirusAttachment, } from './level2RVirusCombat.js';
+import WormPrefab from '../entities/WormPrefab.js';
+import { LEVEL3_WORM_DAMAGE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, } from './level3WormCombat.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -63,6 +65,9 @@ export default class GameScene extends Phaser.Scene {
     activeRViruses;
     level2RVirusSpawnState;
     level2RVirusAttachmentState;
+    activeWorms;
+    level3WormSpawnState;
+    level3WormDuplicationState;
     playerHealth;
     constructor() {
         super(GameScene.SCENE_KEY);
@@ -101,6 +106,9 @@ export default class GameScene extends Phaser.Scene {
         this.activeRViruses = [];
         this.level2RVirusSpawnState = createInitialLevel2RVirusSpawnState();
         this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
+        this.activeWorms = [];
+        this.level3WormSpawnState = createInitialLevel3WormSpawnState();
+        this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
         this.playerHealth = 100;
     }
     create() {
@@ -177,6 +185,7 @@ export default class GameScene extends Phaser.Scene {
         }
         if (this.activeLevelId === 3 && this.level3Phase === 'walkable') {
             this.updatePlayerMovement();
+            this.updateLevel3Combat(delta);
             this.updateLevel3TransitionTrigger();
             return;
         }
@@ -591,6 +600,132 @@ export default class GameScene extends Phaser.Scene {
             y: snapshot.velocityY,
         };
     }
+    updateLevel3Combat(elapsedMs) {
+        const spawnResolution = advanceLevel3WormSpawnState(this.level3WormSpawnState, {
+            canSpawn: this.activeLevelId === 3 && this.level3Phase === 'walkable',
+            canvasHeight: this.scale.height,
+            canvasWidth: this.scale.width,
+            elapsedMs,
+            random: () => Math.random(),
+            score: this.score,
+        });
+        this.level3WormSpawnState = spawnResolution.nextState;
+        for (const spawnedEnemy of spawnResolution.spawnedEnemies) {
+            const worm = new WormPrefab(this, spawnedEnemy);
+            this.add.existing(worm);
+            this.activeWorms.push(worm);
+        }
+        const duplicationResolution = advanceLevel3WormDuplicationState(this.level3WormDuplicationState, {
+            elapsedMs,
+            enemies: this.activeWorms.map((enemy) => enemy.toSnapshot()),
+            random: () => Math.random(),
+            score: this.score,
+        });
+        this.level3WormDuplicationState = duplicationResolution.nextState;
+        for (const duplicatedEnemy of duplicationResolution.duplicatedEnemies) {
+            const worm = new WormPrefab(this, duplicatedEnemy);
+            this.add.existing(worm);
+            this.activeWorms.push(worm);
+        }
+        if (this.activeWorms.length === 0) {
+            this.activeCombatItemCount = 0;
+            return;
+        }
+        const movedSnapshots = advanceLevel3WormMotion(this.activeWorms.map((enemy) => enemy.toSnapshot()), {
+            canvasHeight: this.scale.height,
+            canvasWidth: this.scale.width,
+            elapsedMs,
+        });
+        this.applyWormSnapshotsById(movedSnapshots);
+        this.resolveLevel3ProjectileHits();
+        this.activeCombatItemCount = this.activeWorms.length;
+    }
+    resolveLevel3ProjectileHits() {
+        if (this.activeProjectiles.length === 0 || this.activeWorms.length === 0) {
+            return;
+        }
+        const projectileSnapshots = this.activeProjectiles.map((projectile) => ({
+            centerX: projectile.x,
+            centerY: projectile.y,
+            damage: projectile.getDamage(),
+            height: projectile.displayHeight,
+            projectileId: projectile.name,
+            width: projectile.displayWidth,
+        }));
+        for (let index = 0; index < projectileSnapshots.length; index += 1) {
+            projectileSnapshots[index].projectileId = `projectile-${index}`;
+        }
+        const targetSnapshots = this.activeWorms.map((enemy) => {
+            const enemySnapshot = enemy.toSnapshot();
+            return {
+                centerX: enemySnapshot.centerX,
+                centerY: enemySnapshot.centerY,
+                currentHealth: enemySnapshot.currentHealth,
+                height: enemySnapshot.height,
+                scoreValue: enemySnapshot.scoreValue,
+                targetId: enemySnapshot.enemyId,
+                width: enemySnapshot.width,
+            };
+        });
+        const resolution = resolveProjectileHitResolution({
+            projectiles: projectileSnapshots,
+            targets: targetSnapshots,
+        });
+        if (resolution.destroyedProjectileIds.length > 0) {
+            this.activeProjectiles = this.activeProjectiles.filter((projectile, index) => {
+                const projectileId = `projectile-${index}`;
+                const isDestroyed = resolution.destroyedProjectileIds.includes(projectileId);
+                if (isDestroyed) {
+                    projectile.destroy();
+                }
+                return !isDestroyed;
+            });
+        }
+        if (resolution.destroyedTargetIds.length > 0) {
+            this.activeWorms = this.activeWorms.filter((enemy) => {
+                const isDestroyed = resolution.destroyedTargetIds.includes(enemy.getEnemyId());
+                if (isDestroyed) {
+                    enemy.destroy();
+                }
+                return !isDestroyed;
+            });
+        }
+        if (resolution.remainingTargets.length > 0 && this.activeWorms.length > 0) {
+            this.applyWormSnapshotsById(resolution.remainingTargets.map((target) => ({
+                centerX: target.centerX,
+                centerY: target.centerY,
+                currentHealth: target.currentHealth,
+                damage: LEVEL3_WORM_DAMAGE,
+                enemyId: target.targetId,
+                height: target.height,
+                scoreValue: target.scoreValue,
+                velocityX: this.resolveWormVelocityById(target.targetId).x,
+                velocityY: this.resolveWormVelocityById(target.targetId).y,
+                width: target.width,
+            })));
+        }
+        this.score += resolution.scoreDelta;
+    }
+    applyWormSnapshotsById(snapshots) {
+        const enemyById = new Map(this.activeWorms.map((enemy) => [enemy.getEnemyId(), enemy]));
+        for (const snapshot of snapshots) {
+            const enemy = enemyById.get(snapshot.enemyId);
+            if (enemy !== undefined) {
+                enemy.applySnapshot(snapshot);
+            }
+        }
+    }
+    resolveWormVelocityById(enemyId) {
+        const enemy = this.activeWorms.find((item) => item.getEnemyId() === enemyId);
+        if (enemy === undefined) {
+            return { x: 0, y: 0 };
+        }
+        const snapshot = enemy.toSnapshot();
+        return {
+            x: snapshot.velocityX,
+            y: snapshot.velocityY,
+        };
+    }
     updateLevel2TransitionTrigger() {
         if (this.player === null || this.hasTriggeredLevel3Transition) {
             return;
@@ -702,19 +837,27 @@ export default class GameScene extends Phaser.Scene {
     enterLevel3() {
         this.activeLevelId = 3;
         this.destroyAllRViruses();
+        this.destroyAllWorms();
+        this.activeCombatItemCount = 0;
         this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
+        this.level3WormSpawnState = createInitialLevel3WormSpawnState();
+        this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
         this.level3DialogueState = createInitialLevel3DialogueState();
         this.level3Phase = resolveLevel3DialoguePhase(this.level3DialogueState, LEVEL3_DIALOGUE_TEXTURE_KEYS.length);
         this.syncActiveLevelVisualState();
     }
     enterLevel4() {
         this.activeLevelId = 4;
+        this.destroyAllWorms();
+        this.activeCombatItemCount = 0;
         this.level4DialogueState = createInitialLevel4DialogueState();
         this.level4Phase = resolveLevel4DialoguePhase(this.level4DialogueState, LEVEL4_DIALOGUE_TEXTURE_KEYS.length);
         this.syncActiveLevelVisualState();
     }
     enterLevel5() {
         this.activeLevelId = 5;
+        this.destroyAllWorms();
+        this.activeCombatItemCount = 0;
         this.level5DialogueState = createInitialLevel5DialogueState();
         this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
         this.syncActiveLevelVisualState();
@@ -857,6 +1000,12 @@ export default class GameScene extends Phaser.Scene {
             enemy.destroy();
         }
         this.activeRViruses = [];
+    }
+    destroyAllWorms() {
+        for (const enemy of this.activeWorms) {
+            enemy.destroy();
+        }
+        this.activeWorms = [];
     }
     isActiveLevelWalkablePhase() {
         if (this.activeLevelId === 0) {
