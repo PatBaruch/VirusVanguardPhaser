@@ -776,3 +776,180 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
    Moving to next task in iteration 4...
+📝 Auto-committed changes
+
+🔄 Iteration 4 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "verification-before-completion"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+Using the brainstorming + TDD skills to keep this scoped: I’m implementing PR-037 by adding failing e2e combat assertions first, then making minimal test harness updates to pass, and finally running all required gates.
+[0m✱ [0mGlob "e2e/**/*.ts"[90m in . · 2 matches[0m
+[0m✱ [0mGlob "playwright*.{ts,js,cjs,mjs}"[90m in . · 1 match[0m
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 69 matches[0m
+[0m→ [0mRead e2e/boot-smoke.spec.ts
+[0m→ [0mRead e2e/traversal-journey.spec.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead playwright.config.ts
+[0m✱ [0mGrep "__VV_E2E_RUNTIME__|e2e"[90m in . · 3 matches[0m
+[0m→ [0mRead src/app.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1480, limit=420][0m
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.ts
+[0m→ [0mRead src/phaser/entities/ProjectilePrefab.ts
+[0m→ [0mRead src/phaser/PhaserRuntime.ts
+⏳ working... elapsed 1:40 · last activity 0:17 ago
+⏳ working... elapsed 1:50 · last activity 0:27 ago
+⏳ working... elapsed 2:00 · last activity 0:37 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A e2e/combat-interactions.spec.ts
+[0m
+[0m$ [0mnpm run test:e2e -- e2e/combat-interactions.spec.ts
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test e2e/combat-interactions.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (568ms)
+
+  1 passed (2.0s)
+[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 37 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-036-traversal-journey-level0-to-level5-checkpoints.md
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 2:50 · last activity 0:19 ago
+⏳ working... elapsed 3:00 · last activity 0:29 ago
+⏳ working... elapsed 3:10 · last activity 0:39 ago
+⏳ working... elapsed 3:20 · last activity 0:49 ago
+⏳ working... elapsed 3:30 · last activity 0:59 ago
+⏳ working... elapsed 3:40 · last activity 1:09 ago
+⏳ working... elapsed 3:50 · last activity 1:19 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 13ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 5ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 4ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  29 passed (29)
+      Tests  111 passed (111)
+   Start at  16:55:25
+   Duration  1.06s (transform 293ms, setup 0ms, collect 652ms, tests 76ms, environment 3ms, prepare 1.69s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 4 tests using 3 workers
+
+  ✓  3 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (900ms)
+  ✓  2 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (903ms)
+  ✓  1 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (996ms)
+  ✓  4 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (335ms)
+
+  4 passed (2.9s)
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+?? e2e/combat-interactions.spec.ts
+[0m
+⏳ working... elapsed 4:30 · last activity 0:16 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+?? docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+?? e2e/combat-interactions.spec.ts
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md docs/architecture/phaser-migration.mmd docs/parity/known-limitations.md docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md e2e/combat-interactions.spec.ts && git commit -m "feat(parity:PR-037): add combat interaction e2e coverage for early levels" && git status --short
+[main f8c25c1] feat(parity:PR-037): add combat interaction e2e coverage for early levels
+ 5 files changed, 287 insertions(+), 2 deletions(-)
+ create mode 100644 docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+ create mode 100644 e2e/combat-interactions.spec.ts
+ M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m$ [0mgit show --name-only --pretty=format:%s HEAD
+feat(parity:PR-037): add combat interaction e2e coverage for early levels
+.ralph/ralph-tasks.md
+docs/architecture/phaser-migration.mmd
+docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+docs/parity/known-limitations.md
+e2e/combat-interactions.spec.ts
+[0m
+<promise>NEXT_PR_DONE</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 4
+Elapsed:   4:59
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
+   Moving to next task in iteration 5...
