@@ -3,7 +3,7 @@
 Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, level-based shoot input gating (blocked in Level0, enabled in combat levels), single-shot projectile parity for Level1 and Level2, and dual-shot projectile parity for Level3; triple-shot variants, hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
+- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, level-based shoot input gating (blocked in Level0, enabled in combat levels), single-shot projectile parity for Level1 and Level2, dual-shot projectile parity for Level3, and triple-shot projectile parity for Level4 and Level5; hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
 - Documentation artifacts currently track migration status only at wave/feature granularity; behavior-level parity evidence will be filled in as gameplay PRs land.
 
 ## Resolved
@@ -24,3 +24,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-019 added level-based shoot input gating parity so Space-triggered shooting input is blocked in Level0 and emitted only for combat levels during walkable phases.
 - PR-020 added single-shot projectile parity for Level1 and Level2 with legacy direction-based velocity mapping and diagonal normalization.
 - PR-021 added dual-shot projectile parity for Level3 with legacy directional spawn offsets and velocity mapping.
+- PR-022 added triple-shot projectile parity for Level4 and Level5 with legacy directional spread vectors and spawn offsets.

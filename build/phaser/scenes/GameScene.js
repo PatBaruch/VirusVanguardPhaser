@@ -18,6 +18,7 @@ import { canAcceptShootInput } from './shootInputGate.js';
 import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import { resolveSingleShotProjectileConfigs } from './singleShotPattern.js';
 import { resolveDualShotProjectileConfigs } from './dualShotPattern.js';
+import { resolveTripleShotProjectileConfigs } from './tripleShotPattern.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -230,6 +231,7 @@ export default class GameScene extends Phaser.Scene {
         const projectileConfigs = [
             ...resolveSingleShotProjectileConfigs(projectilePatternSnapshot),
             ...resolveDualShotProjectileConfigs(projectilePatternSnapshot),
+            ...resolveTripleShotProjectileConfigs(projectilePatternSnapshot),
         ];
         for (const projectileConfig of projectileConfigs) {
             const projectile = new ProjectilePrefab(this, projectileConfig);

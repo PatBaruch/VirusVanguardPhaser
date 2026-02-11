@@ -78,6 +78,7 @@ import { canAcceptShootInput } from './shootInputGate.js';
 import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import { resolveSingleShotProjectileConfigs } from './singleShotPattern.js';
 import { resolveDualShotProjectileConfigs } from './dualShotPattern.js';
+import { resolveTripleShotProjectileConfigs } from './tripleShotPattern.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -380,6 +381,7 @@ export default class GameScene extends Phaser.Scene {
     const projectileConfigs = [
       ...resolveSingleShotProjectileConfigs(projectilePatternSnapshot),
       ...resolveDualShotProjectileConfigs(projectilePatternSnapshot),
+      ...resolveTripleShotProjectileConfigs(projectilePatternSnapshot),
     ];
 
     for (const projectileConfig of projectileConfigs) {
