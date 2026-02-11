@@ -1,0 +1,1225 @@
+
+> ts-wizards-chest@2023.1 ralph:overnight
+> bash scripts/ralph/run-overnight.sh
+
+Starting overnight Ralph loop
+- Agent: opencode
+- Max iterations: 1000
+- Prompt file: /Users/pbaruch/Desktop/VirusVanguardPhaser/scripts/ralph/overnight-phaser.prompt.md
+
+╔══════════════════════════════════════════════════════════════════╗
+║                    Ralph Wiggum Loop                            ║
+║         Iterative AI Development with OpenCode                    ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Task: /Users/pbaruch/Desktop/VirusVanguardPhaser/scripts/ralph/overnight-phaser.prompt.md
+Preview: You are the autonomous overnight migration agent for `VirusVanguardPhaser`. Read...
+Completion promise: COMPLETE
+Tasks mode: ENABLED
+Task promise: READY_FOR_NEXT_TASK
+Min iterations: 1
+Max iterations: 1000
+Agent: OpenCode
+Permissions: auto-approve all tools
+
+Starting loop... (Ctrl+C to stop)
+════════════════════════════════════════════════════════════════════
+
+🔄 Iteration 1 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+Using `executing-plans` to carry out this single PR task with checkpoints and required gates.
+[0m→ [0mSkill "executing-plans"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGrep "class .*Level0|Level0Scene|Level1"[90m in src/phaser · 11 matches[0m
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 15 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m→ [0mRead src/phaser/scenes/level0DialogueState.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m→ [0mRead src/phaser/scenes/level0TraversalRules.ts
+[0m→ [0mRead src/Level1.ts
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/Level0.ts
+[0m→ [0mRead src/Level2.ts
+[0m→ [0mRead src/phaser/PhaserRuntime.ts
+[0m→ [0mRead src/app.ts
+[0m→ [0mRead src/VirusVanguard.ts
+[0m→ [0mRead index.html
+[0m✱ [0mGlob "assets/Dialogue-Level1/*"[90m in . · 2 matches[0m
+[0m✱ [0mGlob "assets/Dialogue-Level0/*"[90m in . · 7 matches[0m
+⏳ working... elapsed 1:20 · last activity 0:11 ago
+[0m→ [0mRead src/phaser/scenes/level0DialogueState.spec.ts
+[0m→ [0mRead src/phaser/scenes/level0TraversalRules.spec.ts
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 12 matches[0m
+I’m using the TDD cycle here: I’ll add Level1 shell tests first, run them red, then implement the smallest scene/rules changes to make them pass.
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level1DialogueState.spec.ts
+
+LSP errors detected in src/phaser/scenes/level1DialogueState.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level1DialogueState.spec.ts">
+ERROR [7:8] Cannot find module './level1DialogueState.js' or its corresponding type declarations.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level1TraversalRules.spec.ts
+
+LSP errors detected in src/phaser/scenes/level1TraversalRules.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level1TraversalRules.spec.ts">
+ERROR [6:8] Cannot find module './level1TraversalRules.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level1DialogueState.spec.ts src/phaser/scenes/level1TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level1DialogueState.spec.ts src/phaser/scenes/level1TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level1DialogueState.spec.ts [ src/phaser/scenes/level1DialogueState.spec.ts ]
+Error: Cannot find module './level1DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level1DialogueState.spec.ts'
+ ❯ src/phaser/scenes/level1DialogueState.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   LEVEL1_DIALOGUE_TEXTURE_KEYS,
+      4|   advanceLevel1DialogueState,
+
+Caused by: Error: Failed to load url ./level1DialogueState.js (resolved id: ./level1DialogueState.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level1DialogueState.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/phaser/scenes/level1TraversalRules.spec.ts [ src/phaser/scenes/level1TraversalRules.spec.ts ]
+Error: Cannot find module './level1TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level1TraversalRules.spec.ts'
+ ❯ src/phaser/scenes/level1TraversalRules.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   canMoveWithinLevel1Bounds,
+      4|   isLevel1ToLevel2TransitionTriggered,
+
+Caused by: Error: Failed to load url ./level1TraversalRules.js (resolved id: ./level1TraversalRules.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level1TraversalRules.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  09:23:14
+   Duration  206ms (transform 27ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 69ms)
+[0m
+⏳ working... elapsed 2:20 · last activity 0:14 ago
+⏳ working... elapsed 2:30 · last activity 0:24 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level1DialogueState.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level1TraversalRules.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+⏳ working... elapsed 3:10 · last activity 0:15 ago
+⏳ working... elapsed 3:20 · last activity 0:25 ago
+⏳ working... elapsed 3:30 · last activity 0:35 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level1DialogueState.spec.ts src/phaser/scenes/level1TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level1DialogueState.spec.ts src/phaser/scenes/level1TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+
+ Test Files  2 passed (2)
+      Tests  7 passed (7)
+   Start at  09:24:46
+   Duration  214ms (transform 36ms, setup 0ms, collect 40ms, tests 3ms, environment 0ms, prepare 78ms)
+[0m
+⏳ working... elapsed 3:50 · last activity 0:11 ago
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+
+ Test Files  7 passed (7)
+      Tests  26 passed (26)
+   Start at  09:24:55
+   Duration  234ms (transform 99ms, setup 0ms, collect 181ms, tests 13ms, environment 1ms, prepare 400ms)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (616ms)
+
+  1 passed (3.0s)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-011-level0-bounds-transition-trigger.md
+[0m→ [0mRead docs/parity/parity-matrix.md
+⏳ working... elapsed 4:30 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-012-level1-shell-background-dialogue-bounds-transition-zone.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/parity-matrix.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit log -5 --oneline
+fdff0f3 Ralph iteration 40: work in progress
+76c98f3 feat(parity:PR-011): add Level0 bounds and Level1 transition trigger
+e4a04d1 Ralph iteration 39: work in progress
+75768b3 feat(parity:PR-010): implement 8-direction movement parity
+a35c867 Ralph iteration 38: work in progress
+[0m
+[0m$ [0mgit status --short
+M .ralph/ralph-history.json
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M AGENTS.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M docs/parity/parity-matrix.md
+ M scripts/ralph/run-overnight.sh
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? .ralph/overnight-20260211-092107.log
+?? build/phaser/scenes/level1DialogueState.js
+?? build/phaser/scenes/level1DialogueState.js.map
+?? build/phaser/scenes/level1TraversalRules.js
+?? build/phaser/scenes/level1TraversalRules.js.map
+?? docs/handoffs/2026-02-11-pr-012-level1-shell-background-dialogue-bounds-transition-zone.md
+?? src/phaser/scenes/level1DialogueState.spec.ts
+?? src/phaser/scenes/level1DialogueState.ts
+?? src/phaser/scenes/level1TraversalRules.spec.ts
+?? src/phaser/scenes/level1TraversalRules.ts
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/ralph-history.json b/.ralph/ralph-history.json
+index 8e4a1c1..804e89c 100644
+--- a/.ralph/ralph-history.json
++++ b/.ralph/ralph-history.json
+@@ -1,707 +1,8 @@
+ {
+-  "iterations": [
+-    {
+-      "iteration": 1,
+-      "startedAt": "2026-02-10T23:24:06.361Z",
+-      "endedAt": "2026-02-10T23:28:08.238Z",
+-      "durationMs": 241657,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".gitignore",
+-        ".ralph/overnight-20260211-002405.log",
+-        ".ralph/ralph-history.json",
+-        ".ralph/ralph-loop.state.json",
+-        ".ralph/ralph-opencode.config.json",
+-        "build/",
+-        "docs/handoffs/TEMPLATE.md",
+-        "docs/parity/parity-matrix.md",
+-        "docs/plans/",
+-        "src/CanvasItem.ts",
+-        "src/CanvasRenderer.ts",
+-        "src/Game.ts",
+-        "src/GameItem.ts",
+-        "src/GameItem/",
+-        "src/KeyListener.ts",
+-        "src/Level.ts",
+-        "src/Level0.ts",
+-        "src/Level1.ts",
+-        "src/Level2.ts",
+-        "src/Level3.ts",
+-        "src/Level4.ts",
+-        "src/Level5.ts",
+-        "src/Player.ts",
+-        "src/VirusVanguard.ts",
+-        ".ralph/ralph-tasks.md",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-001-phaser-dual-runtime-bootstrap.md",
+-        "docs/parity/known-limitations.md",
+-        "package-lock.json",
+-        "package.json",
+-        "src/app.ts",
+-        "src/phaser/PhaserRuntime.ts",
+-        "src/runtime/RuntimeMode.ts",
+-        ".ralph/",
+-        "docs/",
+-        "node_modules/",
+-        "src/"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": []
+-    },
+-    {
+-      "iteration": 2,
+-      "startedAt": "2026-02-10T23:28:10.671Z",
+-      "endedAt": "2026-02-10T23:31:37.860Z",
+-      "durationMs": 206049,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/overnight-20260211-002405.log",
+-        ".ralph/ralph-tasks.md",
+-        "build/phaser/PhaserRuntime.js",
+-        "build/phaser/PhaserRuntime.js.map",
+-        "build/phaser/scenes/BootScene.js",
+-        "build/phaser/scenes/BootScene.js.map",
+-        "build/phaser/scenes/GameScene.js",
+-        "build/phaser/scenes/GameScene.js.map",
+-        "build/phaser/scenes/PreloadScene.js",
+-        "build/phaser/scenes/PreloadScene.js.map",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-002-scene-lifecycle-shell.md",
+-        "docs/parity/known-limitations.md",
+-        "src/phaser/PhaserRuntime.ts",
+-        "src/phaser/scenes/BootScene.ts",
+-        "src/phaser/scenes/GameScene.ts",
+-        "src/phaser/scenes/PreloadScene.ts"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": []
+-    },
+-    {
+-      "iteration": 3,
+-      "startedAt": "2026-02-10T23:31:40.205Z",
+-      "endedAt": "2026-02-10T23:32:08.980Z",
+-      "durationMs": 27581,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/overnight-20260211-002405.log",
+-        ".ralph/ralph-history.json",
+-        ".ralph/ralph-loop.state.json"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": []
+-    },
+-    {
+-      "iteration": 4,
+-      "startedAt": "2026-02-10T23:32:11.196Z",
+-      "endedAt": "2026-02-10T23:35:19.858Z",
+-      "durationMs": 187526,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/ralph-tasks.md",
+-        "build/phaser/config/parityConstants.js",
+-        "build/phaser/config/parityConstants.js.map",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-003-shared-constants-parity-table.md",
+-        "docs/parity/known-limitations.md",
+-        "src/phaser/config/parityConstants.ts"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": []
+-    },
+-    {
+-      "iteration": 5,
+-      "startedAt": "2026-02-10T23:35:22.011Z",
+-      "endedAt": "2026-02-10T23:38:03.431Z",
+-      "durationMs": 160325,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".eslintrc.cjs",
+-        ".ralph/ralph-tasks.md",
+-        "AGENTS.md",
+-        "docs/handoffs/2026-02-11-pr-004-eslint-config-lint-baseline.md",
+-        "package.json"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": []
+-    },
+-    {
+-      "iteration": 6,
+-      "startedAt": "2026-02-10T23:38:05.561Z",
+-      "endedAt": "2026-02-10T23:41:27.195Z",
+-      "durationMs": 200479,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/ralph-tasks.md",
+-        "AGENTS.md",
+-        "package-lock.json",
+-        "package.json",
+-        "docs/handoffs/2026-02-11-pr-005-vitest-setup-core-logic-tests.md",
+-        "src/phaser/config/parityConstants.spec.ts",
+-        "vitest.config.ts"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "❯ src/phaser/config/parityConstants.spec.ts (4 tests | 1 failed) 5ms",
+-        "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯",
+-        "AssertionError: expected 6 to be 7 // Object.is equality",
+-        "Test Files  1 failed (1)",
+-        "Tests  1 failed | 3 passed (4)"
+-      ]
+-    },
+-    {
+-      "iteration": 7,
+-      "startedAt": "2026-02-10T23:41:29.596Z",
+-      "endedAt": "2026-02-10T23:46:46.170Z",
+-      "durationMs": 315430,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".gitignore",
+-        ".ralph/ralph-tasks.md",
+-        "AGENTS.md",
+-        "docs/handoffs/2026-02-11-pr-006-playwright-setup-boot-smoke-console-guard.md",
+-        "e2e/boot-smoke.spec.ts",
+-        "index.html",
+-        "package-lock.json",
+-        "package.json",
+-        "playwright.config.ts",
+-        "scripts/e2e/static-server.mjs"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "Using `systematic-debugging`: the failing test now has a clear root cause—browser ESM cannot resolve bare specifier `phaser` from compiled output. I’ll apply a minimal runtime fix by adding an import ",
+-        "Error: browserType.launch: Executable doesn't exist at /Users/pbaruch/Library/Caches/ms-playwright/chromium_headless_shell-1208/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+-        "Error: Unexpected page errors: Failed to resolve module specifier \"phaser\". Relative references must start with either \"/\", \"./\", or \"../\"."
+-      ]
+-    },
+-    {
+-      "iteration": 8,
+-      "startedAt": "2026-02-10T23:46:48.485Z",
+-      "endedAt": "2026-02-10T23:49:19.743Z",
+-      "durationMs": 150127,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/ralph-tasks.md",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-007-docs-scaffolding-governance.md",
+-        "docs/handoffs/TEMPLATE.md",
+-        "docs/parity/known-limitations.md",
+-        "docs/parity/parity-matrix.md"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": []
+-    },
+-    {
+-      "iteration": 9,
+-      "startedAt": "2026-02-10T23:49:21.906Z",
+-      "endedAt": "2026-02-10T23:56:18.551Z",
+-      "durationMs": 415505,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/ralph-tasks.md",
+-        "build/phaser/scenes/GameScene.js",
+-        "build/phaser/scenes/GameScene.js.map",
+-        "build/phaser/scenes/PreloadScene.js",
+-        "build/phaser/scenes/PreloadScene.js.map",
+-        "build/phaser/scenes/level0DialogueState.js",
+-        "build/phaser/scenes/level0DialogueState.js.map",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-008-level0-scene-visuals-dialogue-progression.md",
+-        "docs/parity/known-limitations.md",
+-        "docs/parity/parity-matrix.md",
+-        "src/phaser/scenes/GameScene.ts",
+-        "src/phaser/scenes/PreloadScene.ts",
+-        "src/phaser/scenes/level0DialogueState.spec.ts",
+-        "src/phaser/scenes/level0DialogueState.ts"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "Error: Cannot find module './level0DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level0DialogueState.spec.ts'",
+-        "Caused by: Error: Failed to load url ./level0DialogueState.js (resolved id: ./level0DialogueState.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level0DialogueState.spec.ts. Does ",
+-        "Test Files  1 failed (1)"
+-      ]
+-    },
+-    {
+-      "iteration": 10,
+-      "startedAt": "2026-02-10T23:56:20.727Z",
+-      "endedAt": "2026-02-10T23:59:58.987Z",
+-      "durationMs": 217124,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 11,
+-      "startedAt": "2026-02-11T00:00:01.166Z",
+-      "endedAt": "2026-02-11T00:00:43.391Z",
+-      "durationMs": 41097,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 12,
+-      "startedAt": "2026-02-11T00:00:45.571Z",
+-      "endedAt": "2026-02-11T00:01:27.812Z",
+-      "durationMs": 41111,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 13,
+-      "startedAt": "2026-02-11T00:01:29.993Z",
+-      "endedAt": "2026-02-11T00:02:11.999Z",
+-      "durationMs": 40873,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 14,
+-      "startedAt": "2026-02-11T00:02:14.175Z",
+-      "endedAt": "2026-02-11T00:02:56.518Z",
+-      "durationMs": 41137,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 15,
+-      "startedAt": "2026-02-11T00:02:58.694Z",
+-      "endedAt": "2026-02-11T00:03:40.691Z",
+-      "durationMs": 40863,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 16,
+-      "startedAt": "2026-02-11T00:03:42.872Z",
+-      "endedAt": "2026-02-11T00:04:25.302Z",
+-      "durationMs": 41302,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 17,
+-      "startedAt": "2026-02-11T00:04:27.466Z",
+-      "endedAt": "2026-02-11T00:05:09.854Z",
+-      "durationMs": 41257,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 18,
+-      "startedAt": "2026-02-11T00:05:12.026Z",
+-      "endedAt": "2026-02-11T00:05:54.039Z",
+-      "durationMs": 40883,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 19,
+-      "startedAt": "2026-02-11T00:05:56.212Z",
+-      "endedAt": "2026-02-11T00:06:38.179Z",
+-      "durationMs": 40837,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 20,
+-      "startedAt": "2026-02-11T00:06:40.417Z",
+-      "endedAt": "2026-02-11T00:07:22.441Z",
+-      "durationMs": 40889,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 21,
+-      "startedAt": "2026-02-11T00:07:24.619Z",
+-      "endedAt": "2026-02-11T00:08:07.039Z",
+-      "durationMs": 41290,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 22,
+-      "startedAt": "2026-02-11T00:08:09.216Z",
+-      "endedAt": "2026-02-11T00:08:51.343Z",
+-      "durationMs": 40994,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 23,
+-      "startedAt": "2026-02-11T00:08:53.523Z",
+-      "endedAt": "2026-02-11T00:09:35.857Z",
+-      "durationMs": 41208,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 24,
+-      "startedAt": "2026-02-11T00:09:38.031Z",
+-      "endedAt": "2026-02-11T00:10:20.051Z",
+-      "durationMs": 40850,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 25,
+-      "startedAt": "2026-02-11T00:10:22.235Z",
+-      "endedAt": "2026-02-11T00:11:04.314Z",
+-      "durationMs": 40917,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 26,
+-      "startedAt": "2026-02-11T00:11:06.488Z",
+-      "endedAt": "2026-02-11T00:11:48.704Z",
+-      "durationMs": 41092,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 27,
+-      "startedAt": "2026-02-11T00:11:50.882Z",
+-      "endedAt": "2026-02-11T00:12:32.953Z",
+-      "durationMs": 40942,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 28,
+-      "startedAt": "2026-02-11T00:12:35.129Z",
+-      "endedAt": "2026-02-11T00:13:17.539Z",
+-      "durationMs": 41276,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 29,
+-      "startedAt": "2026-02-11T00:13:19.717Z",
+-      "endedAt": "2026-02-11T00:14:02.073Z",
+-      "durationMs": 41223,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 30,
+-      "startedAt": "2026-02-11T00:14:04.252Z",
+-      "endedAt": "2026-02-11T00:14:46.598Z",
+-      "durationMs": 41184,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 31,
+-      "startedAt": "2026-02-11T00:14:48.775Z",
+-      "endedAt": "2026-02-11T00:15:30.863Z",
+-      "durationMs": 40923,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 32,
+-      "startedAt": "2026-02-11T00:15:33.038Z",
+-      "endedAt": "2026-02-11T00:16:15.419Z",
+-      "durationMs": 41224,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 33,
+-      "startedAt": "2026-02-11T00:16:17.596Z",
+-      "endedAt": "2026-02-11T00:16:59.923Z",
+-      "durationMs": 41196,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 34,
+-      "startedAt": "2026-02-11T00:17:02.098Z",
+-      "endedAt": "2026-02-11T00:17:44.382Z",
+-      "durationMs": 41157,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 35,
+-      "startedAt": "2026-02-11T00:17:46.567Z",
+-      "endedAt": "2026-02-11T00:18:28.520Z",
+-      "durationMs": 40824,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 36,
+-      "startedAt": "2026-02-11T00:18:30.688Z",
+-      "endedAt": "2026-02-11T00:19:12.710Z",
+-      "durationMs": 40896,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 37,
+-      "startedAt": "2026-02-11T00:19:14.886Z",
+-      "endedAt": "2026-02-11T00:19:56.851Z",
+-      "durationMs": 40845,
+-      "toolsUsed": {},
+-      "filesModified": [],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?"
+-      ]
+-    },
+-    {
+-      "iteration": 38,
+-      "startedAt": "2026-02-11T00:19:59.026Z",
+-      "endedAt": "2026-02-11T00:25:22.763Z",
+-      "durationMs": 322572,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/ralph-tasks.md",
+-        "build/phaser/entities/PlayerPrefab.js",
+-        "build/phaser/entities/PlayerPrefab.js.map",
+-        "build/phaser/entities/playerFacingState.js",
+-        "build/phaser/entities/playerFacingState.js.map",
+-        "build/phaser/scenes/GameScene.js",
+-        "build/phaser/scenes/GameScene.js.map",
+-        "build/phaser/scenes/PreloadScene.js",
+-        "build/phaser/scenes/PreloadScene.js.map",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-009-player-prefab-facing-direction-states.md",
+-        "docs/parity/known-limitations.md",
+-        "docs/parity/parity-matrix.md",
+-        "src/phaser/entities/PlayerPrefab.ts",
+-        "src/phaser/entities/playerFacingState.spec.ts",
+-        "src/phaser/entities/playerFacingState.ts",
+-        "src/phaser/scenes/GameScene.ts",
+-        "src/phaser/scenes/PreloadScene.ts"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "Using `test-driven-development` for PR-009: I’ll add failing tests for player facing state first, then implement the minimal prefab/state code to pass.",
+-        "Error: Cannot find module './playerFacingState.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/playerFacingState.spec.ts'",
+-        "Caused by: Error: Failed to load url ./playerFacingState.js (resolved id: ./playerFacingState.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/playerFacingState.spec.ts. Does the ",
+-        "Test Files  1 failed (1)"
+-      ]
+-    },
+-    {
+-      "iteration": 39,
+-      "startedAt": "2026-02-11T00:25:24.953Z",
+-      "endedAt": "2026-02-11T00:30:14.801Z",
+-      "durationMs": 288658,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/ralph-tasks.md",
+-        "build/phaser/entities/playerMovementStep.js",
+-        "build/phaser/entities/playerMovementStep.js.map",
+-        "build/phaser/scenes/GameScene.js",
+-        "build/phaser/scenes/GameScene.js.map",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-010-8-direction-movement-diagonal-normalization.md",
+-        "docs/parity/known-limitations.md",
+-        "docs/parity/parity-matrix.md",
+-        "src/phaser/entities/playerMovementStep.spec.ts",
+-        "src/phaser/entities/playerMovementStep.ts",
+-        "src/phaser/scenes/GameScene.ts"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "Using `brainstorming` to frame scope and `test-driven-development` to implement PR-010 safely with failing tests first. I’ll now mark PR-010 in progress, read the required files in order, implement on",
+-        "Error: Cannot find module './playerMovementStep.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/playerMovementStep.spec.ts'",
+-        "Caused by: Error: Failed to load url ./playerMovementStep.js (resolved id: ./playerMovementStep.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/playerMovementStep.spec.ts. Does t",
+-        "Test Files  1 failed (1)"
+-      ]
+-    },
+-    {
+-      "iteration": 40,
+-      "startedAt": "2026-02-11T00:30:17.021Z",
+-      "endedAt": "2026-02-11T00:34:35.200Z",
+-      "durationMs": 256956,
+-      "toolsUsed": {},
+-      "filesModified": [
+-        ".ralph/ralph-tasks.md",
+-        "build/phaser/scenes/GameScene.js",
+-        "build/phaser/scenes/GameScene.js.map",
+-        "build/phaser/scenes/level0TraversalRules.js",
+-        "build/phaser/scenes/level0TraversalRules.js.map",
+-        "docs/architecture/phaser-migration.mmd",
+-        "docs/handoffs/2026-02-11-pr-011-level0-bounds-transition-trigger.md",
+-        "docs/parity/known-limitations.md",
+-        "docs/parity/parity-matrix.md",
+-        "src/phaser/scenes/GameScene.ts",
+-        "src/phaser/scenes/level0TraversalRules.spec.ts",
+-        "src/phaser/scenes/level0TraversalRules.ts"
+-      ],
+-      "exitCode": 0,
+-      "completionDetected": false,
+-      "errors": [
+-        "Error: Cannot find module './level0TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level0TraversalRules.spec.ts'",
+-        "Caused by: Error: Failed to load url ./level0TraversalRules.js (resolved id: ./level0TraversalRules.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level0TraversalRules.spec.ts. Do",
+-        "Test Files  1 failed (1)"
+-      ]
+-    }
+-  ],
+-  "totalDurationMs": 4098279,
++  "iterations": [],
++  "totalDurationMs": 0,
+   "struggleIndicators": {
+-    "repeatedErrors": {
+-      "Error: Cannot find module './level0DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVang": 1,
+-      "Caused by: Error: Failed to load url ./level0DialogueState.js (resolved id: ./level0DialogueState.js": 1,
+-      "Test Files  1 failed (1)": 4,
+-      "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?": 28,
+-      "Using `test-driven-development` for PR-009: I’ll add failing tests for player facing state first, th": 1,
+-      "Error: Cannot find module './playerFacingState.js' imported from '/Users/pbaruch/Desktop/VirusVangua": 1,
+-      "Caused by: Error: Failed to load url ./playerFacingState.js (resolved id: ./playerFacingState.js) in": 1,
+-      "Using `brainstorming` to frame scope and `test-driven-development` to implement PR-010 safely with f": 1,
+-      "Error: Cannot find module './playerMovementStep.js' imported from '/Users/pbaruch/Desktop/VirusVangu": 1,
+-      "Caused by: Error: Failed to load url ./playerMovementStep.js (resolved id: ./playerMovementStep.js) ": 1,
+-      "Error: Cannot find module './level0TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
+-      "Caused by: Error: Failed to load url ./level0TraversalRules.js (resolved id: ./level0TraversalRules.": 1
+-    },
++    "repeatedErrors": {},
+     "noProgressIterations": 0,
+     "shortIterations": 0
+   }
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index a5105b8..80dc71a 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,13 +1,13 @@
+ {
+   "active": true,
+-  "iteration": 40,
++  "iteration": 1,
+   "minIterations": 1,
+-  "maxIterations": 40,
++  "maxIterations": 1000,
+   "completionPromise": "COMPLETE",
+   "tasksMode": true,
+   "taskPromise": "READY_FOR_NEXT_TASK",
+   "prompt": "You are the autonomous overnight migration agent for `VirusVanguardPhaser`.\n\nRead these files at the start of every iteration in this order:\n1. `AGENTS.md`\n2. `docs/plans/2026-02-10-phaser-migration-prd.md`\n3. `.ralph/ralph-tasks.md`\n\nExecution contract (mandatory):\n- Work on exactly one PR task per iteration.\n- If no task is marked `[/]`, mark the next unchecked task `[ ]` as `[/]` and start it.\n- Implement only the scope of that PR ID from the PRD.\n- Do not mix refactor and behavior change.\n- Do not widen scope.\n- Keep PRs extremely small.\n\nTask state rules:\n- `[ ]` = not started\n- `[/]` = in progress\n- `[x]` = done\n\nStaged gate profile (bootstrap-aware):\n- PR-001 to PR-003: run\n  - `npm run build`\n  - `npx tsc --noEmit`\n- PR-004 and later: run lint gate once available\n  - `npm run lint`\n- PR-005 and later: run unit gate once available\n  - `npm run test:unit`\n- PR-006 and later: run e2e gate once available\n  - `npm run test:e2e`\n\nIf a required script is not yet created by earlier PRs, treat it as unavailable for that iteration, document it in handoff, and proceed with all available required gates.\n\nFailure loop (no skipping):\n1. Analyze failed gate output.\n2. State root cause hypothesis in working notes.\n3. Implement smallest fix.\n4. Re-run failed gate.\n5. Re-run all available required gates for current PR.\n6. Repeat until green.\n\nSuccess requirements before marking `[x]`:\n1. All available required gates for this PR are green.\n2. Write handoff file:\n   - `docs/handoffs/<date>-<pr-id>-<slug>.md`\n3. Include in handoff:\n   - PR ID and task name\n   - summary of what changed\n   - files modified\n   - exact verification commands run\n   - gate results\n   - known limitations/parity gaps\n   - next recommended PR\n4. Update `docs/parity/known-limitations.md` if limitations changed.\n5. Update `docs/architecture/phaser-migration.mmd` if architecture changed.\n6. Mark current task from `[/]` to `[x]` in `.ralph/ralph-tasks.md`.\n7. Commit with format:\n   - `feat(parity:PR-XXX): <summary>`\n\nStop condition:\n- Output `<promise>READY_FOR_NEXT_TASK</promise>` after completing one task.\n- Output `<promise>COMPLETE</promise>` only when all tasks in `.ralph/ralph-tasks.md` are `[x]`.\n\nImportant:\n- Never claim success without command evidence.\n- Never skip gate execution.\n- Never edit completed tasks back from `[x]` to another state unless fixing a proven regression.\n",
+-  "startedAt": "2026-02-10T23:24:06.188Z",
++  "startedAt": "2026-02-11T08:21:07.448Z",
+   "model": "",
+   "agent": "opencode"
+ }
+\ No newline at end of file
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index c01deef..7b7b90b 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -14,7 +14,7 @@
+ - [x] PR-009: Player prefab + facing-direction states parity
+ - [x] PR-010: 8-direction movement + diagonal normalization parity
+ - [x] PR-011: Level0 bounds + transition trigger to Level1 parity
+-- [ ] PR-012: Level1 shell (background, dialogue, bounds, transition zone)
++- [x] PR-012: Level1 shell (background, dialogue, bounds, transition zone)
+ - [ ] PR-013: Level2 shell (same pattern)
+ - [ ] PR-014: Level3 shell (same pattern)
+ - [ ] PR-015: Level4 shell (same pattern)
+diff --git a/AGENTS.md b/AGENTS.md
+index e955e49..2aa3809 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -71,9 +71,11 @@ Run loop:
+ npm run ralph:overnight
+ ```
+ 
++Default cap is intentionally high for unattended runs (1000 iterations).
++
+ Run loop with explicit iteration cap:
+ ```bash
+-npm run ralph:overnight -- 40
++npm run ralph:overnight -- 1000
+ ```
+ 
+ Monitor and control:
+diff --git a/build/phaser/scenes/GameScene.js b/build/phaser/scenes/GameScene.js
+index a44dd73..a4406ca 100644
+--- a/build/phaser/scenes/GameScene.js
++++ b/build/phaser/scenes/GameScene.js
+@@ -3,6 +3,8 @@ import { LEVEL0_DIALOGUE_TEXTURE_KEYS, advanceLevel0DialogueState, createInitial
+ import PlayerPrefab from '../entities/PlayerPrefab.js';
+ import { resolvePlayerMovementStep } from '../entities/playerMovementStep.js';
+ import { canMoveWithinLevel0Bounds, isLevel0ToLevel1TransitionTriggered, } from './level0TraversalRules.js';
++import { LEVEL1_DIALOGUE_TEXTURE_KEYS, advanceLevel1DialogueState, createInitialLevel1DialogueState, resolveLevel1DialoguePhase, } from './level1DialogueState.js';
++import { canMoveWithinLevel1Bounds, isLevel1ToLevel2TransitionTriggered, } from './level1TraversalRules.js';
+ export default class GameScene extends Phaser.Scene {
+     static SCENE_KEY = 'GameScene';
+     static LEVEL_TRANSITION_EVENT = 'level-transition';
+@@ -10,6 +12,9 @@ export default class GameScene extends Phaser.Scene {
+     dialogueImage;
+     startPromptText;
+     level0Phase;
++    activeLevelId;
++    level1DialogueState;
++    level1Phase;
+     player;
+     spaceKey;
+     moveUpKey;
+@@ -17,12 +22,16 @@ export default class GameScene extends Phaser.Scene {
+     moveDownKey;
+     moveRightKey;
+     hasTriggeredLevel1Transition;
++    hasTriggeredLevel2Transition;
+     constructor() {
+         super(GameScene.SCENE_KEY);
+         this.dialogueState = createInitialLevel0DialogueState();
+         this.dialogueImage = null;
+         this.startPromptText = null;
+         this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
++        this.activeLevelId = 0;
++        this.level1DialogueState = createInitialLevel1DialogueState();
++        this.level1Phase = resolveLevel1DialoguePhase(this.level1DialogueState, LEVEL1_DIALOGUE_TEXTURE_KEYS.length);
+         this.player = null;
+         this.spaceKey = null;
+         this.moveUpKey = null;
+@@ -30,6 +39,7 @@ export default class GameScene extends Phaser.Scene {
+         this.moveDownKey = null;
+         this.moveRightKey = null;
+         this.hasTriggeredLevel1Transition = false;
++        this.hasTriggeredLevel2Transition = false;
+     }
+     create() {
+         const centerX = this.scale.width / 2;
+@@ -49,17 +59,28 @@ export default class GameScene extends Phaser.Scene {
+         this.dialogueImage.setVisible(false);
+         this.player = new PlayerPrefab(this);
+         this.add.existing(this.player);
+-        this.syncLevel0VisualState();
++        this.syncActiveLevelVisualState();
+     }
+     update() {
+         if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
+-            this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
+-            this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
+-            this.syncLevel0VisualState();
++            if (this.activeLevelId === 0) {
++                this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
++                this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
++            }
++            else if (this.activeLevelId === 1 && this.level1Phase === 'dialogue') {
++                this.level1DialogueState = advanceLevel1DialogueState(this.level1DialogueState);
++                this.level1Phase = resolveLevel1DialoguePhase(this.level1DialogueState, LEVEL1_DIALOGUE_TEXTURE_KEYS.length);
++            }
++            this.syncActiveLevelVisualState();
+         }
+-        if (this.level0Phase === 'walkable') {
++        if (this.activeLevelId === 0 && this.level0Phase === 'walkable') {
+             this.updatePlayerMovement();
+             this.updateLevel0TransitionTrigger();
++            return;
++        }
++        if (this.activeLevelId === 1 && this.level1Phase === 'walkable') {
++            this.updatePlayerMovement();
++            this.updateLevel1TransitionTrigger();
+         }
+     }
+     updatePlayerMovement() {
+@@ -75,14 +96,17 @@ export default class GameScene extends Phaser.Scene {
+         if (!movementStep.isMoving || movementStep.facingDirection === null) {
+             return;
+         }
+-        const canApplyMovement = canMoveWithinLevel0Bounds({
++        const traversalSnapshot = {
+             canvasHeight: this.scale.height,
+             canvasWidth: this.scale.width,
+             playerHeight: this.player.displayHeight,
+             playerWidth: this.player.displayWidth,
+             playerX: this.player.x,
+             playerY: this.player.y,
+-        }, movementStep.facingDirection);
++        };
++        const canApplyMovement = this.activeLevelId === 0
++            ? canMoveWithinLevel0Bounds(traversalSnapshot, movementStep.facingDirection)
++            : canMoveWithinLevel1Bounds(traversalSnapshot, movementStep.facingDirection);
+         if (!canApplyMovement) {
+             return;
+         }
+@@ -105,11 +129,46 @@ export default class GameScene extends Phaser.Scene {
+         if (!hasReachedTransition) {
+             return;
+         }
+-        this.hasTriggeredLevel1Transition = true;
+         this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
+             fromLevel: 0,
+             toLevel: 1,
+         });
++        this.enterLevel1();
++    }
++    updateLevel1TransitionTrigger() {
++        if (this.player === null || this.hasTriggeredLevel2Transition) {
++            return;
++        }
++        const hasReachedTransition = isLevel1ToLevel2TransitionTriggered({
++            canvasHeight: this.scale.height,
++            canvasWidth: this.scale.width,
++            playerHeight: this.player.displayHeight,
++            playerWidth: this.player.displayWidth,
++            playerX: this.player.x,
++            playerY: this.player.y,
++        });
++        if (!hasReachedTransition) {
++            return;
++        }
++        this.hasTriggeredLevel2Transition = true;
++        this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
++            fromLevel: 1,
++            toLevel: 2,
++        });
++    }
++    enterLevel1() {
++        this.activeLevelId = 1;
++        this.hasTriggeredLevel1Transition = true;
++        this.level1DialogueState = createInitialLevel1DialogueState();
++        this.level1Phase = resolveLevel1DialoguePhase(this.level1DialogueState, LEVEL1_DIALOGUE_TEXTURE_KEYS.length);
++        this.syncActiveLevelVisualState();
++    }
++    syncActiveLevelVisualState() {
++        if (this.activeLevelId === 0) {
++            this.syncLevel0VisualState();
++            return;
++        }
++        this.syncLevel1VisualState();
+     }
+     syncLevel0VisualState() {
+         if (this.level0Phase === 'startScreen') {
+@@ -130,6 +189,18 @@ export default class GameScene extends Phaser.Scene {
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
+     }
++    syncLevel1VisualState() {
++        document.body.className = 'level1';
++        this.setStartPromptVisible(false);
++        if (this.level1Phase === 'dialogue') {
++            this.setDialogueVisible(true);
++            this.setPlayerVisible(false);
++            this.dialogueImage?.setTexture(LEVEL1_DIALOGUE_TEXTURE_KEYS[this.level1DialogueState.currentDialogue]);
++            return;
++        }
++        this.setDialogueVisible(false);
++        this.setPlayerVisible(true);
++    }
+     setDialogueVisible(shouldBeVisible) {
+         if (this.dialogueImage !== null) {
+             this.dialogueImage.setVisible(shouldBeVisible);
+diff --git a/build/phaser/scenes/GameScene.js.map b/build/phaser/scenes/GameScene.js.map
+index 6e00e5d..ffc9c41 100644
+--- a/build/phaser/scenes/GameScene.js.map
++++ b/build/phaser/scenes/GameScene.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"GameScene.js","sourceRoot":"","sources":["../../../src/phaser/scenes/GameScene.ts"],"names":[],"mappings":"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"}
+\ No newline at end of file
+
+...25268 bytes truncated...
+
+The tool call succeeded but the output was truncated. Full output saved to: /Users/pbaruch/.local/share/opencode/tool-output/tool_c4bceb6f80012QwoqokKcd7XPO
+Use the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.
+[0m
+[0m→ [0mSkill "verification-before-completion"
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/GameScene.ts src/phaser/scenes/PreloadScene.ts src/phaser/scenes/level1DialogueState.ts src/phaser/scenes/level1DialogueState.spec.ts src/phaser/scenes/level1TraversalRules.ts src/phaser/scenes/level1TraversalRules.spec.ts docs/handoffs/2026-02-11-pr-012-level1-shell-background-dialogue-bounds-transition-zone.md docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/parity/parity-matrix.md build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map build/phaser/scenes/level1DialogueState.js build/phaser/scenes/level1DialogueState.js.map build/phaser/scenes/level1TraversalRules.js build/phaser/scenes/level1TraversalRules.js.map && git commit -m "feat(parity:PR-012): add Level1 shell traversal and dialogue parity" && git status --short
+[main 2b5165a] feat(parity:PR-012): add Level1 shell traversal and dialogue parity
+ 19 files changed, 549 insertions(+), 32 deletions(-)
+ create mode 100644 build/phaser/scenes/level1DialogueState.js
+ create mode 100644 build/phaser/scenes/level1DialogueState.js.map
+ create mode 100644 build/phaser/scenes/level1TraversalRules.js
+ create mode 100644 build/phaser/scenes/level1TraversalRules.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-012-level1-shell-background-dialogue-bounds-transition-zone.md
+ create mode 100644 src/phaser/scenes/level1DialogueState.spec.ts
+ create mode 100644 src/phaser/scenes/level1DialogueState.ts
+ create mode 100644 src/phaser/scenes/level1TraversalRules.spec.ts
+ create mode 100644 src/phaser/scenes/level1TraversalRules.ts
+ M .ralph/ralph-history.json
+ M .ralph/ralph-loop.state.json
+ M AGENTS.md
+ M scripts/ralph/run-overnight.sh
+?? .ralph/overnight-20260211-092107.log
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 1
+Elapsed:   5:18
+Tools:     none
+Exit code: 0
+Completion promise: detected
+
+╔══════════════════════════════════════════════════════════════════╗
+║  ✅ Completion promise detected: <promise>COMPLETE</promise>
+║  Task completed in 1 iteration(s)
+║  Total time: 5m 18s
+╚══════════════════════════════════════════════════════════════════╝

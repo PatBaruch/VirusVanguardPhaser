@@ -10,7 +10,7 @@ cd "${ROOT_DIR}"
 # Ralph requires bun in PATH.
 export PATH="$HOME/.bun/bin:$PATH"
 
-MAX_ITERATIONS="${1:-40}"
+MAX_ITERATIONS="${1:-${RALPH_MAX_ITERATIONS:-1000}}"
 AGENT="${RALPH_AGENT:-opencode}"
 MODEL="${RALPH_MODEL:-}"
 PROMPT_FILE="${SCRIPT_DIR}/overnight-phaser.prompt.md"

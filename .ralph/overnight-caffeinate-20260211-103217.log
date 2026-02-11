@@ -1,0 +1,513 @@
+
+> ts-wizards-chest@2023.1 ralph:overnight
+> bash scripts/ralph/run-overnight.sh 1000
+
+Starting overnight Ralph loop
+- Agent: opencode
+- Max iterations: 1000
+- Prompt file: /Users/pbaruch/Desktop/VirusVanguardPhaser/scripts/ralph/overnight-phaser.prompt.md
+
+╔══════════════════════════════════════════════════════════════════╗
+║                    Ralph Wiggum Loop                            ║
+║         Iterative AI Development with OpenCode                    ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Task: /Users/pbaruch/Desktop/VirusVanguardPhaser/scripts/ralph/overnight-phaser.prompt.md
+Preview: You are the autonomous overnight migration agent for `VirusVanguardPhaser`. Read...
+Completion promise: COMPLETE
+Tasks mode: ENABLED
+Task promise: READY_FOR_NEXT_TASK
+Min iterations: 1
+Max iterations: 1000
+Agent: OpenCode
+Permissions: auto-approve all tools
+
+Starting loop... (Ctrl+C to stop)
+════════════════════════════════════════════════════════════════════
+
+🔄 Iteration 1 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "executing-plans"
+[0m→ [0mSkill "using-git-worktrees"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+Using the executing-plans and test-driven-development skills to run PR-013 in strict loop order with gate evidence. I’ll mark PR-013 in progress, implement only the Level2 shell parity slice, run required gates, write handoff, update task state, and commit.
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 19 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/scenes/level1TraversalRules.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m→ [0mRead src/phaser/scenes/level1DialogueState.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m→ [0mRead src/phaser/scenes/level1DialogueState.spec.ts
+[0m→ [0mRead src/phaser/scenes/level1TraversalRules.spec.ts
+[0m✱ [0mGlob "docs/handoffs/*PR-012*"[90m in . · 0 matches[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 13 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-012-level1-shell-background-dialogue-bounds-transition-zone.md
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 1:20 · last activity 0:10 ago
+[0m✱ [0mGlob "assets/Dialogue-Level2/*"[90m in . · 2 matches[0m
+[0m✱ [0mGlob "assets/Dialogue-Level1/*"[90m in . · 2 matches[0m
+[0m✱ [0mGlob "assets/Dialogue-Level3/*"[90m in . · 2 matches[0m
+[0m✱ [0mGrep "\.level[0-5]|startScreen"[90m in . · 7 matches[0m
+[0m→ [0mRead index.html
+⏳ working... elapsed 1:50 · last activity 0:11 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level2DialogueState.spec.ts
+
+LSP errors detected in src/phaser/scenes/level2DialogueState.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level2DialogueState.spec.ts">
+ERROR [7:8] Cannot find module './level2DialogueState.js' or its corresponding type declarations.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level2TraversalRules.spec.ts
+
+LSP errors detected in src/phaser/scenes/level2TraversalRules.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level2TraversalRules.spec.ts">
+ERROR [6:8] Cannot find module './level2TraversalRules.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level2DialogueState.spec.ts src/phaser/scenes/level2TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level2DialogueState.spec.ts src/phaser/scenes/level2TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level2DialogueState.spec.ts [ src/phaser/scenes/level2DialogueState.spec.ts ]
+Error: Cannot find module './level2DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level2DialogueState.spec.ts'
+ ❯ src/phaser/scenes/level2DialogueState.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   LEVEL2_DIALOGUE_TEXTURE_KEYS,
+      4|   advanceLevel2DialogueState,
+
+Caused by: Error: Failed to load url ./level2DialogueState.js (resolved id: ./level2DialogueState.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level2DialogueState.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/phaser/scenes/level2TraversalRules.spec.ts [ src/phaser/scenes/level2TraversalRules.spec.ts ]
+Error: Cannot find module './level2TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level2TraversalRules.spec.ts'
+ ❯ src/phaser/scenes/level2TraversalRules.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   canMoveWithinLevel2Bounds,
+      4|   isLevel2ToLevel3TransitionTriggered,
+
+Caused by: Error: Failed to load url ./level2TraversalRules.js (resolved id: ./level2TraversalRules.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level2TraversalRules.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  10:34:34
+   Duration  238ms (transform 31ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 82ms)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level2DialogueState.ts
+⏳ working... elapsed 2:40 · last activity 0:13 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level2TraversalRules.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+⏳ working... elapsed 3:10 · last activity 0:11 ago
+⏳ working... elapsed 3:20 · last activity 0:21 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level2DialogueState.spec.ts src/phaser/scenes/level2TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level2DialogueState.spec.ts src/phaser/scenes/level2TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+
+ Test Files  2 passed (2)
+      Tests  7 passed (7)
+   Start at  10:35:56
+   Duration  187ms (transform 34ms, setup 0ms, collect 41ms, tests 3ms, environment 0ms, prepare 80ms)
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+
+ Test Files  9 passed (9)
+      Tests  33 passed (33)
+   Start at  10:36:02
+   Duration  398ms (transform 108ms, setup 0ms, collect 206ms, tests 17ms, environment 1ms, prepare 477ms)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (703ms)
+
+  1 passed (2.0s)
+[0m
+[0m$ [0mgit diff -- src/phaser/scenes/GameScene.ts src/phaser/scenes/PreloadScene.ts
+diff --git a/src/phaser/scenes/GameScene.ts b/src/phaser/scenes/GameScene.ts
+index 8829b4b..d6bea3a 100644
+--- a/src/phaser/scenes/GameScene.ts
++++ b/src/phaser/scenes/GameScene.ts
+@@ -25,6 +25,18 @@ import {
+   canMoveWithinLevel1Bounds,
+   isLevel1ToLevel2TransitionTriggered,
+ } from './level1TraversalRules.js';
++import {
++  LEVEL2_DIALOGUE_TEXTURE_KEYS,
++  Level2DialoguePhase,
++  Level2DialogueState,
++  advanceLevel2DialogueState,
++  createInitialLevel2DialogueState,
++  resolveLevel2DialoguePhase,
++} from './level2DialogueState.js';
++import {
++  canMoveWithinLevel2Bounds,
++  isLevel2ToLevel3TransitionTriggered,
++} from './level2TraversalRules.js';
+ 
+ /**
+  * Minimal game scene shell for Phaser runtime lifecycle.
+@@ -42,12 +54,16 @@ export default class GameScene extends Phaser.Scene {
+ 
+   private level0Phase: Level0DialoguePhase;
+ 
+-  private activeLevelId: 0 | 1;
++  private activeLevelId: 0 | 1 | 2;
+ 
+   private level1DialogueState: Level1DialogueState;
+ 
+   private level1Phase: Level1DialoguePhase;
+ 
++  private level2DialogueState: Level2DialogueState;
++
++  private level2Phase: Level2DialoguePhase;
++
+   private player: PlayerPrefab | null;
+ 
+   private spaceKey: Phaser.Input.Keyboard.Key | null;
+@@ -64,6 +80,8 @@ export default class GameScene extends Phaser.Scene {
+ 
+   private hasTriggeredLevel2Transition: boolean;
+ 
++  private hasTriggeredLevel3Transition: boolean;
++
+   public constructor() {
+     super(GameScene.SCENE_KEY);
+     this.dialogueState = createInitialLevel0DialogueState();
+@@ -79,6 +97,11 @@ export default class GameScene extends Phaser.Scene {
+       this.level1DialogueState,
+       LEVEL1_DIALOGUE_TEXTURE_KEYS.length,
+     );
++    this.level2DialogueState = createInitialLevel2DialogueState();
++    this.level2Phase = resolveLevel2DialoguePhase(
++      this.level2DialogueState,
++      LEVEL2_DIALOGUE_TEXTURE_KEYS.length,
++    );
+     this.player = null;
+     this.spaceKey = null;
+     this.moveUpKey = null;
+@@ -87,6 +110,7 @@ export default class GameScene extends Phaser.Scene {
+     this.moveRightKey = null;
+     this.hasTriggeredLevel1Transition = false;
+     this.hasTriggeredLevel2Transition = false;
++    this.hasTriggeredLevel3Transition = false;
+   }
+ 
+   public create(): void {
+@@ -131,6 +155,12 @@ export default class GameScene extends Phaser.Scene {
+           this.level1DialogueState,
+           LEVEL1_DIALOGUE_TEXTURE_KEYS.length,
+         );
++      } else if (this.activeLevelId === 2 && this.level2Phase === 'dialogue') {
++        this.level2DialogueState = advanceLevel2DialogueState(this.level2DialogueState);
++        this.level2Phase = resolveLevel2DialoguePhase(
++          this.level2DialogueState,
++          LEVEL2_DIALOGUE_TEXTURE_KEYS.length,
++        );
+       }
+ 
+       this.syncActiveLevelVisualState();
+@@ -145,6 +175,12 @@ export default class GameScene extends Phaser.Scene {
+     if (this.activeLevelId === 1 && this.level1Phase === 'walkable') {
+       this.updatePlayerMovement();
+       this.updateLevel1TransitionTrigger();
++      return;
++    }
++
++    if (this.activeLevelId === 2 && this.level2Phase === 'walkable') {
++      this.updatePlayerMovement();
++      this.updateLevel2TransitionTrigger();
+     }
+   }
+ 
+@@ -173,9 +209,14 @@ export default class GameScene extends Phaser.Scene {
+       playerY: this.player.y,
+     };
+ 
+-    const canApplyMovement = this.activeLevelId === 0
+-      ? canMoveWithinLevel0Bounds(traversalSnapshot, movementStep.facingDirection)
+-      : canMoveWithinLevel1Bounds(traversalSnapshot, movementStep.facingDirection);
++    let canApplyMovement: boolean;
++    if (this.activeLevelId === 0) {
++      canApplyMovement = canMoveWithinLevel0Bounds(traversalSnapshot, movementStep.facingDirection);
++    } else if (this.activeLevelId === 1) {
++      canApplyMovement = canMoveWithinLevel1Bounds(traversalSnapshot, movementStep.facingDirection);
++    } else {
++      canApplyMovement = canMoveWithinLevel2Bounds(traversalSnapshot, movementStep.facingDirection);
++    }
+ 
+     if (!canApplyMovement) {
+       return;
+@@ -235,6 +276,33 @@ export default class GameScene extends Phaser.Scene {
+       fromLevel: 1,
+       toLevel: 2,
+     });
++
++    this.enterLevel2();
++  }
++
++  private updateLevel2TransitionTrigger(): void {
++    if (this.player === null || this.hasTriggeredLevel3Transition) {
++      return;
++    }
++
++    const hasReachedTransition = isLevel2ToLevel3TransitionTriggered({
++      canvasHeight: this.scale.height,
++      canvasWidth: this.scale.width,
++      playerHeight: this.player.displayHeight,
++      playerWidth: this.player.displayWidth,
++      playerX: this.player.x,
++      playerY: this.player.y,
++    });
++
++    if (!hasReachedTransition) {
++      return;
++    }
++
++    this.hasTriggeredLevel3Transition = true;
++    this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
++      fromLevel: 2,
++      toLevel: 3,
++    });
+   }
+ 
+   private enterLevel1(): void {
+@@ -248,13 +316,28 @@ export default class GameScene extends Phaser.Scene {
+     this.syncActiveLevelVisualState();
+   }
+ 
++  private enterLevel2(): void {
++    this.activeLevelId = 2;
++    this.level2DialogueState = createInitialLevel2DialogueState();
++    this.level2Phase = resolveLevel2DialoguePhase(
++      this.level2DialogueState,
++      LEVEL2_DIALOGUE_TEXTURE_KEYS.length,
++    );
++    this.syncActiveLevelVisualState();
++  }
++
+   private syncActiveLevelVisualState(): void {
+     if (this.activeLevelId === 0) {
+       this.syncLevel0VisualState();
+       return;
+     }
+ 
+-    this.syncLevel1VisualState();
++    if (this.activeLevelId === 1) {
++      this.syncLevel1VisualState();
++      return;
++    }
++
++    this.syncLevel2VisualState();
+   }
+ 
+   private syncLevel0VisualState(): void {
+@@ -295,6 +378,21 @@ export default class GameScene extends Phaser.Scene {
+     this.setPlayerVisible(true);
+   }
+ 
++  private syncLevel2VisualState(): void {
++    document.body.className = 'level2';
++    this.setStartPromptVisible(false);
++
++    if (this.level2Phase === 'dialogue') {
++      this.setDialogueVisible(true);
++      this.setPlayerVisible(false);
++      this.dialogueImage?.setTexture(LEVEL2_DIALOGUE_TEXTURE_KEYS[this.level2DialogueState.currentDialogue]);
++      return;
++    }
++
++    this.setDialogueVisible(false);
++    this.setPlayerVisible(true);
++  }
++
+   private setDialogueVisible(shouldBeVisible: boolean): void {
+     if (this.dialogueImage !== null) {
+       this.dialogueImage.setVisible(shouldBeVisible);
+diff --git a/src/phaser/scenes/PreloadScene.ts b/src/phaser/scenes/PreloadScene.ts
+index a7738f3..7ab47f1 100644
+--- a/src/phaser/scenes/PreloadScene.ts
++++ b/src/phaser/scenes/PreloadScene.ts
+@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
+ import GameScene from './GameScene.js';
+ import { LEVEL0_DIALOGUE_TEXTURE_KEYS } from './level0DialogueState.js';
+ import { LEVEL1_DIALOGUE_TEXTURE_KEYS } from './level1DialogueState.js';
++import { LEVEL2_DIALOGUE_TEXTURE_KEYS } from './level2DialogueState.js';
+ import {
+   PLAYER_FACING_DIRECTIONS,
+   PLAYER_FACING_TEXTURE_KEYS,
+@@ -27,6 +28,10 @@ export default class PreloadScene extends Phaser.Scene {
+       this.load.image(dialogueTextureKey, `./assets/Dialogue-Level1/Level1-${index}.png`);
+     });
+ 
++    LEVEL2_DIALOGUE_TEXTURE_KEYS.forEach((dialogueTextureKey: string, index: number) => {
++      this.load.image(dialogueTextureKey, `./assets/Dialogue-Level2/Level2-${index}.png`);
++    });
++
+     PLAYER_FACING_DIRECTIONS.forEach((direction: PlayerFacingDirection) => {
+       this.load.image(
+         PLAYER_FACING_TEXTURE_KEYS[direction],
+[0m
+[0m$ [0mgit status --short
+M .ralph/ralph-history.json
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M AGENTS.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M scripts/ralph/run-overnight.sh
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? .ralph/overnight-20260211-092107.log
+?? .ralph/overnight-caffeinate-20260211-103217.log
+?? build/phaser/scenes/level2DialogueState.js
+?? build/phaser/scenes/level2DialogueState.js.map
+?? build/phaser/scenes/level2TraversalRules.js
+?? build/phaser/scenes/level2TraversalRules.js.map
+?? src/phaser/scenes/level2DialogueState.spec.ts
+?? src/phaser/scenes/level2DialogueState.ts
+?? src/phaser/scenes/level2TraversalRules.spec.ts
+?? src/phaser/scenes/level2TraversalRules.ts
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 4:20 · last activity 0:14 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-013-level2-shell-background-dialogue-bounds-transition-zone.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/ralph-history.json
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M AGENTS.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M scripts/ralph/run-overnight.sh
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? .ralph/overnight-20260211-092107.log
+?? .ralph/overnight-caffeinate-20260211-103217.log
+?? build/phaser/scenes/level2DialogueState.js
+?? build/phaser/scenes/level2DialogueState.js.map
+?? build/phaser/scenes/level2TraversalRules.js
+?? build/phaser/scenes/level2TraversalRules.js.map
+?? docs/handoffs/2026-02-11-pr-013-level2-shell-background-dialogue-bounds-transition-zone.md
+?? src/phaser/scenes/level2DialogueState.spec.ts
+?? src/phaser/scenes/level2DialogueState.ts
+?? src/phaser/scenes/level2TraversalRules.spec.ts
+?? src/phaser/scenes/level2TraversalRules.ts
+[0m
+[0m$ [0mgit add ".ralph/ralph-tasks.md" "src/phaser/scenes/GameScene.ts" "src/phaser/scenes/PreloadScene.ts" "src/phaser/scenes/level2DialogueState.ts" "src/phaser/scenes/level2DialogueState.spec.ts" "src/phaser/scenes/level2TraversalRules.ts" "src/phaser/scenes/level2TraversalRules.spec.ts" "docs/parity/known-limitations.md" "docs/architecture/phaser-migration.mmd" "docs/handoffs/2026-02-11-pr-013-level2-shell-background-dialogue-bounds-transition-zone.md" "build/phaser/scenes/GameScene.js" "build/phaser/scenes/GameScene.js.map" "build/phaser/scenes/PreloadScene.js" "build/phaser/scenes/PreloadScene.js.map" "build/phaser/scenes/level2DialogueState.js" "build/phaser/scenes/level2DialogueState.js.map" "build/phaser/scenes/level2TraversalRules.js" "build/phaser/scenes/level2TraversalRules.js.map"
+[0m
+[0m$ [0mgit commit -m "feat(parity:PR-013): add Level2 shell dialogue bounds and transition zone"
+[main 99ca9d9] feat(parity:PR-013): add Level2 shell dialogue bounds and transition zone
+ 18 files changed, 523 insertions(+), 15 deletions(-)
+ create mode 100644 build/phaser/scenes/level2DialogueState.js
+ create mode 100644 build/phaser/scenes/level2DialogueState.js.map
+ create mode 100644 build/phaser/scenes/level2TraversalRules.js
+ create mode 100644 build/phaser/scenes/level2TraversalRules.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-013-level2-shell-background-dialogue-bounds-transition-zone.md
+ create mode 100644 src/phaser/scenes/level2DialogueState.spec.ts
+ create mode 100644 src/phaser/scenes/level2DialogueState.ts
+ create mode 100644 src/phaser/scenes/level2TraversalRules.spec.ts
+ create mode 100644 src/phaser/scenes/level2TraversalRules.ts
+[0m
+[0m$ [0mgit status --short
+M .ralph/ralph-history.json
+ M .ralph/ralph-loop.state.json
+ M AGENTS.md
+ M scripts/ralph/run-overnight.sh
+?? .ralph/overnight-20260211-092107.log
+?? .ralph/overnight-caffeinate-20260211-103217.log
+[0m
+[0m→ [0mSkill "verification-before-completion"
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 1
+Elapsed:   5:03
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 2...

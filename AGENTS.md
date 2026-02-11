@@ -71,9 +71,11 @@ Run loop:
 npm run ralph:overnight
 ```
 
+Default cap is intentionally high for unattended runs (1000 iterations).
+
 Run loop with explicit iteration cap:
 ```bash
-npm run ralph:overnight -- 40
+npm run ralph:overnight -- 1000
 ```
 
 Monitor and control:
