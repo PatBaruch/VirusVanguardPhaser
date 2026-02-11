@@ -8907,3 +8907,279 @@ Elapsed:   7:37
 Tools:     none
 Exit code: 0
 Completion promise: not detected
+📝 Auto-committed changes
+
+🔄 Iteration 20 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 67 matches[0m
+[0m✱ [0mGrep "MrHacker|minion|spawn cycle|spawn"[90m in src/phaser · 100 matches[0m
+[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.ts
+[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.spec.ts
+[0m→ [0mRead src/Level5.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1460, limit=320][0m
+[0m→ [0mRead src/GameItem/MrHacker.ts
+[0m✱ [0mGrep "instanceof MrHacker|MrHacker|FEmail|RVirus|Worm|spawn"[90m in src/Level.ts · 44 matches[0m
+[0m→ [0mRead src/Level.ts[90m [offset=300, limit=280][0m
+[0m✱ [0mGrep "update\(|updateLevel1Combat|updateLevel2Combat|updateLevel3Combat|updateLevel4Combat|updateLevel5Combat|resolve.*Collisions|activeFEmails|activeRViruses|activeWorms"[90m in src/phaser/scenes/GameScene.ts · 92 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=360, limit=260][0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1138, limit=320][0m
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.ts[90m [offset=1, limit=220][0m
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.ts[90m [offset=1, limit=220][0m
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.spec.ts[90m [offset=1, limit=240][0m
+⏳ working... elapsed 1:30 · last activity 0:14 ago
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=780, limit=210][0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1, limit=280][0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=280, limit=120][0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 31 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-030-boss-bullet-collision-parity.md
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m→ [0mRead src/phaser/scenes/level3WormCombat.ts[90m [offset=1, limit=120][0m
+[0m→ [0mRead src/GameItem/Worm.ts
+[0m→ [0mRead src/GameItem/FEmail.ts
+[0m→ [0mRead src/GameItem/RVirus.ts
+⏳ working... elapsed 2:20 · last activity 0:17 ago
+⏳ working... elapsed 2:30 · last activity 0:27 ago
+Using the test-driven-development skill to add a failing minion-cycle parity test first, then implement the minimal runtime wiring to pass it.
+⏳ working... elapsed 2:50 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+LSP errors detected in src/phaser/scenes/level5MrHackerCombat.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts">
+ERROR [7:3] Module '"./level5MrHackerCombat.js"' has no exported member 'LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS'.
+ERROR [9:3] '"./level5MrHackerCombat.js"' has no exported member named 'advanceLevel5MrHackerMinionSpawnState'. Did you mean 'advanceLevel5MrHackerSpawnState'?
+ERROR [11:3] '"./level5MrHackerCombat.js"' has no exported member named 'createInitialLevel5MrHackerMinionSpawnState'. Did you mean 'createInitialLevel5MrHackerSpawnState'?
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests | 2 failed) 5ms
+   ✓ level5 MrHacker combat parity > spawns MrHacker exactly once with legacy HP model values 1ms
+   ✓ level5 MrHacker combat parity > maps boss HP directly to legacy health bar frame keys 0ms
+   ✓ level5 MrHacker combat parity > clamps health bar frame key at the legacy bounds 0ms
+   ✓ level5 MrHacker combat parity > fires a three-bullet volley toward the dominant player axis when cooldown elapses 0ms
+   ✓ level5 MrHacker combat parity > counts down boss firing cooldown without spawning bullets before timer reaches zero 0ms
+   × level5 MrHacker combat parity > spawns one Level5 boss minion every 3000ms using legacy enemy buckets 2ms
+     → (0 , createInitialLevel5MrHackerMinionSpawnState) is not a function
+   × level5 MrHacker combat parity > spawns at most one minion per update and resets minion spawn countdown 0ms
+     → (0 , createInitialLevel5MrHackerMinionSpawnState) is not a function
+   ✓ level5 MrHacker combat parity > applies player damage and destroys enemy bullets that overlap the player 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level5MrHackerCombat.spec.ts > level5 MrHacker combat parity > spawns one Level5 boss minion every 3000ms using legacy enemy buckets
+TypeError: (0 , createInitialLevel5MrHackerMinionSpawnState) is not a function
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts:120:26
+    118|     };
+    119| 
+    120|     const initialState = createInitialLevel5MrHackerMinionSpawnState();
+       |                          ^
+    121|     const firstSpawn = advanceLevel5MrHackerMinionSpawnState(initialSt…
+    122|       bossCenterX: 700,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/phaser/scenes/level5MrHackerCombat.spec.ts > level5 MrHacker combat parity > spawns at most one minion per update and resets minion spawn countdown
+TypeError: (0 , createInitialLevel5MrHackerMinionSpawnState) is not a function
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts:166:58
+    164| 
+    165|   it('spawns at most one minion per update and resets minion spawn cou…
+    166|     const result = advanceLevel5MrHackerMinionSpawnState(createInitial…
+       |                                                          ^
+    167|       bossCenterX: 700,
+    168|       bossCenterY: 430,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 6 passed (8)
+   Start at  12:20:30
+   Duration  215ms (transform 29ms, setup 0ms, collect 25ms, tests 5ms, environment 0ms, prepare 32ms)
+[0m
+⏳ working... elapsed 3:20 · last activity 0:18 ago
+⏳ working... elapsed 3:30 · last activity 0:28 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level5MrHackerCombat.ts
+⏳ working... elapsed 3:50 · last activity 0:10 ago
+⏳ working... elapsed 4:00 · last activity 0:20 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.ts[90m [offset=182, limit=140][0m
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  12:21:44
+   Duration  187ms (transform 26ms, setup 0ms, collect 25ms, tests 3ms, environment 0ms, prepare 36ms)
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 5ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 7ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+
+ Test Files  27 passed (27)
+      Tests  102 passed (102)
+   Start at  12:21:57
+   Duration  866ms (transform 267ms, setup 0ms, collect 563ms, tests 65ms, environment 2ms, prepare 1.50s)
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (711ms)
+
+  1 passed (1.9s)
+[0m
+⏳ working... elapsed 4:50 · last activity 0:15 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 5:10 · last activity 0:12 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit log -5 --oneline
+2c49ea3 Ralph iteration 19: work in progress
+67c81c4 Ralph iteration 18: work in progress
+37588af feat(parity:PR-029): add Level5 MrHacker spawn HP and health bar parity
+518a7c5 Ralph iteration 17: work in progress
+d91cbd1 feat(parity:PR-028): harden enemy collision matrix for levels 1-4
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/level5MrHackerCombat.js
+ M build/phaser/scenes/level5MrHackerCombat.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/level5MrHackerCombat.spec.ts
+ M src/phaser/scenes/level5MrHackerCombat.ts
+?? docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+[0m
+[0m$ [0mgit diff --stat
+.ralph/overnight-caffeinate-20260211-103217.log | 223 ++++++++++++++++++++++++
+ .ralph/ralph-loop.state.json                    |   2 +-
+ .ralph/ralph-tasks.md                           |   2 +-
+ build/phaser/scenes/GameScene.js                |  64 ++++++-
+ build/phaser/scenes/GameScene.js.map            |   2 +-
+ build/phaser/scenes/level5MrHackerCombat.js     | 127 ++++++++++++++
+ build/phaser/scenes/level5MrHackerCombat.js.map |   2 +-
+ docs/architecture/phaser-migration.mmd          |   3 +-
+ docs/parity/known-limitations.md                |   3 +-
+ src/phaser/scenes/GameScene.ts                  |  76 +++++++-
+ src/phaser/scenes/level5MrHackerCombat.spec.ts  |  78 +++++++++
+ src/phaser/scenes/level5MrHackerCombat.ts       | 178 +++++++++++++++++++
+ 12 files changed, 747 insertions(+), 13 deletions(-)
+[0m
+[0m$ [0mgit show --name-only --pretty=format: 37588af
+.ralph/ralph-tasks.md
+build/phaser/entities/MrHackerPrefab.js
+build/phaser/entities/MrHackerPrefab.js.map
+build/phaser/scenes/GameScene.js
+build/phaser/scenes/GameScene.js.map
+build/phaser/scenes/PreloadScene.js
+build/phaser/scenes/PreloadScene.js.map
+build/phaser/scenes/level5MrHackerCombat.js
+build/phaser/scenes/level5MrHackerCombat.js.map
+docs/architecture/phaser-migration.mmd
+docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md
+docs/parity/known-limitations.md
+src/phaser/entities/MrHackerPrefab.ts
+src/phaser/scenes/GameScene.ts
+src/phaser/scenes/PreloadScene.ts
+src/phaser/scenes/level5MrHackerCombat.spec.ts
+src/phaser/scenes/level5MrHackerCombat.ts
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/GameScene.ts src/phaser/scenes/level5MrHackerCombat.ts src/phaser/scenes/level5MrHackerCombat.spec.ts build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/level5MrHackerCombat.js build/phaser/scenes/level5MrHackerCombat.js.map docs/architecture/phaser-migration.mmd docs/parity/known-limitations.md docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md && git commit -m "feat(parity:PR-031): add level5 boss minion spawn cycle parity" && git status --short
+[main 43ba1fe] feat(parity:PR-031): add level5 boss minion spawn cycle parity
+ 11 files changed, 603 insertions(+), 12 deletions(-)
+ create mode 100644 docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 20
+Elapsed:   5:51
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 21...

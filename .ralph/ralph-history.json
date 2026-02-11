@@ -653,9 +653,40 @@
         "Test Files  1 failed (1)",
         "Tests  3 failed | 3 passed (6)"
       ]
+    },
+    {
+      "iteration": 20,
+      "startedAt": "2026-02-11T11:17:29.397Z",
+      "endedAt": "2026-02-11T11:23:22.201Z",
+      "durationMs": 351052,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-caffeinate-20260211-103217.log",
+        ".ralph/ralph-tasks.md",
+        "build/phaser/scenes/GameScene.js",
+        "build/phaser/scenes/GameScene.js.map",
+        "build/phaser/scenes/level5MrHackerCombat.js",
+        "build/phaser/scenes/level5MrHackerCombat.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md",
+        "docs/parity/known-limitations.md",
+        "src/phaser/scenes/GameScene.ts",
+        "src/phaser/scenes/level5MrHackerCombat.spec.ts",
+        "src/phaser/scenes/level5MrHackerCombat.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "Using the test-driven-development skill to add a failing minion-cycle parity test first, then implement the minimal runtime wiring to pass it.",
+        "❯ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests | 2 failed) 5ms",
+        "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯",
+        "TypeError: (0 , createInitialLevel5MrHackerMinionSpawnState) is not a function",
+        "Test Files  1 failed (1)",
+        "Tests  2 failed | 6 passed (8)"
+      ]
     }
   ],
-  "totalDurationMs": 6230953,
+  "totalDurationMs": 6582005,
   "struggleIndicators": {
     "repeatedErrors": {
       "Error: Cannot find module './level2DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVang": 1,
@@ -686,7 +717,7 @@
       "Using the `test-driven-development` skill to implement PR-017 safely (failing test first, then minim": 1,
       "Error: Cannot find module './transitionRuleEngine.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
       "Caused by: Error: Failed to load url ./transitionRuleEngine.js (resolved id: ./transitionRuleEngine.": 1,
-      "Test Files  1 failed (1)": 13,
+      "Test Files  1 failed (1)": 14,
       "Error: Cannot find module './projectileMotion.js' imported from '/Users/pbaruch/Desktop/VirusVanguar": 1,
       "Caused by: Error: Failed to load url ./projectileMotion.js (resolved id: ./projectileMotion.js) in /": 1,
       "Using `brainstorming` to confirm scope quickly and `test-driven-development` to implement PR-019 wit": 1,
@@ -732,7 +763,7 @@
       "Caused by: Error: Failed to load url ./level4TrojanCombat.js (resolved id: ./level4TrojanCombat.js) ": 1,
       "❯ src/phaser/scenes/level3WormCombat.spec.ts (5 tests | 1 failed) 4ms": 1,
       "❯ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests | 1 failed) 5ms": 1,
-      "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯": 1,
+      "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯": 2,
       "TypeError: (0 , resolveLevel3PlayerEnemyCollisions) is not a function": 1,
       "TypeError: (0 , resolveLevel4TrojanPlayerCollisions) is not a function": 1,
       "Tests  2 failed | 9 passed (11)": 1,
@@ -749,7 +780,11 @@
       "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯": 1,
       "TypeError: (0 , advanceLevel5MrHackerBulletState) is not a function": 1,
       "TypeError: (0 , resolveLevel5EnemyBulletPlayerCollisions) is not a function": 1,
-      "Tests  3 failed | 3 passed (6)": 1
+      "Tests  3 failed | 3 passed (6)": 1,
+      "Using the test-driven-development skill to add a failing minion-cycle parity test first, then implem": 1,
+      "❯ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests | 2 failed) 5ms": 1,
+      "TypeError: (0 , createInitialLevel5MrHackerMinionSpawnState) is not a function": 1,
+      "Tests  2 failed | 6 passed (8)": 1
     },
     "noProgressIterations": 0,
     "shortIterations": 0
