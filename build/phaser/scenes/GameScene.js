@@ -2,8 +2,10 @@ import * as Phaser from 'phaser';
 import { LEVEL0_DIALOGUE_TEXTURE_KEYS, advanceLevel0DialogueState, createInitialLevel0DialogueState, resolveLevel0DialoguePhase, } from './level0DialogueState.js';
 import PlayerPrefab from '../entities/PlayerPrefab.js';
 import { resolvePlayerMovementStep } from '../entities/playerMovementStep.js';
+import { canMoveWithinLevel0Bounds, isLevel0ToLevel1TransitionTriggered, } from './level0TraversalRules.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
+    static LEVEL_TRANSITION_EVENT = 'level-transition';
     dialogueState;
     dialogueImage;
     startPromptText;
@@ -14,6 +16,7 @@ export default class GameScene extends Phaser.Scene {
     moveLeftKey;
     moveDownKey;
     moveRightKey;
+    hasTriggeredLevel1Transition;
     constructor() {
         super(GameScene.SCENE_KEY);
         this.dialogueState = createInitialLevel0DialogueState();
@@ -26,6 +29,7 @@ export default class GameScene extends Phaser.Scene {
         this.moveLeftKey = null;
         this.moveDownKey = null;
         this.moveRightKey = null;
+        this.hasTriggeredLevel1Transition = false;
     }
     create() {
         const centerX = this.scale.width / 2;
@@ -55,6 +59,7 @@ export default class GameScene extends Phaser.Scene {
         }
         if (this.level0Phase === 'walkable') {
             this.updatePlayerMovement();
+            this.updateLevel0TransitionTrigger();
         }
     }
     updatePlayerMovement() {
@@ -70,9 +75,41 @@ export default class GameScene extends Phaser.Scene {
         if (!movementStep.isMoving || movementStep.facingDirection === null) {
             return;
         }
+        const canApplyMovement = canMoveWithinLevel0Bounds({
+            canvasHeight: this.scale.height,
+            canvasWidth: this.scale.width,
+            playerHeight: this.player.displayHeight,
+            playerWidth: this.player.displayWidth,
+            playerX: this.player.x,
+            playerY: this.player.y,
+        }, movementStep.facingDirection);
+        if (!canApplyMovement) {
+            return;
+        }
         this.player.x += movementStep.deltaX;
         this.player.y += movementStep.deltaY;
         this.player.setFacingDirection(movementStep.facingDirection);
+    }
+    updateLevel0TransitionTrigger() {
+        if (this.player === null || this.hasTriggeredLevel1Transition) {
+            return;
+        }
+        const hasReachedTransition = isLevel0ToLevel1TransitionTriggered({
+            canvasHeight: this.scale.height,
+            canvasWidth: this.scale.width,
+            playerHeight: this.player.displayHeight,
+            playerWidth: this.player.displayWidth,
+            playerX: this.player.x,
+            playerY: this.player.y,
+        });
+        if (!hasReachedTransition) {
+            return;
+        }
+        this.hasTriggeredLevel1Transition = true;
+        this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
+            fromLevel: 0,
+            toLevel: 1,
+        });
     }
     syncLevel0VisualState() {
         if (this.level0Phase === 'startScreen') {

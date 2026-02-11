@@ -3,7 +3,7 @@
 Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, and walkable WASD movement with diagonal normalization parity, but bounds enforcement, level transitions, shooting, enemies, and boss logic remain pending.
+- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, and Level0 bounds plus Level1 transition triggering, but dedicated Level1 to Level5 scene shells, shooting, enemies, and boss logic remain pending.
 - Documentation artifacts currently track migration status only at wave/feature granularity; behavior-level parity evidence will be filled in as gameplay PRs land.
 
 ## Resolved
@@ -13,3 +13,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-008 introduced Level0 dialogue assets preload and Phaser scene state progression from start screen to dialogue sequence to post-dialogue walkable phase shell.
 - PR-009 added Phaser player prefab and legacy direction-to-sprite facing-state mapping for all eight movement directions.
 - PR-010 wired eight-direction movement updates with legacy diagonal normalization and key-precedence behavior for walkable Level0 state.
+- PR-011 added Level0 walkable bounds checks and Level0-to-Level1 transition trigger detection using legacy threshold ratios.

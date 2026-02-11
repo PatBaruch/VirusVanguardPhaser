@@ -8,9 +8,10 @@ flowchart TD
   D3 --> D4[Level0 Dialogue State Progression]
   D4 --> D5[PlayerPrefab + Facing State Mapping]
   D5 --> D6[Movement Step Resolver (WASD + Diagonal Normalization)]
-  D6 --> D7[Shared Parity Constants Table]
+  D6 --> D7[Level0 Traversal Rules (Bounds + Transition Trigger)]
+  D7 --> D8[Shared Parity Constants Table]
   C --> E[Core Systems Parity]
-  D7 --> E
+  D8 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]
