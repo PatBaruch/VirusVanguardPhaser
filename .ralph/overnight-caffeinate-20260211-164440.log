@@ -43,3 +43,21 @@ Elapsed:   0:24
 Tools:     none
 Exit code: 0
 Completion promise: not detected
+📝 Auto-committed changes
+
+🔄 Iteration 2 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+Using `brainstorming` to confirm the smallest parity-safe test design before editing.
+[0m→ [0mSkill "brainstorming"
+Using `test-driven-development` to implement PR-036 via a failing e2e traversal test first, then minimal fixes if needed.
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 2
+Elapsed:   0:26
+Tools:     none
+Exit code: 0
+Completion promise: not detected
