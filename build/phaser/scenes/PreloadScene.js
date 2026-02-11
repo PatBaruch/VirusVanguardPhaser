@@ -9,6 +9,7 @@ import { LEVEL5_DIALOGUE_TEXTURE_KEYS } from './level5DialogueState.js';
 import { PLAYER_FACING_DIRECTIONS, PLAYER_FACING_TEXTURE_KEYS, } from '../entities/playerFacingState.js';
 import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import FEmailPrefab from '../entities/FEmailPrefab.js';
+import RVirusPrefab from '../entities/RVirusPrefab.js';
 export default class PreloadScene extends Phaser.Scene {
     static SCENE_KEY = 'PreloadScene';
     constructor() {
@@ -38,6 +39,7 @@ export default class PreloadScene extends Phaser.Scene {
         });
         this.load.image(ProjectilePrefab.TEXTURE_KEY, './assets/Bullet-Sprite/PBsprite_0.png');
         this.load.image(FEmailPrefab.TEXTURE_KEY, './assets/FishingMail-Sprite/FMsprite_00.png');
+        this.load.image(RVirusPrefab.TEXTURE_KEY, './assets/Resident-Sprite/Rsprite_0.png');
     }
     create() {
         this.scene.start(GameScene.SCENE_KEY);

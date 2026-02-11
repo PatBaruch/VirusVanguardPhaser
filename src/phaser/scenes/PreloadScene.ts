@@ -13,6 +13,7 @@ import {
 } from '../entities/playerFacingState.js';
 import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import FEmailPrefab from '../entities/FEmailPrefab.js';
+import RVirusPrefab from '../entities/RVirusPrefab.js';
 
 /**
  * Minimal preload scene shell for Phaser runtime lifecycle.
@@ -64,6 +65,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image(
       FEmailPrefab.TEXTURE_KEY,
       './assets/FishingMail-Sprite/FMsprite_00.png',
+    );
+
+    this.load.image(
+      RVirusPrefab.TEXTURE_KEY,
+      './assets/Resident-Sprite/Rsprite_0.png',
     );
   }
 

@@ -93,6 +93,18 @@ import {
   createInitialLevel1FEmailSpawnState,
   resolveLevel1PlayerEnemyCollisions,
 } from './level1FEmailCombat.js';
+import RVirusPrefab from '../entities/RVirusPrefab.js';
+import {
+  LEVEL2_RVIRUS_DAMAGE,
+  Level2RVirusAttachmentState,
+  Level2RVirusEnemySnapshot,
+  Level2RVirusSpawnState,
+  advanceLevel2RVirusMotion,
+  advanceLevel2RVirusSpawnState,
+  createInitialLevel2RVirusAttachmentState,
+  createInitialLevel2RVirusSpawnState,
+  resolveLevel2RVirusAttachment,
+} from './level2RVirusCombat.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -168,6 +180,12 @@ export default class GameScene extends Phaser.Scene {
 
   private level1FEmailSpawnState: Level1FEmailSpawnState;
 
+  private activeRViruses: RVirusPrefab[];
+
+  private level2RVirusSpawnState: Level2RVirusSpawnState;
+
+  private level2RVirusAttachmentState: Level2RVirusAttachmentState;
+
   private playerHealth: number;
 
   public constructor() {
@@ -222,6 +240,9 @@ export default class GameScene extends Phaser.Scene {
     this.activeProjectiles = [];
     this.activeFEmails = [];
     this.level1FEmailSpawnState = createInitialLevel1FEmailSpawnState();
+    this.activeRViruses = [];
+    this.level2RVirusSpawnState = createInitialLevel2RVirusSpawnState();
+    this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
     this.playerHealth = 100;
   }
 
@@ -320,6 +341,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.activeLevelId === 2 && this.level2Phase === 'walkable') {
       this.updatePlayerMovement();
+      this.updateLevel2Combat(delta);
       this.updateLevel2TransitionTrigger();
       return;
     }
@@ -657,6 +679,170 @@ export default class GameScene extends Phaser.Scene {
     this.enterLevel2();
   }
 
+  private updateLevel2Combat(elapsedMs: number): void {
+    const spawnResolution = advanceLevel2RVirusSpawnState(this.level2RVirusSpawnState, {
+      canSpawn: this.activeLevelId === 2 && this.level2Phase === 'walkable',
+      canvasHeight: this.scale.height,
+      canvasWidth: this.scale.width,
+      elapsedMs,
+      random: () => Math.random(),
+      score: this.score,
+    });
+    this.level2RVirusSpawnState = spawnResolution.nextState;
+
+    for (const spawnedEnemy of spawnResolution.spawnedEnemies) {
+      const rVirus = new RVirusPrefab(this, spawnedEnemy);
+      this.add.existing(rVirus);
+      this.activeRViruses.push(rVirus);
+    }
+
+    if (this.activeRViruses.length === 0) {
+      this.activeCombatItemCount = 0;
+      this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
+      return;
+    }
+
+    const movedSnapshots = advanceLevel2RVirusMotion(
+      this.activeRViruses.map((enemy: RVirusPrefab) => enemy.toSnapshot()),
+      {
+        canvasHeight: this.scale.height,
+        canvasWidth: this.scale.width,
+        elapsedMs,
+        stuckEnemyId: this.level2RVirusAttachmentState.stuckEnemyId,
+      },
+    );
+    this.applyRVirusSnapshotsById(movedSnapshots);
+
+    this.resolveLevel2ProjectileHits();
+    this.resolveLevel2RVirusAttachment(elapsedMs);
+
+    this.activeCombatItemCount = this.activeRViruses.length;
+  }
+
+  private resolveLevel2ProjectileHits(): void {
+    if (this.activeProjectiles.length === 0 || this.activeRViruses.length === 0) {
+      return;
+    }
+
+    const projectileSnapshots: CombatProjectileSnapshot[] = this.activeProjectiles.map((projectile: ProjectilePrefab) => ({
+      centerX: projectile.x,
+      centerY: projectile.y,
+      damage: projectile.getDamage(),
+      height: projectile.displayHeight,
+      projectileId: projectile.name,
+      width: projectile.displayWidth,
+    }));
+
+    for (let index: number = 0; index < projectileSnapshots.length; index += 1) {
+      projectileSnapshots[index].projectileId = `projectile-${index}`;
+    }
+
+    const targetSnapshots: CombatTargetSnapshot[] = this.activeRViruses.map((enemy: RVirusPrefab) => {
+      const enemySnapshot: Level2RVirusEnemySnapshot = enemy.toSnapshot();
+      return {
+        centerX: enemySnapshot.centerX,
+        centerY: enemySnapshot.centerY,
+        currentHealth: enemySnapshot.currentHealth,
+        height: enemySnapshot.height,
+        scoreValue: enemySnapshot.scoreValue,
+        targetId: enemySnapshot.enemyId,
+        width: enemySnapshot.width,
+      };
+    });
+
+    const resolution = resolveProjectileHitResolution({
+      projectiles: projectileSnapshots,
+      targets: targetSnapshots,
+    });
+
+    if (resolution.destroyedProjectileIds.length > 0) {
+      this.activeProjectiles = this.activeProjectiles.filter((projectile: ProjectilePrefab, index: number) => {
+        const projectileId: string = `projectile-${index}`;
+        const isDestroyed: boolean = resolution.destroyedProjectileIds.includes(projectileId);
+        if (isDestroyed) {
+          projectile.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    if (resolution.destroyedTargetIds.length > 0) {
+      this.activeRViruses = this.activeRViruses.filter((enemy: RVirusPrefab) => {
+        const isDestroyed: boolean = resolution.destroyedTargetIds.includes(enemy.getEnemyId());
+        if (isDestroyed) {
+          enemy.destroy();
+        }
+        return !isDestroyed;
+      });
+    }
+
+    if (resolution.remainingTargets.length > 0 && this.activeRViruses.length > 0) {
+      this.applyRVirusSnapshotsById(
+        resolution.remainingTargets.map((target: CombatTargetSnapshot) => ({
+          centerX: target.centerX,
+          centerY: target.centerY,
+          currentHealth: target.currentHealth,
+          damage: LEVEL2_RVIRUS_DAMAGE,
+          enemyId: target.targetId,
+          height: target.height,
+          scoreValue: target.scoreValue,
+          velocityX: this.resolveRVirusVelocityById(target.targetId).x,
+          velocityY: this.resolveRVirusVelocityById(target.targetId).y,
+          width: target.width,
+        })),
+      );
+    }
+
+    this.score += resolution.scoreDelta;
+  }
+
+  private resolveLevel2RVirusAttachment(elapsedMs: number): void {
+    if (this.player === null || this.activeRViruses.length === 0) {
+      return;
+    }
+
+    const result = resolveLevel2RVirusAttachment(this.level2RVirusAttachmentState, {
+      elapsedMs,
+      enemies: this.activeRViruses.map((enemy: RVirusPrefab) => enemy.toSnapshot()),
+      player: {
+        centerX: this.player.x + this.player.displayWidth / 2,
+        centerY: this.player.y + this.player.displayHeight / 2,
+        height: this.player.displayHeight,
+        width: this.player.displayWidth,
+      },
+    });
+
+    this.level2RVirusAttachmentState = result.nextState;
+    this.applyRVirusSnapshotsById(result.nextEnemies);
+    this.playerHealth = Math.max(0, this.playerHealth - result.playerDamageDelta);
+  }
+
+  private applyRVirusSnapshotsById(snapshots: readonly Level2RVirusEnemySnapshot[]): void {
+    const enemyById: Map<string, RVirusPrefab> = new Map(
+      this.activeRViruses.map((enemy: RVirusPrefab) => [enemy.getEnemyId(), enemy]),
+    );
+
+    for (const snapshot of snapshots) {
+      const enemy = enemyById.get(snapshot.enemyId);
+      if (enemy !== undefined) {
+        enemy.applySnapshot(snapshot);
+      }
+    }
+  }
+
+  private resolveRVirusVelocityById(enemyId: string): { x: number; y: number } {
+    const enemy = this.activeRViruses.find((item: RVirusPrefab) => item.getEnemyId() === enemyId);
+    if (enemy === undefined) {
+      return { x: 0, y: 0 };
+    }
+
+    const snapshot = enemy.toSnapshot();
+    return {
+      x: snapshot.velocityX,
+      y: snapshot.velocityY,
+    };
+  }
+
   private updateLevel2TransitionTrigger(): void {
     if (this.player === null || this.hasTriggeredLevel3Transition) {
       return;
@@ -780,7 +966,10 @@ export default class GameScene extends Phaser.Scene {
   private enterLevel2(): void {
     this.activeLevelId = 2;
     this.destroyAllFEmails();
+    this.destroyAllRViruses();
     this.activeCombatItemCount = 0;
+    this.level2RVirusSpawnState = createInitialLevel2RVirusSpawnState();
+    this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
     this.level2DialogueState = createInitialLevel2DialogueState();
     this.level2Phase = resolveLevel2DialoguePhase(
       this.level2DialogueState,
@@ -791,6 +980,8 @@ export default class GameScene extends Phaser.Scene {
 
   private enterLevel3(): void {
     this.activeLevelId = 3;
+    this.destroyAllRViruses();
+    this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
     this.level3DialogueState = createInitialLevel3DialogueState();
     this.level3Phase = resolveLevel3DialoguePhase(
       this.level3DialogueState,
@@ -981,6 +1172,13 @@ export default class GameScene extends Phaser.Scene {
       enemy.destroy();
     }
     this.activeFEmails = [];
+  }
+
+  private destroyAllRViruses(): void {
+    for (const enemy of this.activeRViruses) {
+      enemy.destroy();
+    }
+    this.activeRViruses = [];
   }
 
   private isActiveLevelWalkablePhase(): boolean {
