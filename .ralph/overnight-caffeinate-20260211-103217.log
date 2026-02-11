@@ -2776,3 +2776,319 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 8...
+📝 Auto-committed changes
+
+🔄 Iteration 8 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+Using `brainstorming` to confirm scope quickly and `test-driven-development` to implement PR-019 with a test-first workflow. I’ll now mark PR-019 in progress, read the required files, add a failing test, implement the minimal gating change, run required gates, write the handoff, mark the task done, and commit.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "**/*.ts"[90m in src/phaser · 40 matches[0m
+[0m✱ [0mGrep "shoot|fire|bullet|input|Space|keydown|projectile"[90m in src/phaser · 23 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m✱ [0mGlob "*pr-018*"[90m in docs/handoffs · 1 match[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-018-projectile-base-movement-world-culling.md
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.spec.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m✱ [0mGrep "keyCode|space|shoot|shooting|bullet|keydown|canShoot"[90m in src · 43 matches[0m
+[0m→ [0mRead src/Level.ts
+⏳ working... elapsed 1:30 · last activity 0:13 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/shootInputGate.spec.ts
+
+LSP errors detected in src/phaser/scenes/shootInputGate.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/shootInputGate.spec.ts">
+ERROR [2:37] Cannot find module './shootInputGate.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/shootInputGate.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/shootInputGate.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/shootInputGate.spec.ts [ src/phaser/scenes/shootInputGate.spec.ts ]
+Error: Cannot find module './shootInputGate.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/shootInputGate.spec.ts'
+ ❯ src/phaser/scenes/shootInputGate.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import { canAcceptShootInput } from './shootInputGate.js';
+       | ^
+      3| 
+      4| describe('shoot input gate parity', () => {
+
+Caused by: Error: Failed to load url ./shootInputGate.js (resolved id: ./shootInputGate.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/shootInputGate.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  11:05:32
+   Duration  180ms (transform 16ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 38ms)
+[0m
+⏳ working... elapsed 1:50 · last activity 0:14 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/shootInputGate.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/shootInputGate.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/shootInputGate.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  11:06:08
+   Duration  173ms (transform 16ms, setup 0ms, collect 13ms, tests 1ms, environment 0ms, prepare 36ms)
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  18 passed (18)
+      Tests  65 passed (65)
+   Start at  11:06:27
+   Duration  639ms (transform 188ms, setup 0ms, collect 399ms, tests 35ms, environment 2ms, prepare 1.02s)
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (714ms)
+
+  1 passed (2.0s)
+[0m
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m→ [0mSkill "verification-before-completion"
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+⏳ working... elapsed 3:10 · last activity 0:12 ago
+[0m→ [0mRead docs/parity/known-limitations.md[90m [offset=1, limit=40][0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+?? build/phaser/scenes/shootInputGate.js
+?? build/phaser/scenes/shootInputGate.js.map
+?? src/phaser/scenes/shootInputGate.spec.ts
+?? src/phaser/scenes/shootInputGate.ts
+[0m
+⏳ working... elapsed 3:50 · last activity 0:18 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-019-shoot-input-gating.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+?? build/phaser/scenes/shootInputGate.js
+?? build/phaser/scenes/shootInputGate.js.map
+?? docs/handoffs/2026-02-11-pr-019-shoot-input-gating.md
+?? src/phaser/scenes/shootInputGate.spec.ts
+?? src/phaser/scenes/shootInputGate.ts
+[0m
+[0m$ [0mgit diff -- src/phaser/scenes/GameScene.ts src/phaser/scenes/shootInputGate.ts src/phaser/scenes/shootInputGate.spec.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd .ralph/ralph-tasks.md docs/handoffs/2026-02-11-pr-019-shoot-input-gating.md
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index 47ddb95..9265226 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -23,7 +23,7 @@
+ 
+ ## Wave C - Shooting Systems
+ - [x] PR-018: Projectile base entity + movement + world culling
+-- [ ] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
++- [x] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
+ - [ ] PR-020: Single-shot pattern parity (Level1 and Level2)
+ - [ ] PR-021: Dual-shot pattern parity (Level3)
+ - [ ] PR-022: Triple-shot pattern parity (Level4 and Level5)
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index aa92100..ae53f1f 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -18,8 +18,9 @@ flowchart TD
+   D13 --> D14[Transition Rule Engine (Score + Item Predicates)]
+   D14 --> D15[Shared Parity Constants Table]
+   D15 --> D16[Projectile Base Entity + Motion/Culling]
++  D16 --> D17[Shoot Input Gate by Level]
+   C --> E[Core Systems Parity]
+-  D16 --> E
++  D17 --> E
+   E --> F[Walkable Levels]
+   F --> G[Shooting Systems]
+   G --> H[Enemy Systems by Level]
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index 0172600..933d6e3 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -3,7 +3,7 @@
+ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ 
+ ## Open
+-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, and a projectile base entity with parity movement/culling helpers; shoot input wiring, projectile spawn patterns, hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
++- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, and level-based shoot input gating (blocked in Level0, enabled in combat levels); projectile spawn patterns, hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
+ - Documentation artifacts currently track migration status only at wave/feature granularity; behavior-level parity evidence will be filled in as gameplay PRs land.
+ 
+ ## Resolved
+@@ -21,3 +21,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ - PR-016 added a Phaser Level5 shell with three-image dialogue progression, Level5 movement bounds, Level4-to-Level5 scene entry wiring, and non-combat victory shell trigger based on the legacy Level5 victory corridor.
+ - PR-017 wired a shared Phaser transition rule engine with legacy score-threshold and active-item-clear predicates for Level1 through Level5 progression checks.
+ - PR-018 added a Phaser projectile base entity and parity-tested projectile motion/world-culling helpers using legacy combat bound thresholds.
++- PR-019 added level-based shoot input gating parity so Space-triggered shooting input is blocked in Level0 and emitted only for combat levels during walkable phases.
+diff --git a/src/phaser/scenes/GameScene.ts b/src/phaser/scenes/GameScene.ts
+index 885316a..5babe06 100644
+--- a/src/phaser/scenes/GameScene.ts
++++ b/src/phaser/scenes/GameScene.ts
+@@ -74,6 +74,7 @@ import {
+   isLevel5VictoryTriggered,
+ } from './level5TraversalRules.js';
+ import { canTriggerLevelTransition } from './transitionRuleEngine.js';
++import { canAcceptShootInput } from './shootInputGate.js';
+ 
+ /**
+  * Minimal game scene shell for Phaser runtime lifecycle.
+@@ -83,6 +84,8 @@ export default class GameScene extends Phaser.Scene {
+ 
+   public static readonly LEVEL_TRANSITION_EVENT: string = 'level-transition';
+ 
++  public static readonly SHOOT_INPUT_EVENT: string = 'shoot-input';
++
+   private dialogueState: Level0DialogueState;
+ 
+   private dialogueImage: Phaser.GameObjects.Image | null;
+@@ -261,6 +264,12 @@ export default class GameScene extends Phaser.Scene {
+       }
+ 
+       this.syncActiveLevelVisualState();
++
++      if (canAcceptShootInput(this.activeLevelId) && this.isActiveLevelWalkablePhase()) {
++        this.events.emit(GameScene.SHOOT_INPUT_EVENT, {
++          levelId: this.activeLevelId,
++        });
++      }
+     }
+ 
+     if (this.activeLevelId === 0 && this.level0Phase === 'walkable') {
+@@ -715,4 +724,28 @@ export default class GameScene extends Phaser.Scene {
+       this.player.setVisible(shouldBeVisible);
+     }
+   }
++
++  private isActiveLevelWalkablePhase(): boolean {
++    if (this.activeLevelId === 0) {
++      return this.level0Phase === 'walkable';
++    }
++
++    if (this.activeLevelId === 1) {
++      return this.level1Phase === 'walkable';
++    }
++
++    if (this.activeLevelId === 2) {
++      return this.level2Phase === 'walkable';
++    }
++
++    if (this.activeLevelId === 3) {
++      return this.level3Phase === 'walkable';
++    }
++
++    if (this.activeLevelId === 4) {
++      return this.level4Phase === 'walkable';
++    }
++
++    return this.level5Phase === 'walkable';
++  }
+ }
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/GameScene.ts src/phaser/scenes/shootInputGate.ts src/phaser/scenes/shootInputGate.spec.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-019-shoot-input-gating.md build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/shootInputGate.js build/phaser/scenes/shootInputGate.js.map && git commit -m "feat(parity:PR-019): add level-based shoot input gating" && git status --short
+[main 7e705f6] feat(parity:PR-019): add level-based shoot input gating
+ 11 files changed, 162 insertions(+), 4 deletions(-)
+ create mode 100644 build/phaser/scenes/shootInputGate.js
+ create mode 100644 build/phaser/scenes/shootInputGate.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-019-shoot-input-gating.md
+ create mode 100644 src/phaser/scenes/shootInputGate.spec.ts
+ create mode 100644 src/phaser/scenes/shootInputGate.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 8
+Elapsed:   4:26
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 9...
