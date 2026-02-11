@@ -15,7 +15,7 @@
 - [x] PR-010: 8-direction movement + diagonal normalization parity
 - [x] PR-011: Level0 bounds + transition trigger to Level1 parity
 - [x] PR-012: Level1 shell (background, dialogue, bounds, transition zone)
-- [ ] PR-013: Level2 shell (same pattern)
+- [x] PR-013: Level2 shell (same pattern)
 - [ ] PR-014: Level3 shell (same pattern)
 - [ ] PR-015: Level4 shell (same pattern)
 - [ ] PR-016: Level5 shell + non-combat victory shell wiring

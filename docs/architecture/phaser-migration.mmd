@@ -10,9 +10,10 @@ flowchart TD
   D5 --> D6[Movement Step Resolver (WASD + Diagonal Normalization)]
   D6 --> D7[Level0 Traversal Rules (Bounds + Transition Trigger)]
   D7 --> D8[Level1 Shell (Background + Dialogue + Bounds + Transition Zone)]
-  D8 --> D9[Shared Parity Constants Table]
+  D8 --> D9[Level2 Shell (Background + Dialogue + Bounds + Transition Zone)]
+  D9 --> D10[Shared Parity Constants Table]
   C --> E[Core Systems Parity]
-  D9 --> E
+  D10 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]
