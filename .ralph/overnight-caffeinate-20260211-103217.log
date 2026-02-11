@@ -9183,3 +9183,782 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 21...
+📝 Auto-committed changes
+
+🔄 Iteration 21 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "brainstorming"
+Using `brainstorming` to frame the behavior slice and `test-driven-development` to implement PR-032 with red/green verification. I’ll mark PR-032 in progress, read the required docs in order, then write failing tests first before code.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 67 matches[0m
+[0m✱ [0mGrep "Level5|MrHacker|boss|win|victory|multiplier|restart"[90m in . · 100 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.ts
+[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.spec.ts
+[0m→ [0mRead src/Level5.ts
+[0m→ [0mRead src/Game.ts
+[0m→ [0mRead src/VirusVanguard.ts
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1480, limit=520][0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=2000, limit=220][0m
+[0m✱ [0mGrep "victory|goNextLevel|level5|Press Space|Score Multiplier|Final Score|restart"[90m in . · 4 matches[0m
+[0m→ [0mRead index.html
+[0m→ [0mRead src/phaser/scenes/level5TraversalRules.ts
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
+[0m✱ [0mGrep "LEVEL_SCORE_THRESHOLDS_PARITY|5:"[90m in src/phaser/config/parityConstants.ts · 4 matches[0m
+[0m→ [0mRead src/phaser/config/parityConstants.ts[90m [offset=100, limit=40][0m
+[0m✱ [0mGrep "SCORE_MULTIPLIER_DECAY_PER_UPDATE_PARITY|multiplier|final score|Score Multiplier"[90m in src/phaser · 3 matches[0m
+[0m✱ [0mGrep "playerHealth <= 0|Game Over|game over|restart"[90m in src/phaser/scenes/GameScene.ts · 0 matches[0m
+[0m→ [0mRead src/phaser/PhaserRuntime.ts
+[0m→ [0mRead src/app.ts
+⏳ working... elapsed 1:50 · last activity 0:10 ago
+⏳ working... elapsed 2:00 · last activity 0:20 ago
+[0m→ [0mRead src/phaser/entities/PlayerPrefab.ts
+[0m→ [0mRead src/phaser/entities/playerFacingState.ts
+⏳ working... elapsed 2:30 · last activity 0:19 ago
+⏳ working... elapsed 2:40 · last activity 0:29 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5VictoryFlow.spec.ts
+
+LSP errors detected in src/phaser/scenes/level5VictoryFlow.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5VictoryFlow.spec.ts">
+ERROR [9:8] Cannot find module './level5VictoryFlow.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5VictoryFlow.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5VictoryFlow.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level5VictoryFlow.spec.ts [ src/phaser/scenes/level5VictoryFlow.spec.ts ]
+Error: Cannot find module './level5VictoryFlow.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5VictoryFlow.spec.ts'
+ ❯ src/phaser/scenes/level5VictoryFlow.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   INITIAL_SCORE_MULTIPLIER,
+      4|   LEVEL5_VICTORY_UNLOCK_SCORE,
+
+Caused by: Error: Failed to load url ./level5VictoryFlow.js (resolved id: ./level5VictoryFlow.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5VictoryFlow.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  12:26:13
+   Duration  204ms (transform 23ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 46ms)
+[0m
+⏳ working... elapsed 3:00 · last activity 0:11 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5VictoryFlow.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+⏳ working... elapsed 3:50 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [1587:10] Property 'syncVictorySummaryText' does not exist on type 'GameScene'.
+</diagnostics>
+⏳ working... elapsed 4:10 · last activity 0:11 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [1587:10] Property 'syncVictorySummaryText' does not exist on type 'GameScene'.
+ERROR [2037:10] Property 'setVictorySummaryVisible' does not exist on type 'GameScene'.
+ERROR [2057:10] Property 'syncVictorySummaryText' does not exist on type 'GameScene'.
+ERROR [2058:10] Property 'setVictorySummaryVisible' does not exist on type 'GameScene'.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5VictoryFlow.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5VictoryFlow.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  12:27:53
+   Duration  203ms (transform 25ms, setup 0ms, collect 19ms, tests 2ms, environment 0ms, prepare 43ms)
+[0m
+⏳ working... elapsed 4:40 · last activity 0:11 ago
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 14ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 5ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 4ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 12ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 5ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 16ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 10ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 33ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 6ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
+
+ Test Files  28 passed (28)
+      Tests  108 passed (108)
+   Start at  12:28:04
+   Duration  1.57s (transform 412ms, setup 0ms, collect 1.25s, tests 152ms, environment 4ms, prepare 3.05s)
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (618ms)
+
+  1 passed (2.0s)
+[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 32 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 5:40 · last activity 0:15 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m→ [0mSkill "verification-before-completion"
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 6ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 7ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 9ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 4ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 4ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 44ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 74ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 23ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 4ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 19ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 3ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 8ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 5ms
+
+ Test Files  28 passed (28)
+      Tests  108 passed (108)
+   Start at  12:29:26
+   Duration  1.51s (transform 408ms, setup 0ms, collect 1.11s, tests 242ms, environment 4ms, prepare 3.51s)
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (627ms)
+
+  1 passed (1.9s)
+[0m
+[0m$ [0mgit log -5 --oneline
+b1d43fa Ralph iteration 20: work in progress
+43ba1fe feat(parity:PR-031): add level5 boss minion spawn cycle parity
+2c49ea3 Ralph iteration 19: work in progress
+67c81c4 Ralph iteration 18: work in progress
+37588af feat(parity:PR-029): add Level5 MrHacker spawn HP and health bar parity
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+?? build/phaser/scenes/level5VictoryFlow.js
+?? build/phaser/scenes/level5VictoryFlow.js.map
+?? docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
+?? src/phaser/scenes/level5VictoryFlow.spec.ts
+?? src/phaser/scenes/level5VictoryFlow.ts
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-103217.log b/.ralph/overnight-caffeinate-20260211-103217.log
+index a7634c3..e64e83c 100644
+--- a/.ralph/overnight-caffeinate-20260211-103217.log
++++ b/.ralph/overnight-caffeinate-20260211-103217.log
+@@ -9183,3 +9183,288 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+    Moving to next task in iteration 21...
++📝 Auto-committed changes
++
++🔄 Iteration 21 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "test-driven-development"
++[0m→ [0mSkill "brainstorming"
++Using `brainstorming` to frame the behavior slice and `test-driven-development` to implement PR-032 with red/green verification. I’ll mark PR-032 in progress, read the required docs in order, then write failing tests first before code.
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 67 matches[0m
++[0m✱ [0mGrep "Level5|MrHacker|boss|win|victory|multiplier|restart"[90m in . · 100 matches[0m
++[0m→ [0mRead src/phaser/scenes/GameScene.ts
++[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.ts
++[0m→ [0mRead src/phaser/scenes/level5MrHackerCombat.spec.ts
++[0m→ [0mRead src/Level5.ts
++[0m→ [0mRead src/Game.ts
++[0m→ [0mRead src/VirusVanguard.ts
++[0m→ [0mRead src/Level.ts
++[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1480, limit=520][0m
++[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=2000, limit=220][0m
++[0m✱ [0mGrep "victory|goNextLevel|level5|Press Space|Score Multiplier|Final Score|restart"[90m in . · 4 matches[0m
++[0m→ [0mRead index.html
++[0m→ [0mRead src/phaser/scenes/level5TraversalRules.ts
++[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
++[0m✱ [0mGrep "LEVEL_SCORE_THRESHOLDS_PARITY|5:"[90m in src/phaser/config/parityConstants.ts · 4 matches[0m
++[0m→ [0mRead src/phaser/config/parityConstants.ts[90m [offset=100, limit=40][0m
++[0m✱ [0mGrep "SCORE_MULTIPLIER_DECAY_PER_UPDATE_PARITY|multiplier|final score|Score Multiplier"[90m in src/phaser · 3 matches[0m
++[0m✱ [0mGrep "playerHealth <= 0|Game Over|game over|restart"[90m in src/phaser/scenes/GameScene.ts · 0 matches[0m
++[0m→ [0mRead src/phaser/PhaserRuntime.ts
++[0m→ [0mRead src/app.ts
++⏳ working... elapsed 1:50 · last activity 0:10 ago
++⏳ working... elapsed 2:00 · last activity 0:20 ago
++[0m→ [0mRead src/phaser/entities/PlayerPrefab.ts
++[0m→ [0mRead src/phaser/entities/playerFacingState.ts
++⏳ working... elapsed 2:30 · last activity 0:19 ago
++⏳ working... elapsed 2:40 · last activity 0:29 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5VictoryFlow.spec.ts
++
++LSP errors detected in src/phaser/scenes/level5VictoryFlow.spec.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5VictoryFlow.spec.ts">
++ERROR [9:8] Cannot find module './level5VictoryFlow.js' or its corresponding type declarations.
++</diagnostics>
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5VictoryFlow.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/level5VictoryFlow.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  src/phaser/scenes/level5VictoryFlow.spec.ts [ src/phaser/scenes/level5VictoryFlow.spec.ts ]
++Error: Cannot find module './level5VictoryFlow.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5VictoryFlow.spec.ts'
++ ❯ src/phaser/scenes/level5VictoryFlow.spec.ts:2:1
++      1| import { describe, expect, it } from 'vitest';
++      2| import {
++       | ^
++      3|   INITIAL_SCORE_MULTIPLIER,
++      4|   LEVEL5_VICTORY_UNLOCK_SCORE,
++
++Caused by: Error: Failed to load url ./level5VictoryFlow.js (resolved id: ./level5VictoryFlow.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5VictoryFlow.spec.ts. Does the file exist?
++ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  no tests
++   Start at  12:26:13
++   Duration  204ms (transform 23ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 46ms)
++[0m
++⏳ working... elapsed 3:00 · last activity 0:11 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5VictoryFlow.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++⏳ working... elapsed 3:50 · last activity 0:10 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++
++LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
++ERROR [1587:10] Property 'syncVictorySummaryText' does not exist on type 'GameScene'.
++</diagnostics>
++⏳ working... elapsed 4:10 · last activity 0:11 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++
++LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
++ERROR [1587:10] Property 'syncVictorySummaryText' does not exist on type 'GameScene'.
++ERROR [2037:10] Property 'setVictorySummaryVisible' does not exist on type 'GameScene'.
++ERROR [2057:10] Property 'syncVictorySummaryText' does not exist on type 'GameScene'.
++ERROR [2058:10] Property 'setVictorySummaryVisible' does not exist on type 'GameScene'.
++</diagnostics>
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5VictoryFlow.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/level5VictoryFlow.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
++
++ Test Files  1 passed (1)
++      Tests  6 passed (6)
++   Start at  12:27:53
++   Duration  203ms (transform 25ms, setup 0ms, collect 19ms, tests 2ms, environment 0ms, prepare 43ms)
++[0m
++⏳ working... elapsed 4:40 · last activity 0:11 ago
++[0m$ [0mnpm run test:unit
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 14ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 5ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 4ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 12ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 4ms
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 5ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 16ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 10ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 33ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 6ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
++
++ Test Files  28 passed (28)
++      Tests  108 passed (108)
++   Start at  12:28:04
++   Duration  1.57s (transform 412ms, setup 0ms, collect 1.25s, tests 152ms, environment 4ms, prepare 3.05s)
++[0m
++[0m$ [0mnpm run lint
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++[0m
++[0m$ [0mnpm run build
++> ts-wizards-chest@2023.1 build
++> tsc
++[0m
++[0m$ [0mnpm run test:e2e
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (618ms)
++
++  1 passed (2.0s)
++[0m
++[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 32 matches[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-031-boss-minion-spawn-cycle-parity.md
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++⏳ working... elapsed 5:40 · last activity 0:15 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m→ [0mSkill "verification-before-completion"
++[0m
++[0m$ [0mnpm run test:unit
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 6ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 7ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 9ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 4ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 4ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 4ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 44ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 74ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 23ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 4ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 19ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 3ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 8ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 5ms
++
++ Test Files  28 passed (28)
++      Tests  108 passed (108)
++   Start at  12:29:26
++   Duration  1.51s (transform 408ms, setup 0ms, collect 1.11s, tests 242ms, environment 4ms, prepare 3.51s)
++[0m
++[0m$ [0mnpm run lint
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++[0m
++[0m$ [0mnpm run build
++> ts-wizards-chest@2023.1 build
++> tsc
++[0m
++[0m$ [0mnpm run test:e2e
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (627ms)
++
++  1 passed (1.9s)
++[0m
++[0m$ [0mgit log -5 --oneline
++b1d43fa Ralph iteration 20: work in progress
++43ba1fe feat(parity:PR-031): add level5 boss minion spawn cycle parity
++2c49ea3 Ralph iteration 19: work in progress
++67c81c4 Ralph iteration 18: work in progress
++37588af feat(parity:PR-029): add Level5 MrHacker spawn HP and health bar parity
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-103217.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/phaser/scenes/GameScene.js
++ M build/phaser/scenes/GameScene.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M src/phaser/scenes/GameScene.ts
++?? build/phaser/scenes/level5VictoryFlow.js
++?? build/phaser/scenes/level5VictoryFlow.js.map
++?? docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
++?? src/phaser/scenes/level5VictoryFlow.spec.ts
++?? src/phaser/scenes/level5VictoryFlow.ts
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index 59f6905..1c56183 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 20,
++  "iteration": 21,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index 6585c40..8ad4acc 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -40,7 +40,7 @@
+ - [x] PR-029: Level5 MrHacker spawn + HP model + health bar parity
+ - [x] PR-030: Boss bullet firing + enemy bullet collision/damage parity
+ - [x] PR-031: Boss minion spawn cycle parity (FEmail, RVirus, Worm)
+-- [ ] PR-032: Boss defeat + win flow + final multiplier + restart parity
++- [x] PR-032: Boss defeat + win flow + final multiplier + restart parity
+ 
+ ## Wave F - Cutover and Decommission
+ - [ ] PR-033: Full parity matrix run + stabilization fixes only
+diff --git a/build/phaser/scenes/GameScene.js b/build/phaser/scenes/GameScene.js
+index 3819a4d..3095ce6 100644
+--- a/build/phaser/scenes/GameScene.js
++++ b/build/phaser/scenes/GameScene.js
+@@ -31,6 +31,7 @@ import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpa
+ import MrHackerPrefab from '../entities/MrHackerPrefab.js';
+ import EnemyBulletPrefab from '../entities/EnemyBulletPrefab.js';
+ import { advanceLevel5MrHackerBulletState, advanceLevel5MrHackerMinionSpawnState, advanceLevel5MrHackerSpawnState, createInitialLevel5MrHackerBulletState, createInitialLevel5MrHackerMinionSpawnState, createInitialLevel5MrHackerSpawnState, resolveLevel5EnemyBulletPlayerCollisions, resolveLevel5MrHackerHealthBarTextureKey, } from './level5MrHackerCombat.js';
++import { INITIAL_SCORE_MULTIPLIER, advanceScoreMultiplier, resolveLevel5CombatBackdropClass, resolveVictorySummaryText, shouldRestartFromVictory, } from './level5VictoryFlow.js';
+ export default class GameScene extends Phaser.Scene {
+     static SCENE_KEY = 'GameScene';
+     static LEVEL_TRANSITION_EVENT = 'level-transition';
+@@ -85,6 +86,11 @@ export default class GameScene extends Phaser.Scene {
+     level4SplitRVirusNextEnemyNumericId;
+     level4SplitWormNextEnemyNumericId;
+     playerHealth;
++    scoreMultiplier;
++    victoryScoreText;
++    victoryMultiplierText;
++    victoryFinalScoreText;
++    victoryRestartPromptText;
+     constructor() {
+         super(GameScene.SCENE_KEY);
+         this.dialogueState = createInitialLevel0DialogueState();
+@@ -137,6 +143,11 @@ export default class GameScene extends Phaser.Scene {
+         this.level4SplitRVirusNextEnemyNumericId = 0;
+         this.level4SplitWormNextEnemyNumericId = 0;
+         this.playerHealth = 100;
++        this.scoreMultiplier = INITIAL_SCORE_MULTIPLIER;
++        this.victoryScoreText = null;
++        this.victoryMultiplierText = null;
++        this.victoryFinalScoreText = null;
++        this.victoryRestartPromptText = null;
+     }
+     create() {
+         const centerX = this.scale.width / 2;
+@@ -152,6 +163,34 @@ export default class GameScene extends Phaser.Scene {
+             fontSize: '50px',
+         });
+         this.startPromptText.setOrigin(0.5, 0.5);
++        this.victoryScoreText = this.add.text(centerX, centerY, '', {
++            color: '#7fff00',
++            fontFamily: 'Copperplate',
++            fontSize: '50px',
++        });
++        this.victoryScoreText.setOrigin(0.5, 0.5);
++        this.victoryScoreText.setVisible(false);
++        this.victoryMultiplierText = this.add.text(centerX, centerY + 100, '', {
++            color: '#7fff00',
++            fontFamily: 'Copperplate',
++            fontSize: '50px',
++        });
++        this.victoryMultiplierText.setOrigin(0.5, 0.5);
++        this.victoryMultiplierText.setVisible(false);
++        this.victoryFinalScoreText = this.add.text(centerX, centerY + 200, '', {
++            color: '#7fff00',
++            fontFamily: 'Copperplate',
++            fontSize: '50px',
++        });
++        this.victoryFinalScoreText.setOrigin(0.5, 0.5);
++        this.victoryFinalScoreText.setVisible(false);
++        this.victoryRestartPromptText = this.add.text(centerX, centerY + 300, '', {
++            color: '#7fff00',
++            fontFamily: 'Copperplate',
++            fontSize: '50px',
++        });
++        this.victoryRestartPromptText.setOrigin(0.5, 0.5);
++        this.victoryRestartPromptText.setVisible(false);
+         this.dialogueImage = this.add.image(centerX, centerY, LEVEL0_DIALOGUE_TEXTURE_KEYS[0]);
+         this.dialogueImage.setVisible(false);
+         this.player = new PlayerPrefab(this);
+@@ -165,7 +204,15 @@ export default class GameScene extends Phaser.Scene {
+     update(_time, delta) {
+         this.updateProjectiles(delta);
+         this.updateEnemyBullets(delta);
++        this.scoreMultiplier = advanceScoreMultiplier(this.scoreMultiplier, this.hasTriggeredVictory);
+         if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
++            if (shouldRestartFromVictory({
++                hasTriggeredVictory: this.hasTriggeredVictory,
++                isSpaceJustPressed: true,
++            })) {
++                window.location.reload();
++                return;
++            }
+             if (this.activeLevelId === 0) {
+                 this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
+                 this.level0Phase = resolveLevel0DialoguePhase(this.dialogueState, LEVEL0_DIALOGUE_TEXTURE_KEYS.length);
+@@ -1094,6 +1141,7 @@ export default class GameScene extends Phaser.Scene {
+             return;
+         }
+         this.hasTriggeredVictory = true;
++        this.syncVictorySummaryText();
+         this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
+             fromLevel: 5,
+             toLevel: 'victory',
+@@ -1464,8 +1512,12 @@ export default class GameScene extends Phaser.Scene {
+         this.setMrHackerHealthBarVisible(false);
+     }
+     syncLevel5VisualState() {
+-        document.body.className = 'level5';
++        document.body.className = resolveLevel5CombatBackdropClass({
++            activeCombatItemCount: this.activeCombatItemCount,
++            score: this.score,
++        });
+         this.setStartPromptVisible(false);
++        this.setVictorySummaryVisible(false);
+         if (this.level5Phase === 'dialogue') {
+             this.setDialogueVisible(true);
+             this.setPlayerVisible(false);
+@@ -1482,6 +1534,8 @@ export default class GameScene extends Phaser.Scene {
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(false);
+         this.setMrHackerHealthBarVisible(false);
++        this.syncVictorySummaryText();
++        this.setVictorySummaryVisible(true);
+     }
+     syncLevel5BossHealthBar() {
+         if (this.mrHackerHealthBar === null) {
+@@ -1505,6 +1559,22 @@ export default class GameScene extends Phaser.Scene {
+             this.startPromptText.setVisible(shouldBeVisible);
+         }
+     }
++    syncVictorySummaryText() {
++        const summary = resolveVictorySummaryText({
++            multiplier: this.scoreMultiplier,
++            score: this.score,
++        });
++        this.victoryScoreText?.setText(summary.scoreText);
++        this.victoryMultiplierText?.setText(summary.multiplierText);
++        this.victoryFinalScoreText?.setText(summary.finalScoreText);
++        this.victoryRestartPromptText?.setText(summary.restartPromptText);
++    }
++    setVictorySummaryVisible(shouldBeVisible) {
++        this.victoryScoreText?.setVisible(shouldBeVisible);
++        this.victoryMultiplierText?.setVisible(shouldBeVisible);
++        this.victoryFinalScoreText?.setVisible(shouldBeVisible);
++        this.victoryRestartPromptText?.setVisible(shouldBeVisible);
++    }
+     setPlayerVisible(shouldBeVisible) {
+         if (this.player !== null) {
+             this.player.setVisible(shouldBeVisible);
+diff --git a/build/phaser/scenes/GameScene.js.map b/build/phaser/scenes/GameScene.js.map
+index 74458b3..761de5c 100644
+--- a/build/phaser/scenes/GameScene.js.map
++++ b/build/phaser/scenes/GameScene.js.map
+@@ -1 +1 @@
+
+...129822 bytes truncated...
+
+The tool call succeeded but the output was truncated. Full output saved to: /Users/pbaruch/.local/share/opencode/tool-output/tool_c4c76c30c001cIZOiDziYBC9G8
+Use the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/GameScene.ts src/phaser/scenes/level5VictoryFlow.ts src/phaser/scenes/level5VictoryFlow.spec.ts build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/level5VictoryFlow.js build/phaser/scenes/level5VictoryFlow.js.map docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md && git commit -m "feat(parity:PR-032): add level5 boss defeat and victory flow parity" && git status --short
+[main 31c0fc8] feat(parity:PR-032): add level5 boss defeat and victory flow parity
+ 11 files changed, 420 insertions(+), 6 deletions(-)
+ create mode 100644 build/phaser/scenes/level5VictoryFlow.js
+ create mode 100644 build/phaser/scenes/level5VictoryFlow.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-032-boss-defeat-win-flow-final-multiplier-restart-parity.md
+ create mode 100644 src/phaser/scenes/level5VictoryFlow.spec.ts
+ create mode 100644 src/phaser/scenes/level5VictoryFlow.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 21
+Elapsed:   6:33
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 22...
