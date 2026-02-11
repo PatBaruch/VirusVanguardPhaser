@@ -953,3 +953,455 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
    Moving to next task in iteration 5...
+📝 Auto-committed changes
+
+🔄 Iteration 5 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+Using `brainstorming` to confirm the task approach up front, and `test-driven-development` to implement PR-038 via a failing soak test first, then minimal changes to make it pass. I’ll now read the required iteration files in order, mark PR-038 in progress, and execute only this PR scope.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+⏳ working... elapsed 0:40 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "e2e/**/*.spec.ts"[90m in . · 3 matches[0m
+[0m→ [0mRead e2e/boot-smoke.spec.ts
+[0m→ [0mRead e2e/traversal-journey.spec.ts
+[0m→ [0mRead e2e/combat-interactions.spec.ts
+[0m✱ [0mGrep "__VV_E2E_RUNTIME__"[90m in . · 12 matches[0m
+[0m✱ [0mGrep "e2e=1"[90m in . · 2 matches[0m
+[0m✱ [0mGrep "shoot-input"[90m in . · 1 match[0m
+[0m→ [0mRead src/app.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m✱ [0mGlob "*playwright*.{ts,js,mjs,cjs}"[90m in . · 1 match[0m
+[0m→ [0mRead playwright.config.ts
+⏳ working... elapsed 1:20 · last activity 0:13 ago
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+[0m
+⏳ working... elapsed 1:40 · last activity 0:15 ago
+⏳ working... elapsed 1:50 · last activity 0:25 ago
+⏳ working... elapsed 2:00 · last activity 0:35 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A e2e/runtime-soak.spec.ts
+⏳ working... elapsed 2:20 · last activity 0:15 ago
+[0m
+[0m$ [0mnpm run test:e2e -- e2e/runtime-soak.spec.ts
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test e2e/runtime-soak.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✘  1 e2e/runtime-soak.spec.ts:160:1 › runs a sustained runtime soak without console or page errors (13.9s)
+
+
+  1) e2e/runtime-soak.spec.ts:160:1 › runs a sustained runtime soak without console or page errors ─
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: > [32m0[39m
+    Received:   [31m0[39m
+
+      153 |   expect(Number.isFinite(snapshot.playerX)).toBe(true);
+      154 |   expect(Number.isFinite(snapshot.playerY)).toBe(true);
+    > 155 |   expect(snapshot.projectileCount).toBeGreaterThan(0);
+          |                                    ^
+      156 |   expect(consoleErrors, `Unexpected console errors: ${consoleErrors.join('\n')}`).toHaveLength(0);
+      157 |   expect(pageErrors, `Unexpected page errors: ${pageErrors.join('\n')}`).toHaveLength(0);
+      158 | }
+        at runRuntimeSoak (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/runtime-soak.spec.ts:155:36)
+        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/runtime-soak.spec.ts:161:3
+
+  1 failed
+    e2e/runtime-soak.spec.ts:160:1 › runs a sustained runtime soak without console or page errors ──
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M e2e/runtime-soak.spec.ts
+⏳ working... elapsed 2:50 · last activity 0:13 ago
+[0m
+[0m$ [0mnpm run test:e2e -- e2e/runtime-soak.spec.ts
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test e2e/runtime-soak.spec.ts
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (13.5s)
+
+  1 passed (14.7s)
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 4ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 1ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 3ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 4ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+
+ Test Files  29 passed (29)
+      Tests  111 passed (111)
+   Start at  16:59:34
+   Duration  1.03s (transform 342ms, setup 0ms, collect 748ms, tests 69ms, environment 3ms, prepare 1.64s)
+[0m
+⏳ working... elapsed 3:30 · last activity 0:18 ago
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 5 tests using 4 workers
+
+  ✓  4 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (1.0s)
+  ✓  2 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (1.0s)
+  ✓  3 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (1.1s)
+  ✓  5 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (346ms)
+  ✓  1 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (14.2s)
+
+  5 passed (15.7s)
+[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 38 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 4:20 · last activity 0:13 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m→ [0mSkill "verification-before-completion"
+[0m
+[0m$ [0mgit log -5 --oneline
+1a8ca9b Ralph iteration 4: work in progress
+f8c25c1 feat(parity:PR-037): add combat interaction e2e coverage for early levels
+ea430ea Ralph iteration 3: work in progress
+1bbaacc feat(parity:PR-036): add traversal journey e2e checkpoints
+7e06900 Ralph iteration 2: work in progress
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+?? docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+?? e2e/runtime-soak.spec.ts
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-164440.log b/.ralph/overnight-caffeinate-20260211-164440.log
+index ff6688c..b540f3c 100644
+--- a/.ralph/overnight-caffeinate-20260211-164440.log
++++ b/.ralph/overnight-caffeinate-20260211-164440.log
+@@ -953,3 +953,186 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
+    Moving to next task in iteration 5...
++📝 Auto-committed changes
++
++🔄 Iteration 5 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "test-driven-development"
++Using `brainstorming` to confirm the task approach up front, and `test-driven-development` to implement PR-038 via a failing soak test first, then minimal changes to make it pass. I’ll now read the required iteration files in order, mark PR-038 in progress, and execute only this PR scope.
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++⏳ working... elapsed 0:40 · last activity 0:10 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m✱ [0mGlob "e2e/**/*.spec.ts"[90m in . · 3 matches[0m
++[0m→ [0mRead e2e/boot-smoke.spec.ts
++[0m→ [0mRead e2e/traversal-journey.spec.ts
++[0m→ [0mRead e2e/combat-interactions.spec.ts
++[0m✱ [0mGrep "__VV_E2E_RUNTIME__"[90m in . · 12 matches[0m
++[0m✱ [0mGrep "e2e=1"[90m in . · 2 matches[0m
++[0m✱ [0mGrep "shoot-input"[90m in . · 1 match[0m
++[0m→ [0mRead src/app.ts
++[0m→ [0mRead src/phaser/scenes/GameScene.ts
++[0m✱ [0mGlob "*playwright*.{ts,js,mjs,cjs}"[90m in . · 1 match[0m
++[0m→ [0mRead playwright.config.ts
++⏳ working... elapsed 1:20 · last activity 0:13 ago
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-164440.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++[0m
++⏳ working... elapsed 1:40 · last activity 0:15 ago
++⏳ working... elapsed 1:50 · last activity 0:25 ago
++⏳ working... elapsed 2:00 · last activity 0:35 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A e2e/runtime-soak.spec.ts
++⏳ working... elapsed 2:20 · last activity 0:15 ago
++[0m
++[0m$ [0mnpm run test:e2e -- e2e/runtime-soak.spec.ts
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test e2e/runtime-soak.spec.ts
++
++
++Running 1 test using 1 worker
++
++  ✘  1 e2e/runtime-soak.spec.ts:160:1 › runs a sustained runtime soak without console or page errors (13.9s)
++
++
++  1) e2e/runtime-soak.spec.ts:160:1 › runs a sustained runtime soak without console or page errors ─
++
++    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
++
++    Expected: > [32m0[39m
++    Received:   [31m0[39m
++
++      153 |   expect(Number.isFinite(snapshot.playerX)).toBe(true);
++      154 |   expect(Number.isFinite(snapshot.playerY)).toBe(true);
++    > 155 |   expect(snapshot.projectileCount).toBeGreaterThan(0);
++          |                                    ^
++      156 |   expect(consoleErrors, `Unexpected console errors: ${consoleErrors.join('\n')}`).toHaveLength(0);
++      157 |   expect(pageErrors, `Unexpected page errors: ${pageErrors.join('\n')}`).toHaveLength(0);
++      158 | }
++        at runRuntimeSoak (/Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/runtime-soak.spec.ts:155:36)
++        at /Users/pbaruch/Desktop/VirusVanguardPhaser/e2e/runtime-soak.spec.ts:161:3
++
++  1 failed
++    e2e/runtime-soak.spec.ts:160:1 › runs a sustained runtime soak without console or page errors ──
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M e2e/runtime-soak.spec.ts
++⏳ working... elapsed 2:50 · last activity 0:13 ago
++[0m
++[0m$ [0mnpm run test:e2e -- e2e/runtime-soak.spec.ts
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test e2e/runtime-soak.spec.ts
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (13.5s)
++
++  1 passed (14.7s)
++[0m
++[0m$ [0mnpm run build
++> ts-wizards-chest@2023.1 build
++> tsc
++[0m
++[0m$ [0mnpm run lint
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++[0m
++[0m$ [0mnpm run test:unit
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (8 tests) 3ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 3ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 4ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 1ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 3ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level5VictoryFlow.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 4ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/runtime/RuntimeMode.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++
++ Test Files  29 passed (29)
++      Tests  111 passed (111)
++   Start at  16:59:34
++   Duration  1.03s (transform 342ms, setup 0ms, collect 748ms, tests 69ms, environment 3ms, prepare 1.64s)
++[0m
++⏳ working... elapsed 3:30 · last activity 0:18 ago
++[0m$ [0mnpm run test:e2e
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 5 tests using 4 workers
++
++  ✓  4 e2e/traversal-journey.spec.ts:153:1 › traverses from Level0 start state to Level5 reachability checkpoints (1.0s)
++  ✓  2 e2e/combat-interactions.spec.ts:206:1 › covers Level1 combat interactions for shooting, enemy damage, and score progression (1.0s)
++  ✓  3 e2e/boot-smoke.spec.ts:25:1 › boots default Phaser runtime without browser errors (1.1s)
++  ✓  5 e2e/boot-smoke.spec.ts:29:1 › ignores runtime=legacy query and still boots Phaser without browser errors (346ms)
++  ✓  1 e2e/runtime-soak.spec.ts:156:1 › runs a sustained runtime soak without console or page errors (14.2s)
++
++  5 passed (15.7s)
++[0m
++[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 38 matches[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-037-combat-interaction-e2e-coverage-early-levels.md
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++⏳ working... elapsed 4:20 · last activity 0:13 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m→ [0mSkill "verification-before-completion"
++[0m
++[0m$ [0mgit log -5 --oneline
++1a8ca9b Ralph iteration 4: work in progress
++f8c25c1 feat(parity:PR-037): add combat interaction e2e coverage for early levels
++ea430ea Ralph iteration 3: work in progress
++1bbaacc feat(parity:PR-036): add traversal journey e2e checkpoints
++7e06900 Ralph iteration 2: work in progress
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-164440.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++?? docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
++?? e2e/runtime-soak.spec.ts
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index 7760bbc..d918213 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 4,
++  "iteration": 5,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "ALL_PR_TASKS_COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index fe6a313..cc296e5 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -50,6 +50,6 @@
+ ## Wave G - Post-Parity Validation and Production Confidence
+ - [x] PR-036: Add end-to-end traversal journey test from Level0 start screen to Level5 reachability checkpoints
+ - [x] PR-037: Add combat interaction e2e coverage for shooting, enemy damage, and score progression in early levels
+-- [ ] PR-038: Add long-run runtime soak validation (no console/page errors under sustained input)
++- [x] PR-038: Add long-run runtime soak validation (no console/page errors under sustained input)
+ - [ ] PR-039: Validate PRD traceability artifacts end-to-end (handoffs, parity matrix, known limitations) and repair gaps
+ - [ ] PR-040: Add CI workflow gate for build, lint, unit, and e2e as required merge checks
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index 74eef9c..fdccc59 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -31,8 +31,9 @@ flowchart TD
+   D28 --> D29[Level5 Boss Defeat + Win Flow (Multiplier + Victory Summary + Restart)]
+   D29 --> D30[Playwright Traversal Journey E2E (Level0 to Level5 Checkpoints)]
+   D30 --> D31[Playwright Combat Interaction E2E (Level1 Shooting + Enemy Damage + Score Progression)]
++  D31 --> D32[Playwright Runtime Soak E2E (Sustained Input + No Console/Page Errors)]
+   E[Core Systems Parity]
+-  D31 --> E
++  D32 --> E
+   E --> F[Walkable Levels]
+   F --> G[Shooting Systems]
+   G --> H[Enemy Systems by Level]
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index 13afd2b..5f187b9 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -39,3 +39,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ - PR-035 removed the legacy canvas runtime and fallback selector wiring; boot now always starts Phaser runtime.
+ - PR-036 added Playwright end-to-end traversal journey coverage from Level0 start state through Level5 reachability checkpoints, including score-gated transition preconditions for Levels1 to 5.
+ - PR-037 added Playwright end-to-end combat interaction coverage for early-level combat behavior, including shoot-input projectile spawning, projectile hit score progression, and player damage from enemy collisions in Level1.
++- PR-038 added Playwright long-run runtime soak coverage with sustained movement and shoot input, including explicit console-error and page-error assertions over an extended browser interaction window.
+[0m
+[0m$ [0mgit add ".ralph/ralph-tasks.md" "e2e/runtime-soak.spec.ts" "docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md" "docs/parity/known-limitations.md" "docs/architecture/phaser-migration.mmd" && git commit -m "feat(parity:PR-038): add sustained runtime soak e2e validation" && git status --short
+[main d575ad7] feat(parity:PR-038): add sustained runtime soak e2e validation
+ 5 files changed, 240 insertions(+), 2 deletions(-)
+ create mode 100644 docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+ create mode 100644 e2e/runtime-soak.spec.ts
+ M .ralph/overnight-caffeinate-20260211-164440.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m$ [0mgit show --name-only --oneline --pretty=format:"%h %s" HEAD
+d575ad7 feat(parity:PR-038): add sustained runtime soak e2e validation
+.ralph/ralph-tasks.md
+docs/architecture/phaser-migration.mmd
+docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md
+docs/parity/known-limitations.md
+e2e/runtime-soak.spec.ts
+[0m
+<promise>NEXT_PR_DONE</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 5
+Elapsed:   5:06
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>NEXT_PR_DONE</promise>
+   Moving to next task in iteration 6...

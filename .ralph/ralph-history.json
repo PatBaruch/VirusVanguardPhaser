@@ -76,9 +76,32 @@
       "errors": [
         "Using the brainstorming + TDD skills to keep this scoped: I’m implementing PR-037 by adding failing e2e combat assertions first, then making minimal test harness updates to pass, and finally running a"
       ]
+    },
+    {
+      "iteration": 5,
+      "startedAt": "2026-02-11T15:56:24.058Z",
+      "endedAt": "2026-02-11T16:01:31.855Z",
+      "durationMs": 306174,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-caffeinate-20260211-164440.log",
+        ".ralph/ralph-tasks.md",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-038-long-run-runtime-soak-validation.md",
+        "docs/parity/known-limitations.md",
+        "e2e/runtime-soak.spec.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "Using `brainstorming` to confirm the task approach up front, and `test-driven-development` to implement PR-038 via a failing soak test first, then minimal changes to make it pass. I’ll now read the re",
+        "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m",
+        "+Using `brainstorming` to confirm the task approach up front, and `test-driven-development` to implement PR-038 via a failing soak test first, then minimal changes to make it pass. I’ll now read the r",
+        "+    Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m"
+      ]
     }
   ],
-  "totalDurationMs": 684220,
+  "totalDurationMs": 990394,
   "struggleIndicators": {
     "repeatedErrors": {
       "Using `test-driven-development` to implement PR-036 via a failing e2e traversal test first, then min": 1,
@@ -86,7 +109,11 @@
       "Error: page.evaluate: Error: Expected player prefab to be present": 1,
       "+    Error: page.evaluate: Error: Expected __VV_E2E_RUNTIME__ test hook to be present": 1,
       "+    Error: page.evaluate: Error: Expected player prefab to be present": 1,
-      "Using the brainstorming + TDD skills to keep this scoped: I’m implementing PR-037 by adding failing ": 1
+      "Using the brainstorming + TDD skills to keep this scoped: I’m implementing PR-037 by adding failing ": 1,
+      "Using `brainstorming` to confirm the task approach up front, and `test-driven-development` to implem": 1,
+      "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)": 1,
+      "+Using `brainstorming` to confirm the task approach up front, and `test-driven-development` to imple": 1,
+      "+    Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m": 1
     },
     "noProgressIterations": 0,
     "shortIterations": 0
