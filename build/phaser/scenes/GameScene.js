@@ -30,7 +30,7 @@ import TrojanPrefab from '../entities/TrojanPrefab.js';
 import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpawnState, createInitialLevel4TrojanSpawnState, resolveLevel4TrojanBreaches, resolveLevel4TrojanPlayerCollisions, resolveLevel4TrojanProjectileHits, } from './level4TrojanCombat.js';
 import MrHackerPrefab from '../entities/MrHackerPrefab.js';
 import EnemyBulletPrefab from '../entities/EnemyBulletPrefab.js';
-import { advanceLevel5MrHackerBulletState, advanceLevel5MrHackerSpawnState, createInitialLevel5MrHackerBulletState, createInitialLevel5MrHackerSpawnState, resolveLevel5EnemyBulletPlayerCollisions, resolveLevel5MrHackerHealthBarTextureKey, } from './level5MrHackerCombat.js';
+import { advanceLevel5MrHackerBulletState, advanceLevel5MrHackerMinionSpawnState, advanceLevel5MrHackerSpawnState, createInitialLevel5MrHackerBulletState, createInitialLevel5MrHackerMinionSpawnState, createInitialLevel5MrHackerSpawnState, resolveLevel5EnemyBulletPlayerCollisions, resolveLevel5MrHackerHealthBarTextureKey, } from './level5MrHackerCombat.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -78,6 +78,7 @@ export default class GameScene extends Phaser.Scene {
     activeEnemyBullets;
     level5MrHackerSpawnState;
     level5MrHackerBulletState;
+    level5MrHackerMinionSpawnState;
     mrHackerHealthBar;
     level4TrojanSpawnState;
     level4SplitFEmailNextEnemyNumericId;
@@ -129,6 +130,7 @@ export default class GameScene extends Phaser.Scene {
         this.activeEnemyBullets = [];
         this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
         this.level5MrHackerBulletState = createInitialLevel5MrHackerBulletState(() => Math.random());
+        this.level5MrHackerMinionSpawnState = createInitialLevel5MrHackerMinionSpawnState();
         this.mrHackerHealthBar = null;
         this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
         this.level4SplitFEmailNextEnemyNumericId = 0;
@@ -1110,9 +1112,15 @@ export default class GameScene extends Phaser.Scene {
             this.add.existing(mrHacker);
             this.activeMrHacker = mrHacker;
         }
+        if (this.activeMrHacker !== null) {
+            this.resolveLevel5BossMinionSpawns(elapsedMs);
+        }
         if (this.activeMrHacker === null) {
+            this.resolveLevel5MinionCombat(elapsedMs);
             this.resolveLevel5EnemyBulletPlayerCollisions();
-            this.activeCombatItemCount = 0;
+            this.activeCombatItemCount = this.activeFEmails.length
+                + this.activeRViruses.length
+                + this.activeWorms.length;
             this.syncLevel5BossHealthBar();
             return;
         }
@@ -1123,12 +1131,59 @@ export default class GameScene extends Phaser.Scene {
         if (this.activeMrHacker !== null && this.activeMrHacker.getCurrentHealth() <= 0) {
             this.activeMrHacker.destroy();
             this.activeMrHacker = null;
-            this.activeCombatItemCount = 0;
+            this.resolveLevel5MinionCombat(elapsedMs);
+            this.activeCombatItemCount = this.activeFEmails.length
+                + this.activeRViruses.length
+                + this.activeWorms.length;
             this.syncLevel5BossHealthBar();
             return;
         }
-        this.activeCombatItemCount = 1;
+        this.resolveLevel5MinionCombat(elapsedMs);
+        this.activeCombatItemCount = 1
+            + this.activeFEmails.length
+            + this.activeRViruses.length
+            + this.activeWorms.length;
         this.syncLevel5BossHealthBar();
+    }
+    resolveLevel5BossMinionSpawns(elapsedMs) {
+        if (this.activeMrHacker === null) {
+            return;
+        }
+        const bossSnapshot = this.activeMrHacker.toSnapshot();
+        const spawnResolution = advanceLevel5MrHackerMinionSpawnState(this.level5MrHackerMinionSpawnState, {
+            bossCenterX: bossSnapshot.centerX,
+            bossCenterY: bossSnapshot.centerY,
+            canSpawn: this.activeLevelId === 5 && this.level5Phase === 'walkable',
+            elapsedMs,
+            random: () => Math.random(),
+        });
+        this.level5MrHackerMinionSpawnState = spawnResolution.nextState;
+        for (const spawnedEnemy of spawnResolution.spawnedFEmails) {
+            const fEmail = new FEmailPrefab(this, spawnedEnemy);
+            this.add.existing(fEmail);
+            this.activeFEmails.push(fEmail);
+        }
+        for (const spawnedEnemy of spawnResolution.spawnedRViruses) {
+            const rVirus = new RVirusPrefab(this, spawnedEnemy);
+            this.add.existing(rVirus);
+            this.activeRViruses.push(rVirus);
+        }
+        for (const spawnedEnemy of spawnResolution.spawnedWorms) {
+            const worm = new WormPrefab(this, spawnedEnemy);
+            this.add.existing(worm);
+            this.activeWorms.push(worm);
+        }
+    }
+    resolveLevel5MinionCombat(elapsedMs) {
+        if (this.activeFEmails.length > 0) {
+            this.updateLevel1Combat(elapsedMs);
+        }
+        if (this.activeRViruses.length > 0) {
+            this.updateLevel2Combat(elapsedMs);
+        }
+        if (this.activeWorms.length > 0) {
+            this.updateLevel3Combat(elapsedMs);
+        }
     }
     resolveLevel5MrHackerProjectileHits() {
         if (this.activeProjectiles.length === 0 || this.activeMrHacker === null) {
@@ -1298,6 +1353,7 @@ export default class GameScene extends Phaser.Scene {
         this.activeCombatItemCount = 0;
         this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
         this.level5MrHackerBulletState = createInitialLevel5MrHackerBulletState(() => Math.random());
+        this.level5MrHackerMinionSpawnState = createInitialLevel5MrHackerMinionSpawnState();
         this.level5DialogueState = createInitialLevel5DialogueState();
         this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
         this.syncActiveLevelVisualState();

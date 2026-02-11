@@ -4,8 +4,11 @@ import {
   LEVEL5_MRHACKER_DAMAGE,
   LEVEL5_MRHACKER_HEALTH,
   LEVEL5_MRHACKER_SCORE_VALUE,
+  LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
   advanceLevel5MrHackerSpawnState,
+  advanceLevel5MrHackerMinionSpawnState,
   advanceLevel5MrHackerBulletState,
+  createInitialLevel5MrHackerMinionSpawnState,
   createInitialLevel5MrHackerSpawnState,
   resolveLevel5EnemyBulletPlayerCollisions,
   resolveLevel5MrHackerHealthBarTextureKey,
@@ -99,6 +102,81 @@ describe('level5 MrHacker combat parity', () => {
     expect(result.spawnedBullets).toEqual([]);
     expect(result.nextState.msUntilNextShot).toBe(200);
     expect(result.nextState.nextBulletNumericId).toBe(0);
+  });
+
+  it('spawns one Level5 boss minion every 3000ms using legacy enemy buckets', () => {
+    const randomValues: number[] = [
+      0.2, 0.8, 0.2,
+      0.5, 0.9, 0.1,
+      0.9, 0.25, 0.75,
+    ];
+    let randomIndex: number = 0;
+    const random = (): number => {
+      const value: number = randomValues[randomIndex] ?? 0;
+      randomIndex += 1;
+      return value;
+    };
+
+    const initialState = createInitialLevel5MrHackerMinionSpawnState();
+    const firstSpawn = advanceLevel5MrHackerMinionSpawnState(initialState, {
+      bossCenterX: 700,
+      bossCenterY: 430,
+      canSpawn: true,
+      elapsedMs: LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
+      random,
+    });
+    const secondSpawn = advanceLevel5MrHackerMinionSpawnState(firstSpawn.nextState, {
+      bossCenterX: 700,
+      bossCenterY: 430,
+      canSpawn: true,
+      elapsedMs: LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
+      random,
+    });
+    const thirdSpawn = advanceLevel5MrHackerMinionSpawnState(secondSpawn.nextState, {
+      bossCenterX: 700,
+      bossCenterY: 430,
+      canSpawn: true,
+      elapsedMs: LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
+      random,
+    });
+
+    expect(firstSpawn.spawnedFEmails).toHaveLength(1);
+    expect(firstSpawn.spawnedFEmails[0].enemyId).toBe('level5-minion-femail-0');
+    expect(firstSpawn.spawnedFEmails[0].centerX).toBe(800);
+    expect(firstSpawn.spawnedFEmails[0].centerY).toBe(460);
+    expect(firstSpawn.spawnedFEmails[0].velocityX).toBeCloseTo(-0.375);
+    expect(firstSpawn.spawnedFEmails[0].velocityY).toBeCloseTo(0.125);
+
+    expect(secondSpawn.spawnedRViruses).toHaveLength(1);
+    expect(secondSpawn.spawnedRViruses[0].enemyId).toBe('level5-minion-rvirus-0');
+    expect(secondSpawn.spawnedRViruses[0].centerX).toBe(800);
+    expect(secondSpawn.spawnedRViruses[0].centerY).toBe(400);
+    expect(secondSpawn.spawnedRViruses[0].velocityX).toBeCloseTo(-0.5);
+    expect(secondSpawn.spawnedRViruses[0].velocityY).toBeCloseTo(0.15);
+
+    expect(thirdSpawn.spawnedWorms).toHaveLength(1);
+    expect(thirdSpawn.spawnedWorms[0].enemyId).toBe('level5-minion-worm-0');
+    expect(thirdSpawn.spawnedWorms[0].centerX).toBe(800);
+    expect(thirdSpawn.spawnedWorms[0].centerY).toBe(460);
+    expect(thirdSpawn.spawnedWorms[0].velocityX).toBeCloseTo(-0.4);
+    expect(thirdSpawn.spawnedWorms[0].velocityY).toBeCloseTo(-0.45);
+  });
+
+  it('spawns at most one minion per update and resets minion spawn countdown', () => {
+    const result = advanceLevel5MrHackerMinionSpawnState(createInitialLevel5MrHackerMinionSpawnState(), {
+      bossCenterX: 700,
+      bossCenterY: 430,
+      canSpawn: true,
+      elapsedMs: 10000,
+      random: () => 0,
+    });
+
+    const spawnedCount = result.spawnedFEmails.length
+      + result.spawnedRViruses.length
+      + result.spawnedWorms.length;
+
+    expect(spawnedCount).toBe(1);
+    expect(result.nextState.msUntilNextSpawn).toBe(LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS);
   });
 
   it('applies player damage and destroys enemy bullets that overlap the player', () => {

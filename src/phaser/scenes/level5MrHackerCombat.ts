@@ -26,6 +26,41 @@ export interface Level5MrHackerSpawnResult {
   spawnedEnemies: Level5MrHackerEnemySnapshot[];
 }
 
+export interface Level5BossMinionSnapshot {
+  enemyId: string;
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+  velocityX: number;
+  velocityY: number;
+  currentHealth: number;
+  damage: number;
+  scoreValue: number;
+}
+
+export interface Level5MrHackerMinionSpawnState {
+  msUntilNextSpawn: number;
+  nextFEmailNumericId: number;
+  nextRVirusNumericId: number;
+  nextWormNumericId: number;
+}
+
+export interface Level5MrHackerMinionSpawnSnapshot {
+  canSpawn: boolean;
+  elapsedMs: number;
+  bossCenterX: number;
+  bossCenterY: number;
+  random: () => number;
+}
+
+export interface Level5MrHackerMinionSpawnResult {
+  nextState: Level5MrHackerMinionSpawnState;
+  spawnedFEmails: Level5BossMinionSnapshot[];
+  spawnedRViruses: Level5BossMinionSnapshot[];
+  spawnedWorms: Level5BossMinionSnapshot[];
+}
+
 export interface Level5MrHackerBulletSnapshot {
   bulletId: string;
   centerX: number;
@@ -79,6 +114,28 @@ export const LEVEL5_MRHACKER_BULLET_COOLDOWN_MIN_MS: number = 100;
 export const LEVEL5_MRHACKER_BULLET_COOLDOWN_RANGE_MS: number = 500;
 export const LEVEL5_MRHACKER_INITIAL_BULLET_COOLDOWN_MIN_MS: number = 500;
 export const LEVEL5_MRHACKER_INITIAL_BULLET_COOLDOWN_RANGE_MS: number = 500;
+export const LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS: number = 3000;
+
+const LEVEL5_MRHACKER_MINION_OFFSET_X: number = 100;
+const LEVEL5_MRHACKER_MINION_FEMAIL_OFFSET_Y: number = 30;
+const LEVEL5_MRHACKER_MINION_RVIRUS_OFFSET_Y: number = -30;
+const LEVEL5_MRHACKER_MINION_WORM_OFFSET_Y: number = 30;
+
+const LEVEL5_MINION_FEMAIL_DAMAGE: number = 5;
+const LEVEL5_MINION_FEMAIL_SCORE_VALUE: number = 10;
+const LEVEL5_MINION_FEMAIL_HEALTH: number = 1;
+const LEVEL5_MINION_FEMAIL_HORIZONTAL_SPEED_PER_MS: number = 0.75 / 2;
+const LEVEL5_MINION_FEMAIL_VERTICAL_SPEED_PER_MS: number = 0.25 / 2;
+
+const LEVEL5_MINION_RVIRUS_DAMAGE: number = 5;
+const LEVEL5_MINION_RVIRUS_SCORE_VALUE: number = 10;
+const LEVEL5_MINION_RVIRUS_HEALTH: number = 5;
+const LEVEL5_MINION_RVIRUS_HORIZONTAL_SPEED_PER_MS: number = 1 / 2;
+const LEVEL5_MINION_RVIRUS_VERTICAL_SPEED_PER_MS: number = 0.3 / 2;
+
+const LEVEL5_MINION_WORM_DAMAGE: number = 5;
+const LEVEL5_MINION_WORM_SCORE_VALUE: number = 10;
+const LEVEL5_MINION_WORM_HEALTH: number = 1;
 
 export const LEVEL5_MRHACKER_TEXTURE_KEYS: readonly string[] = [
   'mrhacker-0',
@@ -121,6 +178,15 @@ export function createInitialLevel5MrHackerSpawnState(): Level5MrHackerSpawnStat
   };
 }
 
+export function createInitialLevel5MrHackerMinionSpawnState(): Level5MrHackerMinionSpawnState {
+  return {
+    msUntilNextSpawn: LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
+    nextFEmailNumericId: 0,
+    nextRVirusNumericId: 0,
+    nextWormNumericId: 0,
+  };
+}
+
 export function createInitialLevel5MrHackerBulletState(random: () => number): Level5MrHackerBulletState {
   return {
     msUntilNextShot: LEVEL5_MRHACKER_INITIAL_BULLET_COOLDOWN_MIN_MS
@@ -158,6 +224,118 @@ export function advanceLevel5MrHackerSpawnState(
       hasSpawned: true,
     },
     spawnedEnemies: [mrHacker],
+  };
+}
+
+export function advanceLevel5MrHackerMinionSpawnState(
+  previousState: Level5MrHackerMinionSpawnState,
+  snapshot: Level5MrHackerMinionSpawnSnapshot,
+): Level5MrHackerMinionSpawnResult {
+  if (!snapshot.canSpawn) {
+    return {
+      nextState: previousState,
+      spawnedFEmails: [],
+      spawnedRViruses: [],
+      spawnedWorms: [],
+    };
+  }
+
+  const msUntilNextSpawn: number = previousState.msUntilNextSpawn - snapshot.elapsedMs;
+  if (msUntilNextSpawn > 0) {
+    return {
+      nextState: {
+        ...previousState,
+        msUntilNextSpawn,
+      },
+      spawnedFEmails: [],
+      spawnedRViruses: [],
+      spawnedWorms: [],
+    };
+  }
+
+  const rng: number = snapshot.random();
+  if (rng < 0.33) {
+    const spawnedFEmail: Level5BossMinionSnapshot = {
+      centerX: snapshot.bossCenterX + LEVEL5_MRHACKER_MINION_OFFSET_X,
+      centerY: snapshot.bossCenterY + LEVEL5_MRHACKER_MINION_FEMAIL_OFFSET_Y,
+      currentHealth: LEVEL5_MINION_FEMAIL_HEALTH,
+      damage: LEVEL5_MINION_FEMAIL_DAMAGE,
+      enemyId: `level5-minion-femail-${previousState.nextFEmailNumericId}`,
+      height: 0,
+      scoreValue: LEVEL5_MINION_FEMAIL_SCORE_VALUE,
+      velocityX: snapshot.random() > 0.5
+        ? -LEVEL5_MINION_FEMAIL_HORIZONTAL_SPEED_PER_MS
+        : LEVEL5_MINION_FEMAIL_HORIZONTAL_SPEED_PER_MS,
+      velocityY: snapshot.random() > 0.5
+        ? -LEVEL5_MINION_FEMAIL_VERTICAL_SPEED_PER_MS
+        : LEVEL5_MINION_FEMAIL_VERTICAL_SPEED_PER_MS,
+      width: 0,
+    };
+
+    return {
+      nextState: {
+        ...previousState,
+        msUntilNextSpawn: LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
+        nextFEmailNumericId: previousState.nextFEmailNumericId + 1,
+      },
+      spawnedFEmails: [spawnedFEmail],
+      spawnedRViruses: [],
+      spawnedWorms: [],
+    };
+  }
+
+  if (rng < 0.66) {
+    const spawnedRVirus: Level5BossMinionSnapshot = {
+      centerX: snapshot.bossCenterX + LEVEL5_MRHACKER_MINION_OFFSET_X,
+      centerY: snapshot.bossCenterY + LEVEL5_MRHACKER_MINION_RVIRUS_OFFSET_Y,
+      currentHealth: LEVEL5_MINION_RVIRUS_HEALTH,
+      damage: LEVEL5_MINION_RVIRUS_DAMAGE,
+      enemyId: `level5-minion-rvirus-${previousState.nextRVirusNumericId}`,
+      height: 0,
+      scoreValue: LEVEL5_MINION_RVIRUS_SCORE_VALUE,
+      velocityX: snapshot.random() > 0.5
+        ? -LEVEL5_MINION_RVIRUS_HORIZONTAL_SPEED_PER_MS
+        : LEVEL5_MINION_RVIRUS_HORIZONTAL_SPEED_PER_MS,
+      velocityY: snapshot.random() > 0.5
+        ? -LEVEL5_MINION_RVIRUS_VERTICAL_SPEED_PER_MS
+        : LEVEL5_MINION_RVIRUS_VERTICAL_SPEED_PER_MS,
+      width: 0,
+    };
+
+    return {
+      nextState: {
+        ...previousState,
+        msUntilNextSpawn: LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
+        nextRVirusNumericId: previousState.nextRVirusNumericId + 1,
+      },
+      spawnedFEmails: [],
+      spawnedRViruses: [spawnedRVirus],
+      spawnedWorms: [],
+    };
+  }
+
+  const spawnedWorm: Level5BossMinionSnapshot = {
+    centerX: snapshot.bossCenterX + LEVEL5_MRHACKER_MINION_OFFSET_X,
+    centerY: snapshot.bossCenterY + LEVEL5_MRHACKER_MINION_WORM_OFFSET_Y,
+    currentHealth: LEVEL5_MINION_WORM_HEALTH,
+    damage: LEVEL5_MINION_WORM_DAMAGE,
+    enemyId: `level5-minion-worm-${previousState.nextWormNumericId}`,
+    height: 0,
+    scoreValue: LEVEL5_MINION_WORM_SCORE_VALUE,
+    velocityX: -(0.4 * snapshot.random()) - 0.3,
+    velocityY: -(0.2 * snapshot.random()) - 0.3,
+    width: 0,
+  };
+
+  return {
+    nextState: {
+      ...previousState,
+      msUntilNextSpawn: LEVEL5_MRHACKER_MINION_SPAWN_INTERVAL_MS,
+      nextWormNumericId: previousState.nextWormNumericId + 1,
+    },
+    spawnedFEmails: [],
+    spawnedRViruses: [],
+    spawnedWorms: [spawnedWorm],
   };
 }
 
