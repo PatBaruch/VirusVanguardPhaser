@@ -6429,3 +6429,351 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 15...
+📝 Auto-committed changes
+
+🔄 Iteration 15 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+Using `test-driven-development` to implement PR-026 with a strict red-green-refactor workflow.
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m
+[0m# [0mTodos
+[ ] Read required iteration files (AGENTS, PRD, ralph tasks)
+[ ] Mark PR-026 as in progress [/] in .ralph/ralph-tasks.md
+[ ] Add failing tests for Level3 Worm spawn, duplication timer, and clear gate >=600
+[ ] Implement minimal Phaser Worm behavior for Level3 to satisfy tests
+[ ] Run required gates: build, lint, unit, e2e; fix until green
+[ ] Write PR-026 handoff doc with commands and results
+[ ] Update parity/architecture docs if changed
+[ ] Mark PR-026 [x], commit with required message, output READY_FOR_NEXT_TASK
+[0m
+Using the loaded skills to execute PR-026 with TDD discipline and required loop gates. I’ll first read the mandated files in order, then mark the task in progress.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m
+[0m# [0mTodos
+[x] Read required iteration files (AGENTS, PRD, ralph tasks)
+[ ] Mark PR-026 as in progress [/] in .ralph/ralph-tasks.md
+[ ] Add failing tests for Level3 Worm spawn, duplication timer, and clear gate >=600
+[ ] Implement minimal Phaser Worm behavior for Level3 to satisfy tests
+[ ] Run required gates: build, lint, unit, e2e; fix until green
+[ ] Write PR-026 handoff doc with commands and results
+[ ] Update parity/architecture docs if changed
+[ ] Mark PR-026 [x], commit with required message, output READY_FOR_NEXT_TASK
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m# [0mTodos
+[x] Read required iteration files (AGENTS, PRD, ralph tasks)
+[x] Mark PR-026 as in progress [/] in .ralph/ralph-tasks.md
+[ ] Add failing tests for Level3 Worm spawn, duplication timer, and clear gate >=600
+[ ] Implement minimal Phaser Worm behavior for Level3 to satisfy tests
+[ ] Run required gates: build, lint, unit, e2e; fix until green
+[ ] Write PR-026 handoff doc with commands and results
+[ ] Update parity/architecture docs if changed
+[ ] Mark PR-026 [x], commit with required message, output READY_FOR_NEXT_TASK
+[0m
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 56 matches[0m
+[0m✱ [0mGlob "docs/handoffs/*PR-025*.md"[90m in . · 0 matches[0m
+[0m✱ [0mGlob "src/**/*.spec.ts"[90m in . · 24 matches[0m
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.ts
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.spec.ts
+[0m→ [0mRead src/phaser/scenes/level2RVirusCombat.ts
+[0m→ [0mRead src/Level3.ts
+[0m→ [0mRead src/phaser/scenes/level1FEmailCombat.spec.ts
+[0m→ [0mRead src/GameItem/Worm.ts
+[0m✱ [0mGrep "Worm|duplicate|duplication|clone|spawnNextItem"[90m in src · 39 matches[0m
+[0m→ [0mRead src/Level.ts[90m [offset=300, limit=140][0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/entities/FEmailPrefab.ts
+[0m→ [0mRead src/phaser/entities/RVirusPrefab.ts
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.spec.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m→ [0mRead src/GameItem.ts
+[0m→ [0mRead src/CanvasItem.ts
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 26 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-025-level2-rvirus-spawn-stick-periodic-hp-drain-clear-gate.md
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+⏳ working... elapsed 2:20 · last activity 0:13 ago
+⏳ working... elapsed 2:30 · last activity 0:23 ago
+⏳ working... elapsed 2:40 · last activity 0:33 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level3WormCombat.spec.ts
+
+LSP errors detected in src/phaser/scenes/level3WormCombat.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3WormCombat.spec.ts">
+ERROR [10:8] Cannot find module './level3WormCombat.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level3WormCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level3WormCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level3WormCombat.spec.ts [ src/phaser/scenes/level3WormCombat.spec.ts ]
+Error: Cannot find module './level3WormCombat.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3WormCombat.spec.ts'
+ ❯ src/phaser/scenes/level3WormCombat.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   LEVEL3_WORM_CLEAR_SCORE_THRESHOLD,
+      4|   LEVEL3_WORM_DUPLICATION_INTERVAL_MS,
+
+Caused by: Error: Failed to load url ./level3WormCombat.js (resolved id: ./level3WormCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level3WormCombat.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  11:42:54
+   Duration  192ms (transform 18ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 40ms)
+[0m
+⏳ working... elapsed 3:10 · last activity 0:16 ago
+⏳ working... elapsed 3:20 · last activity 0:26 ago
+⏳ working... elapsed 3:30 · last activity 0:36 ago
+⏳ working... elapsed 3:40 · last activity 0:46 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level3WormCombat.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level3WormCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level3WormCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (4 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  11:43:50
+   Duration  183ms (transform 24ms, setup 0ms, collect 20ms, tests 2ms, environment 0ms, prepare 39ms)
+[0m
+⏳ working... elapsed 4:10 · last activity 0:19 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/level3WormCombat.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/entities/WormPrefab.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [372:12] Property 'updateLevel3Combat' does not exist on type 'GameScene'. Did you mean 'updateLevel1Combat'?
+</diagnostics>
+⏳ working... elapsed 5:10 · last activity 0:16 ago
+⏳ working... elapsed 5:20 · last activity 0:26 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+⏳ working... elapsed 5:40 · last activity 0:12 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+
+LSP errors detected in src/phaser/scenes/GameScene.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/GameScene.ts">
+ERROR [1159:10] Property 'destroyAllWorms' does not exist on type 'GameScene'.
+ERROR [1174:10] Property 'destroyAllWorms' does not exist on type 'GameScene'.
+ERROR [1186:10] Property 'destroyAllWorms' does not exist on type 'GameScene'.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level3WormCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level3WormCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (4 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  11:45:54
+   Duration  238ms (transform 23ms, setup 0ms, collect 21ms, tests 2ms, environment 0ms, prepare 37ms)
+[0m
+[0m# [0mTodos
+[x] Read required iteration files (AGENTS, PRD, ralph tasks)
+[x] Mark PR-026 as in progress [/] in .ralph/ralph-tasks.md
+[x] Add failing tests for Level3 Worm spawn, duplication timer, and clear gate >=600
+[x] Implement minimal Phaser Worm behavior for Level3 to satisfy tests
+[ ] Run required gates: build, lint, unit, e2e; fix until green
+[ ] Write PR-026 handoff doc with commands and results
+[ ] Update parity/architecture docs if changed
+[ ] Mark PR-026 [x], commit with required message, output READY_FOR_NEXT_TASK
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 6ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 7ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 4ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 5ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+
+ Test Files  25 passed (25)
+      Tests  87 passed (87)
+   Start at  11:46:09
+   Duration  870ms (transform 283ms, setup 0ms, collect 601ms, tests 61ms, environment 3ms, prepare 1.40s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (728ms)
+
+  1 passed (2.0s)
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/WormPrefab.js
+?? build/phaser/entities/WormPrefab.js.map
+?? build/phaser/scenes/level3WormCombat.js
+?? build/phaser/scenes/level3WormCombat.js.map
+?? src/phaser/entities/WormPrefab.ts
+?? src/phaser/scenes/level3WormCombat.spec.ts
+?? src/phaser/scenes/level3WormCombat.ts
+[0m
+⏳ working... elapsed 6:30 · last activity 0:12 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 6:50 · last activity 0:14 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-026-level3-worm-spawn-duplication-clear-gate.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m# [0mTodos
+[x] Read required iteration files (AGENTS, PRD, ralph tasks)
+[x] Mark PR-026 as in progress [/] in .ralph/ralph-tasks.md
+[x] Add failing tests for Level3 Worm spawn, duplication timer, and clear gate >=600
+[x] Implement minimal Phaser Worm behavior for Level3 to satisfy tests
+[x] Run required gates: build, lint, unit, e2e; fix until green
+[x] Write PR-026 handoff doc with commands and results
+[x] Update parity/architecture docs if changed
+[ ] Mark PR-026 [x], commit with required message, output READY_FOR_NEXT_TASK
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/WormPrefab.js
+?? build/phaser/entities/WormPrefab.js.map
+?? build/phaser/scenes/level3WormCombat.js
+?? build/phaser/scenes/level3WormCombat.js.map
+?? docs/handoffs/2026-02-11-pr-026-level3-worm-spawn-duplication-clear-gate.md
+?? src/phaser/entities/WormPrefab.ts
+?? src/phaser/scenes/level3WormCombat.spec.ts
+?? src/phaser/scenes/level3WormCombat.ts
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/level3WormCombat.ts src/phaser/scenes/level3WormCombat.spec.ts src/phaser/entities/WormPrefab.ts src/phaser/scenes/GameScene.ts src/phaser/scenes/PreloadScene.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-026-level3-worm-spawn-duplication-clear-gate.md build/phaser/scenes/level3WormCombat.js build/phaser/scenes/level3WormCombat.js.map build/phaser/entities/WormPrefab.js build/phaser/entities/WormPrefab.js.map build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map && git commit -m "feat(parity:PR-026): implement level3 worm spawn and duplication clear-gate parity" && git status --short
+[main d423b2e] feat(parity:PR-026): implement level3 worm spawn and duplication clear-gate parity
+ 17 files changed, 1090 insertions(+), 5 deletions(-)
+ create mode 100644 build/phaser/entities/WormPrefab.js
+ create mode 100644 build/phaser/entities/WormPrefab.js.map
+ create mode 100644 build/phaser/scenes/level3WormCombat.js
+ create mode 100644 build/phaser/scenes/level3WormCombat.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-026-level3-worm-spawn-duplication-clear-gate.md
+ create mode 100644 src/phaser/entities/WormPrefab.ts
+ create mode 100644 src/phaser/scenes/level3WormCombat.spec.ts
+ create mode 100644 src/phaser/scenes/level3WormCombat.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m# [0mTodos
+[x] Read required iteration files (AGENTS, PRD, ralph tasks)
+[x] Mark PR-026 as in progress [/] in .ralph/ralph-tasks.md
+[x] Add failing tests for Level3 Worm spawn, duplication timer, and clear gate >=600
+[x] Implement minimal Phaser Worm behavior for Level3 to satisfy tests
+[x] Run required gates: build, lint, unit, e2e; fix until green
+[x] Write PR-026 handoff doc with commands and results
+[x] Update parity/architecture docs if changed
+[x] Mark PR-026 [x], commit with required message, output READY_FOR_NEXT_TASK
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 15
+Elapsed:   7:38
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 16...
