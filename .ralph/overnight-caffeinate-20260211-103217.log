@@ -4611,3 +4611,538 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 12...
+📝 Auto-committed changes
+
+🔄 Iteration 12 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "verification-before-completion"
+[0m→ [0mSkill "test-driven-development"
+[0m
+[0m# [0mTodos
+[ ] Mark PR-023 as in progress in .ralph/ralph-tasks.md
+[ ] Read AGENTS.md, PRD, and task file for scope confirmation
+[ ] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
+[ ] Implement minimal production code to satisfy new tests
+[ ] Run required gates: build, lint, unit, e2e and fix failures
+[ ] Write handoff doc and update parity/architecture docs if changed
+[ ] Mark PR-023 complete in task list and create commit
+[0m
+Using the brainstorming and TDD workflows to keep PR-023 scoped and verifiable; I’ll now perform the required iteration startup reads and task state transition first.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m# [0mTodos
+[x] Mark PR-023 as in progress in .ralph/ralph-tasks.md
+[x] Read AGENTS.md, PRD, and task file for scope confirmation
+[ ] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
+[ ] Implement minimal production code to satisfy new tests
+[ ] Run required gates: build, lint, unit, e2e and fix failures
+[ ] Write handoff doc and update parity/architecture docs if changed
+[ ] Mark PR-023 complete in task list and create commit
+[0m
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 48 matches[0m
+[0m✱ [0mGrep "bullet|projectile|shoot|score|death|hit|collision"[90m in src/phaser · 60 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/entities/ProjectilePrefab.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m✱ [0mGrep "bullet|die|dead|score|kill|explosion|effect|collision"[90m in src · 100 matches[0m
+[0m✱ [0mGlob "src/GameItem/**/*.ts"[90m in . · 8 matches[0m
+[0m→ [0mRead src/GameItem/Death.ts
+[0m→ [0mRead src/Level.ts[90m [offset=470, limit=140][0m
+[0m→ [0mRead src/GameItem/Bullet.ts
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 23 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-022-triple-shot-pattern-parity-level4-level5.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m✱ [0mGrep "Death|death|explosion|impact|effect"[90m in src/phaser · 0 matches[0m
+[0m✱ [0mGrep "PR-023|Bullet hit resolution|death effect|score hook"[90m in . · 10 matches[0m
+[0m→ [0mRead src/phaser/scenes/singleShotPattern.spec.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m✱ [0mGlob "assets/Death-Sprite/*.png"[90m in . · 0 matches[0m
+[0m✱ [0mGlob "assets/**/*Death*"[90m in . · 4 matches[0m
+⏳ working... elapsed 1:40 · last activity 0:10 ago
+⏳ working... elapsed 1:50 · last activity 0:20 ago
+⏳ working... elapsed 2:00 · last activity 0:30 ago
+⏳ working... elapsed 2:10 · last activity 0:40 ago
+⏳ working... elapsed 2:20 · last activity 0:50 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/projectileHitResolution.spec.ts
+
+LSP errors detected in src/phaser/scenes/projectileHitResolution.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/projectileHitResolution.spec.ts">
+ERROR [6:8] Cannot find module './projectileHitResolution.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/projectileHitResolution.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/projectileHitResolution.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/projectileHitResolution.spec.ts [ src/phaser/scenes/projectileHitResolution.spec.ts ]
+Error: Cannot find module './projectileHitResolution.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/projectileHitResolution.spec.ts'
+ ❯ src/phaser/scenes/projectileHitResolution.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   CombatProjectileSnapshot,
+      4|   CombatTargetSnapshot,
+
+Caused by: Error: Failed to load url ./projectileHitResolution.js (resolved id: ./projectileHitResolution.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/projectileHitResolution.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  11:23:18
+   Duration  207ms (transform 20ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 33ms)
+[0m
+⏳ working... elapsed 2:50 · last activity 0:13 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/projectileHitResolution.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/projectileHitResolution.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/projectileHitResolution.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  11:23:40
+   Duration  184ms (transform 20ms, setup 0ms, collect 18ms, tests 2ms, environment 0ms, prepare 31ms)
+[0m
+⏳ working... elapsed 3:10 · last activity 0:11 ago
+⏳ working... elapsed 3:20 · last activity 0:21 ago
+⏳ working... elapsed 3:30 · last activity 0:31 ago
+⏳ working... elapsed 3:40 · last activity 0:41 ago
+[0m# [0mTodos
+[x] Mark PR-023 as in progress in .ralph/ralph-tasks.md
+[x] Read AGENTS.md, PRD, and task file for scope confirmation
+[x] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
+[x] Implement minimal production code to satisfy new tests
+[ ] Run required gates: build, lint, unit, e2e and fix failures
+[ ] Write handoff doc and update parity/architecture docs if changed
+[ ] Mark PR-023 complete in task list and create commit
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 7ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 4ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+
+ Test Files  22 passed (22)
+      Tests  75 passed (75)
+   Start at  11:24:34
+   Duration  830ms (transform 217ms, setup 0ms, collect 493ms, tests 51ms, environment 2ms, prepare 1.20s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (688ms)
+
+  1 passed (2.0s)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+⏳ working... elapsed 4:30 · last activity 0:18 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-023-bullet-hit-resolution-death-effect-score-hook.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit log -5 --oneline
+68aa268 Ralph iteration 11: work in progress
+e63d05b feat(parity:PR-022): implement triple-shot parity for Level4 and Level5
+bfde48f Ralph iteration 10: work in progress
+7fe3e0a feat(parity:PR-021): implement dual-shot parity for Level3
+e6a18d5 Ralph iteration 9: work in progress
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+?? build/phaser/scenes/projectileHitResolution.js
+?? build/phaser/scenes/projectileHitResolution.js.map
+?? docs/handoffs/2026-02-11-pr-023-bullet-hit-resolution-death-effect-score-hook.md
+?? src/phaser/scenes/projectileHitResolution.spec.ts
+?? src/phaser/scenes/projectileHitResolution.ts
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-103217.log b/.ralph/overnight-caffeinate-20260211-103217.log
+index b37a41b..d282768 100644
+--- a/.ralph/overnight-caffeinate-20260211-103217.log
++++ b/.ralph/overnight-caffeinate-20260211-103217.log
+@@ -4611,3 +4611,216 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+    Moving to next task in iteration 12...
++📝 Auto-committed changes
++
++🔄 Iteration 12 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "verification-before-completion"
++[0m→ [0mSkill "test-driven-development"
++[0m
++[0m# [0mTodos
++[ ] Mark PR-023 as in progress in .ralph/ralph-tasks.md
++[ ] Read AGENTS.md, PRD, and task file for scope confirmation
++[ ] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
++[ ] Implement minimal production code to satisfy new tests
++[ ] Run required gates: build, lint, unit, e2e and fix failures
++[ ] Write handoff doc and update parity/architecture docs if changed
++[ ] Mark PR-023 complete in task list and create commit
++[0m
++Using the brainstorming and TDD workflows to keep PR-023 scoped and verifiable; I’ll now perform the required iteration startup reads and task state transition first.
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m
++[0m# [0mTodos
++[x] Mark PR-023 as in progress in .ralph/ralph-tasks.md
++[x] Read AGENTS.md, PRD, and task file for scope confirmation
++[ ] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
++[ ] Implement minimal production code to satisfy new tests
++[ ] Run required gates: build, lint, unit, e2e and fix failures
++[ ] Write handoff doc and update parity/architecture docs if changed
++[ ] Mark PR-023 complete in task list and create commit
++[0m
++[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 48 matches[0m
++[0m✱ [0mGrep "bullet|projectile|shoot|score|death|hit|collision"[90m in src/phaser · 60 matches[0m
++[0m→ [0mRead src/phaser/scenes/GameScene.ts
++[0m→ [0mRead src/phaser/entities/ProjectilePrefab.ts
++[0m→ [0mRead src/phaser/config/parityConstants.ts
++[0m✱ [0mGrep "bullet|die|dead|score|kill|explosion|effect|collision"[90m in src · 100 matches[0m
++[0m✱ [0mGlob "src/GameItem/**/*.ts"[90m in . · 8 matches[0m
++[0m→ [0mRead src/GameItem/Death.ts
++[0m→ [0mRead src/Level.ts[90m [offset=470, limit=140][0m
++[0m→ [0mRead src/GameItem/Bullet.ts
++[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 23 matches[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-022-triple-shot-pattern-parity-level4-level5.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m✱ [0mGrep "Death|death|explosion|impact|effect"[90m in src/phaser · 0 matches[0m
++[0m✱ [0mGrep "PR-023|Bullet hit resolution|death effect|score hook"[90m in . · 10 matches[0m
++[0m→ [0mRead src/phaser/scenes/singleShotPattern.spec.ts
++[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
++[0m✱ [0mGlob "assets/Death-Sprite/*.png"[90m in . · 0 matches[0m
++[0m✱ [0mGlob "assets/**/*Death*"[90m in . · 4 matches[0m
++⏳ working... elapsed 1:40 · last activity 0:10 ago
++⏳ working... elapsed 1:50 · last activity 0:20 ago
++⏳ working... elapsed 2:00 · last activity 0:30 ago
++⏳ working... elapsed 2:10 · last activity 0:40 ago
++⏳ working... elapsed 2:20 · last activity 0:50 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/projectileHitResolution.spec.ts
++
++LSP errors detected in src/phaser/scenes/projectileHitResolution.spec.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/projectileHitResolution.spec.ts">
++ERROR [6:8] Cannot find module './projectileHitResolution.js' or its corresponding type declarations.
++</diagnostics>
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/projectileHitResolution.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/projectileHitResolution.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  src/phaser/scenes/projectileHitResolution.spec.ts [ src/phaser/scenes/projectileHitResolution.spec.ts ]
++Error: Cannot find module './projectileHitResolution.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/projectileHitResolution.spec.ts'
++ ❯ src/phaser/scenes/projectileHitResolution.spec.ts:2:1
++      1| import { describe, expect, it } from 'vitest';
++      2| import {
++       | ^
++      3|   CombatProjectileSnapshot,
++      4|   CombatTargetSnapshot,
++
++Caused by: Error: Failed to load url ./projectileHitResolution.js (resolved id: ./projectileHitResolution.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/projectileHitResolution.spec.ts. Does the file exist?
++ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  no tests
++   Start at  11:23:18
++   Duration  207ms (transform 20ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 33ms)
++[0m
++⏳ working... elapsed 2:50 · last activity 0:13 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/projectileHitResolution.ts
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/projectileHitResolution.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/projectileHitResolution.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 2ms
++
++ Test Files  1 passed (1)
++      Tests  4 passed (4)
++   Start at  11:23:40
++   Duration  184ms (transform 20ms, setup 0ms, collect 18ms, tests 2ms, environment 0ms, prepare 31ms)
++[0m
++⏳ working... elapsed 3:10 · last activity 0:11 ago
++⏳ working... elapsed 3:20 · last activity 0:21 ago
++⏳ working... elapsed 3:30 · last activity 0:31 ago
++⏳ working... elapsed 3:40 · last activity 0:41 ago
++[0m# [0mTodos
++[x] Mark PR-023 as in progress in .ralph/ralph-tasks.md
++[x] Read AGENTS.md, PRD, and task file for scope confirmation
++[x] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
++[x] Implement minimal production code to satisfy new tests
++[ ] Run required gates: build, lint, unit, e2e and fix failures
++[ ] Write handoff doc and update parity/architecture docs if changed
++[ ] Mark PR-023 complete in task list and create commit
++[0m
++[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++
++
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 4ms
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 7ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 4ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 2ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
++
++ Test Files  22 passed (22)
++      Tests  75 passed (75)
++   Start at  11:24:34
++   Duration  830ms (transform 217ms, setup 0ms, collect 493ms, tests 51ms, environment 2ms, prepare 1.20s)
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (688ms)
++
++  1 passed (2.0s)
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++⏳ working... elapsed 4:30 · last activity 0:18 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-023-bullet-hit-resolution-death-effect-score-hook.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m
++[0m$ [0mgit log -5 --oneline
++68aa268 Ralph iteration 11: work in progress
++e63d05b feat(parity:PR-022): implement triple-shot parity for Level4 and Level5
++bfde48f Ralph iteration 10: work in progress
++7fe3e0a feat(parity:PR-021): implement dual-shot parity for Level3
++e6a18d5 Ralph iteration 9: work in progress
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-103217.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++?? build/phaser/scenes/projectileHitResolution.js
++?? build/phaser/scenes/projectileHitResolution.js.map
++?? docs/handoffs/2026-02-11-pr-023-bullet-hit-resolution-death-effect-score-hook.md
++?? src/phaser/scenes/projectileHitResolution.spec.ts
++?? src/phaser/scenes/projectileHitResolution.ts
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index 5b7a4f8..ddf623c 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 11,
++  "iteration": 12,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index f907915..dd22309 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -27,7 +27,7 @@
+ - [x] PR-020: Single-shot pattern parity (Level1 and Level2)
+ - [x] PR-021: Dual-shot pattern parity (Level3)
+ - [x] PR-022: Triple-shot pattern parity (Level4 and Level5)
+-- [ ] PR-023: Bullet hit resolution + death effect + score hook
++- [x] PR-023: Bullet hit resolution + death effect + score hook
+ 
+ ## Wave D - Enemies by Level (One-by-One)
+ - [ ] PR-024: Level1 FEmail spawn cadence + collision/damage/score + clear gate (>=200)
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index 9f8749f..30258fe 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -22,8 +22,9 @@ flowchart TD
+   D17 --> D18[Single-Shot Pattern (Level1 + Level2)]
+   D18 --> D19[Dual-Shot Pattern (Level3)]
+   D19 --> D20[Triple-Shot Pattern (Level4 + Level5)]
++  D20 --> D21[Projectile Hit Resolution + Death Effect + Score Hook]
+   C --> E[Core Systems Parity]
+-  D20 --> E
++  D21 --> E
+   E --> F[Walkable Levels]
+   F --> G[Shooting Systems]
+   G --> H[Enemy Systems by Level]
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index 63f3d77..0939aac 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -3,7 +3,7 @@
+ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ 
+ ## Open
+-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, level-based shoot input gating (blocked in Level0, enabled in combat levels), single-shot projectile parity for Level1 and Level2, dual-shot projectile parity for Level3, and triple-shot projectile parity for Level4 and Level5; hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
++- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, a projectile base entity with parity movement/culling helpers, level-based shoot input gating (blocked in Level0, enabled in combat levels), single-shot projectile parity for Level1 and Level2, dual-shot projectile parity for Level3, triple-shot projectile parity for Level4 and Level5, and a parity projectile-hit resolver that emits death-effect spawn points and score deltas on enemy defeat; runtime enemy lifecycles and boss logic remain pending.
+ - Documentation artifacts currently track migration status only at wave/feature granularity; behavior-level parity evidence will be filled in as gameplay PRs land.
+ 
+ ## Resolved
+@@ -25,3 +25,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ - PR-020 added single-shot projectile parity for Level1 and Level2 with legacy direction-based velocity mapping and diagonal normalization.
+ - PR-021 added dual-shot projectile parity for Level3 with legacy directional spawn offsets and velocity mapping.
+ - PR-022 added triple-shot projectile parity for Level4 and Level5 with legacy directional spread vectors and spawn offsets.
++- PR-023 added projectile hit-resolution parity logic with AABB collision handling, death-effect spawn emission on each bullet impact, and score-delta hooks when targets are defeated.
+[0m
+[0m# [0mTodos
+[x] Mark PR-023 as in progress in .ralph/ralph-tasks.md
+[x] Read AGENTS.md, PRD, and task file for scope confirmation
+[x] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
+[x] Implement minimal production code to satisfy new tests
+[x] Run required gates: build, lint, unit, e2e and fix failures
+[x] Write handoff doc and update parity/architecture docs if changed
+[ ] Mark PR-023 complete in task list and create commit
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md docs/architecture/phaser-migration.mmd docs/parity/known-limitations.md docs/handoffs/2026-02-11-pr-023-bullet-hit-resolution-death-effect-score-hook.md src/phaser/scenes/projectileHitResolution.ts src/phaser/scenes/projectileHitResolution.spec.ts build/phaser/scenes/projectileHitResolution.js build/phaser/scenes/projectileHitResolution.js.map && git commit -m "feat(parity:PR-023): add projectile hit resolution score and death hooks" && git status --short
+[main e35096e] feat(parity:PR-023): add projectile hit resolution score and death hooks
+ 8 files changed, 338 insertions(+), 3 deletions(-)
+ create mode 100644 build/phaser/scenes/projectileHitResolution.js
+ create mode 100644 build/phaser/scenes/projectileHitResolution.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-023-bullet-hit-resolution-death-effect-score-hook.md
+ create mode 100644 src/phaser/scenes/projectileHitResolution.spec.ts
+ create mode 100644 src/phaser/scenes/projectileHitResolution.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m# [0mTodos
+[x] Mark PR-023 as in progress in .ralph/ralph-tasks.md
+[x] Read AGENTS.md, PRD, and task file for scope confirmation
+[x] Implement PR-023 via TDD: add failing tests for bullet hit resolution, death effect, and score hook
+[x] Implement minimal production code to satisfy new tests
+[x] Run required gates: build, lint, unit, e2e and fix failures
+[x] Write handoff doc and update parity/architecture docs if changed
+[x] Mark PR-023 complete in task list and create commit
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 12
+Elapsed:   5:11
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 13...
