@@ -28,6 +28,8 @@ import WormPrefab from '../entities/WormPrefab.js';
 import { LEVEL3_WORM_DAMAGE, LEVEL3_WORM_HEALTH, LEVEL3_WORM_SCORE_VALUE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, resolveLevel3PlayerEnemyCollisions, } from './level3WormCombat.js';
 import TrojanPrefab from '../entities/TrojanPrefab.js';
 import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpawnState, createInitialLevel4TrojanSpawnState, resolveLevel4TrojanBreaches, resolveLevel4TrojanPlayerCollisions, resolveLevel4TrojanProjectileHits, } from './level4TrojanCombat.js';
+import MrHackerPrefab from '../entities/MrHackerPrefab.js';
+import { advanceLevel5MrHackerSpawnState, createInitialLevel5MrHackerSpawnState, resolveLevel5MrHackerHealthBarTextureKey, } from './level5MrHackerCombat.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -71,6 +73,9 @@ export default class GameScene extends Phaser.Scene {
     level3WormSpawnState;
     level3WormDuplicationState;
     activeTrojans;
+    activeMrHacker;
+    level5MrHackerSpawnState;
+    mrHackerHealthBar;
     level4TrojanSpawnState;
     level4SplitFEmailNextEnemyNumericId;
     level4SplitRVirusNextEnemyNumericId;
@@ -117,6 +122,9 @@ export default class GameScene extends Phaser.Scene {
         this.level3WormSpawnState = createInitialLevel3WormSpawnState();
         this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
         this.activeTrojans = [];
+        this.activeMrHacker = null;
+        this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
+        this.mrHackerHealthBar = null;
         this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
         this.level4SplitFEmailNextEnemyNumericId = 0;
         this.level4SplitRVirusNextEnemyNumericId = 0;
@@ -141,6 +149,9 @@ export default class GameScene extends Phaser.Scene {
         this.dialogueImage.setVisible(false);
         this.player = new PlayerPrefab(this);
         this.add.existing(this.player);
+        this.mrHackerHealthBar = this.add.image(centerX - 480, centerY - 968, resolveLevel5MrHackerHealthBarTextureKey(25));
+        this.mrHackerHealthBar.setOrigin(0, 0);
+        this.mrHackerHealthBar.setVisible(false);
         this.events.on(GameScene.SHOOT_INPUT_EVENT, this.handleShootInput, this);
         this.syncActiveLevelVisualState();
     }
@@ -209,6 +220,7 @@ export default class GameScene extends Phaser.Scene {
         }
         if (this.activeLevelId === 5 && this.level5Phase === 'walkable' && !this.hasTriggeredVictory) {
             this.updatePlayerMovement();
+            this.updateLevel5Combat(delta);
             this.updateLevel5VictoryTrigger();
         }
     }
@@ -1064,8 +1076,93 @@ export default class GameScene extends Phaser.Scene {
         });
         this.syncActiveLevelVisualState();
     }
+    updateLevel5Combat(elapsedMs) {
+        const spawnResolution = advanceLevel5MrHackerSpawnState(this.level5MrHackerSpawnState, {
+            canSpawn: this.activeLevelId === 5 && this.level5Phase === 'walkable',
+            canvasHeight: this.scale.height,
+            canvasWidth: this.scale.width,
+        });
+        this.level5MrHackerSpawnState = spawnResolution.nextState;
+        for (const spawnedEnemy of spawnResolution.spawnedEnemies) {
+            const mrHacker = new MrHackerPrefab(this, spawnedEnemy);
+            this.add.existing(mrHacker);
+            this.activeMrHacker = mrHacker;
+        }
+        if (this.activeMrHacker === null) {
+            this.activeCombatItemCount = 0;
+            this.syncLevel5BossHealthBar();
+            return;
+        }
+        this.activeMrHacker.advanceAnimation(elapsedMs);
+        this.resolveLevel5MrHackerProjectileHits();
+        if (this.activeMrHacker !== null && this.activeMrHacker.getCurrentHealth() <= 0) {
+            this.activeMrHacker.destroy();
+            this.activeMrHacker = null;
+            this.activeCombatItemCount = 0;
+            this.syncLevel5BossHealthBar();
+            return;
+        }
+        this.activeCombatItemCount = 1;
+        this.syncLevel5BossHealthBar();
+    }
+    resolveLevel5MrHackerProjectileHits() {
+        if (this.activeProjectiles.length === 0 || this.activeMrHacker === null) {
+            return;
+        }
+        const projectileSnapshots = this.activeProjectiles.map((projectile) => ({
+            centerX: projectile.x,
+            centerY: projectile.y,
+            damage: projectile.getDamage(),
+            height: projectile.displayHeight,
+            projectileId: projectile.name,
+            width: projectile.displayWidth,
+        }));
+        for (let index = 0; index < projectileSnapshots.length; index += 1) {
+            projectileSnapshots[index].projectileId = `projectile-${index}`;
+        }
+        const mrHackerSnapshot = this.activeMrHacker.toSnapshot();
+        const resolution = resolveProjectileHitResolution({
+            projectiles: projectileSnapshots,
+            targets: [{
+                    centerX: mrHackerSnapshot.centerX,
+                    centerY: mrHackerSnapshot.centerY,
+                    currentHealth: mrHackerSnapshot.currentHealth,
+                    height: mrHackerSnapshot.height,
+                    scoreValue: mrHackerSnapshot.scoreValue,
+                    targetId: mrHackerSnapshot.enemyId,
+                    width: mrHackerSnapshot.width,
+                }],
+        });
+        if (resolution.destroyedProjectileIds.length > 0) {
+            this.activeProjectiles = this.activeProjectiles.filter((projectile, index) => {
+                const projectileId = `projectile-${index}`;
+                const isDestroyed = resolution.destroyedProjectileIds.includes(projectileId);
+                if (isDestroyed) {
+                    projectile.destroy();
+                }
+                return !isDestroyed;
+            });
+        }
+        if (resolution.remainingTargets.length === 0) {
+            this.activeMrHacker.applySnapshot({
+                ...mrHackerSnapshot,
+                currentHealth: 0,
+            });
+            return;
+        }
+        const remainingTarget = resolution.remainingTargets[0];
+        this.activeMrHacker.applySnapshot({
+            ...mrHackerSnapshot,
+            centerX: remainingTarget.centerX,
+            centerY: remainingTarget.centerY,
+            currentHealth: remainingTarget.currentHealth,
+            height: remainingTarget.height,
+            width: remainingTarget.width,
+        });
+    }
     enterLevel1() {
         this.activeLevelId = 1;
+        this.destroyMrHacker();
         this.hasTriggeredLevel1Transition = true;
         this.level1FEmailSpawnState = createInitialLevel1FEmailSpawnState();
         this.activeCombatItemCount = 0;
@@ -1075,6 +1172,7 @@ export default class GameScene extends Phaser.Scene {
     }
     enterLevel2() {
         this.activeLevelId = 2;
+        this.destroyMrHacker();
         this.destroyAllFEmails();
         this.destroyAllRViruses();
         this.activeCombatItemCount = 0;
@@ -1086,6 +1184,7 @@ export default class GameScene extends Phaser.Scene {
     }
     enterLevel3() {
         this.activeLevelId = 3;
+        this.destroyMrHacker();
         this.destroyAllRViruses();
         this.destroyAllWorms();
         this.activeCombatItemCount = 0;
@@ -1098,6 +1197,7 @@ export default class GameScene extends Phaser.Scene {
     }
     enterLevel4() {
         this.activeLevelId = 4;
+        this.destroyMrHacker();
         this.destroyAllFEmails();
         this.destroyAllRViruses();
         this.destroyAllWorms();
@@ -1113,11 +1213,13 @@ export default class GameScene extends Phaser.Scene {
     }
     enterLevel5() {
         this.activeLevelId = 5;
+        this.destroyMrHacker();
         this.destroyAllFEmails();
         this.destroyAllRViruses();
         this.destroyAllWorms();
         this.destroyAllTrojans();
         this.activeCombatItemCount = 0;
+        this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
         this.level5DialogueState = createInitialLevel5DialogueState();
         this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
         this.syncActiveLevelVisualState();
@@ -1155,10 +1257,12 @@ export default class GameScene extends Phaser.Scene {
             this.setStartPromptVisible(true);
             this.setDialogueVisible(false);
             this.setPlayerVisible(false);
+            this.setMrHackerHealthBarVisible(false);
             return;
         }
         document.body.className = 'level0';
         this.setStartPromptVisible(false);
+        this.setMrHackerHealthBarVisible(false);
         if (this.level0Phase === 'dialogue') {
             this.setDialogueVisible(true);
             this.setPlayerVisible(false);
@@ -1167,10 +1271,12 @@ export default class GameScene extends Phaser.Scene {
         }
         this.setDialogueVisible(false);
         this.setPlayerVisible(true);
+        this.setMrHackerHealthBarVisible(false);
     }
     syncLevel1VisualState() {
         document.body.className = 'level1';
         this.setStartPromptVisible(false);
+        this.setMrHackerHealthBarVisible(false);
         if (this.level1Phase === 'dialogue') {
             this.setDialogueVisible(true);
             this.setPlayerVisible(false);
@@ -1179,10 +1285,12 @@ export default class GameScene extends Phaser.Scene {
         }
         this.setDialogueVisible(false);
         this.setPlayerVisible(true);
+        this.setMrHackerHealthBarVisible(false);
     }
     syncLevel2VisualState() {
         document.body.className = 'level2';
         this.setStartPromptVisible(false);
+        this.setMrHackerHealthBarVisible(false);
         if (this.level2Phase === 'dialogue') {
             this.setDialogueVisible(true);
             this.setPlayerVisible(false);
@@ -1191,10 +1299,12 @@ export default class GameScene extends Phaser.Scene {
         }
         this.setDialogueVisible(false);
         this.setPlayerVisible(true);
+        this.setMrHackerHealthBarVisible(false);
     }
     syncLevel3VisualState() {
         document.body.className = 'level3';
         this.setStartPromptVisible(false);
+        this.setMrHackerHealthBarVisible(false);
         if (this.level3Phase === 'dialogue') {
             this.setDialogueVisible(true);
             this.setPlayerVisible(false);
@@ -1203,10 +1313,12 @@ export default class GameScene extends Phaser.Scene {
         }
         this.setDialogueVisible(false);
         this.setPlayerVisible(true);
+        this.setMrHackerHealthBarVisible(false);
     }
     syncLevel4VisualState() {
         document.body.className = 'level4';
         this.setStartPromptVisible(false);
+        this.setMrHackerHealthBarVisible(false);
         if (this.level4Phase === 'dialogue') {
             this.setDialogueVisible(true);
             this.setPlayerVisible(false);
@@ -1215,6 +1327,7 @@ export default class GameScene extends Phaser.Scene {
         }
         this.setDialogueVisible(false);
         this.setPlayerVisible(true);
+        this.setMrHackerHealthBarVisible(false);
     }
     syncLevel5VisualState() {
         document.body.className = 'level5';
@@ -1227,12 +1340,26 @@ export default class GameScene extends Phaser.Scene {
         }
         this.setDialogueVisible(false);
         this.setPlayerVisible(true);
+        this.syncLevel5BossHealthBar();
     }
     syncVictoryVisualState() {
         document.body.className = 'victory';
         this.setStartPromptVisible(false);
         this.setDialogueVisible(false);
         this.setPlayerVisible(false);
+        this.setMrHackerHealthBarVisible(false);
+    }
+    syncLevel5BossHealthBar() {
+        if (this.mrHackerHealthBar === null) {
+            return;
+        }
+        if (this.activeLevelId !== 5 || this.level5Phase !== 'walkable' || this.activeMrHacker === null) {
+            this.mrHackerHealthBar.setVisible(false);
+            return;
+        }
+        this.mrHackerHealthBar.setTexture(resolveLevel5MrHackerHealthBarTextureKey(this.activeMrHacker.getCurrentHealth()));
+        this.mrHackerHealthBar.setPosition(this.scale.width / 2 - 480, this.scale.height / 2 - 968);
+        this.mrHackerHealthBar.setVisible(true);
     }
     setDialogueVisible(shouldBeVisible) {
         if (this.dialogueImage !== null) {
@@ -1247,6 +1374,11 @@ export default class GameScene extends Phaser.Scene {
     setPlayerVisible(shouldBeVisible) {
         if (this.player !== null) {
             this.player.setVisible(shouldBeVisible);
+        }
+    }
+    setMrHackerHealthBarVisible(shouldBeVisible) {
+        if (this.mrHackerHealthBar !== null) {
+            this.mrHackerHealthBar.setVisible(shouldBeVisible);
         }
     }
     destroyAllFEmails() {
@@ -1272,6 +1404,13 @@ export default class GameScene extends Phaser.Scene {
             enemy.destroy();
         }
         this.activeTrojans = [];
+    }
+    destroyMrHacker() {
+        if (this.activeMrHacker !== null) {
+            this.activeMrHacker.destroy();
+            this.activeMrHacker = null;
+        }
+        this.setMrHackerHealthBarVisible(false);
     }
     isActiveLevelWalkablePhase() {
         if (this.activeLevelId === 0) {

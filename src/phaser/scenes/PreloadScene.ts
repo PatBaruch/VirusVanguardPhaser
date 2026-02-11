@@ -16,6 +16,10 @@ import FEmailPrefab from '../entities/FEmailPrefab.js';
 import RVirusPrefab from '../entities/RVirusPrefab.js';
 import WormPrefab from '../entities/WormPrefab.js';
 import TrojanPrefab from '../entities/TrojanPrefab.js';
+import {
+  LEVEL5_MRHACKER_HEALTH_BAR_TEXTURE_KEYS,
+  LEVEL5_MRHACKER_TEXTURE_KEYS,
+} from './level5MrHackerCombat.js';
 
 /**
  * Minimal preload scene shell for Phaser runtime lifecycle.
@@ -83,6 +87,15 @@ export default class PreloadScene extends Phaser.Scene {
       TrojanPrefab.TEXTURE_KEY,
       './assets/Trojan-Sprite/Hsprite_0.png',
     );
+
+    LEVEL5_MRHACKER_TEXTURE_KEYS.forEach((textureKey: string, index: number) => {
+      this.load.image(textureKey, `./assets/Hacker-Sprite/Hacksprite_${index}.png`);
+    });
+
+    LEVEL5_MRHACKER_HEALTH_BAR_TEXTURE_KEYS.forEach((textureKey: string, index: number) => {
+      this.load.image(textureKey, `./assets/BossBar_Sprite/bossbar_${index.toString().padStart(2, '0')}.png`);
+    });
+
   }
 
   public create(): void {

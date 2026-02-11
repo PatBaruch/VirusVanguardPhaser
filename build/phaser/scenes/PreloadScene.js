@@ -12,6 +12,7 @@ import FEmailPrefab from '../entities/FEmailPrefab.js';
 import RVirusPrefab from '../entities/RVirusPrefab.js';
 import WormPrefab from '../entities/WormPrefab.js';
 import TrojanPrefab from '../entities/TrojanPrefab.js';
+import { LEVEL5_MRHACKER_HEALTH_BAR_TEXTURE_KEYS, LEVEL5_MRHACKER_TEXTURE_KEYS, } from './level5MrHackerCombat.js';
 export default class PreloadScene extends Phaser.Scene {
     static SCENE_KEY = 'PreloadScene';
     constructor() {
@@ -44,6 +45,12 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image(RVirusPrefab.TEXTURE_KEY, './assets/Resident-Sprite/Rsprite_0.png');
         this.load.image(WormPrefab.TEXTURE_KEY, './assets/Worm-Sprite/Wsprite_0.png');
         this.load.image(TrojanPrefab.TEXTURE_KEY, './assets/Trojan-Sprite/Hsprite_0.png');
+        LEVEL5_MRHACKER_TEXTURE_KEYS.forEach((textureKey, index) => {
+            this.load.image(textureKey, `./assets/Hacker-Sprite/Hacksprite_${index}.png`);
+        });
+        LEVEL5_MRHACKER_HEALTH_BAR_TEXTURE_KEYS.forEach((textureKey, index) => {
+            this.load.image(textureKey, `./assets/BossBar_Sprite/bossbar_${index.toString().padStart(2, '0')}.png`);
+        });
     }
     create() {
         this.scene.start(GameScene.SCENE_KEY);
