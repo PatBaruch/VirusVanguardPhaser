@@ -7831,3 +7831,801 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 18...
+📝 Auto-committed changes
+
+🔄 Iteration 18 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+Using the `test-driven-development` skill to implement PR-029 with a fail-first test cycle, and using the `brainstorming` skill outcome to keep scope tightly aligned to parity requirements. I’ll start by re-reading the required iteration docs and then mark PR-029 as in progress.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 63 matches[0m
+[0m✱ [0mGrep "MrHacker|boss|Level5|health bar|healthBar|hp"[90m in src/phaser · 70 matches[0m
+[0m✱ [0mGlob "src/**/*MrHacker*.ts"[90m in . · 1 match[0m
+[0m✱ [0mGrep "MrHacker|health bar|boss|life|maxLife|hp"[90m in src · 55 matches[0m
+[0m→ [0mRead src/GameItem/MrHacker.ts
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1510, limit=260][0m
+[0m→ [0mRead src/phaser/scenes/level4TrojanCombat.ts
+[0m→ [0mRead src/phaser/entities/TrojanPrefab.ts
+[0m→ [0mRead src/phaser/scenes/level4TrojanCombat.spec.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m✱ [0mGlob "assets/Hacker-Sprite/*"[90m in . · 3 matches[0m
+[0m✱ [0mGlob "assets/BossBar_Sprite/*"[90m in . · 26 matches[0m
+[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+⏳ working... elapsed 1:30 · last activity 0:15 ago
+[0m✱ [0mGrep "PR-029|MrHacker|health bar|boss"[90m in docs · 36 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md
+⏳ working... elapsed 1:50 · last activity 0:14 ago
+⏳ working... elapsed 2:00 · last activity 0:24 ago
+I’m now doing the RED step from TDD: adding a focused failing unit test file for Level5 MrHacker spawn/HP/health-bar behavior before implementation.
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+LSP errors detected in src/phaser/scenes/level5MrHackerCombat.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts">
+ERROR [9:8] Cannot find module './level5MrHackerCombat.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level5MrHackerCombat.spec.ts [ src/phaser/scenes/level5MrHackerCombat.spec.ts ]
+Error: Cannot find module './level5MrHackerCombat.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts'
+ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   LEVEL5_MRHACKER_DAMAGE,
+      4|   LEVEL5_MRHACKER_HEALTH,
+
+Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  12:05:44
+   Duration  207ms (transform 20ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 39ms)
+[0m
+⏳ working... elapsed 2:30 · last activity 0:10 ago
+⏳ working... elapsed 2:40 · last activity 0:20 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5MrHackerCombat.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/entities/MrHackerPrefab.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+⏳ working... elapsed 3:20 · last activity 0:10 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+⏳ working... elapsed 3:40 · last activity 0:18 ago
+⏳ working... elapsed 3:50 · last activity 0:28 ago
+⏳ working... elapsed 4:00 · last activity 0:38 ago
+⏳ working... elapsed 4:10 · last activity 0:48 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (3 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  12:07:55
+   Duration  192ms (transform 22ms, setup 0ms, collect 18ms, tests 2ms, environment 0ms, prepare 44ms)
+[0m
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 4ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 4ms
+ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 6ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 7ms
+ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 7ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (3 tests) 3ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 6ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 1ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 3ms
+
+ Test Files  27 passed (27)
+      Tests  97 passed (97)
+   Start at  12:08:01
+   Duration  885ms (transform 257ms, setup 0ms, collect 598ms, tests 76ms, environment 3ms, prepare 1.52s)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (744ms)
+
+  1 passed (2.1s)
+[0m
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+⏳ working... elapsed 5:20 · last activity 0:10 ago
+⏳ working... elapsed 5:30 · last activity 0:20 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/MrHackerPrefab.js
+?? build/phaser/entities/MrHackerPrefab.js.map
+?? build/phaser/scenes/level5MrHackerCombat.js
+?? build/phaser/scenes/level5MrHackerCombat.js.map
+?? docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md
+?? src/phaser/entities/MrHackerPrefab.ts
+?? src/phaser/scenes/level5MrHackerCombat.spec.ts
+?? src/phaser/scenes/level5MrHackerCombat.ts
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-103217.log b/.ralph/overnight-caffeinate-20260211-103217.log
+index f007076..d0ba387 100644
+--- a/.ralph/overnight-caffeinate-20260211-103217.log
++++ b/.ralph/overnight-caffeinate-20260211-103217.log
+@@ -7831,3 +7831,206 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+    Moving to next task in iteration 18...
++📝 Auto-committed changes
++
++🔄 Iteration 18 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "test-driven-development"
++[0m→ [0mSkill "writing-plans"
++Using the `test-driven-development` skill to implement PR-029 with a fail-first test cycle, and using the `brainstorming` skill outcome to keep scope tightly aligned to parity requirements. I’ll start by re-reading the required iteration docs and then mark PR-029 as in progress.
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 63 matches[0m
++[0m✱ [0mGrep "MrHacker|boss|Level5|health bar|healthBar|hp"[90m in src/phaser · 70 matches[0m
++[0m✱ [0mGlob "src/**/*MrHacker*.ts"[90m in . · 1 match[0m
++[0m✱ [0mGrep "MrHacker|health bar|boss|life|maxLife|hp"[90m in src · 55 matches[0m
++[0m→ [0mRead src/GameItem/MrHacker.ts
++[0m→ [0mRead src/Level.ts
++[0m→ [0mRead src/phaser/scenes/GameScene.ts
++[0m→ [0mRead src/phaser/scenes/GameScene.ts[90m [offset=1510, limit=260][0m
++[0m→ [0mRead src/phaser/scenes/level4TrojanCombat.ts
++[0m→ [0mRead src/phaser/entities/TrojanPrefab.ts
++[0m→ [0mRead src/phaser/scenes/level4TrojanCombat.spec.ts
++[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
++[0m✱ [0mGlob "assets/Hacker-Sprite/*"[90m in . · 3 matches[0m
++[0m✱ [0mGlob "assets/BossBar_Sprite/*"[90m in . · 26 matches[0m
++[0m→ [0mRead src/phaser/scenes/transitionRuleEngine.ts
++[0m→ [0mRead src/phaser/config/parityConstants.ts
++⏳ working... elapsed 1:30 · last activity 0:15 ago
++[0m✱ [0mGrep "PR-029|MrHacker|health bar|boss"[90m in docs · 36 matches[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-028-enemy-collision-matrix-hardening-levels1-4.md
++⏳ working... elapsed 1:50 · last activity 0:14 ago
++⏳ working... elapsed 2:00 · last activity 0:24 ago
++I’m now doing the RED step from TDD: adding a focused failing unit test file for Level5 MrHacker spawn/HP/health-bar behavior before implementation.
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5MrHackerCombat.spec.ts
++
++LSP errors detected in src/phaser/scenes/level5MrHackerCombat.spec.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts">
++ERROR [9:8] Cannot find module './level5MrHackerCombat.js' or its corresponding type declarations.
++</diagnostics>
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  src/phaser/scenes/level5MrHackerCombat.spec.ts [ src/phaser/scenes/level5MrHackerCombat.spec.ts ]
++Error: Cannot find module './level5MrHackerCombat.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts'
++ ❯ src/phaser/scenes/level5MrHackerCombat.spec.ts:2:1
++      1| import { describe, expect, it } from 'vitest';
++      2| import {
++       | ^
++      3|   LEVEL5_MRHACKER_DAMAGE,
++      4|   LEVEL5_MRHACKER_HEALTH,
++
++Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts. Does the file exist?
++ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
++
++
++ Test Files  1 failed (1)
++      Tests  no tests
++   Start at  12:05:44
++   Duration  207ms (transform 20ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 39ms)
++[0m
++⏳ working... elapsed 2:30 · last activity 0:10 ago
++⏳ working... elapsed 2:40 · last activity 0:20 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5MrHackerCombat.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/entities/MrHackerPrefab.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/PreloadScene.ts
++⏳ working... elapsed 3:20 · last activity 0:10 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/PreloadScene.ts
++⏳ working... elapsed 3:40 · last activity 0:18 ago
++⏳ working... elapsed 3:50 · last activity 0:28 ago
++⏳ working... elapsed 4:00 · last activity 0:38 ago
++⏳ working... elapsed 4:10 · last activity 0:48 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5MrHackerCombat.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/level5MrHackerCombat.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (3 tests) 2ms
++
++ Test Files  1 passed (1)
++      Tests  3 passed (3)
++   Start at  12:07:55
++   Duration  192ms (transform 22ms, setup 0ms, collect 18ms, tests 2ms, environment 0ms, prepare 44ms)
++[0m
++[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
++> ts-wizards-chest@2023.1 build
++> tsc
++
++
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++
++
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/singleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/scenes/level2RVirusCombat.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/projectileHitResolution.spec.ts (4 tests) 4ms
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 4ms
++ ✓ src/phaser/scenes/level4TrojanCombat.spec.ts (6 tests) 6ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level3WormCombat.spec.ts (5 tests) 3ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/tripleShotPattern.spec.ts (2 tests) 3ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 7ms
++ ✓ src/phaser/scenes/level1FEmailCombat.spec.ts (4 tests) 7ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/dualShotPattern.spec.ts (2 tests) 2ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level5MrHackerCombat.spec.ts (3 tests) 3ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 6ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 3ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 1ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/shootInputGate.spec.ts (2 tests) 1ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 3ms
++
++ Test Files  27 passed (27)
++      Tests  97 passed (97)
++   Start at  12:08:01
++   Duration  885ms (transform 257ms, setup 0ms, collect 598ms, tests 76ms, environment 3ms, prepare 1.52s)
++
++
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (744ms)
++
++  1 passed (2.1s)
++[0m
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++⏳ working... elapsed 5:20 · last activity 0:10 ago
++⏳ working... elapsed 5:30 · last activity 0:20 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-103217.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/phaser/scenes/GameScene.js
++ M build/phaser/scenes/GameScene.js.map
++ M build/phaser/scenes/PreloadScene.js
++ M build/phaser/scenes/PreloadScene.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M src/phaser/scenes/GameScene.ts
++ M src/phaser/scenes/PreloadScene.ts
++?? build/phaser/entities/MrHackerPrefab.js
++?? build/phaser/entities/MrHackerPrefab.js.map
++?? build/phaser/scenes/level5MrHackerCombat.js
++?? build/phaser/scenes/level5MrHackerCombat.js.map
++?? docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md
++?? src/phaser/entities/MrHackerPrefab.ts
++?? src/phaser/scenes/level5MrHackerCombat.spec.ts
++?? src/phaser/scenes/level5MrHackerCombat.ts
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index 99636f0..f85bcad 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 17,
++  "iteration": 18,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index 02adcca..fcd2a53 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -37,7 +37,7 @@
+ - [x] PR-028: Enemy collision matrix hardening for Levels1 to 4
+ 
+ ## Wave E - Boss Fight Last
+-- [ ] PR-029: Level5 MrHacker spawn + HP model + health bar parity
++- [x] PR-029: Level5 MrHacker spawn + HP model + health bar parity
+ - [ ] PR-030: Boss bullet firing + enemy bullet collision/damage parity
+ - [ ] PR-031: Boss minion spawn cycle parity (FEmail, RVirus, Worm)
+ - [ ] PR-032: Boss defeat + win flow + final multiplier + restart parity
+diff --git a/build/phaser/scenes/GameScene.js b/build/phaser/scenes/GameScene.js
+index 724ed08..aa444a6 100644
+--- a/build/phaser/scenes/GameScene.js
++++ b/build/phaser/scenes/GameScene.js
+@@ -28,6 +28,8 @@ import WormPrefab from '../entities/WormPrefab.js';
+ import { LEVEL3_WORM_DAMAGE, LEVEL3_WORM_HEALTH, LEVEL3_WORM_SCORE_VALUE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, resolveLevel3PlayerEnemyCollisions, } from './level3WormCombat.js';
+ import TrojanPrefab from '../entities/TrojanPrefab.js';
+ import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpawnState, createInitialLevel4TrojanSpawnState, resolveLevel4TrojanBreaches, resolveLevel4TrojanPlayerCollisions, resolveLevel4TrojanProjectileHits, } from './level4TrojanCombat.js';
++import MrHackerPrefab from '../entities/MrHackerPrefab.js';
++import { advanceLevel5MrHackerSpawnState, createInitialLevel5MrHackerSpawnState, resolveLevel5MrHackerHealthBarTextureKey, } from './level5MrHackerCombat.js';
+ export default class GameScene extends Phaser.Scene {
+     static SCENE_KEY = 'GameScene';
+     static LEVEL_TRANSITION_EVENT = 'level-transition';
+@@ -71,6 +73,9 @@ export default class GameScene extends Phaser.Scene {
+     level3WormSpawnState;
+     level3WormDuplicationState;
+     activeTrojans;
++    activeMrHacker;
++    level5MrHackerSpawnState;
++    mrHackerHealthBar;
+     level4TrojanSpawnState;
+     level4SplitFEmailNextEnemyNumericId;
+     level4SplitRVirusNextEnemyNumericId;
+@@ -117,6 +122,9 @@ export default class GameScene extends Phaser.Scene {
+         this.level3WormSpawnState = createInitialLevel3WormSpawnState();
+         this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
+         this.activeTrojans = [];
++        this.activeMrHacker = null;
++        this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
++        this.mrHackerHealthBar = null;
+         this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
+         this.level4SplitFEmailNextEnemyNumericId = 0;
+         this.level4SplitRVirusNextEnemyNumericId = 0;
+@@ -141,6 +149,9 @@ export default class GameScene extends Phaser.Scene {
+         this.dialogueImage.setVisible(false);
+         this.player = new PlayerPrefab(this);
+         this.add.existing(this.player);
++        this.mrHackerHealthBar = this.add.image(centerX - 480, centerY - 968, resolveLevel5MrHackerHealthBarTextureKey(25));
++        this.mrHackerHealthBar.setOrigin(0, 0);
++        this.mrHackerHealthBar.setVisible(false);
+         this.events.on(GameScene.SHOOT_INPUT_EVENT, this.handleShootInput, this);
+         this.syncActiveLevelVisualState();
+     }
+@@ -209,6 +220,7 @@ export default class GameScene extends Phaser.Scene {
+         }
+         if (this.activeLevelId === 5 && this.level5Phase === 'walkable' && !this.hasTriggeredVictory) {
+             this.updatePlayerMovement();
++            this.updateLevel5Combat(delta);
+             this.updateLevel5VictoryTrigger();
+         }
+     }
+@@ -1064,8 +1076,93 @@ export default class GameScene extends Phaser.Scene {
+         });
+         this.syncActiveLevelVisualState();
+     }
++    updateLevel5Combat(elapsedMs) {
++        const spawnResolution = advanceLevel5MrHackerSpawnState(this.level5MrHackerSpawnState, {
++            canSpawn: this.activeLevelId === 5 && this.level5Phase === 'walkable',
++            canvasHeight: this.scale.height,
++            canvasWidth: this.scale.width,
++        });
++        this.level5MrHackerSpawnState = spawnResolution.nextState;
++        for (const spawnedEnemy of spawnResolution.spawnedEnemies) {
++            const mrHacker = new MrHackerPrefab(this, spawnedEnemy);
++            this.add.existing(mrHacker);
++            this.activeMrHacker = mrHacker;
++        }
++        if (this.activeMrHacker === null) {
++            this.activeCombatItemCount = 0;
++            this.syncLevel5BossHealthBar();
++            return;
++        }
++        this.activeMrHacker.advanceAnimation(elapsedMs);
++        this.resolveLevel5MrHackerProjectileHits();
++        if (this.activeMrHacker !== null && this.activeMrHacker.getCurrentHealth() <= 0) {
++            this.activeMrHacker.destroy();
++            this.activeMrHacker = null;
++            this.activeCombatItemCount = 0;
++            this.syncLevel5BossHealthBar();
++            return;
++        }
++        this.activeCombatItemCount = 1;
++        this.syncLevel5BossHealthBar();
++    }
++    resolveLevel5MrHackerProjectileHits() {
++        if (this.activeProjectiles.length === 0 || this.activeMrHacker === null) {
++            return;
++        }
++        const projectileSnapshots = this.activeProjectiles.map((projectile) => ({
++            centerX: projectile.x,
++            centerY: projectile.y,
++            damage: projectile.getDamage(),
++            height: projectile.displayHeight,
++            projectileId: projectile.name,
++            width: projectile.displayWidth,
++        }));
++        for (let index = 0; index < projectileSnapshots.length; index += 1) {
++            projectileSnapshots[index].projectileId = `projectile-${index}`;
++        }
++        const mrHackerSnapshot = this.activeMrHacker.toSnapshot();
++        const resolution = resolveProjectileHitResolution({
++            projectiles: projectileSnapshots,
++            targets: [{
++                    centerX: mrHackerSnapshot.centerX,
++                    centerY: mrHackerSnapshot.centerY,
++                    currentHealth: mrHackerSnapshot.currentHealth,
++                    height: mrHackerSnapshot.height,
++                    scoreValue: mrHackerSnapshot.scoreValue,
++                    targetId: mrHackerSnapshot.enemyId,
++                    width: mrHackerSnapshot.width,
++                }],
++        });
++        if (resolution.destroyedProjectileIds.length > 0) {
++            this.activeProjectiles = this.activeProjectiles.filter((projectile, index) => {
++                const projectileId = `projectile-${index}`;
++                const isDestroyed = resolution.destroyedProjectileIds.includes(projectileId);
++                if (isDestroyed) {
++                    projectile.destroy();
++                }
++                return !isDestroyed;
++            });
++        }
++        if (resolution.remainingTargets.length === 0) {
++            this.activeMrHacker.applySnapshot({
++                ...mrHackerSnapshot,
++                currentHealth: 0,
++            });
++            return;
++        }
++        const remainingTarget = resolution.remainingTargets[0];
++        this.activeMrHacker.applySnapshot({
++            ...mrHackerSnapshot,
++            centerX: remainingTarget.centerX,
++            centerY: remainingTarget.centerY,
++            currentHealth: remainingTarget.currentHealth,
++            height: remainingTarget.height,
++            width: remainingTarget.width,
++        });
++    }
+     enterLevel1() {
+         this.activeLevelId = 1;
++        this.destroyMrHacker();
+         this.hasTriggeredLevel1Transition = true;
+         this.level1FEmailSpawnState = createInitialLevel1FEmailSpawnState();
+         this.activeCombatItemCount = 0;
+@@ -1075,6 +1172,7 @@ export default class GameScene extends Phaser.Scene {
+     }
+     enterLevel2() {
+         this.activeLevelId = 2;
++        this.destroyMrHacker();
+         this.destroyAllFEmails();
+         this.destroyAllRViruses();
+         this.activeCombatItemCount = 0;
+@@ -1086,6 +1184,7 @@ export default class GameScene extends Phaser.Scene {
+     }
+     enterLevel3() {
+         this.activeLevelId = 3;
++        this.destroyMrHacker();
+         this.destroyAllRViruses();
+         this.destroyAllWorms();
+         this.activeCombatItemCount = 0;
+@@ -1098,6 +1197,7 @@ export default class GameScene extends Phaser.Scene {
+     }
+     enterLevel4() {
+         this.activeLevelId = 4;
++        this.destroyMrHacker();
+         this.destroyAllFEmails();
+         this.destroyAllRViruses();
+         this.destroyAllWorms();
+@@ -1113,11 +1213,13 @@ export default class GameScene extends Phaser.Scene {
+     }
+     enterLevel5() {
+         this.activeLevelId = 5;
++        this.destroyMrHacker();
+         this.destroyAllFEmails();
+         this.destroyAllRViruses();
+         this.destroyAllWorms();
+         this.destroyAllTrojans();
+         this.activeCombatItemCount = 0;
++        this.level5MrHackerSpawnState = createInitialLevel5MrHackerSpawnState();
+         this.level5DialogueState = createInitialLevel5DialogueState();
+         this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
+         this.syncActiveLevelVisualState();
+@@ -1155,10 +1257,12 @@ export default class GameScene extends Phaser.Scene {
+             this.setStartPromptVisible(true);
+             this.setDialogueVisible(false);
+             this.setPlayerVisible(false);
++            this.setMrHackerHealthBarVisible(false);
+             return;
+         }
+         document.body.className = 'level0';
+         this.setStartPromptVisible(false);
++        this.setMrHackerHealthBarVisible(false);
+         if (this.level0Phase === 'dialogue') {
+             this.setDialogueVisible(true);
+             this.setPlayerVisible(false);
+@@ -1167,10 +1271,12 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
++        this.setMrHackerHealthBarVisible(false);
+     }
+     syncLevel1VisualState() {
+         document.body.className = 'level1';
+         this.setStartPromptVisible(false);
++        this.setMrHackerHealthBarVisible(false);
+         if (this.level1Phase === 'dialogue') {
+             this.setDialogueVisible(true);
+             this.setPlayerVisible(false);
+@@ -1179,10 +1285,12 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
++        this.setMrHackerHealthBarVisible(false);
+     }
+     syncLevel2VisualState() {
+         document.body.className = 'level2';
+         this.setStartPromptVisible(false);
++        this.setMrHackerHealthBarVisible(false);
+         if (this.level2Phase === 'dialogue') {
+             this.setDialogueVisible(true);
+             this.setPlayerVisible(false);
+@@ -1191,10 +1299,12 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
++        this.setMrHackerHealthBarVisible(false);
+     }
+     syncLevel3VisualState() {
+         document.body.className = 'level3';
+         this.setStartPromptVisible(false);
++        this.setMrHackerHealthBarVisible(false);
+         if (this.level3Phase === 'dialogue') {
+             this.setDialogueVisible(true);
+             this.setPlayerVisible(false);
+@@ -1203,10 +1313,12 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
++        this.setMrHackerHealthBarVisible(false);
+     }
+     syncLevel4VisualState() {
+         document.body.className = 'level4';
+         this.setStartPromptVisible(false);
++        this.setMrHackerHealthBarVisible(false);
+         if (this.level4Phase === 'dialogue') {
+             this.setDialogueVisible(true);
+             this.setPlayerVisible(false);
+@@ -1215,6 +1327,7 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
++        this.setMrHackerHealthBarVisible(false);
+     }
+     syncLevel5VisualState() {
+         document.body.className = 'level5';
+@@ -1227,12 +1340,26 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
++        this.syncLevel5BossHealthBar();
+     }
+     syncVictoryVisualState() {
+         document.body.className = 'victory';
+         this.setStartPromptVisible(false);
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(false);
++        this.setMrHackerHealthBarVisible(false);
++    }
++    syncLevel5BossHealthBar() {
++        if (this.mrHackerHealthBar === null) {
++            return;
++        }
++        if (this.activeLevelId !== 5 || this.level5Phase !== 'walkable' || this.activeMrHacker === null) {
++            this.mrHackerHealthBar.setVisible(false);
++            return;
++        }
++        this.mrHackerHealthBar.setTexture(resolveLevel5MrHackerHealthBarTextureKey(this.activeMrHacker.getCurrentHealth()));
++        this.mrHackerHealthBar.setPosition(this.scale.width / 2 - 480, this.scale.height / 2 - 968);
++        this.mrHackerHealthBar.setVisible(true);
+     }
+     setDialogueVisible(shouldBeVisible) {
+         if (this.dialogueImage !== null) {
+@@ -1249,6 +1376,11 @@ export default class GameScene extends Phaser.Scene {
+             this.player.setVisible(shouldBeVisible);
+         }
+     }
++    setMrHackerHealthBarVisible(shouldBeVisible) {
++        if (this.mrHackerHealthBar !== null) {
++            this.mrHackerHealthBar.setVisible(shouldBeVisible);
++        }
++    }
+     destroyAllFEmails() {
+         for (const enemy of this.activeFEmails) {
+             enemy.destroy();
+@@ -1273,6 +1405,13 @@ export default class GameScene extends Phaser.Scene {
+         }
+         this.activeTrojans = [];
+     }
++    destroyMrHacker() {
++        if (this.activeMrHacker !== null) {
++            this.activeMrHacker.destroy();
++            this.activeMrHacker = null;
++        }
++        this.setMrHackerHealthBarVisible(false);
++    }
+     isActiveLevelWalkablePhase() {
+         if (this.activeLevelId === 0) {
+             return this.level0Phase === 'walkable';
+diff --git a/build/phaser/scenes/GameScene.js.map b/build/phaser/scenes/GameScene.js.map
+index aebeb07..5edab35 100644
+--- a/build/phaser/scenes/GameScene.js.map
++++ b/build/phaser/scenes/GameScene.js.map
+@@ -1 +1 @@
+
+...126061 bytes truncated...
+
+The tool call succeeded but the output was truncated. Full output saved to: /Users/pbaruch/.local/share/opencode/tool-output/tool_c4c6416280013Q02pMeC6Nh2Rn
+Use the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.
+[0m
+[0m$ [0mgit log -6 --oneline
+518a7c5 Ralph iteration 17: work in progress
+d91cbd1 feat(parity:PR-028): harden enemy collision matrix for levels 1-4
+58ce5b2 Ralph iteration 16: work in progress
+337a80d feat(parity:PR-027): implement Level4 Trojan combat parity
+381b05f Ralph iteration 15: work in progress
+d423b2e feat(parity:PR-026): implement level3 worm spawn and duplication clear-gate parity
+[0m
+[0m✱ [0mGlob "build/phaser/**/*MrHacker*"[90m in . · 4 matches[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/level5MrHackerCombat.ts src/phaser/scenes/level5MrHackerCombat.spec.ts src/phaser/entities/MrHackerPrefab.ts src/phaser/scenes/PreloadScene.ts src/phaser/scenes/GameScene.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map build/phaser/scenes/level5MrHackerCombat.js build/phaser/scenes/level5MrHackerCombat.js.map build/phaser/entities/MrHackerPrefab.js build/phaser/entities/MrHackerPrefab.js.map && git commit -m "feat(parity:PR-029): add Level5 MrHacker spawn HP and health bar parity" && git status --short
+[main 37588af] feat(parity:PR-029): add Level5 MrHacker spawn HP and health bar parity
+ 17 files changed, 811 insertions(+), 5 deletions(-)
+ create mode 100644 build/phaser/entities/MrHackerPrefab.js
+ create mode 100644 build/phaser/entities/MrHackerPrefab.js.map
+ create mode 100644 build/phaser/scenes/level5MrHackerCombat.js
+ create mode 100644 build/phaser/scenes/level5MrHackerCombat.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md
+ create mode 100644 src/phaser/entities/MrHackerPrefab.ts
+ create mode 100644 src/phaser/scenes/level5MrHackerCombat.spec.ts
+ create mode 100644 src/phaser/scenes/level5MrHackerCombat.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 18
+Elapsed:   6:16
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 19...

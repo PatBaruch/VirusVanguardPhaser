@@ -574,9 +574,50 @@
         "Test Files  2 failed (2)",
         "Tests  2 failed | 9 passed (11)"
       ]
+    },
+    {
+      "iteration": 18,
+      "startedAt": "2026-02-11T11:03:25.761Z",
+      "endedAt": "2026-02-11T11:09:44.055Z",
+      "durationMs": 376539,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/overnight-caffeinate-20260211-103217.log",
+        ".ralph/ralph-tasks.md",
+        "build/phaser/entities/MrHackerPrefab.js",
+        "build/phaser/entities/MrHackerPrefab.js.map",
+        "build/phaser/scenes/GameScene.js",
+        "build/phaser/scenes/GameScene.js.map",
+        "build/phaser/scenes/PreloadScene.js",
+        "build/phaser/scenes/PreloadScene.js.map",
+        "build/phaser/scenes/level5MrHackerCombat.js",
+        "build/phaser/scenes/level5MrHackerCombat.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-029-level5-mrhacker-spawn-hp-health-bar-parity.md",
+        "docs/parity/known-limitations.md",
+        "src/phaser/entities/MrHackerPrefab.ts",
+        "src/phaser/scenes/GameScene.ts",
+        "src/phaser/scenes/PreloadScene.ts",
+        "src/phaser/scenes/level5MrHackerCombat.spec.ts",
+        "src/phaser/scenes/level5MrHackerCombat.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "Using the `test-driven-development` skill to implement PR-029 with a fail-first test cycle, and using the `brainstorming` skill outcome to keep scope tightly aligned to parity requirements. I’ll start",
+        "I’m now doing the RED step from TDD: adding a focused failing unit test file for Level5 MrHacker spawn/HP/health-bar behavior before implementation.",
+        "Error: Cannot find module './level5MrHackerCombat.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts'",
+        "Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts. Do",
+        "Test Files  1 failed (1)",
+        "+Using the `test-driven-development` skill to implement PR-029 with a fail-first test cycle, and using the `brainstorming` skill outcome to keep scope tightly aligned to parity requirements. I’ll star",
+        "+I’m now doing the RED step from TDD: adding a focused failing unit test file for Level5 MrHacker spawn/HP/health-bar behavior before implementation.",
+        "+Error: Cannot find module './level5MrHackerCombat.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts'",
+        "+Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5MrHackerCombat.spec.ts. D",
+        "+ Test Files  1 failed (1)"
+      ]
     }
   ],
-  "totalDurationMs": 5396514,
+  "totalDurationMs": 5773053,
   "struggleIndicators": {
     "repeatedErrors": {
       "Error: Cannot find module './level2DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVang": 1,
@@ -607,7 +648,7 @@
       "Using the `test-driven-development` skill to implement PR-017 safely (failing test first, then minim": 1,
       "Error: Cannot find module './transitionRuleEngine.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
       "Caused by: Error: Failed to load url ./transitionRuleEngine.js (resolved id: ./transitionRuleEngine.": 1,
-      "Test Files  1 failed (1)": 11,
+      "Test Files  1 failed (1)": 12,
       "Error: Cannot find module './projectileMotion.js' imported from '/Users/pbaruch/Desktop/VirusVanguar": 1,
       "Caused by: Error: Failed to load url ./projectileMotion.js (resolved id: ./projectileMotion.js) in /": 1,
       "Using `brainstorming` to confirm scope quickly and `test-driven-development` to implement PR-019 wit": 1,
@@ -619,7 +660,7 @@
       "+Using the `test-driven-development` skill to implement PR-020 with a failing test first, then minim": 1,
       "+Error: Cannot find module './singleShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVangu": 1,
       "+Caused by: Error: Failed to load url ./singleShotPattern.js (resolved id: ./singleShotPattern.js) i": 1,
-      "+ Test Files  1 failed (1)": 5,
+      "+ Test Files  1 failed (1)": 6,
       "Error: Cannot find module './dualShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguard": 1,
       "Caused by: Error: Failed to load url ./dualShotPattern.js (resolved id: ./dualShotPattern.js) in /Us": 1,
       "+Error: Cannot find module './dualShotPattern.js' imported from '/Users/pbaruch/Desktop/VirusVanguar": 1,
@@ -656,7 +697,15 @@
       "⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯": 1,
       "TypeError: (0 , resolveLevel3PlayerEnemyCollisions) is not a function": 1,
       "TypeError: (0 , resolveLevel4TrojanPlayerCollisions) is not a function": 1,
-      "Tests  2 failed | 9 passed (11)": 1
+      "Tests  2 failed | 9 passed (11)": 1,
+      "Using the `test-driven-development` skill to implement PR-029 with a fail-first test cycle, and usin": 1,
+      "I’m now doing the RED step from TDD: adding a focused failing unit test file for Level5 MrHacker spa": 1,
+      "Error: Cannot find module './level5MrHackerCombat.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
+      "Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat.": 1,
+      "+Using the `test-driven-development` skill to implement PR-029 with a fail-first test cycle, and usi": 1,
+      "+I’m now doing the RED step from TDD: adding a focused failing unit test file for Level5 MrHacker sp": 1,
+      "+Error: Cannot find module './level5MrHackerCombat.js' imported from '/Users/pbaruch/Desktop/VirusVa": 1,
+      "+Caused by: Error: Failed to load url ./level5MrHackerCombat.js (resolved id: ./level5MrHackerCombat": 1
     },
     "noProgressIterations": 0,
     "shortIterations": 0
