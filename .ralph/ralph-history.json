@@ -656,21 +656,51 @@
         "Caused by: Error: Failed to load url ./playerMovementStep.js (resolved id: ./playerMovementStep.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/playerMovementStep.spec.ts. Does t",
         "Test Files  1 failed (1)"
       ]
+    },
+    {
+      "iteration": 40,
+      "startedAt": "2026-02-11T00:30:17.021Z",
+      "endedAt": "2026-02-11T00:34:35.200Z",
+      "durationMs": 256956,
+      "toolsUsed": {},
+      "filesModified": [
+        ".ralph/ralph-tasks.md",
+        "build/phaser/scenes/GameScene.js",
+        "build/phaser/scenes/GameScene.js.map",
+        "build/phaser/scenes/level0TraversalRules.js",
+        "build/phaser/scenes/level0TraversalRules.js.map",
+        "docs/architecture/phaser-migration.mmd",
+        "docs/handoffs/2026-02-11-pr-011-level0-bounds-transition-trigger.md",
+        "docs/parity/known-limitations.md",
+        "docs/parity/parity-matrix.md",
+        "src/phaser/scenes/GameScene.ts",
+        "src/phaser/scenes/level0TraversalRules.spec.ts",
+        "src/phaser/scenes/level0TraversalRules.ts"
+      ],
+      "exitCode": 0,
+      "completionDetected": false,
+      "errors": [
+        "Error: Cannot find module './level0TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level0TraversalRules.spec.ts'",
+        "Caused by: Error: Failed to load url ./level0TraversalRules.js (resolved id: ./level0TraversalRules.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level0TraversalRules.spec.ts. Do",
+        "Test Files  1 failed (1)"
+      ]
     }
   ],
-  "totalDurationMs": 3841323,
+  "totalDurationMs": 4098279,
   "struggleIndicators": {
     "repeatedErrors": {
       "Error: Cannot find module './level0DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVang": 1,
       "Caused by: Error: Failed to load url ./level0DialogueState.js (resolved id: ./level0DialogueState.js": 1,
-      "Test Files  1 failed (1)": 3,
+      "Test Files  1 failed (1)": 4,
       "\u001b[91m\u001b[1mError: \u001b[0mError: Unable to connect. Is the computer able to access the url?": 28,
       "Using `test-driven-development` for PR-009: I’ll add failing tests for player facing state first, th": 1,
       "Error: Cannot find module './playerFacingState.js' imported from '/Users/pbaruch/Desktop/VirusVangua": 1,
       "Caused by: Error: Failed to load url ./playerFacingState.js (resolved id: ./playerFacingState.js) in": 1,
       "Using `brainstorming` to frame scope and `test-driven-development` to implement PR-010 safely with f": 1,
       "Error: Cannot find module './playerMovementStep.js' imported from '/Users/pbaruch/Desktop/VirusVangu": 1,
-      "Caused by: Error: Failed to load url ./playerMovementStep.js (resolved id: ./playerMovementStep.js) ": 1
+      "Caused by: Error: Failed to load url ./playerMovementStep.js (resolved id: ./playerMovementStep.js) ": 1,
+      "Error: Cannot find module './level0TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVan": 1,
+      "Caused by: Error: Failed to load url ./level0TraversalRules.js (resolved id: ./level0TraversalRules.": 1
     },
     "noProgressIterations": 0,
     "shortIterations": 0
