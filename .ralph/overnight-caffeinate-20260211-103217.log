@@ -2478,3 +2478,301 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 7...
+📝 Auto-committed changes
+
+🔄 Iteration 7 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "src/phaser/**/*.ts"[90m in . · 37 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/entities/PlayerPrefab.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m→ [0mRead src/phaser/entities/playerMovementStep.ts
+[0m→ [0mRead src/phaser/entities/playerMovementStep.spec.ts
+[0m✱ [0mGlob "src/**/*.ts"[90m in . · 61 matches[0m
+[0m→ [0mRead src/GameItem/Bullet.ts
+[0m→ [0mRead src/GameItem/EnemyBullet.ts
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m→ [0mRead src/phaser/scenes/level1TraversalRules.ts
+[0m→ [0mRead src/Game.ts
+⏳ working... elapsed 1:50 · last activity 0:13 ago
+⏳ working... elapsed 2:00 · last activity 0:23 ago
+⏳ working... elapsed 2:10 · last activity 0:33 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/entities/projectileMotion.spec.ts
+
+LSP errors detected in src/phaser/entities/projectileMotion.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/projectileMotion.spec.ts">
+ERROR [9:8] Cannot find module './projectileMotion.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/entities/projectileMotion.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/entities/projectileMotion.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/entities/projectileMotion.spec.ts [ src/phaser/entities/projectileMotion.spec.ts ]
+Error: Cannot find module './projectileMotion.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/projectileMotion.spec.ts'
+ ❯ src/phaser/entities/projectileMotion.spec.ts:3:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import { LEVEL_BOUNDS_PARITY } from '../config/parityConstants.js';
+      3| import {
+       | ^
+      4|   ProjectileMotionState,
+      5|   ProjectileWorldBounds,
+
+Caused by: Error: Failed to load url ./projectileMotion.js (resolved id: ./projectileMotion.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/entities/projectileMotion.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  11:01:22
+   Duration  189ms (transform 22ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 30ms)
+[0m
+⏳ working... elapsed 2:30 · last activity 0:13 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/entities/projectileMotion.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/entities/ProjectilePrefab.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/entities/projectileMotion.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/entities/projectileMotion.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  11:02:12
+   Duration  180ms (transform 22ms, setup 0ms, collect 20ms, tests 2ms, environment 0ms, prepare 35ms)
+[0m
+⏳ working... elapsed 3:20 · last activity 0:13 ago
+[0m$ [0mnpm run build && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/entities/projectileMotion.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 2ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/transitionRuleEngine.spec.ts (6 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 4ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 1ms
+
+ Test Files  17 passed (17)
+      Tests  63 passed (63)
+   Start at  11:02:28
+   Duration  619ms (transform 161ms, setup 0ms, collect 338ms, tests 33ms, environment 2ms, prepare 911ms)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (698ms)
+
+  1 passed (2.0s)
+[0m
+[0m✱ [0mGlob "docs/handoffs/*.md"[90m in . · 18 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-017-transition-rule-engine-score-item-predicates.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/ProjectilePrefab.js
+?? build/phaser/entities/ProjectilePrefab.js.map
+?? build/phaser/entities/projectileMotion.js
+?? build/phaser/entities/projectileMotion.js.map
+?? src/phaser/entities/ProjectilePrefab.ts
+?? src/phaser/entities/projectileMotion.spec.ts
+?? src/phaser/entities/projectileMotion.ts
+[0m
+[0m$ [0mgit log --oneline -5
+026a613 Ralph iteration 6: work in progress
+d898574 feat(parity:PR-017): wire transition score/item predicates
+6cadaf5 Ralph iteration 5: work in progress
+a94bfea feat(parity:PR-016): wire Level5 shell and non-combat victory trigger
+0a8789f Ralph iteration 4: work in progress
+[0m
+[0m$ [0mgit diff -- src/phaser/entities/projectileMotion.spec.ts src/phaser/entities/projectileMotion.ts src/phaser/entities/ProjectilePrefab.ts src/phaser/scenes/PreloadScene.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd .ralph/ralph-tasks.md
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index cf7fec2..5c8ef4e 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -22,7 +22,7 @@
+ - [x] PR-017: Transition rule engine wiring (score and item predicates wired only)
+ 
+ ## Wave C - Shooting Systems
+-- [ ] PR-018: Projectile base entity + movement + world culling
++- [/] PR-018: Projectile base entity + movement + world culling
+ - [ ] PR-019: Shoot input gating (disabled in Level0, enabled in combat levels)
+ - [ ] PR-020: Single-shot pattern parity (Level1 and Level2)
+ - [ ] PR-021: Dual-shot pattern parity (Level3)
+diff --git a/docs/architecture/phaser-migration.mmd b/docs/architecture/phaser-migration.mmd
+index 2983156..aa92100 100644
+--- a/docs/architecture/phaser-migration.mmd
++++ b/docs/architecture/phaser-migration.mmd
+@@ -17,8 +17,9 @@ flowchart TD
+   D12 --> D13[Non-Combat Victory Shell Trigger]
+   D13 --> D14[Transition Rule Engine (Score + Item Predicates)]
+   D14 --> D15[Shared Parity Constants Table]
++  D15 --> D16[Projectile Base Entity + Motion/Culling]
+   C --> E[Core Systems Parity]
+-  D15 --> E
++  D16 --> E
+   E --> F[Walkable Levels]
+   F --> G[Shooting Systems]
+   G --> H[Enemy Systems by Level]
+diff --git a/docs/parity/known-limitations.md b/docs/parity/known-limitations.md
+index 9fa107c..0172600 100644
+--- a/docs/parity/known-limitations.md
++++ b/docs/parity/known-limitations.md
+@@ -3,7 +3,7 @@
+ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ 
+ ## Open
+-- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, and transition rule engine score/item predicates; combat scoring sources, enemy/item lifecycle systems, shooting, enemies, and boss logic remain pending.
++- Phaser runtime now includes Level0 start-screen/dialogue flow, player prefab facing-state parity, walkable WASD movement with diagonal normalization, Level0 bounds plus Level1 transition triggering, Level1 to Level5 shells with dialogue/bounds/transition zones, Level5 non-combat victory corridor shell wiring, transition rule engine score/item predicates, and a projectile base entity with parity movement/culling helpers; shoot input wiring, projectile spawn patterns, hit resolution, enemy/item lifecycle systems, and boss logic remain pending.
+ - Documentation artifacts currently track migration status only at wave/feature granularity; behavior-level parity evidence will be filled in as gameplay PRs land.
+ 
+ ## Resolved
+@@ -20,3 +20,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
+ - PR-015 added a Phaser Level4 shell with dialogue progression, Level4 movement bounds, Level4 background class switching, and Level4-to-Level5 transition zone detection.
+ - PR-016 added a Phaser Level5 shell with three-image dialogue progression, Level5 movement bounds, Level4-to-Level5 scene entry wiring, and non-combat victory shell trigger based on the legacy Level5 victory corridor.
+ - PR-017 wired a shared Phaser transition rule engine with legacy score-threshold and active-item-clear predicates for Level1 through Level5 progression checks.
++- PR-018 added a Phaser projectile base entity and parity-tested projectile motion/world-culling helpers using legacy combat bound thresholds.
+diff --git a/src/phaser/scenes/PreloadScene.ts b/src/phaser/scenes/PreloadScene.ts
+index b565a65..d5a5882 100644
+--- a/src/phaser/scenes/PreloadScene.ts
++++ b/src/phaser/scenes/PreloadScene.ts
+@@ -11,6 +11,7 @@ import {
+   PLAYER_FACING_TEXTURE_KEYS,
+   PlayerFacingDirection,
+ } from '../entities/playerFacingState.js';
++import ProjectilePrefab from '../entities/ProjectilePrefab.js';
+ 
+ /**
+  * Minimal preload scene shell for Phaser runtime lifecycle.
+@@ -53,6 +54,11 @@ export default class PreloadScene extends Phaser.Scene {
+         `./assets/Player-${direction}.png`,
+       );
+     });
++
++    this.load.image(
++      ProjectilePrefab.TEXTURE_KEY,
++      './assets/Bullet-Sprite/PBsprite_0.png',
++    );
+   }
+ 
+   public create(): void {
+[0m
+⏳ working... elapsed 4:10 · last activity 0:11 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-018-projectile-base-movement-world-culling.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/entities/ProjectilePrefab.js
+?? build/phaser/entities/ProjectilePrefab.js.map
+?? build/phaser/entities/projectileMotion.js
+?? build/phaser/entities/projectileMotion.js.map
+?? docs/handoffs/2026-02-11-pr-018-projectile-base-movement-world-culling.md
+?? src/phaser/entities/ProjectilePrefab.ts
+?? src/phaser/entities/projectileMotion.spec.ts
+?? src/phaser/entities/projectileMotion.ts
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/entities/projectileMotion.ts src/phaser/entities/projectileMotion.spec.ts src/phaser/entities/ProjectilePrefab.ts src/phaser/scenes/PreloadScene.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-018-projectile-base-movement-world-culling.md build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map build/phaser/entities/projectileMotion.js build/phaser/entities/projectileMotion.js.map build/phaser/entities/ProjectilePrefab.js build/phaser/entities/ProjectilePrefab.js.map && git commit -m "feat(parity:PR-018): add projectile base movement and world culling" && git status --short
+[main f921f7b] feat(parity:PR-018): add projectile base movement and world culling
+ 14 files changed, 404 insertions(+), 4 deletions(-)
+ create mode 100644 build/phaser/entities/ProjectilePrefab.js
+ create mode 100644 build/phaser/entities/ProjectilePrefab.js.map
+ create mode 100644 build/phaser/entities/projectileMotion.js
+ create mode 100644 build/phaser/entities/projectileMotion.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-018-projectile-base-movement-world-culling.md
+ create mode 100644 src/phaser/entities/ProjectilePrefab.ts
+ create mode 100644 src/phaser/entities/projectileMotion.spec.ts
+ create mode 100644 src/phaser/entities/projectileMotion.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m→ [0mSkill "verification-before-completion"
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 7
+Elapsed:   4:46
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 8...
