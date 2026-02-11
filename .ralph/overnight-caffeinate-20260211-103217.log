@@ -1064,3 +1064,923 @@ Completion promise: not detected
 
 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
    Moving to next task in iteration 5...
+📝 Auto-committed changes
+
+🔄 Iteration 5 / 1000
+────────────────────────────────────────────────────────────────────
+[0m
+> build · gpt-5.3-codex
+[0m
+[0m→ [0mSkill "writing-plans"
+[0m→ [0mSkill "brainstorming"
+[0m→ [0mSkill "test-driven-development"
+[0m
+[0m# [0mTodos
+[ ] Read required docs: AGENTS.md, PRD, and current .ralph task list
+[ ] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
+[ ] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
+[ ] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
+[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
+[ ] Write handoff file for PR-016 with verification evidence
+[ ] Update parity limitations/architecture docs if changed
+[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
+[0m
+Using the brainstorming + writing-plans + TDD skills to keep this iteration scoped and disciplined. I’ll now do the required startup reads in order, mark PR-016 in progress, then implement/test only that slice.
+[0m→ [0mRead AGENTS.md
+[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
+[0m→ [0mRead .ralph/ralph-tasks.md
+[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
+[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
+[0m
+[0m# [0mTodos
+[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
+[ ] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
+[ ] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
+[ ] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
+[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
+[ ] Write handoff file for PR-016 with verification evidence
+[ ] Update parity limitations/architecture docs if changed
+[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m✱ [0mGlob "**/*Level*.ts"[90m in src/phaser · 0 matches[0m
+[0m✱ [0mGlob "**/*.spec.ts"[90m in src/phaser · 13 matches[0m
+[0m✱ [0mGlob "**/scenes/*.ts"[90m in src/phaser · 23 matches[0m
+[0m✱ [0mGrep "class\s+Level[0-9]"[90m in src/phaser · 0 matches[0m
+[0m→ [0mRead src/phaser/scenes/GameScene.ts
+[0m→ [0mRead src/phaser/scenes/level4TraversalRules.ts
+[0m→ [0mRead src/phaser/scenes/level4DialogueState.ts
+[0m→ [0mRead src/Level5.ts
+[0m→ [0mRead src/Level.ts
+[0m→ [0mRead src/Level4.ts
+[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
+[0m→ [0mRead index.html
+[0m→ [0mRead docs/parity/known-limitations.md
+[0m→ [0mRead docs/architecture/phaser-migration.mmd
+[0m✱ [0mGlob "*.md"[90m in docs/handoffs · 16 matches[0m
+[0m→ [0mRead docs/handoffs/2026-02-11-pr-015-level4-shell-background-dialogue-bounds-transition-zone.md
+[0m→ [0mRead src/phaser/scenes/level4TraversalRules.spec.ts
+[0m→ [0mRead src/phaser/scenes/level4DialogueState.spec.ts
+[0m→ [0mRead src/phaser/config/parityConstants.ts
+[0m✱ [0mGlob "Dialogue-Level5/*"[90m in assets · 3 matches[0m
+[0m✱ [0mGrep "LEVEL_TRANSITION_EVENT|level-transition|toLevel"[90m in . · 12 matches[0m
+⏳ working... elapsed 2:00 · last activity 0:18 ago
+[0m
+[0m# [0mTodos
+[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
+[x] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
+[ ] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
+[ ] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
+[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
+[ ] Write handoff file for PR-016 with verification evidence
+[ ] Update parity limitations/architecture docs if changed
+[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
+[0m
+⏳ working... elapsed 2:20 · last activity 0:11 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5DialogueState.spec.ts
+
+LSP errors detected in src/phaser/scenes/level5DialogueState.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5DialogueState.spec.ts">
+ERROR [7:8] Cannot find module './level5DialogueState.js' or its corresponding type declarations.
+</diagnostics>
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5TraversalRules.spec.ts
+
+LSP errors detected in src/phaser/scenes/level5TraversalRules.spec.ts, please fix:
+<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5TraversalRules.spec.ts">
+ERROR [6:8] Cannot find module './level5TraversalRules.js' or its corresponding type declarations.
+</diagnostics>
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/phaser/scenes/level5DialogueState.spec.ts [ src/phaser/scenes/level5DialogueState.spec.ts ]
+Error: Cannot find module './level5DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5DialogueState.spec.ts'
+ ❯ src/phaser/scenes/level5DialogueState.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   LEVEL5_DIALOGUE_TEXTURE_KEYS,
+      4|   advanceLevel5DialogueState,
+
+Caused by: Error: Failed to load url ./level5DialogueState.js (resolved id: ./level5DialogueState.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5DialogueState.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/phaser/scenes/level5TraversalRules.spec.ts [ src/phaser/scenes/level5TraversalRules.spec.ts ]
+Error: Cannot find module './level5TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5TraversalRules.spec.ts'
+ ❯ src/phaser/scenes/level5TraversalRules.spec.ts:2:1
+      1| import { describe, expect, it } from 'vitest';
+      2| import {
+       | ^
+      3|   canMoveWithinLevel5Bounds,
+      4|   isLevel5VictoryTriggered,
+
+Caused by: Error: Failed to load url ./level5TraversalRules.js (resolved id: ./level5TraversalRules.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5TraversalRules.spec.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  10:50:26
+   Duration  231ms (transform 28ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 69ms)
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5DialogueState.ts
+⏳ working... elapsed 3:10 · last activity 0:16 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A src/phaser/scenes/level5TraversalRules.ts
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/PreloadScene.ts
+⏳ working... elapsed 3:40 · last activity 0:19 ago
+⏳ working... elapsed 3:50 · last activity 0:29 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M src/phaser/scenes/GameScene.ts
+[0m
+[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
+> ts-wizards-chest@2023.1 test:unit
+> vitest run src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
+
+ Test Files  2 passed (2)
+      Tests  6 passed (6)
+   Start at  10:51:39
+   Duration  217ms (transform 33ms, setup 0ms, collect 32ms, tests 3ms, environment 0ms, prepare 88ms)
+[0m
+[0m# [0mTodos
+[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
+[x] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
+[x] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
+[x] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
+[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
+[ ] Write handoff file for PR-016 with verification evidence
+[ ] Update parity limitations/architecture docs if changed
+[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
+[0m
+[0m$ [0mnpm run build
+> ts-wizards-chest@2023.1 build
+> tsc
+[0m
+[0m$ [0mnpx tsc --noEmit
+[0m
+[0m$ [0mnpm run lint
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+[0m
+[0m$ [0mnpm run test:unit
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 7ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
+
+ Test Files  15 passed (15)
+      Tests  53 passed (53)
+   Start at  10:52:08
+   Duration  624ms (transform 177ms, setup 0ms, collect 320ms, tests 29ms, environment 1ms, prepare 856ms)
+[0m
+[0m$ [0mnpm run test:e2e
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (684ms)
+
+  1 passed (1.9s)
+[0m
+[0m# [0mTodos
+[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
+[x] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
+[x] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
+[x] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
+[x] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
+[ ] Write handoff file for PR-016 with verification evidence
+[ ] Update parity limitations/architecture docs if changed
+[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
+[0m
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/parity/known-limitations.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M docs/architecture/phaser-migration.mmd
+[0m
+[0m$ [0mgit status --short
+M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+ M .ralph/ralph-tasks.md
+ M build/phaser/scenes/GameScene.js
+ M build/phaser/scenes/GameScene.js.map
+ M build/phaser/scenes/PreloadScene.js
+ M build/phaser/scenes/PreloadScene.js.map
+ M docs/architecture/phaser-migration.mmd
+ M docs/parity/known-limitations.md
+ M src/phaser/scenes/GameScene.ts
+ M src/phaser/scenes/PreloadScene.ts
+?? build/phaser/scenes/level5DialogueState.js
+?? build/phaser/scenes/level5DialogueState.js.map
+?? build/phaser/scenes/level5TraversalRules.js
+?? build/phaser/scenes/level5TraversalRules.js.map
+?? src/phaser/scenes/level5DialogueState.spec.ts
+?? src/phaser/scenes/level5DialogueState.ts
+?? src/phaser/scenes/level5TraversalRules.spec.ts
+?? src/phaser/scenes/level5TraversalRules.ts
+[0m
+⏳ working... elapsed 5:10 · last activity 0:11 ago
+⏳ working... elapsed 5:20 · last activity 0:21 ago
+[0m⚙ [0mapply_patch Success. Updated the following files:
+A docs/handoffs/2026-02-11-pr-016-level5-shell-non-combat-victory-shell-wiring.md
+[0m⚙ [0mapply_patch Success. Updated the following files:
+M .ralph/ralph-tasks.md
+[0m→ [0mSkill "verification-before-completion"
+[0m
+[0m$ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .ralph/overnight-caffeinate-20260211-103217.log
+	modified:   .ralph/ralph-loop.state.json
+	modified:   .ralph/ralph-tasks.md
+	modified:   build/phaser/scenes/GameScene.js
+	modified:   build/phaser/scenes/GameScene.js.map
+	modified:   build/phaser/scenes/PreloadScene.js
+	modified:   build/phaser/scenes/PreloadScene.js.map
+	modified:   docs/architecture/phaser-migration.mmd
+	modified:   docs/parity/known-limitations.md
+	modified:   src/phaser/scenes/GameScene.ts
+	modified:   src/phaser/scenes/PreloadScene.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	build/phaser/scenes/level5DialogueState.js
+	build/phaser/scenes/level5DialogueState.js.map
+	build/phaser/scenes/level5TraversalRules.js
+	build/phaser/scenes/level5TraversalRules.js.map
+	docs/handoffs/2026-02-11-pr-016-level5-shell-non-combat-victory-shell-wiring.md
+	src/phaser/scenes/level5DialogueState.spec.ts
+	src/phaser/scenes/level5DialogueState.ts
+	src/phaser/scenes/level5TraversalRules.spec.ts
+	src/phaser/scenes/level5TraversalRules.ts
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[0m
+[0m$ [0mgit log --oneline -10
+0a8789f Ralph iteration 4: work in progress
+b7cb371 feat(parity:PR-015): add Level4 traversal shell parity
+bab42f6 Ralph iteration 3: work in progress
+fabf867 feat(parity:PR-014): add Level3 shell dialogue and traversal parity
+897b4bd Ralph iteration 2: work in progress
+7c2a46a Ralph iteration 1: work in progress
+99ca9d9 feat(parity:PR-013): add Level2 shell dialogue bounds and transition zone
+2b5165a feat(parity:PR-012): add Level1 shell traversal and dialogue parity
+fdff0f3 Ralph iteration 40: work in progress
+76c98f3 feat(parity:PR-011): add Level0 bounds and Level1 transition trigger
+[0m
+[0m$ [0mgit diff --staged; git diff
+diff --git a/.ralph/overnight-caffeinate-20260211-103217.log b/.ralph/overnight-caffeinate-20260211-103217.log
+index f769178..8528732 100644
+--- a/.ralph/overnight-caffeinate-20260211-103217.log
++++ b/.ralph/overnight-caffeinate-20260211-103217.log
+@@ -1064,3 +1064,312 @@ Completion promise: not detected
+ 
+ 🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+    Moving to next task in iteration 5...
++📝 Auto-committed changes
++
++🔄 Iteration 5 / 1000
++────────────────────────────────────────────────────────────────────
++[0m
++> build · gpt-5.3-codex
++[0m
++[0m→ [0mSkill "writing-plans"
++[0m→ [0mSkill "brainstorming"
++[0m→ [0mSkill "test-driven-development"
++[0m
++[0m# [0mTodos
++[ ] Read required docs: AGENTS.md, PRD, and current .ralph task list
++[ ] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
++[ ] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
++[ ] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
++[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
++[ ] Write handoff file for PR-016 with verification evidence
++[ ] Update parity limitations/architecture docs if changed
++[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
++[0m
++Using the brainstorming + writing-plans + TDD skills to keep this iteration scoped and disciplined. I’ll now do the required startup reads in order, mark PR-016 in progress, then implement/test only that slice.
++[0m→ [0mRead AGENTS.md
++[0m→ [0mRead docs/plans/2026-02-10-phaser-migration-prd.md
++[0m→ [0mRead .ralph/ralph-tasks.md
++[0m✱ [0mGlob ".cursor/rules/**"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".github/copilot-instructions.md"[90m in . · 0 matches[0m
++[0m✱ [0mGlob ".cursorrules"[90m in . · 0 matches[0m
++[0m
++[0m# [0mTodos
++[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
++[ ] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
++[ ] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
++[ ] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
++[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
++[ ] Write handoff file for PR-016 with verification evidence
++[ ] Update parity limitations/architecture docs if changed
++[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m✱ [0mGlob "**/*Level*.ts"[90m in src/phaser · 0 matches[0m
++[0m✱ [0mGlob "**/*.spec.ts"[90m in src/phaser · 13 matches[0m
++[0m✱ [0mGlob "**/scenes/*.ts"[90m in src/phaser · 23 matches[0m
++[0m✱ [0mGrep "class\s+Level[0-9]"[90m in src/phaser · 0 matches[0m
++[0m→ [0mRead src/phaser/scenes/GameScene.ts
++[0m→ [0mRead src/phaser/scenes/level4TraversalRules.ts
++[0m→ [0mRead src/phaser/scenes/level4DialogueState.ts
++[0m→ [0mRead src/Level5.ts
++[0m→ [0mRead src/Level.ts
++[0m→ [0mRead src/Level4.ts
++[0m→ [0mRead src/phaser/scenes/PreloadScene.ts
++[0m→ [0mRead index.html
++[0m→ [0mRead docs/parity/known-limitations.md
++[0m→ [0mRead docs/architecture/phaser-migration.mmd
++[0m✱ [0mGlob "*.md"[90m in docs/handoffs · 16 matches[0m
++[0m→ [0mRead docs/handoffs/2026-02-11-pr-015-level4-shell-background-dialogue-bounds-transition-zone.md
++[0m→ [0mRead src/phaser/scenes/level4TraversalRules.spec.ts
++[0m→ [0mRead src/phaser/scenes/level4DialogueState.spec.ts
++[0m→ [0mRead src/phaser/config/parityConstants.ts
++[0m✱ [0mGlob "Dialogue-Level5/*"[90m in assets · 3 matches[0m
++[0m✱ [0mGrep "LEVEL_TRANSITION_EVENT|level-transition|toLevel"[90m in . · 12 matches[0m
++⏳ working... elapsed 2:00 · last activity 0:18 ago
++[0m
++[0m# [0mTodos
++[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
++[x] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
++[ ] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
++[ ] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
++[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
++[ ] Write handoff file for PR-016 with verification evidence
++[ ] Update parity limitations/architecture docs if changed
++[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
++[0m
++⏳ working... elapsed 2:20 · last activity 0:11 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5DialogueState.spec.ts
++
++LSP errors detected in src/phaser/scenes/level5DialogueState.spec.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5DialogueState.spec.ts">
++ERROR [7:8] Cannot find module './level5DialogueState.js' or its corresponding type declarations.
++</diagnostics>
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5TraversalRules.spec.ts
++
++LSP errors detected in src/phaser/scenes/level5TraversalRules.spec.ts, please fix:
++<diagnostics file="/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5TraversalRules.spec.ts">
++ERROR [6:8] Cannot find module './level5TraversalRules.js' or its corresponding type declarations.
++</diagnostics>
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++
++⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
++
++ FAIL  src/phaser/scenes/level5DialogueState.spec.ts [ src/phaser/scenes/level5DialogueState.spec.ts ]
++Error: Cannot find module './level5DialogueState.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5DialogueState.spec.ts'
++ ❯ src/phaser/scenes/level5DialogueState.spec.ts:2:1
++      1| import { describe, expect, it } from 'vitest';
++      2| import {
++       | ^
++      3|   LEVEL5_DIALOGUE_TEXTURE_KEYS,
++      4|   advanceLevel5DialogueState,
++
++Caused by: Error: Failed to load url ./level5DialogueState.js (resolved id: ./level5DialogueState.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5DialogueState.spec.ts. Does the file exist?
++ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
++
++ FAIL  src/phaser/scenes/level5TraversalRules.spec.ts [ src/phaser/scenes/level5TraversalRules.spec.ts ]
++Error: Cannot find module './level5TraversalRules.js' imported from '/Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5TraversalRules.spec.ts'
++ ❯ src/phaser/scenes/level5TraversalRules.spec.ts:2:1
++      1| import { describe, expect, it } from 'vitest';
++      2| import {
++       | ^
++      3|   canMoveWithinLevel5Bounds,
++      4|   isLevel5VictoryTriggered,
++
++Caused by: Error: Failed to load url ./level5TraversalRules.js (resolved id: ./level5TraversalRules.js) in /Users/pbaruch/Desktop/VirusVanguardPhaser/src/phaser/scenes/level5TraversalRules.spec.ts. Does the file exist?
++ ❯ loadAndTransform node_modules/vite/dist/node/chunks/config.js:22663:33
++
++⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
++
++
++ Test Files  2 failed (2)
++      Tests  no tests
++   Start at  10:50:26
++   Duration  231ms (transform 28ms, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 69ms)
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5DialogueState.ts
++⏳ working... elapsed 3:10 · last activity 0:16 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A src/phaser/scenes/level5TraversalRules.ts
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/PreloadScene.ts
++⏳ working... elapsed 3:40 · last activity 0:19 ago
++⏳ working... elapsed 3:50 · last activity 0:29 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M src/phaser/scenes/GameScene.ts
++[0m
++[0m$ [0mnpm run test:unit -- src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
++> ts-wizards-chest@2023.1 test:unit
++> vitest run src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.spec.ts
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 1ms
++
++ Test Files  2 passed (2)
++      Tests  6 passed (6)
++   Start at  10:51:39
++   Duration  217ms (transform 33ms, setup 0ms, collect 32ms, tests 3ms, environment 0ms, prepare 88ms)
++[0m
++[0m# [0mTodos
++[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
++[x] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
++[x] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
++[x] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
++[ ] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
++[ ] Write handoff file for PR-016 with verification evidence
++[ ] Update parity limitations/architecture docs if changed
++[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
++[0m
++[0m$ [0mnpm run build
++> ts-wizards-chest@2023.1 build
++> tsc
++[0m
++[0m$ [0mnpx tsc --noEmit
++[0m
++[0m$ [0mnpm run lint
++> ts-wizards-chest@2023.1 lint
++> eslint "src/**/*.ts" --max-warnings 0
++[0m
++[0m$ [0mnpm run test:unit
++> ts-wizards-chest@2023.1 test:unit
++> vitest run
++
++
++ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
++
++ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
++ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 7ms
++ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 1ms
++ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
++ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
++ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
++ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 1ms
++
++ Test Files  15 passed (15)
++      Tests  53 passed (53)
++   Start at  10:52:08
++   Duration  624ms (transform 177ms, setup 0ms, collect 320ms, tests 29ms, environment 1ms, prepare 856ms)
++[0m
++[0m$ [0mnpm run test:e2e
++> ts-wizards-chest@2023.1 test:e2e
++> playwright test
++
++
++Running 1 test using 1 worker
++
++  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (684ms)
++
++  1 passed (1.9s)
++[0m
++[0m# [0mTodos
++[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
++[x] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
++[x] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
++[x] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
++[x] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
++[ ] Write handoff file for PR-016 with verification evidence
++[ ] Update parity limitations/architecture docs if changed
++[ ] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
++[0m
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/parity/known-limitations.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M docs/architecture/phaser-migration.mmd
++[0m
++[0m$ [0mgit status --short
++M .ralph/overnight-caffeinate-20260211-103217.log
++ M .ralph/ralph-loop.state.json
++ M .ralph/ralph-tasks.md
++ M build/phaser/scenes/GameScene.js
++ M build/phaser/scenes/GameScene.js.map
++ M build/phaser/scenes/PreloadScene.js
++ M build/phaser/scenes/PreloadScene.js.map
++ M docs/architecture/phaser-migration.mmd
++ M docs/parity/known-limitations.md
++ M src/phaser/scenes/GameScene.ts
++ M src/phaser/scenes/PreloadScene.ts
++?? build/phaser/scenes/level5DialogueState.js
++?? build/phaser/scenes/level5DialogueState.js.map
++?? build/phaser/scenes/level5TraversalRules.js
++?? build/phaser/scenes/level5TraversalRules.js.map
++?? src/phaser/scenes/level5DialogueState.spec.ts
++?? src/phaser/scenes/level5DialogueState.ts
++?? src/phaser/scenes/level5TraversalRules.spec.ts
++?? src/phaser/scenes/level5TraversalRules.ts
++[0m
++⏳ working... elapsed 5:10 · last activity 0:11 ago
++⏳ working... elapsed 5:20 · last activity 0:21 ago
++[0m⚙ [0mapply_patch Success. Updated the following files:
++A docs/handoffs/2026-02-11-pr-016-level5-shell-non-combat-victory-shell-wiring.md
++[0m⚙ [0mapply_patch Success. Updated the following files:
++M .ralph/ralph-tasks.md
++[0m→ [0mSkill "verification-before-completion"
++[0m
++[0m$ [0mgit status
++On branch main
++Your branch is up to date with 'origin/main'.
++
++Changes not staged for commit:
++  (use "git add <file>..." to update what will be committed)
++  (use "git restore <file>..." to discard changes in working directory)
++	modified:   .ralph/overnight-caffeinate-20260211-103217.log
++	modified:   .ralph/ralph-loop.state.json
++	modified:   .ralph/ralph-tasks.md
++	modified:   build/phaser/scenes/GameScene.js
++	modified:   build/phaser/scenes/GameScene.js.map
++	modified:   build/phaser/scenes/PreloadScene.js
++	modified:   build/phaser/scenes/PreloadScene.js.map
++	modified:   docs/architecture/phaser-migration.mmd
++	modified:   docs/parity/known-limitations.md
++	modified:   src/phaser/scenes/GameScene.ts
++	modified:   src/phaser/scenes/PreloadScene.ts
++
++Untracked files:
++  (use "git add <file>..." to include in what will be committed)
++	build/phaser/scenes/level5DialogueState.js
++	build/phaser/scenes/level5DialogueState.js.map
++	build/phaser/scenes/level5TraversalRules.js
++	build/phaser/scenes/level5TraversalRules.js.map
++	docs/handoffs/2026-02-11-pr-016-level5-shell-non-combat-victory-shell-wiring.md
++	src/phaser/scenes/level5DialogueState.spec.ts
++	src/phaser/scenes/level5DialogueState.ts
++	src/phaser/scenes/level5TraversalRules.spec.ts
++	src/phaser/scenes/level5TraversalRules.ts
++
++no changes added to commit (use "git add" and/or "git commit -a")
++[0m
++[0m$ [0mgit log --oneline -10
++0a8789f Ralph iteration 4: work in progress
++b7cb371 feat(parity:PR-015): add Level4 traversal shell parity
++bab42f6 Ralph iteration 3: work in progress
++fabf867 feat(parity:PR-014): add Level3 shell dialogue and traversal parity
++897b4bd Ralph iteration 2: work in progress
++7c2a46a Ralph iteration 1: work in progress
++99ca9d9 feat(parity:PR-013): add Level2 shell dialogue bounds and transition zone
++2b5165a feat(parity:PR-012): add Level1 shell traversal and dialogue parity
++fdff0f3 Ralph iteration 40: work in progress
++76c98f3 feat(parity:PR-011): add Level0 bounds and Level1 transition trigger
++[0m
+diff --git a/.ralph/ralph-loop.state.json b/.ralph/ralph-loop.state.json
+index fd81bf6..919a50d 100644
+--- a/.ralph/ralph-loop.state.json
++++ b/.ralph/ralph-loop.state.json
+@@ -1,6 +1,6 @@
+ {
+   "active": true,
+-  "iteration": 4,
++  "iteration": 5,
+   "minIterations": 1,
+   "maxIterations": 1000,
+   "completionPromise": "COMPLETE",
+diff --git a/.ralph/ralph-tasks.md b/.ralph/ralph-tasks.md
+index 172ef9e..d89f7c3 100644
+--- a/.ralph/ralph-tasks.md
++++ b/.ralph/ralph-tasks.md
+@@ -18,7 +18,7 @@
+ - [x] PR-013: Level2 shell (same pattern)
+ - [x] PR-014: Level3 shell (same pattern)
+ - [x] PR-015: Level4 shell (same pattern)
+-- [ ] PR-016: Level5 shell + non-combat victory shell wiring
++- [x] PR-016: Level5 shell + non-combat victory shell wiring
+ - [ ] PR-017: Transition rule engine wiring (score and item predicates wired only)
+ 
+ ## Wave C - Shooting Systems
+diff --git a/build/phaser/scenes/GameScene.js b/build/phaser/scenes/GameScene.js
+index 634b1c2..fe0da71 100644
+--- a/build/phaser/scenes/GameScene.js
++++ b/build/phaser/scenes/GameScene.js
+@@ -11,6 +11,8 @@ import { LEVEL3_DIALOGUE_TEXTURE_KEYS, advanceLevel3DialogueState, createInitial
+ import { canMoveWithinLevel3Bounds, isLevel3ToLevel4TransitionTriggered, } from './level3TraversalRules.js';
+ import { LEVEL4_DIALOGUE_TEXTURE_KEYS, advanceLevel4DialogueState, createInitialLevel4DialogueState, resolveLevel4DialoguePhase, } from './level4DialogueState.js';
+ import { canMoveWithinLevel4Bounds, isLevel4ToLevel5TransitionTriggered, } from './level4TraversalRules.js';
++import { LEVEL5_DIALOGUE_TEXTURE_KEYS, advanceLevel5DialogueState, createInitialLevel5DialogueState, resolveLevel5DialoguePhase, } from './level5DialogueState.js';
++import { canMoveWithinLevel5Bounds, isLevel5VictoryTriggered, } from './level5TraversalRules.js';
+ export default class GameScene extends Phaser.Scene {
+     static SCENE_KEY = 'GameScene';
+     static LEVEL_TRANSITION_EVENT = 'level-transition';
+@@ -27,6 +29,8 @@ export default class GameScene extends Phaser.Scene {
+     level3Phase;
+     level4DialogueState;
+     level4Phase;
++    level5DialogueState;
++    level5Phase;
+     player;
+     spaceKey;
+     moveUpKey;
+@@ -38,6 +42,7 @@ export default class GameScene extends Phaser.Scene {
+     hasTriggeredLevel3Transition;
+     hasTriggeredLevel4Transition;
+     hasTriggeredLevel5Transition;
++    hasTriggeredVictory;
+     constructor() {
+         super(GameScene.SCENE_KEY);
+         this.dialogueState = createInitialLevel0DialogueState();
+@@ -53,6 +58,8 @@ export default class GameScene extends Phaser.Scene {
+         this.level3Phase = resolveLevel3DialoguePhase(this.level3DialogueState, LEVEL3_DIALOGUE_TEXTURE_KEYS.length);
+         this.level4DialogueState = createInitialLevel4DialogueState();
+         this.level4Phase = resolveLevel4DialoguePhase(this.level4DialogueState, LEVEL4_DIALOGUE_TEXTURE_KEYS.length);
++        this.level5DialogueState = createInitialLevel5DialogueState();
++        this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
+         this.player = null;
+         this.spaceKey = null;
+         this.moveUpKey = null;
+@@ -64,6 +71,7 @@ export default class GameScene extends Phaser.Scene {
+         this.hasTriggeredLevel3Transition = false;
+         this.hasTriggeredLevel4Transition = false;
+         this.hasTriggeredLevel5Transition = false;
++        this.hasTriggeredVictory = false;
+     }
+     create() {
+         const centerX = this.scale.width / 2;
+@@ -107,6 +115,10 @@ export default class GameScene extends Phaser.Scene {
+                 this.level4DialogueState = advanceLevel4DialogueState(this.level4DialogueState);
+                 this.level4Phase = resolveLevel4DialoguePhase(this.level4DialogueState, LEVEL4_DIALOGUE_TEXTURE_KEYS.length);
+             }
++            else if (this.activeLevelId === 5 && this.level5Phase === 'dialogue') {
++                this.level5DialogueState = advanceLevel5DialogueState(this.level5DialogueState);
++                this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
++            }
+             this.syncActiveLevelVisualState();
+         }
+         if (this.activeLevelId === 0 && this.level0Phase === 'walkable') {
+@@ -132,6 +144,11 @@ export default class GameScene extends Phaser.Scene {
+         if (this.activeLevelId === 4 && this.level4Phase === 'walkable') {
+             this.updatePlayerMovement();
+             this.updateLevel4TransitionTrigger();
++            return;
++        }
++        if (this.activeLevelId === 5 && this.level5Phase === 'walkable' && !this.hasTriggeredVictory) {
++            this.updatePlayerMovement();
++            this.updateLevel5VictoryTrigger();
+         }
+     }
+     updatePlayerMovement() {
+@@ -168,9 +185,12 @@ export default class GameScene extends Phaser.Scene {
+         else if (this.activeLevelId === 3) {
+             canApplyMovement = canMoveWithinLevel3Bounds(traversalSnapshot, movementStep.facingDirection);
+         }
+-        else {
++        else if (this.activeLevelId === 4) {
+             canApplyMovement = canMoveWithinLevel4Bounds(traversalSnapshot, movementStep.facingDirection);
+         }
++        else {
++            canApplyMovement = canMoveWithinLevel5Bounds(traversalSnapshot, movementStep.facingDirection);
++        }
+         if (!canApplyMovement) {
+             return;
+         }
+@@ -285,6 +305,29 @@ export default class GameScene extends Phaser.Scene {
+             fromLevel: 4,
+             toLevel: 5,
+         });
++        this.enterLevel5();
++    }
++    updateLevel5VictoryTrigger() {
++        if (this.player === null || this.hasTriggeredVictory) {
++            return;
++        }
++        const hasReachedVictory = isLevel5VictoryTriggered({
++            canvasHeight: this.scale.height,
++            canvasWidth: this.scale.width,
++            playerHeight: this.player.displayHeight,
++            playerWidth: this.player.displayWidth,
++            playerX: this.player.x,
++            playerY: this.player.y,
++        });
++        if (!hasReachedVictory) {
++            return;
++        }
++        this.hasTriggeredVictory = true;
++        this.events.emit(GameScene.LEVEL_TRANSITION_EVENT, {
++            fromLevel: 5,
++            toLevel: 'victory',
++        });
++        this.syncActiveLevelVisualState();
+     }
+     enterLevel1() {
+         this.activeLevelId = 1;
+@@ -311,6 +354,12 @@ export default class GameScene extends Phaser.Scene {
+         this.level4Phase = resolveLevel4DialoguePhase(this.level4DialogueState, LEVEL4_DIALOGUE_TEXTURE_KEYS.length);
+         this.syncActiveLevelVisualState();
+     }
++    enterLevel5() {
++        this.activeLevelId = 5;
++        this.level5DialogueState = createInitialLevel5DialogueState();
++        this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
++        this.syncActiveLevelVisualState();
++    }
+     syncActiveLevelVisualState() {
+         if (this.activeLevelId === 0) {
+             this.syncLevel0VisualState();
+@@ -328,7 +377,15 @@ export default class GameScene extends Phaser.Scene {
+             this.syncLevel3VisualState();
+             return;
+         }
+-        this.syncLevel4VisualState();
++        if (this.activeLevelId === 4) {
++            this.syncLevel4VisualState();
++            return;
++        }
++        if (this.hasTriggeredVictory) {
++            this.syncVictoryVisualState();
++            return;
++        }
++        this.syncLevel5VisualState();
+     }
+     syncLevel0VisualState() {
+         if (this.level0Phase === 'startScreen') {
+@@ -397,6 +454,24 @@ export default class GameScene extends Phaser.Scene {
+         this.setDialogueVisible(false);
+         this.setPlayerVisible(true);
+     }
++    syncLevel5VisualState() {
++        document.body.className = 'level5';
++        this.setStartPromptVisible(false);
++        if (this.level5Phase === 'dialogue') {
++            this.setDialogueVisible(true);
++            this.setPlayerVisible(false);
++            this.dialogueImage?.setTexture(LEVEL5_DIALOGUE_TEXTURE_KEYS[this.level5DialogueState.currentDialogue]);
++            return;
++        }
++        this.setDialogueVisible(false);
++        this.setPlayerVisible(true);
++    }
++    syncVictoryVisualState() {
++        document.body.className = 'victory';
++        this.setStartPromptVisible(false);
++        this.setDialogueVisible(false);
++        this.setPlayerVisible(false);
++    }
+     setDialogueVisible(shouldBeVisible) {
+         if (this.dialogueImage !== null) {
+             this.dialogueImage.setVisible(shouldBeVisible);
+diff --git a/build/phaser/scenes/GameScene.js.map b/build/phaser/scenes/GameScene.js.map
+index 346c3cc..b9f02e1 100644
+--- a/build/phaser/scenes/GameScene.js.map
++++ b/build/phaser/scenes/GameScene.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"GameScene.js","sourceRoot":"","sources":["../../../src/phaser/scenes/GameScene.ts"],"names":[],"mappings":"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"}
+\ No newline at end of file
+
+...33481 bytes truncated...
+
+The tool call succeeded but the output was truncated. Full output saved to: /Users/pbaruch/.local/share/opencode/tool-output/tool_c4c1eabdc001cNWlruwMNJxMUV
+Use the Task tool to have explore agent process this file with Grep and Read (with offset/limit). Do NOT read the full file yourself - delegate to save context.
+[0m
+[0m$ [0mnpm run build && npx tsc --noEmit && npm run lint && npm run test:unit && npm run test:e2e
+> ts-wizards-chest@2023.1 build
+> tsc
+
+
+> ts-wizards-chest@2023.1 lint
+> eslint "src/**/*.ts" --max-warnings 0
+
+
+> ts-wizards-chest@2023.1 test:unit
+> vitest run
+
+
+ RUN  v3.2.4 /Users/pbaruch/Desktop/VirusVanguardPhaser
+
+ ✓ src/phaser/entities/playerMovementStep.spec.ts (5 tests) 5ms
+ ✓ src/phaser/scenes/level1DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/config/parityConstants.spec.ts (4 tests) 2ms
+ ✓ src/phaser/entities/playerFacingState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level4TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level3TraversalRules.spec.ts (4 tests) 2ms
+ ✓ src/phaser/scenes/level5TraversalRules.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level4DialogueState.spec.ts (3 tests) 2ms
+ ✓ src/phaser/scenes/level3DialogueState.spec.ts (3 tests) 3ms
+ ✓ src/phaser/scenes/level2DialogueState.spec.ts (3 tests) 13ms
+ ✓ src/phaser/scenes/level0TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level2TraversalRules.spec.ts (4 tests) 1ms
+ ✓ src/phaser/scenes/level0DialogueState.spec.ts (3 tests) 1ms
+ ✓ src/phaser/scenes/level1TraversalRules.spec.ts (4 tests) 3ms
+ ✓ src/phaser/scenes/level5DialogueState.spec.ts (3 tests) 2ms
+
+ Test Files  15 passed (15)
+      Tests  53 passed (53)
+   Start at  10:53:36
+   Duration  637ms (transform 159ms, setup 0ms, collect 332ms, tests 41ms, environment 2ms, prepare 950ms)
+
+
+> ts-wizards-chest@2023.1 test:e2e
+> playwright test
+
+
+Running 1 test using 1 worker
+
+  ✓  1 e2e/boot-smoke.spec.ts:3:1 › boots Phaser runtime without browser errors (673ms)
+
+  1 passed (2.0s)
+[0m
+[0m$ [0mgit add .ralph/ralph-tasks.md src/phaser/scenes/PreloadScene.ts src/phaser/scenes/GameScene.ts src/phaser/scenes/level5DialogueState.ts src/phaser/scenes/level5DialogueState.spec.ts src/phaser/scenes/level5TraversalRules.ts src/phaser/scenes/level5TraversalRules.spec.ts docs/parity/known-limitations.md docs/architecture/phaser-migration.mmd docs/handoffs/2026-02-11-pr-016-level5-shell-non-combat-victory-shell-wiring.md build/phaser/scenes/PreloadScene.js build/phaser/scenes/PreloadScene.js.map build/phaser/scenes/GameScene.js build/phaser/scenes/GameScene.js.map build/phaser/scenes/level5DialogueState.js build/phaser/scenes/level5DialogueState.js.map build/phaser/scenes/level5TraversalRules.js build/phaser/scenes/level5TraversalRules.js.map
+[0m
+[0m$ [0mgit commit -m "feat(parity:PR-016): wire Level5 shell and non-combat victory trigger" && git status --short
+[main a94bfea] feat(parity:PR-016): wire Level5 shell and non-combat victory trigger
+ 18 files changed, 540 insertions(+), 11 deletions(-)
+ create mode 100644 build/phaser/scenes/level5DialogueState.js
+ create mode 100644 build/phaser/scenes/level5DialogueState.js.map
+ create mode 100644 build/phaser/scenes/level5TraversalRules.js
+ create mode 100644 build/phaser/scenes/level5TraversalRules.js.map
+ create mode 100644 docs/handoffs/2026-02-11-pr-016-level5-shell-non-combat-victory-shell-wiring.md
+ create mode 100644 src/phaser/scenes/level5DialogueState.spec.ts
+ create mode 100644 src/phaser/scenes/level5DialogueState.ts
+ create mode 100644 src/phaser/scenes/level5TraversalRules.spec.ts
+ create mode 100644 src/phaser/scenes/level5TraversalRules.ts
+ M .ralph/overnight-caffeinate-20260211-103217.log
+ M .ralph/ralph-loop.state.json
+[0m
+[0m# [0mTodos
+[x] Read required docs: AGENTS.md, PRD, and current .ralph task list
+[x] Mark PR-016 as in progress [/] in .ralph/ralph-tasks.md
+[x] Implement PR-016 scope: Level5 shell and non-combat victory shell wiring only
+[x] Add/adjust tests first for PR-016 behavior and run failing test (TDD red)
+[x] Run required gates for PR-016: build, tsc --noEmit, lint, unit, e2e
+[x] Write handoff file for PR-016 with verification evidence
+[x] Update parity limitations/architecture docs if changed
+[x] Mark PR-016 complete [x] in .ralph/ralph-tasks.md and commit
+[0m
+<promise>READY_FOR_NEXT_TASK</promise>
+
+Iteration Summary
+────────────────────────────────────────────────────────────────────
+Iteration: 5
+Elapsed:   6:26
+Tools:     none
+Exit code: 0
+Completion promise: not detected
+
+🔄 Task completion detected: <promise>READY_FOR_NEXT_TASK</promise>
+   Moving to next task in iteration 6...
