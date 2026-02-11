@@ -22,5 +22,8 @@ export default class PhaserRuntime {
             scene: [BootScene, PreloadScene, GameScene],
         });
     }
+    getGameInstance() {
+        return this.game;
+    }
 }
 //# sourceMappingURL=PhaserRuntime.js.map

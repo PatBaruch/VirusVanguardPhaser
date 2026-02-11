@@ -31,4 +31,8 @@ export default class PhaserRuntime {
       scene: [BootScene, PreloadScene, GameScene],
     });
   }
+
+  public getGameInstance(): Phaser.Game | null {
+    return this.game;
+  }
 }

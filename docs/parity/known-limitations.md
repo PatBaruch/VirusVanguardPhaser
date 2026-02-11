@@ -37,3 +37,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-033 completed a full parity matrix verification run (build, lint, unit, and e2e gates) and recorded stabilization status with no new parity regressions detected.
 - PR-034 switched default boot to Phaser runtime while retaining the legacy canvas fallback flag at `?runtime=legacy`.
 - PR-035 removed the legacy canvas runtime and fallback selector wiring; boot now always starts Phaser runtime.
+- PR-036 added Playwright end-to-end traversal journey coverage from Level0 start state through Level5 reachability checkpoints, including score-gated transition preconditions for Levels1 to 5.
