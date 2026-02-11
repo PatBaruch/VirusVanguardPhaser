@@ -11,6 +11,7 @@ import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import FEmailPrefab from '../entities/FEmailPrefab.js';
 import RVirusPrefab from '../entities/RVirusPrefab.js';
 import WormPrefab from '../entities/WormPrefab.js';
+import TrojanPrefab from '../entities/TrojanPrefab.js';
 export default class PreloadScene extends Phaser.Scene {
     static SCENE_KEY = 'PreloadScene';
     constructor() {
@@ -42,6 +43,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image(FEmailPrefab.TEXTURE_KEY, './assets/FishingMail-Sprite/FMsprite_00.png');
         this.load.image(RVirusPrefab.TEXTURE_KEY, './assets/Resident-Sprite/Rsprite_0.png');
         this.load.image(WormPrefab.TEXTURE_KEY, './assets/Worm-Sprite/Wsprite_0.png');
+        this.load.image(TrojanPrefab.TEXTURE_KEY, './assets/Trojan-Sprite/Hsprite_0.png');
     }
     create() {
         this.scene.start(GameScene.SCENE_KEY);

@@ -21,11 +21,13 @@ import { resolveDualShotProjectileConfigs } from './dualShotPattern.js';
 import { resolveTripleShotProjectileConfigs } from './tripleShotPattern.js';
 import { resolveProjectileHitResolution, } from './projectileHitResolution.js';
 import FEmailPrefab from '../entities/FEmailPrefab.js';
-import { advanceLevel1FEmailMotion, advanceLevel1FEmailSpawnState, createInitialLevel1FEmailSpawnState, resolveLevel1PlayerEnemyCollisions, } from './level1FEmailCombat.js';
+import { FEMAIL_DAMAGE, FEMAIL_HEALTH, FEMAIL_HORIZONTAL_SPEED_PER_MS, FEMAIL_SCORE_VALUE, FEMAIL_VERTICAL_SPEED_PER_MS, advanceLevel1FEmailMotion, advanceLevel1FEmailSpawnState, createInitialLevel1FEmailSpawnState, resolveLevel1PlayerEnemyCollisions, } from './level1FEmailCombat.js';
 import RVirusPrefab from '../entities/RVirusPrefab.js';
-import { LEVEL2_RVIRUS_DAMAGE, advanceLevel2RVirusMotion, advanceLevel2RVirusSpawnState, createInitialLevel2RVirusAttachmentState, createInitialLevel2RVirusSpawnState, resolveLevel2RVirusAttachment, } from './level2RVirusCombat.js';
+import { LEVEL2_RVIRUS_DAMAGE, LEVEL2_RVIRUS_HEALTH, LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS, LEVEL2_RVIRUS_SCORE_VALUE, LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS, advanceLevel2RVirusMotion, advanceLevel2RVirusSpawnState, createInitialLevel2RVirusAttachmentState, createInitialLevel2RVirusSpawnState, resolveLevel2RVirusAttachment, } from './level2RVirusCombat.js';
 import WormPrefab from '../entities/WormPrefab.js';
-import { LEVEL3_WORM_DAMAGE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, } from './level3WormCombat.js';
+import { LEVEL3_WORM_DAMAGE, LEVEL3_WORM_HEALTH, LEVEL3_WORM_SCORE_VALUE, advanceLevel3WormDuplicationState, advanceLevel3WormMotion, advanceLevel3WormSpawnState, createInitialLevel3WormDuplicationState, createInitialLevel3WormSpawnState, } from './level3WormCombat.js';
+import TrojanPrefab from '../entities/TrojanPrefab.js';
+import { LEVEL4_TROJAN_DAMAGE, advanceLevel4TrojanMotion, advanceLevel4TrojanSpawnState, createInitialLevel4TrojanSpawnState, resolveLevel4TrojanBreaches, resolveLevel4TrojanProjectileHits, } from './level4TrojanCombat.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -68,6 +70,11 @@ export default class GameScene extends Phaser.Scene {
     activeWorms;
     level3WormSpawnState;
     level3WormDuplicationState;
+    activeTrojans;
+    level4TrojanSpawnState;
+    level4SplitFEmailNextEnemyNumericId;
+    level4SplitRVirusNextEnemyNumericId;
+    level4SplitWormNextEnemyNumericId;
     playerHealth;
     constructor() {
         super(GameScene.SCENE_KEY);
@@ -109,6 +116,11 @@ export default class GameScene extends Phaser.Scene {
         this.activeWorms = [];
         this.level3WormSpawnState = createInitialLevel3WormSpawnState();
         this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
+        this.activeTrojans = [];
+        this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
+        this.level4SplitFEmailNextEnemyNumericId = 0;
+        this.level4SplitRVirusNextEnemyNumericId = 0;
+        this.level4SplitWormNextEnemyNumericId = 0;
         this.playerHealth = 100;
     }
     create() {
@@ -191,6 +203,7 @@ export default class GameScene extends Phaser.Scene {
         }
         if (this.activeLevelId === 4 && this.level4Phase === 'walkable') {
             this.updatePlayerMovement();
+            this.updateLevel4Combat(delta);
             this.updateLevel4TransitionTrigger();
             return;
         }
@@ -726,6 +739,193 @@ export default class GameScene extends Phaser.Scene {
             y: snapshot.velocityY,
         };
     }
+    updateLevel4Combat(elapsedMs) {
+        const spawnResolution = advanceLevel4TrojanSpawnState(this.level4TrojanSpawnState, {
+            canSpawn: this.activeLevelId === 4 && this.level4Phase === 'walkable',
+            canvasHeight: this.scale.height,
+            canvasWidth: this.scale.width,
+            elapsedMs,
+            random: () => Math.random(),
+            score: this.score,
+        });
+        this.level4TrojanSpawnState = spawnResolution.nextState;
+        for (const spawnedEnemy of spawnResolution.spawnedEnemies) {
+            const trojan = new TrojanPrefab(this, spawnedEnemy);
+            this.add.existing(trojan);
+            this.activeTrojans.push(trojan);
+        }
+        if (this.activeTrojans.length > 0) {
+            const movedSnapshots = advanceLevel4TrojanMotion(this.activeTrojans.map((enemy) => enemy.toSnapshot()), { elapsedMs });
+            this.applyTrojanSnapshotsById(movedSnapshots);
+            this.resolveLevel4TrojanProjectileHits();
+            this.resolveLevel4TrojanBreaches();
+        }
+        if (this.activeFEmails.length > 0) {
+            this.updateLevel1Combat(elapsedMs);
+        }
+        if (this.activeRViruses.length > 0) {
+            this.updateLevel2Combat(elapsedMs);
+        }
+        if (this.activeWorms.length > 0) {
+            this.updateLevel3Combat(elapsedMs);
+        }
+        this.activeCombatItemCount = this.activeTrojans.length
+            + this.activeFEmails.length
+            + this.activeRViruses.length
+            + this.activeWorms.length;
+    }
+    resolveLevel4TrojanProjectileHits() {
+        if (this.activeProjectiles.length === 0 || this.activeTrojans.length === 0) {
+            return;
+        }
+        const projectileSnapshots = this.activeProjectiles.map((projectile) => ({
+            centerX: projectile.x,
+            centerY: projectile.y,
+            damage: projectile.getDamage(),
+            height: projectile.displayHeight,
+            projectileId: projectile.name,
+            width: projectile.displayWidth,
+        }));
+        for (let index = 0; index < projectileSnapshots.length; index += 1) {
+            projectileSnapshots[index].projectileId = `projectile-${index}`;
+        }
+        const trojanSnapshots = this.activeTrojans.map((enemy) => enemy.toSnapshot());
+        const resolution = resolveLevel4TrojanProjectileHits({
+            projectiles: projectileSnapshots,
+            trojans: trojanSnapshots,
+        });
+        if (resolution.destroyedProjectileIds.length > 0) {
+            this.activeProjectiles = this.activeProjectiles.filter((projectile, index) => {
+                const projectileId = `projectile-${index}`;
+                const isDestroyed = resolution.destroyedProjectileIds.includes(projectileId);
+                if (isDestroyed) {
+                    projectile.destroy();
+                }
+                return !isDestroyed;
+            });
+        }
+        if (resolution.destroyedTrojanIds.length > 0) {
+            this.activeTrojans = this.activeTrojans.filter((enemy) => {
+                const isDestroyed = resolution.destroyedTrojanIds.includes(enemy.getEnemyId());
+                if (isDestroyed) {
+                    enemy.destroy();
+                }
+                return !isDestroyed;
+            });
+        }
+        if (resolution.remainingTrojans.length > 0 && this.activeTrojans.length > 0) {
+            this.applyTrojanSnapshotsById(resolution.remainingTrojans.map((trojan) => ({
+                centerX: trojan.centerX,
+                centerY: trojan.centerY,
+                currentHealth: trojan.currentHealth,
+                damage: LEVEL4_TROJAN_DAMAGE,
+                enemyId: trojan.enemyId,
+                height: trojan.height,
+                scoreValue: trojan.scoreValue,
+                velocityX: this.resolveTrojanVelocityById(trojan.enemyId).x,
+                velocityY: this.resolveTrojanVelocityById(trojan.enemyId).y,
+                width: trojan.width,
+            })));
+        }
+        this.score += resolution.scoreDelta;
+        this.spawnLevel4SplitEnemies(resolution.splitSpawns);
+    }
+    resolveLevel4TrojanBreaches() {
+        if (this.activeTrojans.length === 0) {
+            return;
+        }
+        const breachResolution = resolveLevel4TrojanBreaches({
+            enemies: this.activeTrojans.map((enemy) => enemy.toSnapshot()),
+            minX: this.scale.width * 0.05,
+        });
+        if (breachResolution.breachedEnemyIds.length > 0) {
+            this.activeTrojans = this.activeTrojans.filter((enemy) => {
+                const isBreached = breachResolution.breachedEnemyIds.includes(enemy.getEnemyId());
+                if (isBreached) {
+                    enemy.destroy();
+                }
+                return !isBreached;
+            });
+        }
+        this.playerHealth = Math.max(0, this.playerHealth - breachResolution.playerDamageDelta);
+        this.spawnLevel4SplitEnemies(breachResolution.splitSpawns);
+    }
+    applyTrojanSnapshotsById(snapshots) {
+        const enemyById = new Map(this.activeTrojans.map((enemy) => [enemy.getEnemyId(), enemy]));
+        for (const snapshot of snapshots) {
+            const enemy = enemyById.get(snapshot.enemyId);
+            if (enemy !== undefined) {
+                enemy.applySnapshot(snapshot);
+            }
+        }
+    }
+    resolveTrojanVelocityById(enemyId) {
+        const enemy = this.activeTrojans.find((item) => item.getEnemyId() === enemyId);
+        if (enemy === undefined) {
+            return { x: 0, y: 0 };
+        }
+        const snapshot = enemy.toSnapshot();
+        return {
+            x: snapshot.velocityX,
+            y: snapshot.velocityY,
+        };
+    }
+    spawnLevel4SplitEnemies(splitSpawns) {
+        for (const splitSpawn of splitSpawns) {
+            const fEmailSnapshot = {
+                centerX: splitSpawn.impactX + 100,
+                centerY: splitSpawn.impactY + 30,
+                currentHealth: FEMAIL_HEALTH,
+                damage: FEMAIL_DAMAGE,
+                enemyId: `level4-split-femail-${this.level4SplitFEmailNextEnemyNumericId}`,
+                height: 0,
+                scoreValue: FEMAIL_SCORE_VALUE,
+                velocityX: Math.random() > 0.5 ? -FEMAIL_HORIZONTAL_SPEED_PER_MS : FEMAIL_HORIZONTAL_SPEED_PER_MS,
+                velocityY: Math.random() > 0.5 ? -FEMAIL_VERTICAL_SPEED_PER_MS : FEMAIL_VERTICAL_SPEED_PER_MS,
+                width: 0,
+            };
+            this.level4SplitFEmailNextEnemyNumericId += 1;
+            const fEmail = new FEmailPrefab(this, fEmailSnapshot);
+            this.add.existing(fEmail);
+            this.activeFEmails.push(fEmail);
+            const rVirusSnapshot = {
+                centerX: splitSpawn.impactX + 100,
+                centerY: splitSpawn.impactY - 30,
+                currentHealth: LEVEL2_RVIRUS_HEALTH,
+                damage: LEVEL2_RVIRUS_DAMAGE,
+                enemyId: `level4-split-rvirus-${this.level4SplitRVirusNextEnemyNumericId}`,
+                height: 0,
+                scoreValue: LEVEL2_RVIRUS_SCORE_VALUE,
+                velocityX: Math.random() > 0.5
+                    ? -LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS
+                    : LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS,
+                velocityY: Math.random() > 0.5
+                    ? -LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS
+                    : LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS,
+                width: 0,
+            };
+            this.level4SplitRVirusNextEnemyNumericId += 1;
+            const rVirus = new RVirusPrefab(this, rVirusSnapshot);
+            this.add.existing(rVirus);
+            this.activeRViruses.push(rVirus);
+            const wormSnapshot = {
+                centerX: splitSpawn.impactX + 100,
+                centerY: splitSpawn.impactY + 30,
+                currentHealth: LEVEL3_WORM_HEALTH,
+                damage: LEVEL3_WORM_DAMAGE,
+                enemyId: `level4-split-worm-${this.level4SplitWormNextEnemyNumericId}`,
+                height: 0,
+                scoreValue: LEVEL3_WORM_SCORE_VALUE,
+                velocityX: -0.4,
+                velocityY: -0.3,
+                width: 0,
+            };
+            this.level4SplitWormNextEnemyNumericId += 1;
+            const worm = new WormPrefab(this, wormSnapshot);
+            this.add.existing(worm);
+            this.activeWorms.push(worm);
+        }
+    }
     updateLevel2TransitionTrigger() {
         if (this.player === null || this.hasTriggeredLevel3Transition) {
             return;
@@ -848,15 +1048,25 @@ export default class GameScene extends Phaser.Scene {
     }
     enterLevel4() {
         this.activeLevelId = 4;
+        this.destroyAllFEmails();
+        this.destroyAllRViruses();
         this.destroyAllWorms();
+        this.destroyAllTrojans();
         this.activeCombatItemCount = 0;
+        this.level4TrojanSpawnState = createInitialLevel4TrojanSpawnState();
+        this.level4SplitFEmailNextEnemyNumericId = 0;
+        this.level4SplitRVirusNextEnemyNumericId = 0;
+        this.level4SplitWormNextEnemyNumericId = 0;
         this.level4DialogueState = createInitialLevel4DialogueState();
         this.level4Phase = resolveLevel4DialoguePhase(this.level4DialogueState, LEVEL4_DIALOGUE_TEXTURE_KEYS.length);
         this.syncActiveLevelVisualState();
     }
     enterLevel5() {
         this.activeLevelId = 5;
+        this.destroyAllFEmails();
+        this.destroyAllRViruses();
         this.destroyAllWorms();
+        this.destroyAllTrojans();
         this.activeCombatItemCount = 0;
         this.level5DialogueState = createInitialLevel5DialogueState();
         this.level5Phase = resolveLevel5DialoguePhase(this.level5DialogueState, LEVEL5_DIALOGUE_TEXTURE_KEYS.length);
@@ -1006,6 +1216,12 @@ export default class GameScene extends Phaser.Scene {
             enemy.destroy();
         }
         this.activeWorms = [];
+    }
+    destroyAllTrojans() {
+        for (const enemy of this.activeTrojans) {
+            enemy.destroy();
+        }
+        this.activeTrojans = [];
     }
     isActiveLevelWalkablePhase() {
         if (this.activeLevelId === 0) {

@@ -15,6 +15,7 @@ import ProjectilePrefab from '../entities/ProjectilePrefab.js';
 import FEmailPrefab from '../entities/FEmailPrefab.js';
 import RVirusPrefab from '../entities/RVirusPrefab.js';
 import WormPrefab from '../entities/WormPrefab.js';
+import TrojanPrefab from '../entities/TrojanPrefab.js';
 
 /**
  * Minimal preload scene shell for Phaser runtime lifecycle.
@@ -76,6 +77,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image(
       WormPrefab.TEXTURE_KEY,
       './assets/Worm-Sprite/Wsprite_0.png',
+    );
+
+    this.load.image(
+      TrojanPrefab.TEXTURE_KEY,
+      './assets/Trojan-Sprite/Hsprite_0.png',
     );
   }
 
