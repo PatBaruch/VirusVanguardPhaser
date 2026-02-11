@@ -15,6 +15,8 @@ import { LEVEL5_DIALOGUE_TEXTURE_KEYS, advanceLevel5DialogueState, createInitial
 import { canMoveWithinLevel5Bounds, isLevel5VictoryTriggered, } from './level5TraversalRules.js';
 import { canTriggerLevelTransition } from './transitionRuleEngine.js';
 import { canAcceptShootInput } from './shootInputGate.js';
+import ProjectilePrefab from '../entities/ProjectilePrefab.js';
+import { resolveSingleShotProjectileConfigs } from './singleShotPattern.js';
 export default class GameScene extends Phaser.Scene {
     static SCENE_KEY = 'GameScene';
     static LEVEL_TRANSITION_EVENT = 'level-transition';
@@ -48,6 +50,7 @@ export default class GameScene extends Phaser.Scene {
     hasTriggeredVictory;
     score;
     activeCombatItemCount;
+    activeProjectiles;
     constructor() {
         super(GameScene.SCENE_KEY);
         this.dialogueState = createInitialLevel0DialogueState();
@@ -79,6 +82,7 @@ export default class GameScene extends Phaser.Scene {
         this.hasTriggeredVictory = false;
         this.score = 0;
         this.activeCombatItemCount = 0;
+        this.activeProjectiles = [];
     }
     create() {
         const centerX = this.scale.width / 2;
@@ -98,9 +102,11 @@ export default class GameScene extends Phaser.Scene {
         this.dialogueImage.setVisible(false);
         this.player = new PlayerPrefab(this);
         this.add.existing(this.player);
+        this.events.on(GameScene.SHOOT_INPUT_EVENT, this.handleShootInput, this);
         this.syncActiveLevelVisualState();
     }
-    update() {
+    update(_time, delta) {
+        this.updateProjectiles(delta);
         if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
             if (this.activeLevelId === 0) {
                 this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
@@ -209,6 +215,38 @@ export default class GameScene extends Phaser.Scene {
         this.player.x += movementStep.deltaX;
         this.player.y += movementStep.deltaY;
         this.player.setFacingDirection(movementStep.facingDirection);
+    }
+    handleShootInput(payload) {
+        if (this.player === null) {
+            return;
+        }
+        const projectileConfigs = resolveSingleShotProjectileConfigs({
+            facingDirection: this.player.getFacingDirection(),
+            levelId: payload.levelId,
+            playerCenterX: this.player.x + this.player.displayWidth / 2,
+            playerCenterY: this.player.y + this.player.displayHeight / 2,
+        });
+        for (const projectileConfig of projectileConfigs) {
+            const projectile = new ProjectilePrefab(this, projectileConfig);
+            this.add.existing(projectile);
+            this.activeProjectiles.push(projectile);
+        }
+    }
+    updateProjectiles(elapsedMs) {
+        if (this.activeProjectiles.length === 0) {
+            return;
+        }
+        const nextActiveProjectiles = [];
+        for (const projectile of this.activeProjectiles) {
+            projectile.updateMotion(elapsedMs);
+            if (projectile.isOutsideCombatWorldBounds(this.scale.width, this.scale.height)) {
+                projectile.destroy();
+            }
+            else {
+                nextActiveProjectiles.push(projectile);
+            }
+        }
+        this.activeProjectiles = nextActiveProjectiles;
     }
     updateLevel0TransitionTrigger() {
         if (this.player === null || this.hasTriggeredLevel1Transition) {

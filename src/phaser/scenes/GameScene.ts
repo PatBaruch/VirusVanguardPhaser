@@ -75,6 +75,8 @@ import {
 } from './level5TraversalRules.js';
 import { canTriggerLevelTransition } from './transitionRuleEngine.js';
 import { canAcceptShootInput } from './shootInputGate.js';
+import ProjectilePrefab from '../entities/ProjectilePrefab.js';
+import { resolveSingleShotProjectileConfigs } from './singleShotPattern.js';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -144,6 +146,8 @@ export default class GameScene extends Phaser.Scene {
 
   private activeCombatItemCount: number;
 
+  private activeProjectiles: ProjectilePrefab[];
+
   public constructor() {
     super(GameScene.SCENE_KEY);
     this.dialogueState = createInitialLevel0DialogueState();
@@ -193,6 +197,7 @@ export default class GameScene extends Phaser.Scene {
     this.hasTriggeredVictory = false;
     this.score = 0;
     this.activeCombatItemCount = 0;
+    this.activeProjectiles = [];
   }
 
   public create(): void {
@@ -222,11 +227,14 @@ export default class GameScene extends Phaser.Scene {
 
     this.player = new PlayerPrefab(this);
     this.add.existing(this.player);
+    this.events.on(GameScene.SHOOT_INPUT_EVENT, this.handleShootInput, this);
 
     this.syncActiveLevelVisualState();
   }
 
-  public override update(): void {
+  public override update(_time: number, delta: number): void {
+    this.updateProjectiles(delta);
+
     if (this.spaceKey !== null && Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
       if (this.activeLevelId === 0) {
         this.dialogueState = advanceLevel0DialogueState(this.dialogueState);
@@ -355,6 +363,45 @@ export default class GameScene extends Phaser.Scene {
     this.player.x += movementStep.deltaX;
     this.player.y += movementStep.deltaY;
     this.player.setFacingDirection(movementStep.facingDirection);
+  }
+
+  private handleShootInput(payload: { levelId: 0 | 1 | 2 | 3 | 4 | 5 }): void {
+    if (this.player === null) {
+      return;
+    }
+
+    const projectileConfigs = resolveSingleShotProjectileConfigs({
+      facingDirection: this.player.getFacingDirection(),
+      levelId: payload.levelId,
+      playerCenterX: this.player.x + this.player.displayWidth / 2,
+      playerCenterY: this.player.y + this.player.displayHeight / 2,
+    });
+
+    for (const projectileConfig of projectileConfigs) {
+      const projectile = new ProjectilePrefab(this, projectileConfig);
+      this.add.existing(projectile);
+      this.activeProjectiles.push(projectile);
+    }
+  }
+
+  private updateProjectiles(elapsedMs: number): void {
+    if (this.activeProjectiles.length === 0) {
+      return;
+    }
+
+    const nextActiveProjectiles: ProjectilePrefab[] = [];
+
+    for (const projectile of this.activeProjectiles) {
+      projectile.updateMotion(elapsedMs);
+
+      if (projectile.isOutsideCombatWorldBounds(this.scale.width, this.scale.height)) {
+        projectile.destroy();
+      } else {
+        nextActiveProjectiles.push(projectile);
+      }
+    }
+
+    this.activeProjectiles = nextActiveProjectiles;
   }
 
   private updateLevel0TransitionTrigger(): void {
