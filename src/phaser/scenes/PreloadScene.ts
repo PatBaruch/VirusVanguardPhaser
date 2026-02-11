@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import GameScene from './GameScene.js';
 import { LEVEL0_DIALOGUE_TEXTURE_KEYS } from './level0DialogueState.js';
+import { LEVEL1_DIALOGUE_TEXTURE_KEYS } from './level1DialogueState.js';
 import {
   PLAYER_FACING_DIRECTIONS,
   PLAYER_FACING_TEXTURE_KEYS,
@@ -20,6 +21,10 @@ export default class PreloadScene extends Phaser.Scene {
   public preload(): void {
     LEVEL0_DIALOGUE_TEXTURE_KEYS.forEach((dialogueTextureKey: string, index: number) => {
       this.load.image(dialogueTextureKey, `./assets/Dialogue-Level0/Level0-${index}.png`);
+    });
+
+    LEVEL1_DIALOGUE_TEXTURE_KEYS.forEach((dialogueTextureKey: string, index: number) => {
+      this.load.image(dialogueTextureKey, `./assets/Dialogue-Level1/Level1-${index}.png`);
     });
 
     PLAYER_FACING_DIRECTIONS.forEach((direction: PlayerFacingDirection) => {
