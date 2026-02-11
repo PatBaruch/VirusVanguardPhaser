@@ -1,7 +1,5 @@
 flowchart TD
-  A[app.ts Runtime Selector] --> B{Runtime Mode}
-  B -->|phaser default| D[PhaserRuntime]
-  B -->|runtime=legacy fallback| C[Legacy Canvas Runtime]
+  A[app.ts Phaser Bootstrap] --> D[PhaserRuntime]
   D --> D1[BootScene]
   D1 --> D2[PreloadScene + Level0 Dialogue Assets + Player Facing Textures]
   D2 --> D3[GameScene Level0 Visual Shell]
@@ -30,8 +28,8 @@ flowchart TD
   D25 --> D26[Enemy Collision Matrix Hardening (Levels1 to 4)]
   D26 --> D27[Level5 MrHacker Combat (Spawn + HP Model + Health Bar + Boss Bullet Volley + Enemy Bullet Damage)]
   D27 --> D28[Level5 Boss Minion Cycle (FEmail/RVirus/Worm 3000ms Spawn Parity)]
-  C --> E[Core Systems Parity]
   D28 --> D29[Level5 Boss Defeat + Win Flow (Multiplier + Victory Summary + Restart)]
+  E[Core Systems Parity]
   D29 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]

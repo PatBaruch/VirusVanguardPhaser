@@ -12,19 +12,19 @@ function createWindowStub(search: string): Window {
 
 describe('getRuntimeMode', () => {
   it('defaults to phaser when runtime query parameter is absent', () => {
-    const runtimeMode: 'legacy' | 'phaser' = getRuntimeMode(createWindowStub(''));
+    const runtimeMode: 'phaser' = getRuntimeMode(createWindowStub(''));
 
     expect(runtimeMode).toBe('phaser');
   });
 
-  it('uses legacy runtime when runtime=legacy is provided as fallback', () => {
-    const runtimeMode: 'legacy' | 'phaser' = getRuntimeMode(createWindowStub('?runtime=legacy'));
+  it('ignores runtime=legacy fallback and keeps Phaser runtime active', () => {
+    const runtimeMode: 'phaser' = getRuntimeMode(createWindowStub('?runtime=legacy'));
 
-    expect(runtimeMode).toBe('legacy');
+    expect(runtimeMode).toBe('phaser');
   });
 
   it('uses phaser runtime when runtime=phaser is explicitly provided', () => {
-    const runtimeMode: 'legacy' | 'phaser' = getRuntimeMode(createWindowStub('?runtime=phaser'));
+    const runtimeMode: 'phaser' = getRuntimeMode(createWindowStub('?runtime=phaser'));
 
     expect(runtimeMode).toBe('phaser');
   });
