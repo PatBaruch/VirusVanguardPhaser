@@ -3,7 +3,7 @@
 Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 
 ## Open
-- No active gameplay parity gaps are currently open.
+- Level3 Worm duplication timing is intentionally tuned to `3000ms` in Phaser for playability, versus the legacy `2000ms` cadence.
 - No active governance gaps are currently open.
 
 ## Resolved
@@ -43,3 +43,8 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-038 added Playwright long-run runtime soak coverage with sustained movement and shoot input, including explicit console-error and page-error assertions over an extended browser interaction window.
 - PR-039 validated end-to-end PRD traceability artifacts across handoffs, parity matrix, and known limitations; repaired missing handoff metadata (`Date`) for PR-030 through PR-038 and reconciled parity documentation coverage through Wave G.
 - PR-040 added GitHub Actions CI workflow gates for build, lint, unit tests, and e2e tests to support required merge-check enforcement.
+- PR-041 fixed level-entry state polish by resetting east-facing player entry and refreshing the lit Level5 arena backdrop as combat clear-state changes.
+- PR-042 hardened Level2 RVirus attachment handling so additional overlapping RVirus now damage and despawn instead of ghosting through the player.
+- PR-043 tuned Level3 worm duplication pressure from 2000ms to 3000ms to keep the level playable; this remains an intentional open parity deviation from legacy timing.
+- PR-044 added Phaser combat feedback effects: Death-sprite enemy death animations on lethal kills and visible player damage flash feedback.
+- PR-047 added a short player recovery window after damage so immediate re-hit chains are suppressed, and surfaced the recovering state through sustained overlay feedback plus runtime-testable player state metadata.

@@ -1,16 +1,101 @@
 import { expect, test, type Page } from '@playwright/test';
+import { reachLevel1Walkable } from './helpers/gameplay.js';
 
-interface CombatInteractionSnapshot {
-  projectileCountAfterShoot: number;
-  projectileCountBeforeShoot: number;
-  scoreAfterProjectileHit: number;
-  scoreBeforeProjectileHit: number;
-  level1EnemyCountAfterHit: number;
-  playerHealthAfterEnemyCollision: number;
-  playerHealthBeforeEnemyCollision: number;
+test.setTimeout(120000);
+
+async function readRuntimeHud(page: Page): Promise<{
+  health: number;
+  level: number;
+  score: number;
+}> {
+  return page.evaluate(() => ({
+    health: Number(document.body.dataset.vvHealth ?? '0'),
+    level: Number(document.body.dataset.vvLevel ?? '-1'),
+    score: Number(document.body.dataset.vvScore ?? '0'),
+  }));
 }
 
-async function collectCombatInteractionSnapshot(path: string, page: Page): Promise<void> {
+async function readCombatSnapshot(page: Page): Promise<{
+  activeDeathEffectCount: number;
+  cameraShakeActive: boolean;
+  enemyCount: number;
+  firstEnemyTextureKey: string | null;
+  firstEnemyY: number | null;
+  playerY: number;
+  projectileCount: number;
+  redOverlayAlpha: number;
+}> {
+  return page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => {
+              activeDeathEffects?: unknown[];
+              activeFEmails?: Array<{ y: number; texture: { key: string } }>;
+              activeProjectiles?: unknown[];
+              cameras?: { main?: { shakeEffect?: { isRunning: boolean } } };
+              damageOverlay?: { alpha: number };
+              player?: { y: number };
+            };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return {
+        activeDeathEffectCount: 0,
+        cameraShakeActive: false,
+        enemyCount: 0,
+        firstEnemyTextureKey: null,
+        firstEnemyY: null,
+        playerY: 0,
+        projectileCount: 0,
+        redOverlayAlpha: 0,
+      };
+    }
+
+    const scene = game.scene.getScene('GameScene');
+    const enemies = scene.activeFEmails ?? [];
+    const projectiles = scene.activeProjectiles ?? [];
+
+    return {
+      activeDeathEffectCount: scene.activeDeathEffects?.length ?? 0,
+      cameraShakeActive: scene.cameras?.main?.shakeEffect?.isRunning ?? false,
+      enemyCount: enemies.length,
+      firstEnemyTextureKey: enemies.length > 0 ? enemies[0].texture.key : null,
+      firstEnemyY: enemies.length > 0 ? enemies[0].y : null,
+      playerY: scene.player?.y ?? 0,
+      projectileCount: projectiles.length,
+      redOverlayAlpha: scene.damageOverlay?.alpha ?? 0,
+    };
+  });
+}
+
+async function isLevel1Walkable(page: Page): Promise<boolean> {
+  return page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => { level1Phase?: string };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return false;
+    }
+
+    return game.scene.getScene('GameScene').level1Phase === 'walkable';
+  });
+}
+
+test('supports early-level combat with real input: shooting raises score and enemies can damage player', async ({ page }) => {
   const consoleErrors: string[] = [];
   const pageErrors: string[] = [];
 
@@ -24,185 +109,204 @@ async function collectCombatInteractionSnapshot(path: string, page: Page): Promi
     pageErrors.push(error.message);
   });
 
-  await page.goto(path);
+  await page.goto('/?e2e=1');
   await expect(page.locator('#game')).toBeVisible();
 
-  await page.waitForFunction(() => {
-    const runtime = (window as Window & {
-      __VV_E2E_RUNTIME__?: {
-        getGameInstance: () => {
-          scene: {
-            getScene: (key: string) => {
-              [key: string]: unknown;
-            };
-          };
-        } | null;
-      };
-    }).__VV_E2E_RUNTIME__;
+  await reachLevel1Walkable(page);
+  await expect.poll(async () => isLevel1Walkable(page), { timeout: 15000 }).toBe(true);
+  await page.click('#game');
 
-    const game = runtime?.getGameInstance();
-    if (game === null || game === undefined) {
-      return false;
+  const initial = await readRuntimeHud(page);
+  expect(initial.level).toBe(1);
+
+  let sawScoreIncrease = false;
+  let sawHealthDecrease = false;
+  let sawDamageFlash = false;
+  let sawDeathEffect = false;
+  let latest = initial;
+
+  let sawProjectileSpawn = false;
+  let sawEnemyAnimation = false;
+  let previousEnemyTextureKey: string | null = null;
+
+  // Real gameplay loop: align with visible enemies, shoot, and absorb combat damage.
+  await page.keyboard.down('Space');
+  for (let index = 0; index < 320; index += 1) {
+    const combatSnapshot = await readCombatSnapshot(page);
+    if (combatSnapshot.projectileCount > 0) {
+      sawProjectileSpawn = true;
     }
 
-    const scene = game.scene.getScene('GameScene') as {
-      player?: unknown;
-    };
-    return scene.player !== null && scene.player !== undefined;
-  });
+    if (
+      combatSnapshot.firstEnemyTextureKey !== null
+      && previousEnemyTextureKey !== null
+      && combatSnapshot.firstEnemyTextureKey !== previousEnemyTextureKey
+    ) {
+      sawEnemyAnimation = true;
+    }
+    previousEnemyTextureKey = combatSnapshot.firstEnemyTextureKey;
 
-  const snapshot: CombatInteractionSnapshot = await page.evaluate(() => {
-    interface FakeFEmailEnemy {
-      destroyed: boolean;
-      getEnemyId: () => string;
-      destroy: () => void;
-      toSnapshot: () => {
-        centerX: number;
-        centerY: number;
-        currentHealth: number;
-        damage: number;
-        enemyId: string;
-        height: number;
-        scoreValue: number;
-        velocityX: number;
-        velocityY: number;
-        width: number;
-      };
+    if (combatSnapshot.activeDeathEffectCount > 0) {
+      sawDeathEffect = true;
     }
 
-    const runtime = (window as Window & {
-      __VV_E2E_RUNTIME__?: {
-        getGameInstance: () => {
-          scene: {
-            getScene: (key: string) => unknown;
-          };
-        } | null;
-      };
-    }).__VV_E2E_RUNTIME__;
-
-    if (runtime === undefined) {
-      throw new Error('Expected __VV_E2E_RUNTIME__ test hook to be present');
+    if (combatSnapshot.redOverlayAlpha > 0 || combatSnapshot.cameraShakeActive) {
+      sawDamageFlash = true;
     }
 
-    const game = runtime.getGameInstance();
-    if (game === null) {
-      throw new Error('Expected Phaser game instance to be available');
+    if (combatSnapshot.firstEnemyY !== null) {
+      if (combatSnapshot.playerY < combatSnapshot.firstEnemyY - 8) {
+        await page.keyboard.down('s');
+        await page.waitForTimeout(60);
+        await page.keyboard.up('s');
+      } else if (combatSnapshot.playerY > combatSnapshot.firstEnemyY + 8) {
+        await page.keyboard.down('w');
+        await page.waitForTimeout(60);
+        await page.keyboard.up('w');
+      }
     }
 
-    const scene = game.scene.getScene('GameScene') as {
-      activeFEmails: FakeFEmailEnemy[];
-      activeLevelId: number;
-      activeProjectiles: Array<{
-        displayHeight: number;
-        displayWidth: number;
-        x: number;
-        y: number;
-      }>;
-      events: {
-        emit: (eventName: string, payload: { levelId: number }) => void;
-      };
-      level1Phase: string;
-      player: {
-        displayHeight: number;
-        displayWidth: number;
-        x: number;
-        y: number;
-      };
-      playerHealth: number;
-      resolveLevel1PlayerEnemyCollisions: () => void;
-      resolveLevel1ProjectileHits: () => void;
-      score: number;
-    };
-
-    if (scene.player === null || scene.player === undefined) {
-      throw new Error('Expected player prefab to be present');
+    if (index % 4 === 0) {
+      await page.keyboard.down('d');
+      await page.waitForTimeout(70);
+      await page.keyboard.up('d');
+    } else if (index % 4 === 1) {
+      await page.keyboard.down('s');
+      await page.waitForTimeout(70);
+      await page.keyboard.up('s');
+    } else if (index % 4 === 2) {
+      await page.keyboard.down('a');
+      await page.waitForTimeout(70);
+      await page.keyboard.up('a');
+    } else {
+      await page.keyboard.down('w');
+      await page.waitForTimeout(70);
+      await page.keyboard.up('w');
     }
 
-    const createFakeFEmailEnemy = (
-      enemyId: string,
-      centerX: number,
-      centerY: number,
-      damage: number,
-      scoreValue: number,
-    ): FakeFEmailEnemy => {
-      const enemy: FakeFEmailEnemy = {
-        destroyed: false,
-        destroy: () => {
-          enemy.destroyed = true;
-        },
-        getEnemyId: () => enemyId,
-        toSnapshot: () => ({
-          centerX,
-          centerY,
-          currentHealth: 1,
-          damage,
-          enemyId,
-          height: 48,
-          scoreValue,
-          velocityX: 0,
-          velocityY: 0,
-          width: 48,
-        }),
-      };
-      return enemy;
-    };
-
-    scene.activeLevelId = 1;
-    scene.level1Phase = 'walkable';
-    scene.score = 0;
-    scene.playerHealth = 100;
-    scene.activeFEmails = [];
-
-    const projectileCountBeforeShoot: number = scene.activeProjectiles.length;
-    scene.events.emit('shoot-input', { levelId: 1 });
-    const projectileCountAfterShoot: number = scene.activeProjectiles.length;
-
-    if (projectileCountAfterShoot <= projectileCountBeforeShoot) {
-      throw new Error('Expected shoot interaction to spawn at least one projectile');
+    await page.waitForTimeout(70);
+    latest = await readRuntimeHud(page);
+    if (latest.score > initial.score) {
+      sawScoreIncrease = true;
     }
 
-    const projectile = scene.activeProjectiles[projectileCountAfterShoot - 1];
-    projectile.x = 300;
-    projectile.y = 300;
-    projectile.displayWidth = 24;
-    projectile.displayHeight = 24;
+    if (latest.health < initial.health) {
+      sawHealthDecrease = true;
+    }
 
-    const projectileTargetEnemy = createFakeFEmailEnemy('e2e-level1-projectile-hit', 300, 300, 5, 10);
-    scene.activeFEmails = [projectileTargetEnemy];
+    if (sawScoreIncrease && sawHealthDecrease && sawDamageFlash && sawDeathEffect && sawEnemyAnimation) {
+      break;
+    }
+  }
+  await page.keyboard.up('Space');
 
-    const scoreBeforeProjectileHit: number = scene.score;
-    scene.resolveLevel1ProjectileHits();
-    const scoreAfterProjectileHit: number = scene.score;
-    const level1EnemyCountAfterHit: number = scene.activeFEmails.length;
+  expect(sawProjectileSpawn).toBe(true);
+  expect(sawScoreIncrease, `Expected score to increase from ${initial.score}, latest score was ${latest.score}`).toBe(true);
+  expect(sawHealthDecrease, `Expected health to decrease from ${initial.health}, latest health was ${latest.health}`).toBe(true);
+  expect(sawDamageFlash).toBe(true);
+  expect(sawDeathEffect).toBe(true);
+  expect(sawEnemyAnimation).toBe(true);
 
-    const collisionEnemy = createFakeFEmailEnemy('e2e-level1-player-collision', 300, 300, 5, 10);
-    scene.activeFEmails = [collisionEnemy];
-    scene.player.x = 300 - (scene.player.displayWidth / 2);
-    scene.player.y = 300 - (scene.player.displayHeight / 2);
-
-    const playerHealthBeforeEnemyCollision: number = scene.playerHealth;
-    scene.resolveLevel1PlayerEnemyCollisions();
-    const playerHealthAfterEnemyCollision: number = scene.playerHealth;
-
-    return {
-      level1EnemyCountAfterHit,
-      playerHealthAfterEnemyCollision,
-      playerHealthBeforeEnemyCollision,
-      projectileCountAfterShoot,
-      projectileCountBeforeShoot,
-      scoreAfterProjectileHit,
-      scoreBeforeProjectileHit,
-    };
-  });
-
-  expect(snapshot.projectileCountAfterShoot).toBeGreaterThan(snapshot.projectileCountBeforeShoot);
-  expect(snapshot.level1EnemyCountAfterHit).toBe(0);
-  expect(snapshot.scoreAfterProjectileHit).toBeGreaterThan(snapshot.scoreBeforeProjectileHit);
-  expect(snapshot.playerHealthAfterEnemyCollision).toBeLessThan(snapshot.playerHealthBeforeEnemyCollision);
   expect(consoleErrors, `Unexpected console errors: ${consoleErrors.join('\n')}`).toHaveLength(0);
   expect(pageErrors, `Unexpected page errors: ${pageErrors.join('\n')}`).toHaveLength(0);
-}
+});
 
-test('covers Level1 combat interactions for shooting, enemy damage, and score progression', async ({ page }) => {
-  await collectCombatInteractionSnapshot('/?e2e=1', page);
+test('supports sustained fire from held space input in Level1 combat', async ({ page }) => {
+  await page.goto('/?e2e=1');
+  await expect(page.locator('#game')).toBeVisible();
+
+  await reachLevel1Walkable(page);
+  await expect.poll(async () => isLevel1Walkable(page), { timeout: 15000 }).toBe(true);
+  await page.click('#game');
+
+  let maxProjectileCount: number = 0;
+
+  await page.keyboard.down('Space');
+  for (let index = 0; index < 8; index += 1) {
+    await page.waitForTimeout(120);
+    const combatSnapshot = await readCombatSnapshot(page);
+    maxProjectileCount = Math.max(maxProjectileCount, combatSnapshot.projectileCount);
+  }
+  await page.keyboard.up('Space');
+
+  expect(maxProjectileCount).toBeGreaterThan(1);
+});
+
+test('surfaces a recovering player state after taking combat damage', async ({ page }) => {
+  await page.goto('/?e2e=1&e2ePlayerHealth=30');
+  await expect(page.locator('#game')).toBeVisible();
+
+  await reachLevel1Walkable(page);
+  await expect.poll(async () => isLevel1Walkable(page), { timeout: 15000 }).toBe(true);
+  await page.click('#game');
+
+  const initial = await readRuntimeHud(page);
+  let latest = initial;
+  let sawRecoveringState = false;
+
+  for (let index = 0; index < 400; index += 1) {
+    if (index % 2 === 0) {
+      await page.keyboard.down('d');
+      await page.waitForTimeout(80);
+      await page.keyboard.up('d');
+    } else {
+      await page.keyboard.down('w');
+      await page.waitForTimeout(80);
+      await page.keyboard.up('w');
+    }
+
+    await page.waitForTimeout(80);
+    latest = await readRuntimeHud(page);
+    if (latest.health < initial.health) {
+      sawRecoveringState = (await page.evaluate(() => document.body.dataset.vvPlayerState)) === 'recovering';
+      break;
+    }
+  }
+
+  expect(latest.health).toBeLessThan(initial.health);
+  expect(sawRecoveringState).toBe(true);
+
+  await page.waitForTimeout(250);
+  const midRecoverySnapshot = await readCombatSnapshot(page);
+  expect(await page.evaluate(() => document.body.dataset.vvPlayerState)).toBe('recovering');
+  expect(midRecoverySnapshot.redOverlayAlpha).toBeGreaterThan(0);
+
+  await expect.poll(async () => page.evaluate(() => document.body.dataset.vvPlayerState), { timeout: 2000 }).toBe('active');
+});
+
+test('allows player death from enemy collisions and surfaces game-over state', async ({ page }) => {
+  await page.goto('/?e2e=1&e2ePlayerHealth=30');
+  await expect(page.locator('#game')).toBeVisible();
+
+  await reachLevel1Walkable(page);
+  await expect.poll(async () => isLevel1Walkable(page), { timeout: 15000 }).toBe(true);
+  await page.click('#game');
+
+  for (let index = 0; index < 400; index += 1) {
+    if (index % 2 === 0) {
+      await page.keyboard.down('d');
+      await page.waitForTimeout(80);
+      await page.keyboard.up('d');
+    } else {
+      await page.keyboard.down('w');
+      await page.waitForTimeout(80);
+      await page.keyboard.up('w');
+    }
+
+    await page.waitForTimeout(80);
+
+    const playerState = await page.evaluate(() => document.body.dataset.vvPlayerState ?? 'active');
+    if (playerState === 'gameOver') {
+      break;
+    }
+  }
+
+  await expect
+    .poll(async () => page.evaluate(() => document.body.className), {
+      message: 'Expected gameplay to eventually reach game-over state',
+      timeout: 30000,
+    })
+    .toBe('gameOver');
+
+  await expect.poll(async () => page.evaluate(() => document.body.dataset.vvPlayerState), { timeout: 5000 }).toBe('gameOver');
 });

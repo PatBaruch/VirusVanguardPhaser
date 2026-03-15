@@ -34,8 +34,9 @@ flowchart TD
   D31 --> D32[Playwright Runtime Soak E2E (Sustained Input + No Console/Page Errors)]
   D32 --> D33[Traceability Artifacts Validation (Handoffs + Parity Matrix + Known Limitations)]
   D33 --> D34[CI Required Merge-Check Workflow (Build + Lint + Unit + E2E)]
+  D34 --> D35[Player Recovery Window + Recovering-State Feedback]
   E[Core Systems Parity]
-  D34 --> E
+  D35 --> E
   E --> F[Walkable Levels]
   F --> G[Shooting Systems]
   G --> H[Enemy Systems by Level]

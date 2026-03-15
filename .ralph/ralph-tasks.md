@@ -53,3 +53,31 @@
 - [x] PR-038: Add long-run runtime soak validation (no console/page errors under sustained input)
 - [x] PR-039: Validate PRD traceability artifacts end-to-end (handoffs, parity matrix, known limitations) and repair gaps
 - [x] PR-040: Add CI workflow gate for build, lint, unit, and e2e as required merge checks
+
+## Wave H - Gameplay Stabilization Follow-Ups
+- [x] PR-041: Fix level-entry facing reset and lit arena backdrop transition refresh
+- [x] PR-042: Harden Level2 stacked RVirus collision handling
+- [x] PR-043: Rebalance Level3 worm duplication pressure for playability
+- [x] PR-044: Add combat damage/death feedback effects using Death-sprite assets
+- [x] PR-045: Re-run full gameplay regression gates and document stabilization handoff
+
+## Wave I - Combat Feel And Encounter Variety
+- [x] PR-046: Sustained-fire cadence and shoot-state gating
+- [x] PR-047: Player recovery window and damage-state feedback
+- [ ] PR-048: Control onboarding, exit-open messaging, and combat hit confirmation
+- [ ] PR-049: Level2 infection-pressure encounter rule
+- [ ] PR-050: Level3 duplication-control encounter rule
+- [ ] PR-051: Level4 breach-defense encounter rule
+- [ ] PR-052: Level5 boss arena phase-state encounter rule
+- [ ] PR-053: Full gameplay enhancement regression sweep, docs update, and final handoff
+
+## Wave J - Comprehensive Gameplay E2E Coverage
+- [ ] PR-054: E2E runtime contract and seeded scenario setup
+- [ ] PR-055: Full traversal and progression-gating E2E coverage
+- [ ] PR-056: Player combat core, weapon scaling, and game-over E2E coverage
+- [ ] PR-057: Level2 RVirus attach, drain, and overlap E2E coverage
+- [ ] PR-058: Level3 worm duplication E2E coverage
+- [ ] PR-059: Level4 Trojan breach and split E2E coverage
+- [ ] PR-060: Level5 boss, victory, and restart E2E coverage
+- [ ] PR-061: Multi-level soak, MCP, and Playwright config hardening
+- [ ] PR-062: Full comprehensive E2E regression sweep and final handoff
