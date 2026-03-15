@@ -418,3 +418,303 @@ test('allows player death from enemy collisions and surfaces game-over state', a
 
   await expect.poll(async () => page.evaluate(() => document.body.dataset.vvPlayerState), { timeout: 5000 }).toBe('gameOver');
 });
+
+test('surfaces the Level2 infection lane state when the player stands inside RVirus pressure', async ({ page }) => {
+  await page.goto('/?e2e=1');
+  await expect(page.locator('#game')).toBeVisible();
+  await expect.poll(async () => page.evaluate(() => document.body.className)).toBe('startScreen');
+
+  const pressureSnapshot = await page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => {
+              activeCombatItemCount: number;
+              activeLevelId: number;
+              activeRViruses: Array<{
+                applySnapshot: (snapshot: {
+                  centerX: number;
+                  centerY: number;
+                  currentHealth: number;
+                  damage: number;
+                  enemyId: string;
+                  height: number;
+                  scoreValue: number;
+                  velocityX: number;
+                  velocityY: number;
+                  width: number;
+                }) => void;
+                destroy: () => void;
+                getEnemyId: () => string;
+                snapshot: {
+                  centerX: number;
+                  centerY: number;
+                  currentHealth: number;
+                  damage: number;
+                  enemyId: string;
+                  height: number;
+                  scoreValue: number;
+                  velocityX: number;
+                  velocityY: number;
+                  width: number;
+                };
+                toSnapshot: () => {
+                  centerX: number;
+                  centerY: number;
+                  currentHealth: number;
+                  damage: number;
+                  enemyId: string;
+                  height: number;
+                  scoreValue: number;
+                  velocityX: number;
+                  velocityY: number;
+                  width: number;
+                };
+                x: number;
+                y: number;
+              }>;
+              level2Phase: string;
+              level2PressureOverlay?: { alpha: number; visible: boolean };
+              level2RVirusAttachmentState: { msUntilNextDrain: number; stuckEnemyId: string | null };
+              level2RVirusSpawnState: { msUntilNextSpawn: number; nextEnemyNumericId: number };
+              player?: { displayHeight: number; displayWidth: number; x: number; y: number };
+              syncGameplayHud: () => void;
+              update: (time: number, delta: number) => void;
+            };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return {
+        hazardCount: '0',
+        overlayAlpha: 0,
+        pressureState: '',
+        status: '',
+      };
+    }
+
+    const scene = game.scene.getScene('GameScene');
+    if (scene.player === undefined) {
+      return {
+        hazardCount: '0',
+        overlayAlpha: 0,
+        pressureState: '',
+        status: '',
+      };
+    }
+
+    scene.activeLevelId = 2;
+    scene.level2Phase = 'walkable';
+    scene.activeCombatItemCount = 1;
+    scene.level2RVirusSpawnState = { msUntilNextSpawn: 5000, nextEnemyNumericId: 99 };
+    scene.level2RVirusAttachmentState = { stuckEnemyId: null, msUntilNextDrain: 1500 };
+
+    const playerCenterX = 430;
+    const playerCenterY = 320;
+    scene.player.x = playerCenterX - (scene.player.displayWidth / 2);
+    scene.player.y = playerCenterY - (scene.player.displayHeight / 2);
+
+    scene.activeRViruses = [{
+      applySnapshot(snapshot: {
+        centerX: number;
+        centerY: number;
+        currentHealth: number;
+        damage: number;
+        enemyId: string;
+        height: number;
+        scoreValue: number;
+        velocityX: number;
+        velocityY: number;
+        width: number;
+      }) {
+        this.x = snapshot.centerX;
+        this.y = snapshot.centerY;
+        this.snapshot = { ...snapshot };
+      },
+      destroy() {},
+      getEnemyId() {
+        return 'rvirus-lane';
+      },
+      snapshot: {
+        centerX: 420,
+        centerY: 180,
+        currentHealth: 1,
+        damage: 5,
+        enemyId: 'rvirus-lane',
+        height: 20,
+        scoreValue: 10,
+        velocityX: 0,
+        velocityY: 0,
+        width: 20,
+      },
+      toSnapshot() {
+        return { ...this.snapshot };
+      },
+      x: 420,
+      y: 180,
+    }];
+
+    scene.update(0, 1000);
+    scene.syncGameplayHud();
+
+    return {
+      hazardCount: document.body.dataset.vvLevel2HazardCount ?? '0',
+      overlayAlpha: scene.level2PressureOverlay?.alpha ?? 0,
+      pressureState: document.body.dataset.vvLevel2PressureState ?? '',
+      status: document.body.dataset.vvStatusText ?? '',
+    };
+  });
+
+  expect(pressureSnapshot.hazardCount).toBe('1');
+  expect(pressureSnapshot.pressureState).toBe('infectedZone');
+  expect(pressureSnapshot.overlayAlpha).toBeGreaterThan(0);
+  expect(pressureSnapshot.status).toContain('Infection lane');
+});
+
+test('clears the Level2 infection lane overlay when the game over state is shown', async ({ page }) => {
+  await page.goto('/?e2e=1');
+  await expect(page.locator('#game')).toBeVisible();
+  await expect.poll(async () => page.evaluate(() => document.body.className)).toBe('startScreen');
+
+  const overlayState = await page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => {
+              activeCombatItemCount: number;
+              activeLevelId: number;
+              activeRViruses: Array<{
+                applySnapshot: (snapshot: {
+                  centerX: number;
+                  centerY: number;
+                  currentHealth: number;
+                  damage: number;
+                  enemyId: string;
+                  height: number;
+                  scoreValue: number;
+                  velocityX: number;
+                  velocityY: number;
+                  width: number;
+                }) => void;
+                destroy: () => void;
+                getEnemyId: () => string;
+                snapshot: {
+                  centerX: number;
+                  centerY: number;
+                  currentHealth: number;
+                  damage: number;
+                  enemyId: string;
+                  height: number;
+                  scoreValue: number;
+                  velocityX: number;
+                  velocityY: number;
+                  width: number;
+                };
+                toSnapshot: () => {
+                  centerX: number;
+                  centerY: number;
+                  currentHealth: number;
+                  damage: number;
+                  enemyId: string;
+                  height: number;
+                  scoreValue: number;
+                  velocityX: number;
+                  velocityY: number;
+                  width: number;
+                };
+                x: number;
+                y: number;
+              }>;
+              hasTriggeredGameOver: boolean;
+              level2Phase: string;
+              level2PressureOverlay?: { alpha: number; visible: boolean };
+              level2RVirusAttachmentState: { msUntilNextDrain: number; stuckEnemyId: string | null };
+              level2RVirusSpawnState: { msUntilNextSpawn: number; nextEnemyNumericId: number };
+              player?: { displayHeight: number; displayWidth: number; x: number; y: number };
+              syncActiveLevelVisualState: () => void;
+              syncGameplayHud: () => void;
+              update: (time: number, delta: number) => void;
+            };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return { afterGameOverAlpha: 0, beforeGameOverAlpha: 0 };
+    }
+
+    const scene = game.scene.getScene('GameScene');
+    if (scene.player === undefined) {
+      return { afterGameOverAlpha: 0, beforeGameOverAlpha: 0 };
+    }
+
+    scene.activeLevelId = 2;
+    scene.level2Phase = 'walkable';
+    scene.activeCombatItemCount = 1;
+    scene.level2RVirusSpawnState = { msUntilNextSpawn: 5000, nextEnemyNumericId: 99 };
+    scene.level2RVirusAttachmentState = { stuckEnemyId: null, msUntilNextDrain: 1500 };
+    scene.player.x = 430 - (scene.player.displayWidth / 2);
+    scene.player.y = 320 - (scene.player.displayHeight / 2);
+    scene.activeRViruses = [{
+      applySnapshot(snapshot: {
+        centerX: number;
+        centerY: number;
+        currentHealth: number;
+        damage: number;
+        enemyId: string;
+        height: number;
+        scoreValue: number;
+        velocityX: number;
+        velocityY: number;
+        width: number;
+      }) {
+        this.x = snapshot.centerX;
+        this.y = snapshot.centerY;
+        this.snapshot = { ...snapshot };
+      },
+      destroy() {},
+      getEnemyId() {
+        return 'rvirus-lane';
+      },
+      snapshot: {
+        centerX: 420,
+        centerY: 180,
+        currentHealth: 1,
+        damage: 5,
+        enemyId: 'rvirus-lane',
+        height: 20,
+        scoreValue: 10,
+        velocityX: 0,
+        velocityY: 0,
+        width: 20,
+      },
+      toSnapshot() {
+        return { ...this.snapshot };
+      },
+      x: 420,
+      y: 180,
+    }];
+
+    scene.update(0, 1000);
+    scene.syncGameplayHud();
+    const beforeGameOverAlpha = scene.level2PressureOverlay?.alpha ?? 0;
+
+    scene.hasTriggeredGameOver = true;
+    scene.syncActiveLevelVisualState();
+
+    return {
+      afterGameOverAlpha: scene.level2PressureOverlay?.alpha ?? 0,
+      beforeGameOverAlpha,
+    };
+  });
+
+  expect(overlayState.beforeGameOverAlpha).toBeGreaterThan(0);
+  expect(overlayState.afterGameOverAlpha).toBe(0);
+});

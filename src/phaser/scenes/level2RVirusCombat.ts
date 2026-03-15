@@ -55,15 +55,34 @@ export interface Level2RVirusAttachmentResult {
   playerDamageDelta: number;
 }
 
+export interface Level2InfectionHazardZone {
+  maxX: number;
+  minX: number;
+}
+
+export interface Level2RVirusInfectionPressureState {
+  msUntilNextTick: number;
+}
+
+export interface Level2RVirusInfectionPressureResult {
+  hazardZones: Level2InfectionHazardZone[];
+  nextState: Level2RVirusInfectionPressureState;
+  playerDamageDelta: number;
+  playerPressureState: 'infectedZone' | 'safe';
+}
+
 export const LEVEL2_RVIRUS_SPAWN_INTERVAL_MS: number = 1000;
 export const LEVEL2_RVIRUS_DAMAGE: number = 5;
 export const LEVEL2_RVIRUS_SCORE_VALUE: number = 10;
-export const LEVEL2_RVIRUS_HEALTH: number = 5;
+export const LEVEL2_RVIRUS_HEALTH: number = 1;
 export const LEVEL2_RVIRUS_STUCK_HEALTH: number = 10;
 export const LEVEL2_RVIRUS_HP_DRAIN_INTERVAL_MS: number = 1500;
+export const LEVEL2_RVIRUS_INFECTION_LANE_TICK_DAMAGE: number = 3;
+export const LEVEL2_RVIRUS_INFECTION_LANE_TICK_INTERVAL_MS: number = 1000;
 export const LEVEL2_RVIRUS_CLEAR_SCORE_THRESHOLD: number = 400;
 export const LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS: number = 1 / 2;
 export const LEVEL2_RVIRUS_VERTICAL_SPEED_PER_MS: number = 0.3 / 2;
+export const LEVEL2_RVIRUS_INFECTION_LANE_WIDTH_RATIO: number = 0.18;
 
 export function createInitialLevel2RVirusSpawnState(): Level2RVirusSpawnState {
   return {
@@ -78,6 +97,12 @@ export function createInitialLevel2RVirusAttachmentState(
   return {
     msUntilNextDrain: LEVEL2_RVIRUS_HP_DRAIN_INTERVAL_MS,
     stuckEnemyId,
+  };
+}
+
+export function createInitialLevel2RVirusInfectionPressureState(): Level2RVirusInfectionPressureState {
+  return {
+    msUntilNextTick: LEVEL2_RVIRUS_INFECTION_LANE_TICK_INTERVAL_MS,
   };
 }
 
@@ -208,8 +233,23 @@ export function resolveLevel2RVirusAttachment(
       stuckEnemy.velocityX = 0;
       stuckEnemy.velocityY = 0;
 
+      const remainingEnemies: Level2RVirusEnemySnapshot[] = [];
+      for (const enemy of nextEnemies) {
+        if (enemy.enemyId === stuckEnemy.enemyId) {
+          remainingEnemies.push(enemy);
+          continue;
+        }
+
+        if (isOverlap(snapshot.player, enemy)) {
+          playerDamageDelta += enemy.damage;
+          continue;
+        }
+
+        remainingEnemies.push(enemy);
+      }
+
       return {
-        nextEnemies,
+        nextEnemies: remainingEnemies,
         nextState: {
           msUntilNextDrain,
           stuckEnemyId: stuckEnemy.enemyId,
@@ -240,13 +280,88 @@ export function resolveLevel2RVirusAttachment(
   overlappingEnemy.velocityX = 0;
   overlappingEnemy.velocityY = 0;
 
+  const remainingEnemies: Level2RVirusEnemySnapshot[] = [];
+  let playerDamageDelta: number = 0;
+  for (const enemy of nextEnemies) {
+    if (enemy.enemyId === overlappingEnemy.enemyId) {
+      remainingEnemies.push(enemy);
+      continue;
+    }
+
+    if (isOverlap(snapshot.player, enemy)) {
+      playerDamageDelta += enemy.damage;
+      continue;
+    }
+
+    remainingEnemies.push(enemy);
+  }
+
   return {
-    nextEnemies,
+    nextEnemies: remainingEnemies,
     nextState: {
       msUntilNextDrain: LEVEL2_RVIRUS_HP_DRAIN_INTERVAL_MS,
       stuckEnemyId: overlappingEnemy.enemyId,
     },
-    playerDamageDelta: 0,
+    playerDamageDelta,
+  };
+}
+
+export function resolveLevel2InfectionPressure(
+  previousState: Level2RVirusInfectionPressureState,
+  snapshot: {
+    canvasWidth: number;
+    elapsedMs: number;
+    enemies: readonly Level2RVirusEnemySnapshot[];
+    player: PlayerCollisionSnapshot;
+    stuckEnemyId: string | null;
+  },
+): Level2RVirusInfectionPressureResult {
+  const carrierEnemy = snapshot.enemies.find(
+    (enemy: Level2RVirusEnemySnapshot) => enemy.enemyId !== snapshot.stuckEnemyId,
+  );
+
+  if (carrierEnemy === undefined) {
+    return {
+      hazardZones: [],
+      nextState: createInitialLevel2RVirusInfectionPressureState(),
+      playerDamageDelta: 0,
+      playerPressureState: 'safe',
+    };
+  }
+
+  const laneWidth: number = snapshot.canvasWidth * LEVEL2_RVIRUS_INFECTION_LANE_WIDTH_RATIO;
+  const halfLaneWidth: number = laneWidth / 2;
+  const hazardZone: Level2InfectionHazardZone = {
+    maxX: carrierEnemy.centerX + halfLaneWidth,
+    minX: carrierEnemy.centerX - halfLaneWidth,
+  };
+  const playerPressureState = snapshot.player.centerX >= hazardZone.minX && snapshot.player.centerX <= hazardZone.maxX
+    ? 'infectedZone'
+    : 'safe';
+
+  if (playerPressureState === 'safe') {
+    return {
+      hazardZones: [hazardZone],
+      nextState: createInitialLevel2RVirusInfectionPressureState(),
+      playerDamageDelta: 0,
+      playerPressureState,
+    };
+  }
+
+  let msUntilNextTick: number = previousState.msUntilNextTick - snapshot.elapsedMs;
+  let playerDamageDelta: number = 0;
+  while (msUntilNextTick <= 0) {
+    playerDamageDelta += LEVEL2_RVIRUS_INFECTION_LANE_TICK_DAMAGE;
+    msUntilNextTick += LEVEL2_RVIRUS_INFECTION_LANE_TICK_INTERVAL_MS;
+  }
+
+  return {
+    hazardZones: [hazardZone],
+    nextState: {
+      msUntilNextTick,
+    },
+    playerDamageDelta,
+    playerPressureState,
   };
 }
 

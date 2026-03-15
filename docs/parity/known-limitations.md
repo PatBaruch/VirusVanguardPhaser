@@ -48,3 +48,4 @@ Track only active parity gaps between legacy canvas runtime and Phaser runtime.
 - PR-043 tuned Level3 worm duplication pressure from 2000ms to 3000ms to keep the level playable; this remains an intentional open parity deviation from legacy timing.
 - PR-044 added Phaser combat feedback effects: Death-sprite enemy death animations on lethal kills and visible player damage flash feedback.
 - PR-047 added a short player recovery window after damage so immediate re-hit chains are suppressed, and surfaced the recovering state through sustained overlay feedback plus runtime-testable player state metadata.
+- PR-049 added a visible Level2 infection lane tied to active RVirus positions, including runtime-testable pressure state and periodic damage when the player lingers inside the contaminated lane.

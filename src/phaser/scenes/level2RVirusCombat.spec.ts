@@ -2,10 +2,14 @@ import { describe, expect, it } from 'vitest';
 import {
   LEVEL2_RVIRUS_CLEAR_SCORE_THRESHOLD,
   LEVEL2_RVIRUS_DAMAGE,
+  LEVEL2_RVIRUS_HEALTH,
+  LEVEL2_RVIRUS_INFECTION_LANE_TICK_DAMAGE,
   LEVEL2_RVIRUS_STUCK_HEALTH,
   advanceLevel2RVirusSpawnState,
   createInitialLevel2RVirusAttachmentState,
+  createInitialLevel2RVirusInfectionPressureState,
   createInitialLevel2RVirusSpawnState,
+  resolveLevel2InfectionPressure,
   resolveLevel2RVirusAttachment,
 } from './level2RVirusCombat.js';
 
@@ -41,6 +45,8 @@ describe('level2 RVirus combat parity', () => {
     expect(secondWave.spawnedEnemies).toHaveLength(1);
     expect(firstWave.spawnedEnemies[0].enemyId).toBe('level2-rvirus-0');
     expect(secondWave.spawnedEnemies[0].enemyId).toBe('level2-rvirus-1');
+    expect(firstWave.spawnedEnemies[0].currentHealth).toBe(1);
+    expect(LEVEL2_RVIRUS_HEALTH).toBe(1);
   });
 
   it('stops spawning RVirus enemies once clear threshold is met', () => {
@@ -126,5 +132,168 @@ describe('level2 RVirus combat parity', () => {
     expect(result.nextState.msUntilNextDrain).toBe(1400);
     expect(result.nextEnemies[0].centerX).toBe(200);
     expect(result.nextEnemies[0].centerY).toBe(300);
+  });
+
+  it('damages the player and removes extra overlapping RVirus while one remains stuck', () => {
+    const result = resolveLevel2RVirusAttachment(
+      createInitialLevel2RVirusAttachmentState('rvirus-stuck'),
+      {
+        elapsedMs: 16,
+        enemies: [
+          {
+            centerX: 120,
+            centerY: 160,
+            currentHealth: LEVEL2_RVIRUS_STUCK_HEALTH,
+            damage: LEVEL2_RVIRUS_DAMAGE,
+            enemyId: 'rvirus-stuck',
+            height: 20,
+            scoreValue: 10,
+            velocityX: 0,
+            velocityY: 0,
+            width: 20,
+          },
+          {
+            centerX: 120,
+            centerY: 160,
+            currentHealth: 5,
+            damage: LEVEL2_RVIRUS_DAMAGE,
+            enemyId: 'rvirus-extra',
+            height: 20,
+            scoreValue: 10,
+            velocityX: 0,
+            velocityY: 0,
+            width: 20,
+          },
+        ],
+        player: {
+          centerX: 120,
+          centerY: 160,
+          height: 20,
+          width: 20,
+        },
+      },
+    );
+
+    expect(result.nextState.stuckEnemyId).toBe('rvirus-stuck');
+    expect(result.playerDamageDelta).toBe(LEVEL2_RVIRUS_DAMAGE);
+    expect(result.nextEnemies.map((enemy) => enemy.enemyId)).toEqual(['rvirus-stuck']);
+  });
+
+  it('sticks one RVirus and removes other overlapping RViruses on the first collision frame', () => {
+    const result = resolveLevel2RVirusAttachment(
+      createInitialLevel2RVirusAttachmentState(),
+      {
+        elapsedMs: 16,
+        enemies: [
+          {
+            centerX: 120,
+            centerY: 160,
+            currentHealth: 5,
+            damage: LEVEL2_RVIRUS_DAMAGE,
+            enemyId: 'rvirus-stuck',
+            height: 20,
+            scoreValue: 10,
+            velocityX: 0,
+            velocityY: 0,
+            width: 20,
+          },
+          {
+            centerX: 120,
+            centerY: 160,
+            currentHealth: 5,
+            damage: LEVEL2_RVIRUS_DAMAGE,
+            enemyId: 'rvirus-extra',
+            height: 20,
+            scoreValue: 10,
+            velocityX: 0,
+            velocityY: 0,
+            width: 20,
+          },
+        ],
+        player: {
+          centerX: 120,
+          centerY: 160,
+          height: 20,
+          width: 20,
+        },
+      },
+    );
+
+    expect(result.nextState.stuckEnemyId).toBe('rvirus-stuck');
+    expect(result.playerDamageDelta).toBe(LEVEL2_RVIRUS_DAMAGE);
+    expect(result.nextEnemies.map((enemy) => enemy.enemyId)).toEqual(['rvirus-stuck']);
+    expect(result.nextEnemies[0].currentHealth).toBe(LEVEL2_RVIRUS_STUCK_HEALTH);
+  });
+
+  it('creates one infection lane from an active free RVirus and marks the player as pressured inside it', () => {
+    const result = resolveLevel2InfectionPressure(
+      createInitialLevel2RVirusInfectionPressureState(),
+      {
+        canvasWidth: 1000,
+        elapsedMs: 500,
+        enemies: [
+          {
+            centerX: 420,
+            centerY: 160,
+            currentHealth: 1,
+            damage: LEVEL2_RVIRUS_DAMAGE,
+            enemyId: 'rvirus-lane',
+            height: 20,
+            scoreValue: 10,
+            velocityX: 0,
+            velocityY: 0,
+            width: 20,
+          },
+        ],
+        player: {
+          centerX: 430,
+          centerY: 200,
+          height: 20,
+          width: 20,
+        },
+        stuckEnemyId: null,
+      },
+    );
+
+    expect(result.hazardZones).toHaveLength(1);
+    expect(result.playerPressureState).toBe('infectedZone');
+    expect(result.playerDamageDelta).toBe(0);
+  });
+
+  it('applies infection-lane damage on its tick while the player stays inside the active lane', () => {
+    const result = resolveLevel2InfectionPressure(
+      {
+        msUntilNextTick: 200,
+      },
+      {
+        canvasWidth: 1000,
+        elapsedMs: 300,
+        enemies: [
+          {
+            centerX: 420,
+            centerY: 160,
+            currentHealth: 1,
+            damage: LEVEL2_RVIRUS_DAMAGE,
+            enemyId: 'rvirus-lane',
+            height: 20,
+            scoreValue: 10,
+            velocityX: 0,
+            velocityY: 0,
+            width: 20,
+          },
+        ],
+        player: {
+          centerX: 430,
+          centerY: 200,
+          height: 20,
+          width: 20,
+        },
+        stuckEnemyId: null,
+      },
+    );
+
+    expect(result.playerPressureState).toBe('infectedZone');
+    expect(result.playerDamageDelta).toBe(LEVEL2_RVIRUS_INFECTION_LANE_TICK_DAMAGE);
+    expect(result.nextState.msUntilNextTick).toBeGreaterThan(0);
   });
 });

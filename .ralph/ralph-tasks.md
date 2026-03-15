@@ -65,7 +65,7 @@
 - [x] PR-046: Sustained-fire cadence and shoot-state gating
 - [x] PR-047: Player recovery window and damage-state feedback
 - [x] PR-048: Control onboarding, exit-open messaging, and combat hit confirmation
-- [ ] PR-049: Level2 infection-pressure encounter rule
+- [x] PR-049: Level2 infection-pressure encounter rule
 - [ ] PR-050: Level3 duplication-control encounter rule
 - [ ] PR-051: Level4 breach-defense encounter rule
 - [ ] PR-052: Level5 boss arena phase-state encounter rule

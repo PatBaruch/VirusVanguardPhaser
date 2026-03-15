@@ -6,6 +6,7 @@ export interface GameplayHudTextSnapshot {
   playerHealth: number;
   score: number;
   scoreMultiplier: number;
+  statusOverride?: string | null;
 }
 
 export interface GameplayHudText {
@@ -55,6 +56,8 @@ export function resolveGameplayHudText(snapshot: GameplayHudTextSnapshot): Gamep
     ? 'Status: Threat eliminated'
     : snapshot.lastCombatFeedback === 'enemyHit'
       ? 'Status: Hit confirmed'
+      : snapshot.statusOverride !== undefined && snapshot.statusOverride !== null
+        ? snapshot.statusOverride
       : snapshot.lastCombatFeedback === 'playerDamaged'
         ? 'Status: Under attack'
         : isExitOpen

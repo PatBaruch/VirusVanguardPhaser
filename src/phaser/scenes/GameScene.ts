@@ -106,6 +106,8 @@ import {
 } from './level1FEmailCombat.js';
 import RVirusPrefab from '../entities/RVirusPrefab.js';
 import {
+  Level2RVirusInfectionPressureResult,
+  Level2RVirusInfectionPressureState,
   LEVEL2_RVIRUS_DAMAGE,
   LEVEL2_RVIRUS_HEALTH,
   LEVEL2_RVIRUS_HORIZONTAL_SPEED_PER_MS,
@@ -117,7 +119,9 @@ import {
   advanceLevel2RVirusMotion,
   advanceLevel2RVirusSpawnState,
   createInitialLevel2RVirusAttachmentState,
+  createInitialLevel2RVirusInfectionPressureState,
   createInitialLevel2RVirusSpawnState,
+  resolveLevel2InfectionPressure,
   resolveLevel2RVirusAttachment,
 } from './level2RVirusCombat.js';
 import WormPrefab from '../entities/WormPrefab.js';
@@ -192,6 +196,7 @@ const PLAYER_RECOVERY_OVERLAY_ALPHA: number = 0.1;
 const PLAYER_DAMAGE_SHAKE_INTENSITY: number = 0.008;
 const COMBAT_FEEDBACK_DURATION_MS: number = 600;
 const DEFAULT_CONTROLS_HINT: string = 'WASD move | Space fire';
+const LEVEL2_PRESSURE_OVERLAY_ALPHA: number = 0.12;
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -273,6 +278,8 @@ export default class GameScene extends Phaser.Scene {
 
   private level2RVirusAttachmentState: Level2RVirusAttachmentState;
 
+  private level2InfectionPressureState: Level2RVirusInfectionPressureState;
+
   private activeWorms: WormPrefab[];
 
   private level3WormSpawnState: Level3WormSpawnState;
@@ -339,11 +346,17 @@ export default class GameScene extends Phaser.Scene {
 
   private damageOverlay: Phaser.GameObjects.Rectangle | null;
 
+  private level2PressureOverlay: Phaser.GameObjects.Rectangle | null;
+
   private shootCooldownMsRemaining: number;
 
   private lastCombatFeedback: CombatFeedbackState;
 
   private combatFeedbackMsRemaining: number;
+
+  private level2PressureState: 'infectedZone' | 'safe';
+
+  private level2HazardCount: number;
 
   public constructor() {
     super(GameScene.SCENE_KEY);
@@ -400,6 +413,7 @@ export default class GameScene extends Phaser.Scene {
     this.activeRViruses = [];
     this.level2RVirusSpawnState = createInitialLevel2RVirusSpawnState();
     this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
+    this.level2InfectionPressureState = createInitialLevel2RVirusInfectionPressureState();
     this.activeWorms = [];
     this.level3WormSpawnState = createInitialLevel3WormSpawnState();
     this.level3WormDuplicationState = createInitialLevel3WormDuplicationState();
@@ -433,9 +447,12 @@ export default class GameScene extends Phaser.Scene {
     this.playerDamageFlashMsRemaining = 0;
     this.playerRecoveryMsRemaining = 0;
     this.damageOverlay = null;
+    this.level2PressureOverlay = null;
     this.shootCooldownMsRemaining = 0;
     this.lastCombatFeedback = 'none';
     this.combatFeedbackMsRemaining = 0;
+    this.level2PressureState = 'safe';
+    this.level2HazardCount = 0;
   }
 
   public create(): void {
@@ -586,6 +603,12 @@ export default class GameScene extends Phaser.Scene {
     this.damageOverlay.setScrollFactor(0);
     this.damageOverlay.setDepth(1000);
     this.damageOverlay.setVisible(false);
+
+    this.level2PressureOverlay = this.add.rectangle(0, this.scale.height / 2, 0, this.scale.height, 0x66ff66, 0);
+    this.level2PressureOverlay.setOrigin(0, 0.5);
+    this.level2PressureOverlay.setScrollFactor(0);
+    this.level2PressureOverlay.setDepth(900);
+    this.level2PressureOverlay.setVisible(false);
 
     this.dialogueImage = this.add.image(centerX, centerY, LEVEL0_DIALOGUE_TEXTURE_KEYS[0]);
     this.dialogueImage.setVisible(false);
@@ -1212,6 +1235,10 @@ export default class GameScene extends Phaser.Scene {
     if (this.activeRViruses.length === 0) {
       this.activeCombatItemCount = 0;
       this.level2RVirusAttachmentState = createInitialLevel2RVirusAttachmentState();
+      this.level2InfectionPressureState = createInitialLevel2RVirusInfectionPressureState();
+      this.level2PressureState = 'safe';
+      this.level2HazardCount = 0;
+      this.syncLevel2PressureOverlay([]);
       return;
     }
 
@@ -1228,6 +1255,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.resolveLevel2ProjectileHits();
     this.resolveLevel2RVirusAttachment(elapsedMs);
+    this.resolveLevel2InfectionPressure(elapsedMs);
 
     this.activeCombatItemCount = this.activeRViruses.length;
   }
@@ -1351,6 +1379,34 @@ export default class GameScene extends Phaser.Scene {
       return shouldRemain;
     });
     this.applyRVirusSnapshotsById(result.nextEnemies);
+    this.applyPlayerDamage(result.playerDamageDelta);
+  }
+
+  private resolveLevel2InfectionPressure(elapsedMs: number): void {
+    if (this.player === null) {
+      return;
+    }
+
+    const result: Level2RVirusInfectionPressureResult = resolveLevel2InfectionPressure(
+      this.level2InfectionPressureState,
+      {
+        canvasWidth: this.scale.width,
+        elapsedMs,
+        enemies: this.activeRViruses.map((enemy: RVirusPrefab) => enemy.toSnapshot()),
+        player: {
+          centerX: this.player.x + this.player.displayWidth / 2,
+          centerY: this.player.y + this.player.displayHeight / 2,
+          height: this.player.displayHeight,
+          width: this.player.displayWidth,
+        },
+        stuckEnemyId: this.level2RVirusAttachmentState.stuckEnemyId,
+      },
+    );
+
+    this.level2InfectionPressureState = result.nextState;
+    this.level2PressureState = result.playerPressureState;
+    this.level2HazardCount = result.hazardZones.length;
+    this.syncLevel2PressureOverlay(result.hazardZones);
     this.applyPlayerDamage(result.playerDamageDelta);
   }
 
@@ -2166,6 +2222,9 @@ export default class GameScene extends Phaser.Scene {
 
   private enterLevel1(): void {
     this.activeLevelId = 1;
+    this.level2InfectionPressureState = createInitialLevel2RVirusInfectionPressureState();
+    this.level2PressureState = 'safe';
+    this.level2HazardCount = 0;
     this.destroyAllDeathEffects();
     this.destroyMrHacker();
     this.destroyAllEnemyBullets();
@@ -2183,6 +2242,9 @@ export default class GameScene extends Phaser.Scene {
 
   private enterLevel2(): void {
     this.activeLevelId = 2;
+    this.level2InfectionPressureState = createInitialLevel2RVirusInfectionPressureState();
+    this.level2PressureState = 'safe';
+    this.level2HazardCount = 0;
     this.destroyAllDeathEffects();
     this.destroyMrHacker();
     this.destroyAllEnemyBullets();
@@ -2202,6 +2264,9 @@ export default class GameScene extends Phaser.Scene {
 
   private enterLevel3(): void {
     this.activeLevelId = 3;
+    this.level2InfectionPressureState = createInitialLevel2RVirusInfectionPressureState();
+    this.level2PressureState = 'safe';
+    this.level2HazardCount = 0;
     this.destroyAllDeathEffects();
     this.destroyMrHacker();
     this.destroyAllEnemyBullets();
@@ -2222,6 +2287,9 @@ export default class GameScene extends Phaser.Scene {
 
   private enterLevel4(): void {
     this.activeLevelId = 4;
+    this.level2InfectionPressureState = createInitialLevel2RVirusInfectionPressureState();
+    this.level2PressureState = 'safe';
+    this.level2HazardCount = 0;
     this.destroyAllDeathEffects();
     this.destroyMrHacker();
     this.destroyAllEnemyBullets();
@@ -2245,6 +2313,9 @@ export default class GameScene extends Phaser.Scene {
 
   private enterLevel5(): void {
     this.activeLevelId = 5;
+    this.level2InfectionPressureState = createInitialLevel2RVirusInfectionPressureState();
+    this.level2PressureState = 'safe';
+    this.level2HazardCount = 0;
     this.destroyAllDeathEffects();
     this.destroyMrHacker();
     this.destroyAllEnemyBullets();
@@ -2280,6 +2351,10 @@ export default class GameScene extends Phaser.Scene {
   }
 
   private syncActiveLevelVisualState(): void {
+    if (this.activeLevelId !== 2 || this.level2Phase !== 'walkable') {
+      this.syncLevel2PressureOverlay([]);
+    }
+
     if (this.hasTriggeredGameOver) {
       this.syncGameOverVisualState();
       return;
@@ -2327,6 +2402,7 @@ export default class GameScene extends Phaser.Scene {
       playerHealth: this.playerHealth,
       score: this.score,
       scoreMultiplier: this.scoreMultiplier,
+      statusOverride: this.resolveRoomStatusOverride(),
     });
 
     this.levelHudText?.setText(hudText.level);
@@ -2343,6 +2419,8 @@ export default class GameScene extends Phaser.Scene {
     document.body.dataset.vvMultiplier = `${this.scoreMultiplier.toFixed(2)}`;
     document.body.dataset.vvControlsHint = DEFAULT_CONTROLS_HINT;
     document.body.dataset.vvExitState = isExitOpen ? 'open' : 'closed';
+    document.body.dataset.vvLevel2HazardCount = `${this.level2HazardCount}`;
+    document.body.dataset.vvLevel2PressureState = this.level2PressureState;
     document.body.dataset.vvLastCombatFeedback = this.lastCombatFeedback;
     document.body.dataset.vvStatusText = hudText.status;
     document.body.dataset.vvPlayerState = resolvePlayerStateClass({
@@ -2358,6 +2436,16 @@ export default class GameScene extends Phaser.Scene {
     }
 
     return canTriggerLevelTransition(this.activeLevelId, this.score, this.activeCombatItemCount);
+  }
+
+  private resolveRoomStatusOverride(): string | null {
+    if (this.activeLevelId === 2 && this.level2HazardCount > 0) {
+      return this.level2PressureState === 'infectedZone'
+        ? 'Status: Infection lane - move out'
+        : 'Status: Infection lane active';
+    }
+
+    return null;
   }
 
   private maybeTriggerGameOver(): void {
@@ -2378,6 +2466,7 @@ export default class GameScene extends Phaser.Scene {
     this.destroyAllDeathEffects();
     this.damageOverlay?.setVisible(false);
     this.damageOverlay?.setAlpha(0);
+    this.syncLevel2PressureOverlay([]);
     document.body.className = 'gameOver';
     this.setStartPromptVisible(false);
     this.setDialogueVisible(false);
@@ -2530,6 +2619,7 @@ export default class GameScene extends Phaser.Scene {
     this.destroyAllDeathEffects();
     this.damageOverlay?.setVisible(false);
     this.damageOverlay?.setAlpha(0);
+    this.syncLevel2PressureOverlay([]);
     document.body.className = 'victory';
     this.setStartPromptVisible(false);
     this.setDialogueVisible(false);
@@ -2599,6 +2689,21 @@ export default class GameScene extends Phaser.Scene {
     this.multiplierHudText?.setVisible(shouldBeVisible);
     this.controlsHudText?.setVisible(shouldBeVisible);
     this.statusHudText?.setVisible(shouldBeVisible);
+  }
+
+  private syncLevel2PressureOverlay(hazardZones: readonly { minX: number; maxX: number }[]): void {
+    if (this.level2PressureOverlay === null || hazardZones.length === 0 || this.activeLevelId !== 2 || this.level2Phase !== 'walkable') {
+      this.level2PressureOverlay?.setVisible(false);
+      this.level2PressureOverlay?.setAlpha(0);
+      this.level2PressureOverlay?.setSize(0, this.scale.height);
+      return;
+    }
+
+    const hazardZone = hazardZones[0];
+    this.level2PressureOverlay.setVisible(true);
+    this.level2PressureOverlay.setAlpha(LEVEL2_PRESSURE_OVERLAY_ALPHA);
+    this.level2PressureOverlay.setPosition(hazardZone.minX, this.scale.height / 2);
+    this.level2PressureOverlay.setSize(hazardZone.maxX - hazardZone.minX, this.scale.height);
   }
 
   private setGameOverVisible(shouldBeVisible: boolean): void {
