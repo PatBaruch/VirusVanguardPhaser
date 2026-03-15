@@ -64,7 +64,7 @@
 ## Wave I - Combat Feel And Encounter Variety
 - [x] PR-046: Sustained-fire cadence and shoot-state gating
 - [x] PR-047: Player recovery window and damage-state feedback
-- [ ] PR-048: Control onboarding, exit-open messaging, and combat hit confirmation
+- [x] PR-048: Control onboarding, exit-open messaging, and combat hit confirmation
 - [ ] PR-049: Level2 infection-pressure encounter rule
 - [ ] PR-050: Level3 duplication-control encounter rule
 - [ ] PR-051: Level4 breach-defense encounter rule

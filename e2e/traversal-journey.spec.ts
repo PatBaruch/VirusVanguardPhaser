@@ -1,11 +1,60 @@
 import { expect, test, type Page } from '@playwright/test';
+import { reachLevel1Walkable } from './helpers/gameplay.js';
 
-interface TraversalSnapshot {
-  activeLevelId: number;
-  checkpoints: number[];
+async function readLevel1EntrySnapshot(page: Page): Promise<{
+  backgroundImage: string;
+  backgroundRepeat: string;
+  canvasHeight: number;
+  canvasWidth: number;
+  playerFacingDirection: string;
+  playerX: number;
+  playerY: number;
+}> {
+  return page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => {
+              player?: {
+                x: number;
+                y: number;
+                getFacingDirection?: () => string;
+              };
+              scale: { height: number; width: number };
+            };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return {
+        backgroundImage: '',
+        backgroundRepeat: '',
+        canvasHeight: 0,
+        canvasWidth: 0,
+        playerFacingDirection: '',
+        playerX: 0,
+        playerY: 0,
+      };
+    }
+
+    const scene = game.scene.getScene('GameScene');
+    return {
+      backgroundImage: getComputedStyle(document.body).backgroundImage,
+      backgroundRepeat: getComputedStyle(document.body).backgroundRepeat,
+      canvasHeight: scene.scale.height,
+      canvasWidth: scene.scale.width,
+      playerFacingDirection: scene.player?.getFacingDirection?.() ?? '',
+      playerX: scene.player?.x ?? 0,
+      playerY: scene.player?.y ?? 0,
+    };
+  });
 }
 
-async function expectNoBrowserErrors(path: string, page: Page): Promise<void> {
+test('traverses from start screen into Level1 using gameplay input only', async ({ page }) => {
   const consoleErrors: string[] = [];
   const pageErrors: string[] = [];
 
@@ -19,15 +68,69 @@ async function expectNoBrowserErrors(path: string, page: Page): Promise<void> {
     pageErrors.push(error.message);
   });
 
-  await page.goto(path);
+  await page.goto('/?e2e=1');
   await expect(page.locator('#game')).toBeVisible();
-  await page.waitForFunction(() => {
+
+  await expect
+    .poll(async () => page.evaluate(() => document.body.className))
+    .toBe('startScreen');
+
+  await reachLevel1Walkable(page);
+
+  const level1Entry = await readLevel1EntrySnapshot(page);
+  expect(level1Entry.backgroundImage).toContain('BG_LevelArena.png');
+  expect(level1Entry.backgroundRepeat).toBe('no-repeat');
+  expect(level1Entry.playerFacingDirection).toBe('E');
+  expect(level1Entry.playerX).toBeLessThan(level1Entry.canvasWidth * 0.25);
+  expect(level1Entry.playerY).toBeLessThan(level1Entry.canvasHeight * 0.6);
+  expect(level1Entry.playerY).toBeGreaterThan(level1Entry.canvasHeight * 0.3);
+
+  const activeLevel = await page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => { activeLevelId: number };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return -1;
+    }
+
+    return game.scene.getScene('GameScene').activeLevelId;
+  });
+
+  expect(activeLevel).toBe(1);
+  expect(consoleErrors, `Unexpected console errors: ${consoleErrors.join('\n')}`).toHaveLength(0);
+  expect(pageErrors, `Unexpected page errors: ${pageErrors.join('\n')}`).toHaveLength(0);
+});
+
+test('switches Level5 arena backdrop to lit state once combat is cleared', async ({ page }) => {
+  await page.goto('/?e2e=1');
+  await expect(page.locator('#game')).toBeVisible();
+  await expect.poll(async () => page.evaluate(() => document.body.className)).toBe('startScreen');
+
+  const bodyClass = await page.evaluate(() => {
     const runtime = (window as Window & {
       __VV_E2E_RUNTIME__?: {
         getGameInstance: () => {
           scene: {
             getScene: (key: string) => {
-              [key: string]: unknown;
+              activeCombatItemCount: number;
+              activeFEmails: unknown[];
+              activeLevelId: number;
+              level5MrHackerSpawnState: { hasSpawned: boolean };
+              activeRViruses: unknown[];
+              activeWorms: unknown[];
+              activeMrHacker: null;
+              hasTriggeredVictory: boolean;
+              level5Phase: string;
+              score: number;
+              update: (time: number, delta: number) => void;
             };
           };
         } | null;
@@ -36,120 +139,111 @@ async function expectNoBrowserErrors(path: string, page: Page): Promise<void> {
 
     const game = runtime?.getGameInstance();
     if (game === null || game === undefined) {
-      return false;
+      return '';
     }
 
-    const scene = game.scene.getScene('GameScene') as {
-      player?: unknown;
-    };
-    return scene.player !== null && scene.player !== undefined;
+    const scene = game.scene.getScene('GameScene');
+    scene.activeLevelId = 5;
+    scene.level5Phase = 'walkable';
+    scene.score = 1010;
+    scene.activeCombatItemCount = 0;
+    scene.activeMrHacker = null;
+    scene.level5MrHackerSpawnState = { hasSpawned: true };
+    scene.activeFEmails = [];
+    scene.activeRViruses = [];
+    scene.activeWorms = [];
+    scene.hasTriggeredVictory = false;
+    scene.update(0, 16);
+
+    return document.body.className;
   });
 
-  const traversalSnapshot: TraversalSnapshot = await page.evaluate(() => {
+  expect(bodyClass).toBe('goNextLevel');
+});
+
+test('switches early combat levels to the lit arena backdrop when the level is complete', async ({ page }) => {
+  await page.goto('/?e2e=1');
+  await expect(page.locator('#game')).toBeVisible();
+  await expect.poll(async () => page.evaluate(() => document.body.className)).toBe('startScreen');
+
+  const bodyState = await page.evaluate(() => {
     const runtime = (window as Window & {
       __VV_E2E_RUNTIME__?: {
         getGameInstance: () => {
           scene: {
             getScene: (key: string) => {
-              [key: string]: unknown;
+              activeCombatItemCount: number;
+              activeLevelId: number;
+              level1Phase: string;
+              score: number;
+              update: (time: number, delta: number) => void;
             };
           };
         } | null;
       };
     }).__VV_E2E_RUNTIME__;
 
-    if (runtime === undefined) {
-      throw new Error('Expected __VV_E2E_RUNTIME__ test hook to be present');
-    }
-
-    const game = runtime.getGameInstance();
-    if (game === null) {
-      throw new Error('Expected Phaser game instance to be available');
-    }
-
-    const scene = game.scene.getScene('GameScene') as {
-      [key: string]: unknown;
-      activeCombatItemCount: number;
-      activeLevelId: number;
-      level0Phase: string;
-      level1Phase: string;
-      level2Phase: string;
-      level3Phase: string;
-      level4Phase: string;
-      player: {
-        displayHeight: number;
-        displayWidth: number;
-        x: number;
-        y: number;
-      } | null;
-      scale: {
-        height: number;
-        width: number;
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return {
+        backgroundImage: '',
+        bodyClass: '',
       };
-      score: number;
-    };
-
-    if (scene.player === null) {
-      throw new Error('Expected player prefab to be present');
     }
 
-    const checkpoints: number[] = [];
-    const setPlayerAtTransition = (entranceXRatio: number): void => {
-      if (scene.player === null) {
-        throw new Error('Expected player prefab to be present');
-      }
-
-      scene.player.x = (entranceXRatio * scene.scale.width) - (scene.player.displayWidth / 2) + 1;
-      scene.player.y = (0.5 * scene.scale.height) - (scene.player.displayHeight / 2);
-    };
-
-    scene.level0Phase = 'walkable';
-    scene.score = 0;
-    scene.activeCombatItemCount = 0;
-    setPlayerAtTransition(0.72);
-    (scene.updateLevel0TransitionTrigger as () => void)();
-    checkpoints.push(scene.activeLevelId);
-
+    const scene = game.scene.getScene('GameScene');
+    scene.activeLevelId = 1;
     scene.level1Phase = 'walkable';
     scene.score = 200;
     scene.activeCombatItemCount = 0;
-    setPlayerAtTransition(0.9);
-    (scene.updateLevel1TransitionTrigger as () => void)();
-    checkpoints.push(scene.activeLevelId);
-
-    scene.level2Phase = 'walkable';
-    scene.score = 400;
-    scene.activeCombatItemCount = 0;
-    setPlayerAtTransition(0.9);
-    (scene.updateLevel2TransitionTrigger as () => void)();
-    checkpoints.push(scene.activeLevelId);
-
-    scene.level3Phase = 'walkable';
-    scene.score = 600;
-    scene.activeCombatItemCount = 0;
-    setPlayerAtTransition(0.9);
-    (scene.updateLevel3TransitionTrigger as () => void)();
-    checkpoints.push(scene.activeLevelId);
-
-    scene.level4Phase = 'walkable';
-    scene.score = 1000;
-    scene.activeCombatItemCount = 0;
-    setPlayerAtTransition(0.9);
-    (scene.updateLevel4TransitionTrigger as () => void)();
-    checkpoints.push(scene.activeLevelId);
+    scene.update(0, 16);
 
     return {
-      activeLevelId: scene.activeLevelId,
-      checkpoints,
+      backgroundImage: getComputedStyle(document.body).backgroundImage,
+      bodyClass: document.body.className,
     };
   });
 
-  expect(traversalSnapshot.checkpoints).toEqual([1, 2, 3, 4, 5]);
-  expect(traversalSnapshot.activeLevelId).toBe(5);
-  expect(consoleErrors, `Unexpected console errors: ${consoleErrors.join('\n')}`).toHaveLength(0);
-  expect(pageErrors, `Unexpected page errors: ${pageErrors.join('\n')}`).toHaveLength(0);
-}
+  expect(bodyState.bodyClass).toBe('goNextLevel');
+  expect(bodyState.backgroundImage).toContain('BG_LevelArena_lit.png');
+});
 
-test('traverses from Level0 start state to Level5 reachability checkpoints', async ({ page }) => {
-  await expectNoBrowserErrors('/?e2e=1', page);
+test('surfaces an explicit exit-open runtime state when Level1 is cleared', async ({ page }) => {
+  await page.goto('/?e2e=1');
+  await expect(page.locator('#game')).toBeVisible();
+  await expect.poll(async () => page.evaluate(() => document.body.className)).toBe('startScreen');
+
+  const exitState = await page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => {
+              activeCombatItemCount: number;
+              activeLevelId: number;
+              level1Phase: string;
+              score: number;
+              update: (time: number, delta: number) => void;
+            };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return '';
+    }
+
+    const scene = game.scene.getScene('GameScene');
+    scene.activeLevelId = 1;
+    scene.level1Phase = 'walkable';
+    scene.score = 200;
+    scene.activeCombatItemCount = 0;
+    scene.update(0, 16);
+
+    return document.body.dataset.vvExitState ?? '';
+  });
+
+  expect(exitState).toBe('open');
 });

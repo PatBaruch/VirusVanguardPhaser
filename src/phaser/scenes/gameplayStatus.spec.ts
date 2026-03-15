@@ -12,17 +12,36 @@ describe('gameplay status helpers', () => {
   test('formats HUD text with level, score, health, and multiplier', () => {
     const hudText = resolveGameplayHudText({
       activeLevelId: 3,
+      activeCombatItemCount: 2,
+      controlsHint: 'WASD move | Space fire',
+      lastCombatFeedback: 'enemyHit',
       playerHealth: 87,
       score: 420,
       scoreMultiplier: 2.25,
     });
 
     expect(hudText).toEqual({
+      controls: 'Controls: WASD move | Space fire',
       health: 'Health: 87',
       level: 'Level: 3',
       multiplier: 'Multiplier: x2.25',
       score: 'Score: 420',
+      status: 'Status: Hit confirmed',
     });
+  });
+
+  test('surfaces explicit exit-open messaging when the room is clear', () => {
+    const hudText = resolveGameplayHudText({
+      activeLevelId: 2,
+      activeCombatItemCount: 0,
+      controlsHint: 'WASD move | Space fire',
+      lastCombatFeedback: 'none',
+      playerHealth: 100,
+      score: 400,
+      scoreMultiplier: 1,
+    });
+
+    expect(hudText.status).toBe('Status: Exit open -> move right');
   });
 
   test('triggers game over only when health reaches zero before victory', () => {

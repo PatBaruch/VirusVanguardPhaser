@@ -4,14 +4,22 @@ import { reachLevel1Walkable } from './helpers/gameplay.js';
 test.setTimeout(120000);
 
 async function readRuntimeHud(page: Page): Promise<{
+  controls: string;
+  exitState: string;
   health: number;
+  lastCombatFeedback: string;
   level: number;
   score: number;
+  status: string;
 }> {
   return page.evaluate(() => ({
+    controls: document.body.dataset.vvControlsHint ?? '',
+    exitState: document.body.dataset.vvExitState ?? '',
     health: Number(document.body.dataset.vvHealth ?? '0'),
+    lastCombatFeedback: document.body.dataset.vvLastCombatFeedback ?? '',
     level: Number(document.body.dataset.vvLevel ?? '-1'),
     score: Number(document.body.dataset.vvScore ?? '0'),
+    status: document.body.dataset.vvStatusText ?? '',
   }));
 }
 
@@ -230,6 +238,106 @@ test('supports sustained fire from held space input in Level1 combat', async ({ 
   await page.keyboard.up('Space');
 
   expect(maxProjectileCount).toBeGreaterThan(1);
+});
+
+test('surfaces hit confirmation separately from enemy death feedback', async ({ page }) => {
+  await page.goto('/?e2e=1');
+  await expect(page.locator('#game')).toBeVisible();
+
+  const feedbackStates = await page.evaluate(() => {
+    const runtime = (window as Window & {
+      __VV_E2E_RUNTIME__?: {
+        getGameInstance: () => {
+          scene: {
+            getScene: (key: string) => {
+              activeCombatItemCount: number;
+              activeLevelId: number;
+              activeMrHacker: {
+                applySnapshot: (snapshot: { currentHealth: number }) => void;
+                toSnapshot: () => {
+                  centerX: number;
+                  centerY: number;
+                  currentHealth: number;
+                  enemyId: string;
+                  height: number;
+                  scoreValue: number;
+                  width: number;
+                };
+                x: number;
+                y: number;
+              } | null;
+              activeProjectiles: Array<{
+                destroy: () => void;
+                displayHeight: number;
+                displayWidth: number;
+                getDamage: () => number;
+                name: string;
+                x: number;
+                y: number;
+              }>;
+              hasTriggeredVictory: boolean;
+              level5MrHackerSpawnState: { hasSpawned: boolean };
+              level5Phase: string;
+              resolveLevel5MrHackerProjectileHits: () => void;
+              score: number;
+              syncGameplayHud: () => void;
+              update: (time: number, delta: number) => void;
+            };
+          };
+        } | null;
+      };
+    }).__VV_E2E_RUNTIME__;
+
+    const game = runtime?.getGameInstance();
+    if (game === null || game === undefined) {
+      return [] as string[];
+    }
+
+    const scene = game.scene.getScene('GameScene');
+    scene.activeLevelId = 5;
+    scene.level5Phase = 'walkable';
+    scene.score = 0;
+    scene.activeCombatItemCount = 1;
+    scene.hasTriggeredVictory = false;
+    scene.level5MrHackerSpawnState = { hasSpawned: false };
+    scene.update(0, 16);
+
+    if (scene.activeMrHacker === null) {
+      return [] as string[];
+    }
+
+    const bossSnapshot = scene.activeMrHacker.toSnapshot();
+    scene.activeProjectiles = [{
+      destroy: () => undefined,
+      displayHeight: bossSnapshot.height,
+      displayWidth: bossSnapshot.width,
+      getDamage: () => 1,
+      name: 'projectile-hit',
+      x: bossSnapshot.centerX,
+      y: bossSnapshot.centerY,
+    }];
+    scene.resolveLevel5MrHackerProjectileHits();
+    scene.syncGameplayHud();
+    const hitFeedback = document.body.dataset.vvLastCombatFeedback ?? '';
+
+    scene.activeMrHacker?.applySnapshot({ ...bossSnapshot, currentHealth: 1 });
+    scene.activeProjectiles = [{
+      destroy: () => undefined,
+      displayHeight: bossSnapshot.height,
+      displayWidth: bossSnapshot.width,
+      getDamage: () => 1,
+      name: 'projectile-death',
+      x: bossSnapshot.centerX,
+      y: bossSnapshot.centerY,
+    }];
+    scene.resolveLevel5MrHackerProjectileHits();
+    scene.syncGameplayHud();
+    const deathFeedback = document.body.dataset.vvLastCombatFeedback ?? '';
+
+    return [hitFeedback, deathFeedback];
+  });
+
+  expect(feedbackStates).toEqual(['enemyHit', 'enemyDeath']);
 });
 
 test('surfaces a recovering player state after taking combat damage', async ({ page }) => {

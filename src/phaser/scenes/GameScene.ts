@@ -171,6 +171,7 @@ import {
   shouldRestartFromVictory,
 } from './level5VictoryFlow.js';
 import {
+  CombatFeedbackState,
   resolveNextPlayerRecoveryMsRemaining,
   resolvePlayerDamageRecovery,
   resolveGameplayHudText,
@@ -189,6 +190,8 @@ const PLAYER_DAMAGE_RECOVERY_DURATION_MS: number = 450;
 const PLAYER_DAMAGE_OVERLAY_ALPHA: number = 0.28;
 const PLAYER_RECOVERY_OVERLAY_ALPHA: number = 0.1;
 const PLAYER_DAMAGE_SHAKE_INTENSITY: number = 0.008;
+const COMBAT_FEEDBACK_DURATION_MS: number = 600;
+const DEFAULT_CONTROLS_HINT: string = 'WASD move | Space fire';
 
 /**
  * Minimal game scene shell for Phaser runtime lifecycle.
@@ -312,6 +315,10 @@ export default class GameScene extends Phaser.Scene {
 
   private multiplierHudText: Phaser.GameObjects.Text | null;
 
+  private controlsHudText: Phaser.GameObjects.Text | null;
+
+  private statusHudText: Phaser.GameObjects.Text | null;
+
   private victoryScoreText: Phaser.GameObjects.Text | null;
 
   private victoryMultiplierText: Phaser.GameObjects.Text | null;
@@ -333,6 +340,10 @@ export default class GameScene extends Phaser.Scene {
   private damageOverlay: Phaser.GameObjects.Rectangle | null;
 
   private shootCooldownMsRemaining: number;
+
+  private lastCombatFeedback: CombatFeedbackState;
+
+  private combatFeedbackMsRemaining: number;
 
   public constructor() {
     super(GameScene.SCENE_KEY);
@@ -410,6 +421,8 @@ export default class GameScene extends Phaser.Scene {
     this.scoreHudText = null;
     this.healthHudText = null;
     this.multiplierHudText = null;
+    this.controlsHudText = null;
+    this.statusHudText = null;
     this.victoryScoreText = null;
     this.victoryMultiplierText = null;
     this.victoryFinalScoreText = null;
@@ -421,6 +434,8 @@ export default class GameScene extends Phaser.Scene {
     this.playerRecoveryMsRemaining = 0;
     this.damageOverlay = null;
     this.shootCooldownMsRemaining = 0;
+    this.lastCombatFeedback = 'none';
+    this.combatFeedbackMsRemaining = 0;
   }
 
   public create(): void {
@@ -436,11 +451,12 @@ export default class GameScene extends Phaser.Scene {
     this.startPromptText = this.add.text(
       centerX,
       centerY + 200,
-      'Press space to start the game',
+      'Press Space to start\nWASD move | Space fire',
       {
         color: '#ff0000',
         fontFamily: 'Copperplate',
         fontSize: '50px',
+        align: 'center',
       },
     );
     this.startPromptText.setOrigin(0.5, 0.5);
@@ -472,6 +488,20 @@ export default class GameScene extends Phaser.Scene {
       fontSize: '32px',
     });
     this.multiplierHudText.setVisible(false);
+
+    this.controlsHudText = this.add.text(20, 188, '', {
+      color: '#7fff00',
+      fontFamily: 'Copperplate',
+      fontSize: '24px',
+    });
+    this.controlsHudText.setVisible(false);
+
+    this.statusHudText = this.add.text(20, 220, '', {
+      color: '#7fff00',
+      fontFamily: 'Copperplate',
+      fontSize: '24px',
+    });
+    this.statusHudText.setVisible(false);
 
     this.victoryScoreText = this.add.text(
       centerX,
@@ -579,6 +609,7 @@ export default class GameScene extends Phaser.Scene {
     this.updateProjectiles(delta);
     this.updateEnemyBullets(delta);
     this.updateDeathEffects(delta);
+    this.updateCombatFeedback(delta);
     this.updatePlayerDamageFeedback(delta);
 
     this.scoreMultiplier = advanceScoreMultiplier(this.scoreMultiplier, this.hasTriggeredVictory);
@@ -837,6 +868,18 @@ export default class GameScene extends Phaser.Scene {
     this.activeDeathEffects = nextActiveDeathEffects;
   }
 
+  private updateCombatFeedback(elapsedMs: number): void {
+    if (this.combatFeedbackMsRemaining <= 0) {
+      this.lastCombatFeedback = 'none';
+      return;
+    }
+
+    this.combatFeedbackMsRemaining = Math.max(0, this.combatFeedbackMsRemaining - elapsedMs);
+    if (this.combatFeedbackMsRemaining === 0) {
+      this.lastCombatFeedback = 'none';
+    }
+  }
+
   private updatePlayerDamageFeedback(elapsedMs: number): void {
     this.playerRecoveryMsRemaining = resolveNextPlayerRecoveryMsRemaining(this.playerRecoveryMsRemaining, elapsedMs);
 
@@ -874,11 +917,17 @@ export default class GameScene extends Phaser.Scene {
     this.playerHealth = Math.max(0, this.playerHealth - damageResolution.appliedDamage);
     this.playerRecoveryMsRemaining = damageResolution.nextPlayerRecoveryMsRemaining;
     this.playerDamageFlashMsRemaining = PLAYER_DAMAGE_FEEDBACK_DURATION_MS;
+    this.setCombatFeedback('playerDamaged');
     if (this.damageOverlay !== null) {
       this.damageOverlay.setVisible(true);
       this.damageOverlay.setAlpha(PLAYER_DAMAGE_OVERLAY_ALPHA);
     }
     this.cameras.main.shake(PLAYER_DAMAGE_FEEDBACK_DURATION_MS, PLAYER_DAMAGE_SHAKE_INTENSITY);
+  }
+
+  private setCombatFeedback(feedback: CombatFeedbackState): void {
+    this.lastCombatFeedback = feedback;
+    this.combatFeedbackMsRemaining = feedback === 'none' ? 0 : COMBAT_FEEDBACK_DURATION_MS;
   }
 
   private spawnDeathEffects(spawns: readonly DeathEffectSpawnSnapshot[]): void {
@@ -997,6 +1046,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (resolution.destroyedTargetIds.length > 0) {
+      this.setCombatFeedback('enemyDeath');
       this.spawnDeathEffects(resolution.deathEffectSpawns);
       this.activeFEmails = this.activeFEmails.filter((enemy: FEmailPrefab) => {
         const isDestroyed: boolean = resolution.destroyedTargetIds.includes(enemy.getEnemyId());
@@ -1007,7 +1057,12 @@ export default class GameScene extends Phaser.Scene {
       });
     }
 
-    if (resolution.remainingTargets.length > 0 && this.activeFEmails.length > 0) {
+    if (
+      resolution.destroyedTargetIds.length === 0
+      && resolution.remainingTargets.length > 0
+      && this.activeFEmails.length > 0
+    ) {
+      this.setCombatFeedback('enemyHit');
       this.applyFEmailSnapshotsById(
         resolution.remainingTargets.map((target: CombatTargetSnapshot) => ({
           centerX: target.centerX,
@@ -1225,6 +1280,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (resolution.destroyedTargetIds.length > 0) {
+      this.setCombatFeedback('enemyDeath');
       this.spawnDeathEffects(resolution.deathEffectSpawns);
       this.activeRViruses = this.activeRViruses.filter((enemy: RVirusPrefab) => {
         const isDestroyed: boolean = resolution.destroyedTargetIds.includes(enemy.getEnemyId());
@@ -1235,7 +1291,12 @@ export default class GameScene extends Phaser.Scene {
       });
     }
 
-    if (resolution.remainingTargets.length > 0 && this.activeRViruses.length > 0) {
+    if (
+      resolution.destroyedTargetIds.length === 0
+      && resolution.remainingTargets.length > 0
+      && this.activeRViruses.length > 0
+    ) {
+      this.setCombatFeedback('enemyHit');
       this.applyRVirusSnapshotsById(
         resolution.remainingTargets.map((target: CombatTargetSnapshot) => ({
           centerX: target.centerX,
@@ -1418,6 +1479,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (resolution.destroyedTargetIds.length > 0) {
+      this.setCombatFeedback('enemyDeath');
       this.spawnDeathEffects(resolution.deathEffectSpawns);
       this.activeWorms = this.activeWorms.filter((enemy: WormPrefab) => {
         const isDestroyed: boolean = resolution.destroyedTargetIds.includes(enemy.getEnemyId());
@@ -1428,7 +1490,12 @@ export default class GameScene extends Phaser.Scene {
       });
     }
 
-    if (resolution.remainingTargets.length > 0 && this.activeWorms.length > 0) {
+    if (
+      resolution.destroyedTargetIds.length === 0
+      && resolution.remainingTargets.length > 0
+      && this.activeWorms.length > 0
+    ) {
+      this.setCombatFeedback('enemyHit');
       this.applyWormSnapshotsById(
         resolution.remainingTargets.map((target: CombatTargetSnapshot) => ({
           centerX: target.centerX,
@@ -1588,6 +1655,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (resolution.destroyedTrojanIds.length > 0) {
+      this.setCombatFeedback('enemyDeath');
       this.spawnDeathEffects(this.createDeathEffectSpawnsFromSplitSpawns(resolution.splitSpawns));
       this.activeTrojans = this.activeTrojans.filter((enemy: TrojanPrefab) => {
         const isDestroyed: boolean = resolution.destroyedTrojanIds.includes(enemy.getEnemyId());
@@ -1660,6 +1728,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     if (result.destroyedEnemyIds.length > 0) {
+      this.setCombatFeedback('enemyDeath');
       this.spawnDeathEffects(
         this.createDeathEffectSpawnsForDestroyedEnemies(result.destroyedEnemyIds, this.activeTrojans),
       );
@@ -2016,6 +2085,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (resolution.remainingTargets.length === 0) {
+      this.setCombatFeedback('enemyDeath');
       this.score += resolution.scoreDelta;
       this.spawnDeathEffects(resolution.deathEffectSpawns);
       this.activeMrHacker.applySnapshot({
@@ -2026,6 +2096,9 @@ export default class GameScene extends Phaser.Scene {
     }
 
     const remainingTarget = resolution.remainingTargets[0];
+    if (remainingTarget.currentHealth < mrHackerSnapshot.currentHealth) {
+      this.setCombatFeedback('enemyHit');
+    }
     this.score += resolution.scoreDelta;
     this.activeMrHacker.applySnapshot({
       ...mrHackerSnapshot,
@@ -2248,6 +2321,9 @@ export default class GameScene extends Phaser.Scene {
   private syncGameplayHud(): void {
     const hudText = resolveGameplayHudText({
       activeLevelId: this.activeLevelId,
+      activeCombatItemCount: this.activeCombatItemCount,
+      controlsHint: DEFAULT_CONTROLS_HINT,
+      lastCombatFeedback: this.lastCombatFeedback,
       playerHealth: this.playerHealth,
       score: this.score,
       scoreMultiplier: this.scoreMultiplier,
@@ -2257,16 +2333,31 @@ export default class GameScene extends Phaser.Scene {
     this.scoreHudText?.setText(hudText.score);
     this.healthHudText?.setText(hudText.health);
     this.multiplierHudText?.setText(hudText.multiplier);
+    this.controlsHudText?.setText(hudText.controls);
+    this.statusHudText?.setText(hudText.status);
 
+    const isExitOpen: boolean = this.isExitOpen();
     document.body.dataset.vvLevel = `${this.activeLevelId}`;
     document.body.dataset.vvScore = `${this.score}`;
     document.body.dataset.vvHealth = `${Math.max(0, Math.floor(this.playerHealth))}`;
     document.body.dataset.vvMultiplier = `${this.scoreMultiplier.toFixed(2)}`;
+    document.body.dataset.vvControlsHint = DEFAULT_CONTROLS_HINT;
+    document.body.dataset.vvExitState = isExitOpen ? 'open' : 'closed';
+    document.body.dataset.vvLastCombatFeedback = this.lastCombatFeedback;
+    document.body.dataset.vvStatusText = hudText.status;
     document.body.dataset.vvPlayerState = resolvePlayerStateClass({
       hasTriggeredGameOver: this.hasTriggeredGameOver,
       hasTriggeredVictory: this.hasTriggeredVictory,
       playerRecoveryMsRemaining: this.playerRecoveryMsRemaining,
     });
+  }
+
+  private isExitOpen(): boolean {
+    if (!this.isActiveLevelWalkablePhase() || this.activeLevelId === 0) {
+      return false;
+    }
+
+    return canTriggerLevelTransition(this.activeLevelId, this.score, this.activeCombatItemCount);
   }
 
   private maybeTriggerGameOver(): void {
@@ -2506,6 +2597,8 @@ export default class GameScene extends Phaser.Scene {
     this.scoreHudText?.setVisible(shouldBeVisible);
     this.healthHudText?.setVisible(shouldBeVisible);
     this.multiplierHudText?.setVisible(shouldBeVisible);
+    this.controlsHudText?.setVisible(shouldBeVisible);
+    this.statusHudText?.setVisible(shouldBeVisible);
   }
 
   private setGameOverVisible(shouldBeVisible: boolean): void {
